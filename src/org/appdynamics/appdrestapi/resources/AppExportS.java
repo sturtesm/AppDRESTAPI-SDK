@@ -13,11 +13,18 @@ public class AppExportS {
     public static final String VE=" = ";
     public static final String VS=" :: ";
     public static final String L1="\n\t";
+    public static final String L1_1="\n\t   ";
     public static final String L2="\n\t\t";
+    public static final String L2_1="\n\t\t   ";
     public static final String L3="\n\t\t\t";
+    public static final String L3_1="\n\t\t\t   ";
     public static final String L4="\n\t\t\t\t";
+    public static final String L4_1="\n\t\t\t\t   ";
     public static final String L5="\n\t\t\t\t\t";
+    public static final String L5_1="\n\t\t\t\t\t   ";
     public static final String L6="\n\t\t\t\t\t\t";
+    public static final String L6_1="\n\t\t\t\t\t\t   ";
+    public static final String S4="    ";
     
     
     public static final String APPLICATION="application";
@@ -243,5 +250,107 @@ public class AppExportS {
     public static final String TIER_ID="tierId";
     public static final String BC_EXIT_POINT_TYPE="exitPointType";
     
+    public static final String CUSTOM_EXIT_POINT_DEFINITIONS="custom-exit-point-definitions";
+    
+    public static final String BT_REQUEST_THRESHOLDS="bt-request-thresholds";
+    
+    public static final String DYNAMIC_SCALING_ENABLED="dynamic-scaling-enabled";
+    /*
+     * <error-configuration agent-type="php-app-agent">
+            <detect-php-errors>true</detect-php-errors>
+            <php-error-level>ERROR</php-error-level>
+            <disable_default_http_error_code>false</disable_default_http_error_code>
+            <ignore-exceptions/>
+            <ignore-logger-names/>
+            <capture-logger-error-and-fatal-messages>false</capture-logger-error-and-fatal-messages>
+            <max-frames-in-root-cause>0</max-frames-in-root-cause>
+            <stack-trace-line-limit>0</stack-trace-line-limit>
+            <mark-transaction-as-error-on-error-message-log-tag>true</mark-transaction-as-error-on-error-message-log-tag>
+        </error-configuration>
+     */
+    
+
+    public static final String DATA_GATHERER_CONFIG="data-gatherer-config";
+
+    public static final String METHOD_INVOCATION_DATA_GATHERER_CONFIG="method-invocation-data-gatherer-config";
+    public static final String GATHERER_TYPE="gatherer-type";
+    public static final String POSITION="position";
+    public static final String TRANSFORMER_TYPE="transformer-type";
+    public static final String METHOD_NAME="method-name";
+    public static final String METHOD_PARAMETER_TYPES="method-parameter-types";
+    public static final String POJO_METHOD_DEFINITION="pojo-method-definition";
+    public static final String POJO_DATA_GATHERER_CONFIG="pojo-data-gatherer-config";
+    
+    
+    /* Need application component */
+    public static final String APPLICATION_COMPONENT="application-component";
+    public static final String NAMING_CONFIG="naming-config";
+    public static final String SCHEME="scheme";
+    public static final String BUSINESS_TRANSACTIONS="business-transactions";
+    public static final String BUSINESS_TRANSACTION="business-transaction";
+    public static final String BUSINESS_TRANSACTION_NAME="business-transaction-name";
+    public static final String BACKGROUND="background";
+    public static final String ENABLED_FOR_EUM="enabled-for-eum";
+    public static final String EUM_AUTO_ENABLE_POSSIBLE="eum-auto-enable-possible";
+    public static final String MEMORY_CONFIGURATION="memory-configuration";
+    public static final String SIZE_POLLING_INTERVAL="size-polling-interval";
+    public static final String ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING="enable-cache-framework-size-monitoring";
+    public static final String ENABLE_MEMORY_MONITORING="enable-memory-monitoring";
+    public static final String CACHE_CONFIGURATION="cache-configuration";
+    public static final String DISABLE_CACHE_MONITORING="disable-cache-monitoring";
+    public static final String DISABLE_STANDARD_CACHE_FRAMEWORKS="disable-standard-cache-frameworks";
+    public static final String COMPONENT_TYPE="component-type";
+    public static final String INSTANCE_TRACKER_CONFIGURATIONS="instance-tracker-configurations";
+    public static final String CUSTOM_CACHE_CONFIGURATIONS="custom-cache-configurations";
+    
+
+    public static final String EXCLUDES="excludes";
+    public static final String CLASS_NAME="class-name";
+    public static final String FILTER_TYPE="filter-type";
+    public static final String FILTER_VALUE="filter-value";
+    public static final String DISPLAY_NAME="display-name";
+    
+    
+    public static final String NAME_VALUES="name-values";
+    public static final String EXCLUDE="exclude";
+    public static final String SERVLET_RULE="servlet-rule";
+    
+
+    
+    /*
+     *  <custom-match-point-definitions>
+                <custom-match-point-definition transaction-entry-point-type="POJO">
+                    <name>Cron4J</name>
+                    <custom-business-transaction-name>Cron4J</custom-business-transaction-name>
+                    <background>false</background>
+                    <enabled>false</enabled>
+                    <match-rule>
+                        <pojo-rule>
+                            <enabled>false</enabled>
+                            <priority>0</priority>
+                            <display-name>Cron4J</display-name>
+                            <background>true</background>
+                            <match-class type="inherits-from-class">
+                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+                            </match-class>
+                            <split-config type="4"/>
+                            <match-method>
+                                <name filter-type="EQUALS" filter-value="execute"/>
+                            </match-method>
+                        </pojo-rule>
+                    </match-rule>
+                </custom-match-point-definition>
+     */
+    public static final String CUSTOM_MATCH_POINT_DEFINITIONS="custom-match-point-definitions";
+    public static final String CUSTOM_MATCH_POINT_DEFINITION="custom-match-point-definition";
+    public static final String CUSTOM_BUSINESS_TRANSACTION_NAME="custom-business-transaction-name";
+    public static final String MATCH_RULE="match-rule";
+    public static final String POJO_RULE="pojo-rule";
+    public static final String ASP_DOTNET_RULE="asp-dotnet-rule";
+    public static final String MATCH_CLASS="match-class";
+    public static final String SPLIT_CONFIG="split-config";
+    public static final String MATCH_METHOD="match-method";
+    public static final String NAMING_ACTIONS="naming-actions";
+   
             
 }

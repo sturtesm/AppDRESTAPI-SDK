@@ -5,10 +5,11 @@
 package org.appdynamics.appdrestapi;
 
 
+import org.appdynamics.appdrestapi.queries.*;
 import org.appdynamics.appdrestapi.data.*;
+import org.appdynamics.appdrestapi.exportdata.ExApplication;
 import org.appdynamics.appdrestapi.resources.*;
-import org.appdynamics.appdrestapi.resources.s;
-import org.appdynamics.appdrestapi.resources.AppExportS;
+
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -134,6 +135,22 @@ public class RESTAccess {
         return null;
     }
     
+    /**
+     * <p>
+     * This will return an object of the AppDynamics application based on the
+     * application id. This can then be used to extract or check on configuration.
+     * </p>
+     * @param appId Id of the application 
+     * @return {@link ExApplication}
+     */
+    public ExApplication getApplicationExportObjById(int appId){
+        try{
+            return RESTExecuter.executeApplicationExportObjByIdQuery(auth, ApplicationExportQuery.queryApplicationExportByID(baseURL.getControllerURL(), appId));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
     
 
     /**
@@ -1648,7 +1665,7 @@ public class RESTAccess {
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param tier Name of the tier which holds the metric
-     * @param site Business transaction name
+     * @param btName Business transaction name
      * @param start Timestamp in milliseconds for the start time for the query
      * @param end Timestamp in milliseconds for the end time for the query
      * @return {@link MetricDatas}
@@ -1667,8 +1684,8 @@ public class RESTAccess {
      * <br/>Index 10 : queryBTSTALL_COUNT
      * </p>
      */
-    public MetricDatas getRESTBTMetricQuery(int queryIndex, String application, String tier, String site, long start, long end){
-        return getRESTBTMetricQuery(queryIndex, application, tier, site, start, end,false);
+    public MetricDatas getRESTBTMetricQuery(int queryIndex, String application, String tier, String btName, long start, long end){
+        return getRESTBTMetricQuery(queryIndex, application, tier, btName, start, end,false);
     }
     
     /**
@@ -1676,7 +1693,7 @@ public class RESTAccess {
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param tier Name of the tier which holds the metric
-     * @param site Business transaction name
+     * @param btName Business transaction name
      * @param start Timestamp in milliseconds for the start time for the query
      * @param end Timestamp in milliseconds for the end time for the query
      * @param rollup Boolean determines whether to roll up the metrics
@@ -1696,44 +1713,44 @@ public class RESTAccess {
      * <br/>Index 10 : queryBTSTALL_COUNT
      * </p>
      */
-    public MetricDatas getRESTBTMetricQuery(int queryIndex, String application, String tier, String site, long start, long end, boolean rollup){
+    public MetricDatas getRESTBTMetricQuery(int queryIndex, String application, String tier, String btName, long start, long end, boolean rollup){
         String query=null;
         if(s.debugLevel >= 2){logger.log(Level.WARNING,new StringBuilder().append("\nQueryIndex ")
-                    .append(queryIndex).append(" application ").append(application).append(" tier ").append(tier).append(" site ").append(site).toString());}
+                    .append(queryIndex).append(" application ").append(application).append(" tier ").append(tier).append(" site ").append(btName).toString());}
         MetricQuery mq = new MetricQuery( baseURL.getControllerURL(),application);
         switch(queryIndex){
             case 0:
-                query=mq.queryBTAVERAGE_BLOCK_TIME_MS(application, tier, site, start, end, rollup);
+                query=mq.queryBTAVERAGE_BLOCK_TIME_MS(application, tier, btName, start, end, rollup);
                 break;
             case 1:
-                query=mq.queryBTAVERAGE_CPU_USED_MS(application, tier, site, start, end, rollup);
+                query=mq.queryBTAVERAGE_CPU_USED_MS(application, tier, btName, start, end, rollup);
                 break;
             case 2:
-                query=mq.queryBTAVERAGE_REQUEST_SIZE(application, tier, site, start, end, rollup);
+                query=mq.queryBTAVERAGE_REQUEST_SIZE(application, tier, btName, start, end, rollup);
                 break;
             case 3:
-                query=mq.queryBTAVERAGE_RESPONSE_TIME(application, tier, site, start, end, rollup);
+                query=mq.queryBTAVERAGE_RESPONSE_TIME(application, tier, btName, start, end, rollup);
                 break;
             case 4:
-                query=mq.queryBTAVERAGE_WAIT_TIME_MS(application, tier, site, start, end, rollup);
+                query=mq.queryBTAVERAGE_WAIT_TIME_MS(application, tier, btName, start, end, rollup);
                 break;
             case 5:
-                query=mq.queryBTCALL_PER_MINUTE(application, tier, site, start, end, rollup);
+                query=mq.queryBTCALL_PER_MINUTE(application, tier, btName, start, end, rollup);
                 break;
             case 6:
-                query=mq.queryBTERRORS_PER_MINUTE(application, tier, site, start, end, rollup);
+                query=mq.queryBTERRORS_PER_MINUTE(application, tier, btName, start, end, rollup);
                 break;
             case 7:
-                query=mq.queryBTNORMAL_AVERAGE_RESPONSE_TIME_MS(application, tier, site, start, end, rollup);
+                query=mq.queryBTNORMAL_AVERAGE_RESPONSE_TIME_MS(application, tier, btName, start, end, rollup);
                 break;
             case 8:
-                query=mq.queryBTNUMBER_OF_SLOW_CALLS(application, tier, site, start, end, rollup);
+                query=mq.queryBTNUMBER_OF_SLOW_CALLS(application, tier, btName, start, end, rollup);
                 break;
             case 9:
-                query=mq.queryBTNUMBER_OF_VERY_SLOW_CALLS(application, tier, site, start, end, rollup);
+                query=mq.queryBTNUMBER_OF_VERY_SLOW_CALLS(application, tier, btName, start, end, rollup);
                 break;
             case 10:
-                query=mq.queryBTSTALL_COUNT(application, tier, site, start, end, rollup);
+                query=mq.queryBTSTALL_COUNT(application, tier, btName, start, end, rollup);
                 break;
             default:
                 break;
@@ -1743,7 +1760,7 @@ public class RESTAccess {
         if(query==null){ 
             logger.log(Level.WARNING,new StringBuilder()
                     .append("\nQueryIndex sent ").append(queryIndex).append(" application ")
-                    .append(application).append(" tier ").append(tier).append(" site ").append(site).toString());
+                    .append(application).append(" tier ").append(tier).append(" site ").append(btName).toString());
             return null;
         }
         

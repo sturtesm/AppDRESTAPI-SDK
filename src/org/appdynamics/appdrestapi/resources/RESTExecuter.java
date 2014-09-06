@@ -5,7 +5,8 @@
 package org.appdynamics.appdrestapi.resources;
 
 import org.appdynamics.appdrestapi.data.*;
-import org.appdynamics.appdrestapi.resources.ApplicationQuery;
+import org.appdynamics.appdrestapi.exportdata.ExApplication;
+import org.appdynamics.appdrestapi.queries.ApplicationQuery;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 
@@ -19,6 +20,13 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
 import javax.ws.rs.core.MediaType;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 
 //Accepting all certs
 import java.security.SecureRandom;
@@ -154,11 +162,41 @@ public class RESTExecuter {
             response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
             value= (String) response.getEntity(String.class);
             
+            
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
                     .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
         }
         return value;
+        
+    }
+    
+    public static ExApplication executeApplicationExportObjByIdQuery(RESTAuth auth, String query){
+        if(client == null) {
+            createConnection(auth);
+        }
+
+        
+        if(s.debugLevel > 2)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
+        WebResource service = null;
+        ClientResponse response = null;
+        String apps=null;
+        ExApplication exApp=null;
+        try{
+         
+            service = client.resource(query);
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            apps= (String) response.getEntity(String.class);
+            JAXBContext context = JAXBContext.newInstance(ExApplication.class);
+            Unmarshaller un = context.createUnmarshaller();
+            InputStream inStream = new ByteArrayInputStream(apps.getBytes());
+            exApp = (ExApplication) un.unmarshal(inStream);
+  
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        return exApp;
         
     }
     
@@ -420,12 +458,14 @@ public class RESTExecuter {
         } 
         
         if(s.debugLevel > 1){
-            logger.log(Level.INFO,new StringBuilder().append("Number of snapshots returns is ").append(mi.getMetricItems().size()).toString());
+            logger.log(Level.INFO,new StringBuilder().append("Number of metricItems returns is ").append(mi.getMetricItems().size()).toString());
         }
         
         if(s.debugLevel > 2) logger.log(Level.FINE,new StringBuilder().append(mi.toString()).toString());
         
         return mi;
     }
+    
+
     
 }

@@ -64,23 +64,24 @@ public class TimeRangeHelper {
         Calendar cal2=Calendar.getInstance();
         cal1.setTimeInMillis(end);
         cal2.setTimeInMillis(start);
-        boolean createOne=true;
+        boolean createdOne=true;
         int count=0;
+        
         ArrayList<TimeRange> value=new ArrayList<TimeRange>();
-        while(createOne){
+        while(createdOne){
             Calendar cal3=Calendar.getInstance();
             cal3.setTimeInMillis(cal2.getTimeInMillis());
             cal3.add(Calendar.HOUR, 24);
             if(count==0 && (cal3.getTimeInMillis() > cal1.getTimeInMillis())){
                 // This case will cover when the time stamp is smaller than 24 hours
                 value.add(new TimeRange(cal2.getTimeInMillis(),cal1.getTimeInMillis()));
-                createOne=false;
+                createdOne=false;
                 count++;
             }else{
                 if(cal3.getTimeInMillis() > cal1.getTimeInMillis() && cal1.getTimeInMillis() > cal2.getTimeInMillis()){
                     value.add(new TimeRange(cal2.getTimeInMillis(),cal1.getTimeInMillis()));
                     count++;
-                    createOne=false;
+                    createdOne=false;
                 }else{
                     value.add(new TimeRange(cal2.getTimeInMillis(),cal3.getTimeInMillis()));
                     cal2.setTimeInMillis(cal3.getTimeInMillis());

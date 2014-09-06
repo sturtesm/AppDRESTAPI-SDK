@@ -1,6 +1,8 @@
 org.appdynamics.appdrestapi
 org.appdynamics.appdrestapi.agent
 org.appdynamics.appdrestapi.data
+org.appdynamics.appdrestapi.exportdata
 org.appdynamics.appdrestapi.performance
+org.appdynamics.appdrestapi.queries
 org.appdynamics.appdrestapi.resources
 org.appdynamics.appdrestapi.util

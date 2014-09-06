@@ -283,6 +283,11 @@ public class s {
     public static final String REQUEST_SEGMENT_DATA="request-segment-data";
     public static final String REQUEST_SEGMENT_DATAS="request-segment-datas";
     
+    public static final String[] SHORT_METRIC_TYPES={"BT","BE","Agent","HW","JVM","OAP","EUM","CUSTOM"};
+    public static final String[] LONG_METRIC_TYPES={"Business Transation","Backend","Agent","Hardware","JVM","Overall Application Performance","End User Management","Custom Metric"};
+    
+    
+    
     /* * SNAPSHOTS * 
       
  * <request-segment-datas>
