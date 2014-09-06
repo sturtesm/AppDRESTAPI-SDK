@@ -1716,7 +1716,7 @@ public class RESTAccess {
     public MetricDatas getRESTBTMetricQuery(int queryIndex, String application, String tier, String btName, long start, long end, boolean rollup){
         String query=null;
         if(s.debugLevel >= 2){logger.log(Level.WARNING,new StringBuilder().append("\nQueryIndex ")
-                    .append(queryIndex).append(" application ").append(application).append(" tier ").append(tier).append(" site ").append(btName).toString());}
+                    .append(queryIndex).append(" application ").append(application).append(" tier ").append(tier).append(" BT ").append(btName).toString());}
         MetricQuery mq = new MetricQuery( baseURL.getControllerURL(),application);
         switch(queryIndex){
             case 0:
@@ -1760,7 +1760,7 @@ public class RESTAccess {
         if(query==null){ 
             logger.log(Level.WARNING,new StringBuilder()
                     .append("\nQueryIndex sent ").append(queryIndex).append(" application ")
-                    .append(application).append(" tier ").append(tier).append(" site ").append(btName).toString());
+                    .append(application).append(" tier ").append(tier).append(" BT ").append(btName).toString());
             return null;
         }
         
