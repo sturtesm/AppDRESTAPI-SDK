@@ -32,17 +32,17 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class MetricValue {
     
-    private long startTimeInMillis;
-    private long value;
-    private long min;
-    private long max;
-    private long current;
+    protected long startTimeInMillis;
+    protected long value;
+    protected long min;
+    protected long max;
+    protected long current;
     // Available 3.8
-    private long sum=-1;
-    private long count=-1;
-    private double stdDev=-1.0;
-    private long occurrences=-1;
-    private boolean useRange;
+    protected long sum=-1;
+    protected long count=-1;
+    protected double stdDev=-1.0;
+    protected long occurrences=-1;
+    protected boolean useRange;
 
     public MetricValue(){}
     

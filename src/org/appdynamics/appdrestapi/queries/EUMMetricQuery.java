@@ -1185,7 +1185,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_FRONT_END_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1209,7 +1209,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOCUEMENT_READY_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1233,7 +1233,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_TCP_CONNECT_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1257,7 +1257,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOMAIN_LOOKUP_TIME);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1281,7 +1281,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_RESPONSE_AVAILABLE_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1305,7 +1305,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_SERVER_CONNECTION_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1329,7 +1329,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_PAGE_RENDER_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1353,7 +1353,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_PAGE_VIEWS_WITH_JAVASCRIPT_ERRORS_PER_MINUTE);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1377,7 +1377,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOCUMENT_DOWNLOAD_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1401,7 +1401,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOCUMENT_PROCESSING_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1425,7 +1425,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_SSL_HANDSHAKE_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1449,7 +1449,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_REQUESTS_PER_MIN);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1473,7 +1473,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_FIRST_BYTE_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1497,7 +1497,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_FIRST_BYTE_TIME_50TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1521,7 +1521,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_FIRST_BYTE_TIME_90TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1545,7 +1545,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_FIRST_BYTE_TIME_95TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1569,7 +1569,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_FIRST_BYTE_TIME_99TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1593,7 +1593,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_END_USER_RESPONSE_TIME);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1617,7 +1617,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_END_USER_RESPONSE_TIME_50TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1641,7 +1641,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_END_USER_RESPONSE_TIME_90TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1665,7 +1665,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_END_USER_RESPONSE_TIME_95TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1689,7 +1689,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_END_USER_RESPONSE_TIME_99TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1713,7 +1713,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOM_READY_TIME_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1737,7 +1737,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOM_READY_TIME_50TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1761,7 +1761,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOM_READY_TIME_90TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1785,7 +1785,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOM_READY_TIME_95TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         
@@ -1809,7 +1809,7 @@ End User Response Time 99th percentile (ms)
         
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
-        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_BASE_PAGES);
+        bud.append(s.EUM_USER_EXPERIENCE).append(s.EUM_IFRAMES);
         bud.append(urlPath).append(s.EUM_DOM_READY_TIME_99TH_PERCENTILE_MS);
         val.append(QueryEncoder.encode(bud.toString()));  
         

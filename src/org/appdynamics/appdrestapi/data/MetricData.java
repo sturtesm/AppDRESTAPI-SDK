@@ -23,9 +23,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlSeeAlso({MetricValues.class,MetricValue.class})
 public class MetricData {
-    private String metricPath;
-    private String frequency;
-    private ArrayList<MetricValues> metricValues=new ArrayList<MetricValues>();
+    protected String metricPath;
+    protected String frequency;
+    protected ArrayList<MetricValues> metricValues=new ArrayList<MetricValues>();
 
     public MetricData(){}
     

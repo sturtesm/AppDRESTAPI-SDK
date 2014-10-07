@@ -126,10 +126,13 @@ MetricPath :: Backends|alerts|Average Response Time (ms)
 
 getRESTBTMetricQuery(0, app, "alerts", btName, start, end, true)
 MetricPath :: Business Transaction Performance|Business Transactions|alerts|/alert|Average Block Time (ms)
+* 
+* 
  */
 public class MetricNameUtil {
     private static final String INDIV_NODES="Individual Nodes";
  
+    
     
     public static String[] parse(String metricPath){
         
@@ -138,6 +141,7 @@ public class MetricNameUtil {
         }
         return null;
     }
+
     
     /*
      * Metric Type:
@@ -240,6 +244,65 @@ public class MetricNameUtil {
             
         }
         return "Default Name";
+    }
+    
+    
+        /*
+     * Metric Type:
+     *   0 - BT
+     *   1 - BE
+     *   2 - Tier Metric
+     *   3 - Node Metric
+     *   4 - EUM
+     *   5 - Custom
+     */
+    public static String getObjectType(int metricType, int queryIndex, String[] nameParts){
+        
+        if( nameParts == null) return "Default Type";
+        
+        if(metricType == 0){
+            return s.SHORT_METRIC_TYPES[0];
+        }
+        
+        if(metricType == 1){
+            return s.SHORT_METRIC_TYPES[1];
+        }
+        
+        //Tier
+        if(metricType == 2){
+            if(queryIndex < 38){
+                if(queryIndex < 2) return nameParts[3];
+                if(queryIndex < 22) return new StringBuilder().append(s.SHORT_METRIC_TYPES[3]).append(s.D_).append(nameParts[3]).toString();
+                if(queryIndex < 24) return s.SHORT_METRIC_TYPES[4];
+                if(queryIndex < 29) return new StringBuilder().append(s.SHORT_METRIC_TYPES[4]).append(s.D_).append(nameParts[3]).toString();
+                return new StringBuilder().append(s.SHORT_METRIC_TYPES[4]).append(s.D_).append(nameParts[4]).append(s.D_).append(nameParts[3]).toString();
+            }else{
+                return  new StringBuilder().append(s.SHORT_METRIC_TYPES[5]).append(s.D_).append(nameParts[2]).toString();
+            }
+            
+        }
+        
+        //Node
+        if(metricType == 3){
+            if(queryIndex < 38){
+                //5 4 6
+                if(queryIndex < 2) return nameParts[4];
+                if(queryIndex < 22) return new StringBuilder().append(s.SHORT_METRIC_TYPES[3]).append(s.D_).append(nameParts[5]).toString();
+                if(queryIndex < 24) return s.SHORT_METRIC_TYPES[4];
+                if(queryIndex < 29) return new StringBuilder().append(s.SHORT_METRIC_TYPES[4]).append(s.D_).append(nameParts[5]).toString();
+                return new StringBuilder().append(s.SHORT_METRIC_TYPES[4]).append(s.D_).append(nameParts[5]).append(s.D_).append(nameParts[3]).toString();
+            }else{
+                return new StringBuilder().append(s.SHORT_METRIC_TYPES[5]).append(s.D_).append(nameParts[4]).toString();
+            }
+            
+        }
+        
+        if(metricType == 4){
+            if(queryIndex < 16){return new StringBuilder().append(s.SHORT_METRIC_TYPES[6]).append(s.D_).append(s.SHORT_METRIC_TYPES[8]).toString();} //Ajax
+            if(queryIndex < 46){return new StringBuilder().append(s.SHORT_METRIC_TYPES[6]).append(s.D_).append(s.SHORT_METRIC_TYPES[9]).toString();} //BASE
+            return new StringBuilder().append(s.SHORT_METRIC_TYPES[6]).append(s.D_).append(s.SHORT_METRIC_TYPES[10]).toString();
+        }
+        return "Default Type";
     }
     
     public static String getJustMetricName(String metricPath){

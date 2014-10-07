@@ -26,6 +26,8 @@ public class s {
     public static final String P="|";
     public static final String F="/";
     public static final String Q="?";
+    public static final String D_=" - ";
+    
     public static final String URL_TIERS="/tiers";
     public static final String URL_NODES="/nodes";
     public static final String URL_PROBLEMS="/problems";
@@ -229,6 +231,7 @@ public class s {
     public static final String EUM_DOMAIN_LOOKUP_TIME="|Domain Lookup Time (ms)";
     public static final String EUM_SSL_HANDSHAKE_TIME_MS="|SSL Handshake Time (ms)";
     public static final String EUM_BASE_PAGES="Base Pages|";
+    public static final String EUM_IFRAMES="Iframes|";
     public static final String EUM_DOCUEMENT_READY_TIME_MS="|Document Ready Time (ms)";
     public static final String EUM_FRONT_END_TIME_MS="|Front End Time (ms)";
     public static final String EUM_PAGE_RENDER_TIME_MS="|Page Render Time (ms)";
@@ -283,7 +286,7 @@ public class s {
     public static final String REQUEST_SEGMENT_DATA="request-segment-data";
     public static final String REQUEST_SEGMENT_DATAS="request-segment-datas";
     
-    public static final String[] SHORT_METRIC_TYPES={"BT","BE","Agent","HW","JVM","OAP","EUM","CUSTOM"};
+    public static final String[] SHORT_METRIC_TYPES={"BT","BE","Agent","HW","JVM","OAP","EUM","CUSTOM", "AJAX Requests", "Base Pages", "Iframes"};
     public static final String[] LONG_METRIC_TYPES={"Business Transation","Backend","Agent","Hardware","JVM","Overall Application Performance","End User Management","Custom Metric"};
     
     
