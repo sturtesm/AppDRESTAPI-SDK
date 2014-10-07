@@ -44,5 +44,69 @@ public class SnapshotQuery {
 
         return val.toString();
     }
+
+    //Support for detailed properties to be returned in snapshot
+    public static String queryRequestSnapshot(String baseURL, String application, long start, long end, boolean needProps){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_REQUEST_SNAPSHOTS);
+
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        val.append(s.SNAPSHOT_NEED_PROPS).append(String.valueOf(needProps));
+
+        return val.toString();
+    }
+
+    public static String queryRequestSnapshot(String baseURL, int application, long start, long end, boolean needProps){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(application);
+        val.append(s.URL_REQUEST_SNAPSHOTS);
+
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        val.append(s.SNAPSHOT_NEED_PROPS).append(String.valueOf(needProps));
+
+        return val.toString();
+    }
+
+    //Support to filter on Data Collector and Properties
+    public static String queryRequestSnapshot(String baseURL, String application, long start, long end, boolean needProps, String dataCollectorName, String dataCollectorValue, String dataCollectorType){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_REQUEST_SNAPSHOTS);
+
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        val.append(s.SNAPSHOT_NEED_PROPS).append(String.valueOf(needProps));
+        val.append(s.SNAPSHOT_DATA_COLLECTOR_NAME).append(dataCollectorName);
+        val.append(s.SNAPSHOT_DATA_COLLECTOR_TYPE).append(QueryEncoder.encode(dataCollectorType));
+        val.append(s.SNAPSHOT_DATA_COLLECTOR_VALUE).append(dataCollectorValue);
+
+        return val.toString();
+    }
+
+    public static String queryRequestSnapshot(String baseURL, int application, long start, long end, boolean needProps, String dataCollectorName, String dataCollectorValue, String dataCollectorType){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(application);
+        val.append(s.URL_REQUEST_SNAPSHOTS);
+
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        val.append(s.SNAPSHOT_NEED_PROPS).append(String.valueOf(needProps));
+        val.append(s.SNAPSHOT_DATA_COLLECTOR_NAME).append(dataCollectorName);
+        val.append(s.SNAPSHOT_DATA_COLLECTOR_TYPE).append(QueryEncoder.encode(dataCollectorType));
+        val.append(s.SNAPSHOT_DATA_COLLECTOR_VALUE).append(dataCollectorValue);
+
+        return val.toString();
+    }
     
 }

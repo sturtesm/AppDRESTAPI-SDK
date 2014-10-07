@@ -99,6 +99,31 @@ public class s {
     
     public static final String EVENT_TYPES="&event-types=";
     public static final String SEVERITIES="&severities=";
+
+    //For Snapshot parameters
+    public static final String SNAPSHOT_ARCHIVED="&archived=";
+    public static final String SNAPSHOT_DEEP_DIVE_POLICY="&deep-dive-policy=";
+    public static final String SNAPSHOT_GUIDS="&guids=";
+    public static final String SNAPSHOT_APPLICATION_COMPONENT_IDS="&application-component-ids=";
+    public static final String SNAPSHOT_APPLICATION_COMPONENT_NODE_IDS="&application-component-node-ids=";
+    public static final String SNAPSHOT_BUSINESS_TRANSACTION_IDS="&business-transaction-ids=";
+    public static final String SNAPSHOT_USER_EXPERIENCE="&user-experience=";
+    public static final String SNAPSHOT_FIRST_IN_CHAIN="&first-in-chain=";
+    public static final String SNAPSHOT_NEED_PROPS="&need-props=";
+    public static final String SNAPSHOT_NEED_EXIT_CALLS="&need-exit-calls=";
+    public static final String SNAPSHOT_EXECUTION_TIME_IN_MILIS="&execution-time-in-milis=";
+    public static final String SNAPSHOT_SESSION_ID="&session-id=";
+    public static final String SNAPSHOT_USER_PRINCIPLE_ID="&user-principal-id=";
+    public static final String SNAPSHOT_ERROR_IDS="&error-ids=";
+    public static final String SNAPSHOT_ERROR_OCCURED="&error-occured=";
+    public static final String SNAPSHOT_DIAGNOSTIC_SNAPSHOT="&diagnostic-snapshot=";
+    public static final String SNAPSHOT_BAD_REQUEST="&bad-request=";
+    public static final String SNAPSHOT_DIAGNOSTIC_SESSION_GUID="&diagnostic-session-guid=";
+    public static final String SNAPSHOT_DATA_COLLECTOR_NAME="&data-collector-name=";
+    //Data Collector Name must be set
+    public static final String SNAPSHOT_DATA_COLLECTOR_VALUE="&data-collector-value=";
+    public static final String SNAPSHOT_DATA_COLLECTOR_TYPE="&data-collector-type=";
+
     
     public static final String ID="id";
     public static final String NAME="name";

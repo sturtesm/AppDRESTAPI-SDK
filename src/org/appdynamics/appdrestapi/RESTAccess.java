@@ -302,7 +302,80 @@ public class RESTAccess {
         }
         return null;
     }
-    
+
+    /**
+     *
+     * @param application Name of the application
+     * @param start Timestamp of the start time
+     * @param end Timestamp of the end time
+     * @param needProps Return Detailed Properties in Snapshot
+     * @return {@link Snapshots}
+     */
+    public Snapshots getSnapshots(String application, long start, long end, boolean needProps){
+        try{
+            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param application Id of the application
+     * @param start Timestamp of the start time
+     * @param end Timestamp of the end time
+     * @param needProps Return Detailed Properties in Snapshot
+     * @return {@link Snapshots}
+     */
+    public Snapshots getSnapshots(int application, long start, long end, boolean needProps){
+        try{
+            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param application Name of the application
+     * @param start Timestamp of the start time
+     * @param end Timestamp of the end time
+     * @param needProps Return Detailed Properties in Snapshot
+     * @param dataCollectorName
+     * @param dataCollectorType
+     * @param dataCollectorValue
+     * @return {@link Snapshots}
+     */
+    public Snapshots getSnapshots(String application, long start, long end, boolean needProps, String dataCollectorName, String dataCollectorValue, String dataCollectorType){
+        try{
+            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps, dataCollectorName, dataCollectorValue, dataCollectorType));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param application Id of the application
+     * @param start Timestamp of the start time
+     * @param end Timestamp of the end time
+     * @param needProps Return Detailed Properties in Snapshot
+     * @param dataCollectorName
+     * @param dataCollectorType
+     * @param dataCollectorValue
+     * @return {@link Snapshots}
+     */
+    public Snapshots getSnapshots(int application, long start, long end, boolean needProps, String dataCollectorName, String dataCollectorValue, String dataCollectorType){
+        try{
+            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps, dataCollectorName, dataCollectorValue, dataCollectorType));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
     
     /**
      * <p>
