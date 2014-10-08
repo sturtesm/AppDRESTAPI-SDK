@@ -97,7 +97,10 @@ public class RESTAccess {
     }
     
     /**
-     * 
+     * <p>
+     * Turns debug level on, this will produce a lot of logging output and 
+     * should only be run when troubleshooting an issue.
+     * </p>
      * @param level Debug level 0-4, 0 being minimal logging
      */
     public void setDebugLevel(int level){
@@ -105,7 +108,9 @@ public class RESTAccess {
     }
     
     /**
-     * 
+     * <p>
+     * Returns the list of application in the controller for the account provided in the authentication.
+     * </p>
      * @return {@link Applications}
      */
     public Applications getApplications(){
@@ -120,8 +125,8 @@ public class RESTAccess {
     
     /**
      * <p>
-     * This will return a string of the AppDynamics application based on the
-     * application id.
+     * This will return a string of the AppDynamics application export based on the
+     * application id given.
      * </p>
      * @param appId Id of the application 
      * @return String
@@ -137,8 +142,8 @@ public class RESTAccess {
     
     /**
      * <p>
-     * This will return an object of the AppDynamics application based on the
-     * application id. This can then be used to extract or check on configuration.
+     * This will return a Java object of the AppDynamics application export based on the
+     * application id given. This can then be used to extract or check on configuration.
      * </p>
      * @param appId Id of the application 
      * @return {@link ExApplication}
@@ -171,7 +176,8 @@ public class RESTAccess {
     
     /**
      * <p>
-     * This will allow the user to provide the metric path they wish to walk. The paths need to be separated by the character '|'
+     * This will allow the user to provide the metric path they wish to walk. 
+     * The metricPaths parameter is the metric path and needs to be separated by the character '|'.
      * </p>
      * @param application Name of the application
      * @param metricPath Metric path to the metric list requested
@@ -188,7 +194,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * This is going to execute a generic query based on the application and full metric path provided.
+     * This is going to execute a generic query based on the application and full metric path given.
      * </p>
      * @param application Name of the application
      * @param metricPath String that determine which metric to request
@@ -210,7 +216,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the business transactions for an application name.
+     * Returns the Business Transactions for an application name given.
      * </p>
      * @param application Name of the application
      * @return {@link BusinessTransactions}
@@ -226,7 +232,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the business transactions for an application id.
+     * Returns the Business Transactions for an application id given.
      * </p>
      * @param appId The id for the application
      * @return {@link BusinessTransactions}
@@ -242,6 +248,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the Business Transaction for application name and business transaction id given.
+     * </p>
+     * 
      * @param application Name of the application
      * @param btId Id of the Business Transaction
      * @return {@link BusinessTransactions}
@@ -257,6 +267,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the Business Transaction for application id and business transaction id given.
+     * </p>
+     * 
      * @param appId The id for the application
      * @param btId Id of the Business Transaction
      * @return {@link BusinessTransactions}
@@ -272,6 +286,10 @@ public class RESTAccess {
 
     
     /**
+     * 
+     * <p>
+     * Returns the list of snapshots for the application name given.
+     * </p>
      * 
      * @param application Name of the application
      * @param start Timestamp of the start time
@@ -289,6 +307,10 @@ public class RESTAccess {
     
     /**
      * 
+     * <p>
+     * Returns the list of snapshots for the application id given.
+     * </p>
+     * 
      * @param application Id of the application
      * @param start Timestamp of the start time
      * @param end Timestamp of the end time
@@ -305,6 +327,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the list of snapshots with detailed snapshot properties for the application name given.
+     * </p>
+     * 
      * @param application Name of the application
      * @param start Timestamp of the start time
      * @param end Timestamp of the end time
@@ -322,6 +348,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the list of snapshots with detailed snapshot properties for the application id. 
+     * </p>
+     * 
      * @param application Id of the application
      * @param start Timestamp of the start time
      * @param end Timestamp of the end time
@@ -339,6 +369,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the list of snapshots with detailed snapshot properties for the application name with additional parameters.
+     * </p>
+     * 
      * @param application Name of the application
      * @param start Timestamp of the start time
      * @param end Timestamp of the end time
@@ -359,6 +393,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the list of snapshots with detailed snapshot properties for the application id with additional parameters.
+     * </p>
+     * 
      * @param application Id of the application
      * @param start Timestamp of the start time
      * @param end Timestamp of the end time
@@ -379,7 +417,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the tiers for an application name.
+     * Returns the tiers for an application name given.
      * </p>
      * @param application Name of the application
      * @return {@link Tiers}
@@ -395,7 +433,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the tiers for an application id.
+     * Returns the list of tiers for an application id given.
      * </p>
      * @param application ExApplication id
      * @return {@link Tiers}
@@ -411,6 +449,10 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Return the tier for the application name and tier id given.
+     * </p>
+     * 
      * @param application Name of the application
      * @param tierId ID of the Tier
      * @return {@link Tiers}
@@ -425,7 +467,11 @@ public class RESTAccess {
     }
 
     /**
-     *
+     * 
+     * <p>
+     * Return the tier for the application id and tier id given.
+     * </p>
+     * 
      * @param application ExApplication id
      * @param tierId ID of the Tier
      * @return {@link Tiers}
@@ -440,7 +486,10 @@ public class RESTAccess {
     }
 
     /**
-     * 
+     *  
+     * <p>
+     * Return the list of nodes for the application name and tier name given.
+     * </p>
      * @param application Name of the application
      * @param tier Name of the tier
      * @return {@link Nodes}
@@ -455,7 +504,10 @@ public class RESTAccess {
     }
     
     /**
-     * 
+     *  
+     * <p>
+     * Return the list of nodes for the application id and tier name given.
+     * </p>
      * @param application Id of the application
      * @param tier Name of the tier
      * @return {@link Nodes}
@@ -470,6 +522,10 @@ public class RESTAccess {
     }
     
     /**
+     *  
+     * <p>
+     * Return the list of nodes for the application name and tier id given.
+     * </p>
      * 
      * @param application Name of the application
      * @param tier Id of the tier
@@ -486,6 +542,9 @@ public class RESTAccess {
     
     /**
      * 
+     * <p>
+     * Return the list of nodes for the application id and tier id given.
+     * </p>
      * @param application Id of the application
      * @param tier Id of the tier
      * @return {@link Nodes}
@@ -502,7 +561,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the nodes for an application name.
+     * Returns the nodes for an application name given.
      * </p>
      * @param application Name of the application
      * @return {@link Nodes}
@@ -518,7 +577,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the nodes for an application id.
+     * Returns the nodes for an application id given.
      * </p>
      * @param application Id of the application 
      * @return {@link Nodes}
@@ -534,6 +593,9 @@ public class RESTAccess {
 
     /**
      *
+     * <p>
+     * Returns the node for the application name and node id given.
+     * </p>
      * @param application Name of the application
      * @param nodeId id of the Node
      * @return {@link Nodes}
@@ -548,6 +610,9 @@ public class RESTAccess {
     }
 
     /**
+     * <p>
+     * Returns the node for the application id and node id given.
+     * </p>
      *
      * @param application Id of the application
      * @param nodeId Id of the Node
@@ -564,7 +629,7 @@ public class RESTAccess {
 
     /**
      * <p>
-     * Returns the backends for an application name.
+     * Returns the backends for an application name given.
      * </p>
      * @param application Name of the application
      * @return {@link Backends}
@@ -580,7 +645,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the health rule violations for an application.
+     * Returns the health rule violations for an application name given.
      * </p>
      * @param application Name of the application
      * @param start Timestamp of the start time
@@ -599,7 +664,7 @@ public class RESTAccess {
     /**
      * 
      * <p>
-     * Returns the policy violations for an application.
+     * Returns the policy violations for an application name given.
      * </p>
      * @param application Name of the application
      * @param start Timestamp for the start time
@@ -617,7 +682,7 @@ public class RESTAccess {
     
     /**
      * <p>
-     * Returns the events for an application.
+     * Returns the events for an application name, event types and severities given.
      * </p>
      * @param application Name of the application
      * @param eventTypes Event types to request, comma delimited list
@@ -643,8 +708,12 @@ public class RESTAccess {
     }
     
      /**
-     * Returns MetricData that can be parsed 
-     * Case statement to determine Query string. Possible Results
+     * 
+     * <p>
+     * Returns MetricData for general tier level metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
+     * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param tier Name of the tier which holds the metric
@@ -708,8 +777,12 @@ public class RESTAccess {
     }
     
     /**
-     * Returns MetricData that can be parsed 
-     * Case statement to determine Query string. Possible Results
+     * 
+     * <p>
+     * Returns MetricData for general tier level metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
+     * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param tier Name of the tier which holds the metric
@@ -940,8 +1013,12 @@ public class RESTAccess {
     
     
     /**
-     * Returns MetricData that can be parsed 
-     * Case statement to determine Query string. Possible Results
+     * 
+     * <p>
+     * Returns MetricData for general node level metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
+     * 
      * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
@@ -1006,8 +1083,10 @@ public class RESTAccess {
     }
     
     /**
-     * Returns MetricData that can be parsed 
-     * Case statement to determine Query string. Possible Results
+     * <p>
+     * Returns MetricData for general node metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
      * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
@@ -1241,6 +1320,11 @@ public class RESTAccess {
     
     /**
      * 
+     * <p>
+     * Returns MetricData for EUM's metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
+     * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param urlPath URL path that was captured
@@ -1329,6 +1413,11 @@ public class RESTAccess {
     }
     
     /**
+     * 
+     * <p>
+     * Returns MetricData for EUM's metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
      * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
@@ -1734,7 +1823,10 @@ public class RESTAccess {
     }
     
     /**
-     * 
+     * <p>
+     * Returns MetricData for Business Transaction's metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param tier Name of the tier which holds the metric
@@ -1762,6 +1854,11 @@ public class RESTAccess {
     }
     
     /**
+     * 
+     * <p>
+     * Returns MetricData for Business Transaction's metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
      * 
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
@@ -1848,6 +1945,10 @@ public class RESTAccess {
     
     /**
      * 
+     * <p>
+     * Returns MetricData for Backend's metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param backend Name of the backend which holds the metric
@@ -1899,6 +2000,10 @@ public class RESTAccess {
     
     /**
      * 
+     * <p>
+     * Returns MetricData for Backend's metrics that can be parsed 
+     * Case statement looks at the queryIndex to determine the proper Query string.
+     * </p>
      * @param queryIndex Index of the type of query to run
      * @param application Name of the application which holds the metric
      * @param backend Name of the backend which holds the metric
