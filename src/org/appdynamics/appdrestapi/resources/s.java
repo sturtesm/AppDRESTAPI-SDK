@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @author soloink
  */
 public class s {
-    public static final String RESTAPI_VERSION="1.0.9";
+    public static final String RESTAPI_VERSION="1.0.12";
     public static int debugLevel=0;
     public static int detailLevel=0;
     public static double percentageThreshold=0.25;
