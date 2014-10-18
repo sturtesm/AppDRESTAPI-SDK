@@ -33,6 +33,7 @@ public class RESTAccess {
     private static Logger logger=Logger.getLogger(RESTAccess.class.getName());
     private RESTBaseURL baseURL;
     private RESTAuth auth;
+    private RESTExecuter R;
     
     
     /**
@@ -47,6 +48,7 @@ public class RESTAccess {
     public RESTAccess(String controllerURL, String port, String username, String password){
         baseURL=new RESTBaseURL(controllerURL, port);
         auth=new RESTAuth(username, password);
+        R=new RESTExecuter();
     }
     
     /**
@@ -62,6 +64,7 @@ public class RESTAccess {
     public RESTAccess(String controllerURL, String port, boolean ssl, String username, String password){
         baseURL=new RESTBaseURL(controllerURL, port, ssl);
         auth=new RESTAuth(username,password);
+        R=new RESTExecuter();
     }
     
     /**
@@ -77,6 +80,7 @@ public class RESTAccess {
     public RESTAccess(String controllerURL, String port, String username, String password, String account){
         baseURL=new RESTBaseURL(controllerURL, port);
         auth=new RESTAuth(username, password, account, true);
+        R=new RESTExecuter();
     }
     
     /**
@@ -93,6 +97,7 @@ public class RESTAccess {
     public RESTAccess(String controllerURL, String port, boolean ssl, String username, String password, String account){
         baseURL=new RESTBaseURL(controllerURL, port, ssl);
         auth=new RESTAuth(username, password, account, true);
+        R=new RESTExecuter();
         
     }
     
@@ -115,7 +120,7 @@ public class RESTAccess {
      */
     public Applications getApplications(){
         try{
-            return RESTExecuter.executeApplicationQuery(auth, ApplicationQuery.queryAllApplications(baseURL.getControllerURL()));
+            return R.executeApplicationQuery(auth, ApplicationQuery.queryAllApplications(baseURL.getControllerURL()));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
                     .append(e.getMessage()).append("\n").toString());
@@ -133,7 +138,7 @@ public class RESTAccess {
      */
     public String getApplicationExportById(int appId){
         try{
-            return RESTExecuter.executeApplicationExportByIdQuery(auth, ApplicationExportQuery.queryApplicationExportByID(baseURL.getControllerURL(), appId));
+            return R.executeApplicationExportByIdQuery(auth, ApplicationExportQuery.queryApplicationExportByID(baseURL.getControllerURL(), appId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -150,7 +155,7 @@ public class RESTAccess {
      */
     public ExApplication getApplicationExportObjById(int appId){
         try{
-            return RESTExecuter.executeApplicationExportObjByIdQuery(auth, ApplicationExportQuery.queryApplicationExportByID(baseURL.getControllerURL(), appId));
+            return R.executeApplicationExportObjByIdQuery(auth, ApplicationExportQuery.queryApplicationExportByID(baseURL.getControllerURL(), appId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -167,7 +172,7 @@ public class RESTAccess {
      */
     public MetricItems getBaseMetricList(String application){
         try{
-            return RESTExecuter.executeMetricItems(auth, MetricItemQuery.queryMetricList(baseURL.getControllerURL(), application));
+            return R.executeMetricItems(auth, MetricItemQuery.queryMetricList(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -185,7 +190,7 @@ public class RESTAccess {
      */
     public MetricItems getBaseMetricListPath(String application, String metricPath){
         try{
-            return RESTExecuter.executeMetricItems(auth, MetricItemQuery.queryMetricListForPath(baseURL.getControllerURL(), application, metricPath));
+            return R.executeMetricItems(auth, MetricItemQuery.queryMetricListForPath(baseURL.getControllerURL(), application, metricPath));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -205,7 +210,7 @@ public class RESTAccess {
      */
     public MetricDatas getRESTGenericMetricQuery(String application, String metricPath, long start, long end, boolean rollup){
         try{
-            return RESTExecuter.executeMetricQuery(auth, MetricItemQuery.queryGeneralMetricQuery(baseURL.getControllerURL(), application, metricPath, start, end,rollup));
+            return R.executeMetricQuery(auth, MetricItemQuery.queryGeneralMetricQuery(baseURL.getControllerURL(), application, metricPath, start, end,rollup));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -223,7 +228,7 @@ public class RESTAccess {
      */
     public BusinessTransactions getBTSForApplication(String application){
         try{
-            return RESTExecuter.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTSFromApps(baseURL.getControllerURL(), application));
+            return R.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTSFromApps(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -239,7 +244,7 @@ public class RESTAccess {
      */
     public BusinessTransactions getBTSForApplication(int appId){
         try{
-            return RESTExecuter.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTSFromApps(baseURL.getControllerURL(), appId));
+            return R.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTSFromApps(baseURL.getControllerURL(), appId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -258,7 +263,7 @@ public class RESTAccess {
      */
     public BusinessTransactions getBTForApplication(String application,int btId){
         try{
-            return RESTExecuter.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTFromApps(baseURL.getControllerURL(), application, btId));
+            return R.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTFromApps(baseURL.getControllerURL(), application, btId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -277,7 +282,7 @@ public class RESTAccess {
      */
     public BusinessTransactions getBTForApplication(int appId,int btId){
         try{
-            return RESTExecuter.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTFromApps(baseURL.getControllerURL(), appId, btId));
+            return R.executeBusinessTransactionQuery(auth, BusinessTransactionQuery.queryBTFromApps(baseURL.getControllerURL(), appId, btId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -298,7 +303,7 @@ public class RESTAccess {
      */
     public Snapshots getSnapshots(String application, long start, long end){
         try{
-            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end));
+            return R.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -318,7 +323,7 @@ public class RESTAccess {
      */
     public Snapshots getSnapshots(int application, long start, long end){
         try{
-            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end));
+            return R.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -339,7 +344,7 @@ public class RESTAccess {
      */
     public Snapshots getSnapshots(String application, long start, long end, boolean needProps){
         try{
-            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps));
+            return R.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -360,7 +365,7 @@ public class RESTAccess {
      */
     public Snapshots getSnapshots(int application, long start, long end, boolean needProps){
         try{
-            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps));
+            return R.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -384,7 +389,7 @@ public class RESTAccess {
      */
     public Snapshots getSnapshots(String application, long start, long end, boolean needProps, String dataCollectorName, String dataCollectorValue, String dataCollectorType){
         try{
-            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps, dataCollectorName, dataCollectorValue, dataCollectorType));
+            return R.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps, dataCollectorName, dataCollectorValue, dataCollectorType));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -408,7 +413,7 @@ public class RESTAccess {
      */
     public Snapshots getSnapshots(int application, long start, long end, boolean needProps, String dataCollectorName, String dataCollectorValue, String dataCollectorType){
         try{
-            return RESTExecuter.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps, dataCollectorName, dataCollectorValue, dataCollectorType));
+            return R.executeSnapshots(auth, SnapshotQuery.queryRequestSnapshot(baseURL.getControllerURL(), application, start, end, needProps, dataCollectorName, dataCollectorValue, dataCollectorType));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -424,7 +429,7 @@ public class RESTAccess {
      */
     public Tiers getTiersForApplication(String application){
         try{
-            return RESTExecuter.executeTierQuery(auth, TierQuery.queryTiersFromApps(baseURL.getControllerURL(), application));
+            return R.executeTierQuery(auth, TierQuery.queryTiersFromApps(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -440,7 +445,7 @@ public class RESTAccess {
      */
     public Tiers getTiersForApplication(int application){
         try{
-            return RESTExecuter.executeTierQuery(auth, TierQuery.queryTiersFromApps(baseURL.getControllerURL(), application));
+            return R.executeTierQuery(auth, TierQuery.queryTiersFromApps(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -459,7 +464,7 @@ public class RESTAccess {
      */
     public Tiers getTierForApplication(String application, int tierId){
         try{
-            return RESTExecuter.executeTierQuery(auth, TierQuery.queryTierFromApps(baseURL.getControllerURL(), application,tierId));
+            return R.executeTierQuery(auth, TierQuery.queryTierFromApps(baseURL.getControllerURL(), application,tierId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -478,7 +483,7 @@ public class RESTAccess {
      */
     public Tiers getTierForApplication(int application, int tierId){
         try{
-            return RESTExecuter.executeTierQuery(auth, TierQuery.queryTierFromApps(baseURL.getControllerURL(), application, tierId));
+            return R.executeTierQuery(auth, TierQuery.queryTierFromApps(baseURL.getControllerURL(), application, tierId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -496,7 +501,7 @@ public class RESTAccess {
      */
     public Nodes getNodesFromTier(String application, String tier){
         try{
-            return RESTExecuter.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
+            return R.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -514,7 +519,7 @@ public class RESTAccess {
      */
     public Nodes getNodesFromTier(int application, String tier){
         try{
-            return RESTExecuter.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
+            return R.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -533,7 +538,7 @@ public class RESTAccess {
      */
     public Nodes getNodesFromTier(String application, int tier){
         try{
-            return RESTExecuter.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
+            return R.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -551,7 +556,7 @@ public class RESTAccess {
      */
     public Nodes getNodesFromTier(int application, int tier){
         try{
-            return RESTExecuter.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
+            return R.executeNodeQuery(auth, TierQuery.queryNodesFromTier(baseURL.getControllerURL(), application,tier));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -568,7 +573,7 @@ public class RESTAccess {
      */
     public Nodes getNodesForApplication(String application){
         try{
-            return RESTExecuter.executeNodeQuery(auth, NodeQuery.queryNodesFromApps(baseURL.getControllerURL(), application));
+            return R.executeNodeQuery(auth, NodeQuery.queryNodesFromApps(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -584,7 +589,7 @@ public class RESTAccess {
      */
     public Nodes getNodesForApplication(int application){
         try{
-            return RESTExecuter.executeNodeQuery(auth, NodeQuery.queryNodesFromApps(baseURL.getControllerURL(), application));
+            return R.executeNodeQuery(auth, NodeQuery.queryNodesFromApps(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -602,7 +607,7 @@ public class RESTAccess {
      */
     public Nodes getNodeForApplication(String application, int nodeId){
         try{
-            return RESTExecuter.executeNodeQuery(auth, NodeQuery.queryNodeFromApps(baseURL.getControllerURL(), application,nodeId));
+            return R.executeNodeQuery(auth, NodeQuery.queryNodeFromApps(baseURL.getControllerURL(), application,nodeId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -620,7 +625,7 @@ public class RESTAccess {
      */
     public Nodes getNodeForApplication(int application,int nodeId){
         try{
-            return RESTExecuter.executeNodeQuery(auth, NodeQuery.queryNodeFromApps(baseURL.getControllerURL(), application, nodeId));
+            return R.executeNodeQuery(auth, NodeQuery.queryNodeFromApps(baseURL.getControllerURL(), application, nodeId));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -636,7 +641,7 @@ public class RESTAccess {
      */
     public Backends getBackendsForApplication(String application){
         try{
-            return RESTExecuter.executeBackends(auth, BackendsQuery.queryBackendsFromApps(baseURL.getControllerURL(), application));
+            return R.executeBackends(auth, BackendsQuery.queryBackendsFromApps(baseURL.getControllerURL(), application));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -654,7 +659,7 @@ public class RESTAccess {
      */
     public PolicyViolations getHealthRuleViolations(String application, long start, long end){
         try{
-            return RESTExecuter.executePolicyViolations(auth, PolicyViolationQuery.queryHealthRuleViolationsFromApps(baseURL.getControllerURL(), application,start,end));
+            return R.executePolicyViolations(auth, PolicyViolationQuery.queryHealthRuleViolationsFromApps(baseURL.getControllerURL(), application,start,end));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -673,7 +678,7 @@ public class RESTAccess {
      */
     public PolicyViolations getPolicyViolations(String application, long start, long end){
         try{
-            return RESTExecuter.executePolicyViolations(auth, PolicyViolationQuery.queryPolicyViolationsFromApps(baseURL.getControllerURL(), application, start, end));
+            return R.executePolicyViolations(auth, PolicyViolationQuery.queryPolicyViolationsFromApps(baseURL.getControllerURL(), application, start, end));
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -697,7 +702,7 @@ public class RESTAccess {
             bud.append("\nCreating the query::");
             String query=EventsQuery.queryPolicyViolationsSFromApps(baseURL.getControllerURL(), application, eventTypes, severities, start, end);
             bud.append("\nBuiltQuery::").append(query);
-            return RESTExecuter.executeEvents(auth, query);
+            return R.executeEvents(auth, query);
         }catch(Exception e){
             bud.append("\nApplication::").append(application).append("\nEventTypes::").append(eventTypes);
             bud.append("\nSeverities::").append(severities).append("\nStartTime::").append(start);
@@ -1003,7 +1008,7 @@ public class RESTAccess {
         }
         
         try{
-            return RESTExecuter.executeMetricQuery(auth, query);
+            return R.executeMetricQuery(auth, query);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -1311,7 +1316,7 @@ public class RESTAccess {
         }
         
         try{
-            return RESTExecuter.executeMetricQuery(auth, query);
+            return R.executeMetricQuery(auth, query);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -1814,7 +1819,7 @@ public class RESTAccess {
         }
         
         try{
-            return RESTExecuter.executeMetricQuery(auth, query);
+            return R.executeMetricQuery(auth, query);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -1935,7 +1940,7 @@ public class RESTAccess {
         }
         
         try{
-            return RESTExecuter.executeMetricQuery(auth, query);
+            return R.executeMetricQuery(auth, query);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -1990,7 +1995,7 @@ public class RESTAccess {
         }
         
         try{
-            return RESTExecuter.executeMetricQuery(auth, query);
+            return R.executeMetricQuery(auth, query);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }
@@ -2047,7 +2052,7 @@ public class RESTAccess {
         }
         
         try{
-            return RESTExecuter.executeMetricQuery(auth, query);
+            return R.executeMetricQuery(auth, query);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
         }

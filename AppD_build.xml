@@ -8,9 +8,9 @@
 
 
     <property name="RESTAPI.basename"   value="RESTAPI"/>
-    <property name="RESTAPI.version"     value="1.0.12"/>
+    <property name="RESTAPI.version"     value="1.0.13"/>
     <property name="RESTAPI.basename.dev"   value="RESTAPI_dev"/>
-    <property name="RESTAPI.version.dev"     value="1.0.12"/>
+    <property name="RESTAPI.version.dev"     value="1.0.13"/>
     
     
     <path id="compile.classpath">
