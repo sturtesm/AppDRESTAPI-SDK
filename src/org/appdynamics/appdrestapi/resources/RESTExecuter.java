@@ -50,15 +50,17 @@ import java.util.logging.Level;
  * @author soloink
  */
 public class RESTExecuter {
-    private ClientConfig config = null;
-    private Client client=null;
+    private com.sun.jersey.api.client.config.ClientConfig config = null;
+    private com.sun.jersey.api.client.Client client=null;
     private static Logger logger=Logger.getLogger(RESTExecuter.class.getName());
     
     public RESTExecuter(){}
     
-    private void createConnection(RESTAuth auth){
+    private void createConnection(RESTAuth auth) throws Exception{
+        //logger.log(Level.SEVERE,"In create Connection");
         config = new DefaultClientConfig();
         //new code
+        //logger.log(Level.SEVERE,"Creating certs");
         TrustManager[] certs = new TrustManager[]{
           new X509TrustManager(){
               @Override
@@ -75,6 +77,7 @@ public class RESTExecuter {
         };
         
         SSLContext ctx = null;
+        //logger.log(Level.SEVERE,"Setting SSLContext");
         try{
             ctx = SSLContext.getInstance("TLS");
             ctx.init(null, certs, new SecureRandom());
@@ -82,6 +85,7 @@ public class RESTExecuter {
             logger.log(Level.SEVERE,new StringBuilder().append("Exception ocurred while attempting to setup all trusting SSL security. ").toString());
         }
         
+        //logger.log(Level.SEVERE,"Setting url connection!");
         HttpsURLConnection.setDefaultSSLSocketFactory(ctx.getSocketFactory());
         
         try{
@@ -95,11 +99,23 @@ public class RESTExecuter {
             logger.log(Level.SEVERE,new StringBuilder().append("Exception ocurred while attempting to associating our SSL cert to the session.").toString());
         }
         //old code
-        client = Client.create(config);
-        client.addFilter(new HTTPBasicAuthFilter(auth.getUserNameForAuth(),auth.getPasswd()));
+        //logger.log(Level.SEVERE,"Near the end. " + config.getProperties().toString());
+        try{
+            client = Client.create(config);
+            client.addFilter(new HTTPBasicAuthFilter(auth.getUserNameForAuth(),auth.getPasswd()));
+        }catch(Exception e){
+            StringBuilder bud = new StringBuilder();
+            for(StackTraceElement st: e.getStackTrace()){
+                bud.append(st.toString()).append("\n");
+            }
+            throw new Exception(new StringBuilder().append("Exception occurred while attempting to create connection object. Exception: ")
+                    .append(e.getMessage()).append("\nStackTraceElements:\n").append(bud.toString()).toString());
+        }
+        
+        if(client == null) throw new Exception(new StringBuilder().append("Unable to create connection object, creation attempt returned NULL.").toString());
     }
     
-    public  MetricDatas executeMetricQuery(RESTAuth auth, String query){
+    public  MetricDatas executeMetricQuery(RESTAuth auth, String query)throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -148,7 +164,7 @@ public class RESTExecuter {
     }
     
     
-    public String executeApplicationExportByIdQuery(RESTAuth auth, String query){
+    public String executeApplicationExportByIdQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -173,7 +189,7 @@ public class RESTExecuter {
         
     }
     
-    public ExApplication executeApplicationExportObjByIdQuery(RESTAuth auth, String query){
+    public ExApplication executeApplicationExportObjByIdQuery(RESTAuth auth, String query)throws Exception {
         if(client == null) {
             createConnection(auth);
         }
@@ -202,7 +218,7 @@ public class RESTExecuter {
         
     }
     
-    public BusinessTransactions executeBusinessTransactionQuery(RESTAuth auth, String query){
+    public BusinessTransactions executeBusinessTransactionQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -234,7 +250,8 @@ public class RESTExecuter {
         return bts;
     }
     
-    public  Applications executeApplicationQuery(RESTAuth auth, String query){
+    public  Applications executeApplicationQuery(RESTAuth auth, String query) throws Exception{
+        
         if(client == null) {
             createConnection(auth);
         }
@@ -246,20 +263,35 @@ public class RESTExecuter {
         Applications apps=null;
         try{
          
+
             service = client.resource(query);
+
+            
             response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            //System.out.println("About to execute!");
             apps= (Applications) response.getEntity(Applications.class);
-            if(apps == null){
-                logger.log(Level.SEVERE, "Its null!");
-            }
+            
         }catch(Exception e){
+            StringBuilder bud=new StringBuilder();
+            bud.append("Exception getting entity: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage())
+                    .append(".\nResponse code is ").append(response.getStatus());
             logger.log(Level.SEVERE,new StringBuilder().append("Exception getting entity: \nQuery:\n\t")
                     .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+            
+            throw new Exception(bud.toString());
         }
         
+        if(apps == null){
+            StringBuilder bud=new StringBuilder();
+            bud.append("Application object is null: \nQuery:\n\t")
+                    .append(query).append(".\nResponse code is ").append(response.getStatus());
+    
+            
+            throw new Exception(bud.toString());
+        }
         
-        
-        if(s.debugLevel > 1){
+        if(s.debugLevel > 1 ){
             logger.log(Level.INFO,new StringBuilder().append("Number of applications datas returns is ").append(apps.getApplications().size()).toString());
         }
         
@@ -268,7 +300,7 @@ public class RESTExecuter {
         return apps;
     }
     
-    public Tiers executeTierQuery(RESTAuth auth, String query){
+    public Tiers executeTierQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -291,7 +323,7 @@ public class RESTExecuter {
         return tiers;
     }
     
-    public Nodes executeNodeQuery(RESTAuth auth, String query){
+    public Nodes executeNodeQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -321,7 +353,7 @@ public class RESTExecuter {
         return nodes;
     }
     
-    public PolicyViolations executePolicyViolations(RESTAuth auth, String query){
+    public PolicyViolations executePolicyViolations(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -350,7 +382,7 @@ public class RESTExecuter {
         return pvs;
     }
     
-    public Events executeEvents(RESTAuth auth, String query){
+    public Events executeEvents(RESTAuth auth, String query) throws Exception{
         
         if(client == null) {
             createConnection(auth);
@@ -383,7 +415,7 @@ public class RESTExecuter {
     }
     
 
-    public Backends executeBackends(RESTAuth auth, String query){
+    public Backends executeBackends(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -412,7 +444,7 @@ public class RESTExecuter {
         return bcs;
     }
     
-    public Snapshots executeSnapshots(RESTAuth auth, String query){
+    public Snapshots executeSnapshots(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
@@ -441,7 +473,7 @@ public class RESTExecuter {
         return rs;
     }
     
-    public MetricItems executeMetricItems(RESTAuth auth, String query){
+    public MetricItems executeMetricItems(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);
         }
