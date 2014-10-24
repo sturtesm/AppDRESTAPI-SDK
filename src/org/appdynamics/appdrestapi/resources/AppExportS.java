@@ -10,8 +10,11 @@ package org.appdynamics.appdrestapi.resources;
  */
 public class AppExportS {
     
+    
+    
     public static final String VE=" = ";
     public static final String VS=" :: ";
+    public static final String L0="\n";
     public static final String L1="\n\t";
     public static final String L1_1="\n\t   ";
     public static final String L2="\n\t\t";
@@ -318,28 +321,7 @@ public class AppExportS {
 
     
     /*
-     *  <custom-match-point-definitions>
-                <custom-match-point-definition transaction-entry-point-type="POJO">
-                    <name>Cron4J</name>
-                    <custom-business-transaction-name>Cron4J</custom-business-transaction-name>
-                    <background>false</background>
-                    <enabled>false</enabled>
-                    <match-rule>
-                        <pojo-rule>
-                            <enabled>false</enabled>
-                            <priority>0</priority>
-                            <display-name>Cron4J</display-name>
-                            <background>true</background>
-                            <match-class type="inherits-from-class">
-                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
-                            </match-class>
-                            <split-config type="4"/>
-                            <match-method>
-                                <name filter-type="EQUALS" filter-value="execute"/>
-                            </match-method>
-                        </pojo-rule>
-                    </match-rule>
-                </custom-match-point-definition>
+     * Custom Match Rule
      */
     public static final String CUSTOM_MATCH_POINT_DEFINITIONS="custom-match-point-definitions";
     public static final String CUSTOM_MATCH_POINT_DEFINITION="custom-match-point-definition";
@@ -352,5 +334,86 @@ public class AppExportS {
     public static final String MATCH_METHOD="match-method";
     public static final String NAMING_ACTIONS="naming-actions";
    
+    /*
+     *  Object Import Export
+     */
+    public static final String TRANSACTION_DETECTION_ENABLED="transaction-detection-enabled";
+    public static final String AUTO_DISCOVERY_CONFIG="auto-discovery-config";
+    public static final String AUTO_DISCOVERY="auto-discovery";
+    public static final String METRIC_DEFINITION="metric-definition";
+    public static final String LOGICAL_METRIC_NAME="logical-metric-name";
+    public static final String METRIC_EXPRESSION="metric-expression";
+    public static final String IS_LITERAL_EXPRESSION="is-literal-expression";
+    public static final String CONDITION_VALUE_TYPE="condition-value-type";
+    public static final String CONDITION_VALUE="condition-value";
+    public static final String OPERATOR="operator";
+    public static final String CONDITION_EXPRESSION="condition-expression";
+    public static final String USE_ACTIVE_BASELINE="use-active-baseline";
+    public static final String POLICY_CONDITION="policy-condition";
+    public static final String ENTITY_AGGREGATION_SCOPE="entity-aggregation-scope";
+    public static final String CRITICAL_EXECUTION_CRITERIA="critical-execution-criteria";
+    
+    
+    /*
+     * This will help build xml structures
+     */
+    
+    public static final String XO="<";
+    public static final String XC=">";
+    public static final String XCT="/>";
+    public static final String XT="</";
+    public static final String Q_="\"";
+    public static final String VE_="=";
+    
+    public static String XOpen(String xmlType){
+        return new StringBuilder().append(XO).append(xmlType).append(XC).toString();
+    }
+    
+    public static String XOpenAttr(String xmlType){
+        return new StringBuilder().append(XO).append(xmlType).toString();
+    }
+    
+    public static String XClose(String xmlType){
+        return new StringBuilder().append(XT).append(xmlType).append(XC).toString();
+    }
+    
+    public static String XElement(int position, String xmlType, String value){
+        StringBuilder bud = new StringBuilder();
+        switch(position){
+            case 0:
+                    bud.append(L0);
+                    break;
+            case 1: 
+                    bud.append(L1);
+                    break;
+            case 2: 
+                    bud.append(L1_1);
+                    break;
+            case 3: 
+                    bud.append(L2);
+                    break;
+                
+            case 4: 
+                    bud.append(L2_1);
+                    break;
+            case 5: 
+                    bud.append(L3);
+                    break;
+            case 6: 
+                    bud.append(L3_1);
+                    break;
+            default: 
+                    bud.append(L2_1);
+                    break;
+
+        }
+        bud.append(XOpen(xmlType)).append(value).append(XClose(xmlType));
+        
+        return bud.toString();
+    }
+    
+    public static String XAttribute(String name, String value){
+        return new StringBuilder().append(" ").append(name).append(VE_).append(Q_).append(value).append(Q_).toString();
+    }
             
 }

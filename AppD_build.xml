@@ -8,9 +8,9 @@
 
 
     <property name="RESTAPI.basename"   value="RESTAPI"/>
-    <property name="RESTAPI.version"     value="1.0.13"/>
+    <property name="RESTAPI.version"     value="1.0.14"/>
     <property name="RESTAPI.basename.dev"   value="RESTAPI_dev"/>
-    <property name="RESTAPI.version.dev"     value="1.0.13"/>
+    <property name="RESTAPI.version.dev"     value="1.0.14"/>
     
     
     <path id="compile.classpath">
@@ -80,7 +80,7 @@
             <include name="org/appdynamics/appdrestapi/data/*.class"/>
             <include name="org/appdynamics/appdrestapi/resources/*.class"/>
             <include name="org/appdynamics/appdrestapi/util/*.class"/>
-            <include name="org/appdynamics/appdrestapi/export/*.class"/>
+            <include name="org/appdynamics/appdrestapi/exportdata/*.class"/>
           </fileset>
       </jar>
   

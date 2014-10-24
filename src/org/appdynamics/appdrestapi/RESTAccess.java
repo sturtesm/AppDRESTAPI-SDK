@@ -5,9 +5,10 @@
 package org.appdynamics.appdrestapi;
 
 
+import org.appdynamics.appdrestapi.data.AutoDiscoveryConfig;
 import org.appdynamics.appdrestapi.queries.*;
 import org.appdynamics.appdrestapi.data.*;
-import org.appdynamics.appdrestapi.exportdata.ExApplication;
+import org.appdynamics.appdrestapi.exportdata.*;
 import org.appdynamics.appdrestapi.resources.*;
 
 
@@ -37,8 +38,10 @@ public class RESTAccess {
     
     
     /**
+     * <p>
      * Returns a RESTAccess object that can be used to query the AppDynamics 
      * controller.
+     * </p>
      * 
      * @param controllerURL FQDN of the controller
      * @param port Port the controller is using
@@ -52,8 +55,10 @@ public class RESTAccess {
     }
     
     /**
+     * <p>
      * Returns a RESTAccess object that can be used to query the AppDynamics 
      * controller.
+     * </p>
      * 
      * @param controllerURL FQDN of the controller
      * @param port Port the controller is using
@@ -68,8 +73,10 @@ public class RESTAccess {
     }
     
     /**
+     * <p>
      * Returns a RESTAccess object that can be used to query the AppDynamics 
      * controller.
+     * </p>.
      * 
      * @param controllerURL FQDN of the controller
      * @param port Port the controller is using
@@ -84,8 +91,10 @@ public class RESTAccess {
     }
     
     /**
+     * <p>
      * Returns a RESTAccess object that can be used to query the AppDynamics 
      * controller.
+     * </p>
      * 
      * @param controllerURL FQDN of the controller
      * @param port Port the controller is using
@@ -106,7 +115,8 @@ public class RESTAccess {
      * Turns debug level on, this will produce a lot of logging output and 
      * should only be run when troubleshooting an issue.
      * </p>
-     * @param level Debug level 0-4, 0 being minimal logging
+     * 
+     * @param level Debug level 0-4, 0 being the default minimal logging
      */
     public void setDebugLevel(int level){
         if(level >= 0 || level < 4) s.debugLevel=level;
@@ -116,6 +126,7 @@ public class RESTAccess {
      * <p>
      * Returns the list of application in the controller for the account provided in the authentication.
      * </p>
+     * 
      * @return {@link Applications}
      */
     public Applications getApplications(){
@@ -133,6 +144,7 @@ public class RESTAccess {
      * This will return a string of the AppDynamics application export based on the
      * application id given.
      * </p>
+     * 
      * @param appId Id of the application 
      * @return String
      */
@@ -150,6 +162,8 @@ public class RESTAccess {
      * This will return a Java object of the AppDynamics application export based on the
      * application id given. This can then be used to extract or check on configuration.
      * </p>
+     * 
+     * 
      * @param appId Id of the application 
      * @return {@link ExApplication}
      */
@@ -165,8 +179,43 @@ public class RESTAccess {
 
     /**
      * <p>
-     * This will return the list of the metric path bases, for example 'Business Transaction Performance" 
-     * </p>
+     * This will return the list of the metric path bases for example:
+     * <p>
+     *  <ul>
+        <li>metric-items</li>
+     *  <ul>   <li>metric-item</li>
+		   <ul><li>name = Business Transaction Performance</li>
+		   <li>type = folder</li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Mobile</li>
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Overall Application Performance</li>
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Service End Points</li>
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = End User Experience</li>
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Backends
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Information Points</li>
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Errors</li>
+		   <li>type = folder<li></ul></ul>
+	<ul>   <li>metric-item</li>
+		   <ul><li>name = Application Infrastructure Performance</li>
+		   <li>type = folder<li></ul></ul>
+        </ul>
+     *
+     *  <p>
+     *      These paths can the be used to traverse custom metrics paths.
+     *  </p>
+     * 
      * @param application Name of the application
      * @return {@link MetricItems}
      */
@@ -184,6 +233,26 @@ public class RESTAccess {
      * This will allow the user to provide the metric path they wish to walk. 
      * The metricPaths parameter is the metric path and needs to be separated by the character '|'.
      * </p>
+     *  <ul><li>metric-items</li>
+	<ul>   <li>metric-item</li>
+	<ul>	   <li>name = Business Transactions</li>
+		   <li>type = folder</li></ul></ul>
+	<ul>   metric-item</li>
+	<ul>	   <li>name = Business Transaction Groups</li>
+		   <li>type = folder</li></ul></ul>
+        </ul>     * 
+      
+        <p>
+        As long as the metric-item type is "folder" you can add it to the path
+        of the metric path separated by '|'. Once you reach the type "leaf" you can 
+        request the metric using {@link #getBaseMetricListPath(String, String) getBaseMetricListPath}
+        </p>
+	<ul><li>metric-item</li>
+	<ul>	<li>name = Average CPU Used (ms)</li>
+		<li>type = leaf</li></ul></ul>
+
+     * 
+     * 
      * @param application Name of the application
      * @param metricPath Metric path to the metric list requested
      * @return {@link MetricItems}
@@ -199,8 +268,10 @@ public class RESTAccess {
     
     /**
      * <p>
-     * This is going to execute a generic query based on the application and full metric path given.
+     * This is going to execute a generic query based on the application and full metric path given.<br>
+     * This will allow a user to get metrics from custom extensions.
      * </p>
+     * 
      * @param application Name of the application
      * @param metricPath String that determine which metric to request
      * @param start Timestamp of the start time
@@ -424,6 +495,7 @@ public class RESTAccess {
      * <p>
      * Returns the tiers for an application name given.
      * </p>
+     * 
      * @param application Name of the application
      * @return {@link Tiers}
      */
@@ -2026,8 +2098,9 @@ public class RESTAccess {
      */
     public MetricDatas getRESTBackendMetricQuery(int queryIndex, String application, String backend, long start, long end, boolean rollup){
         String query=null;
-        if(s.debugLevel >= 2){logger.log(Level.WARNING,new StringBuilder().append("\nQueryIndex ")
-                    .append(queryIndex).append(" application ").append(application).append(" tier ").append(backend).toString());}
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQueryIndex ")
+                    .append(queryIndex).append(" application ").append(application).append(" backend ").append(backend).toString());}
+        
         MetricQuery mq = new MetricQuery( baseURL.getControllerURL(),application);
         switch(queryIndex){
             case 0:
@@ -2047,7 +2120,7 @@ public class RESTAccess {
         if(query==null){ 
             logger.log(Level.WARNING,new StringBuilder()
                     .append("\nQueryIndex sent ").append(queryIndex).append(" application ")
-                    .append(application).append(" tier ").append(backend).toString());
+                    .append(application).append(" backend ").append(backend).toString());
             return null;
         }
         
@@ -2059,4 +2132,692 @@ public class RESTAccess {
         return null;
         
     }
+    
+    /**
+     * <p>
+     * Returns transaction detection auto discovery rules for the application.
+     * </p>
+     * @param queryIndex Index of the type of query to run
+     * @param app Name of the application which holds the metric
+     * @return {@link AutoDiscoveryConfig}
+     * 
+     * <p>
+     * <br/>Index  0 : queryTransactionDetectionAutoAll
+     * </p>
+     */
+    public AutoDiscoveryConfig getRESTExportOfAutoObj( String app){
+        String query=null;
+        if(s.debugLevel >= 2) logger.log(Level.INFO,new StringBuilder().append("\nQuery for application ").append(app).toString());
+        
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        
+        try{
+            return R.executeExportAuto(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     * Returns transaction detection auto discovery rules for the application.
+     * </p>
+     * 
+     * 
+     * @param app Name of the application which holds the metric
+     * @return String.class
+     * 
+     * <p>
+     * <br/>Index  0 : queryTransactionDetectionAutoAll
+     * </p>
+     */
+    public String getRESTExportOfAuto(String app){
+        String query=null;
+        if(s.debugLevel >= 2) logger.log(Level.INFO,new StringBuilder().append("\nQuery for application ").append(app).toString());
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportAuto(auth, query).toXML();
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * <p>
+     * Returns transaction detection auto discovery rules for the application.
+     * </p>
+     * @param queryIndex Index of the type of query to run
+     * @param app Name of the application which holds the rules
+     * @param objNode Depending on the query this can be the tier name for all rules or the name of the single rule to export
+     * @return {@link AutoDiscoveryConfig}
+     * 
+     * <p>
+     * <br/>Index  0 : queryTransactionDetectionAutoAll
+     * <br/>Index  1 : queryTransactionDetectionAutoSingle 
+     * </p>
+     */
+    public AutoDiscoveryConfig getRESTExportOfAutoObj(int queryIndex, String app, String objNode){
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQueryIndex ")
+                    .append(queryIndex).append(" for application ").append(app).append(" automatic rule ").append(objNode).toString());}
+        
+        switch(queryIndex){
+            
+            case 0: // All auto on a tier
+                query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app, objNode); //tested
+                break;
+            
+            case 1: // Auto for single 
+                query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, objNode); //tested
+                break;
+
+            default:
+                break;
+        }
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(queryIndex).append(" application ")
+                    .append(app).append(" automatic rule ").append(objNode).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportAuto(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     * Returns transaction detection auto discovery rules for the application.
+     * </p>
+     * @param queryIndex Index of the type of query to run
+     * @param app Name of the application which holds the rules
+     * @param objNode Depending on the query this can be the tier name for all rules or the name of the single rule to export
+     * @return String.class
+     * 
+     * <p>
+     * <br/>Index  0 : queryTransactionDetectionAutoAll
+     * <br/>Index  1 : queryTransactionDetectionAutoSingle 
+     * </p>
+     */
+    public String getRESTExportOfAuto(int queryIndex, String app, String objNode){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQueryIndex ")
+                    .append(queryIndex).append(" for application ").append(app).append(" automatic rule ").append(objNode).toString());}
+        
+        switch(queryIndex){
+            
+            case 0: // All auto on a tier
+                query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app, objNode); //tested
+                break;
+            
+            case 1: // Auto for single 
+                query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, objNode); //tested
+                break;
+
+            default:
+                break;
+        }
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(queryIndex).append(" application ")
+                    .append(app).append(" automatic ").append(objNode).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportAuto(auth, query).toXML();
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     * Returns transaction detection auto discovery rules for the application.
+     * </p>
+     * 
+     * 
+     * @param app Name of the application which holds the rules
+     * @param tier Name of the tier which holds the rules
+     * @param objNode Depending on the query this can be the tier name for all rules or the name of the single rule to export
+     * @return {@link AutoDiscoveryConfig}
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionAutoSingle 
+     * </p>
+     */
+    public AutoDiscoveryConfig getRESTExportOfAutoObj(String app, String tier, String objNode){
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQueryIndex ")
+                    .append(" for application ").append(app).append(" automatic rule ").append(objNode).toString());}
+        
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).append(" objNode ").append(objNode).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportAuto(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+     /**
+     * <p>
+     * Returns transaction detection auto discovery rules for the application.
+     * </p>
+     * 
+     * @param app Name of the application which holds the rules
+     * @param tier Name of the tier which holds the rules
+     * @param objNode Depending on the query this can be the tier name for all rules or the name of the single rule to export
+     * @return {@link AutoDiscoveryConfig}
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionAutoSingle 
+     * </p>
+     */
+    public String getRESTExportOfAuto(String app, String tier, String objNode){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQuery for application ").append(app)
+                .append(" automatic rule ").append(objNode).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).append(" objNode ").append(objNode).toString());
+            return null;
+        }
+        
+        
+        
+        try{
+            return R.executeExportAuto(auth, query).toXML();
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * <p>
+     *  This will import a single auto discovery rule into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param entityName Name of the auto discovery rule
+     * @param xml Xml string of the auto discovery rule
+     * @return String.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionAutoAll
+     * </p>
+     */
+    public String postRESTAutoSingle(String app, String entityName, String xml){
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nPOST for application ")
+                .append(app).append(" automatic rule ").append(entityName).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        
+        try{
+            return R.executeAutoPostQuery(auth, query,entityName,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will import a single auto discovery rule into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @param entityName Name of the auto discovery rule
+     * @param xml Xml string of the auto discovery rule
+     * @return String.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionAutoAll
+     * </p>
+     */
+    public String postRESTAutoSingle(String app, String tier, String entityName, String xml){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nPOST for application ")
+                .append(app).append(" for tier ").append(tier).append(" automatic rule ").append(entityName).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+
+        
+        
+        try{
+            return R.executeAutoPostQuery(auth, query,entityName,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        
+        return null;
+    }
+    
+
+    /**
+     * <p>
+     *  This will export all custom pojo into the application.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @return String.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionExportAllPojo
+     * </p>
+     */
+    public String getRESTCustomPojoExportAll(String app){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo Export query for application ").append(app).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionExportAllPojo(baseURL.getControllerURL(), app); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        try{
+            return R.executeTDQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will export all custom pojo into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @return String.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionExportAllPojo
+     * </p>
+     */
+    public String getRESTCustomPojoExportAll(String app, String tier){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo Export query for application ").append(app).append(" tier ").append(tier).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionExportAllPojo(baseURL.getControllerURL(), app, tier); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeTDQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will export a single custom pojo into the application.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param objNode The name of the custom pojo
+     * @return String.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionExportPojo
+     * </p>
+     */
+    public String getRESTCustomPojoExport(String app, String objNode){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo Export query for application ").append(app).append(" for custom pojo ").append(objNode).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionExportPojo(baseURL.getControllerURL(), app, objNode); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).append(" objNode ").append(objNode).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeTDQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will export a single custom pojo into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @param objNode The name of the custom pojo
+     * @return String.class
+     * 
+     * <p>
+     * <br/>Index  0 : queryTransactionDetectionExportPojo
+     * </p>
+     */
+    public String getRESTCustomPojoExport(String app, String tier, String objNode){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo Export query for application ").append(app)
+                .append(" tier ").append(tier).append(" for custom pojo ").append(objNode).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionExportPojo(baseURL.getControllerURL(), app, tier, objNode); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).append(" objNode ").append(objNode).toString());
+            return null;
+        }
+
+        
+        try{
+            return R.executeTDQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will import a custom pojo into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param objNode The name of the custom pojo
+     * @param xml Xml string for the custom pojo
+     * @return String.class
+     * 
+     * <p>
+     * <br/> queryTransactionDetectionImportPojo
+     * </p>
+     */
+    public String postRESTCustomPojo(String app, String objNode, String xml){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo POST for application ").append(app).append(" for custom pojo ").append(objNode).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionImportPojo(baseURL.getControllerURL(), app, objNode); //tested
+        
+        
+        try{
+            //return R.executeTDPostQuery(auth, query, objNode,xml);
+            return R.executeAutoPostQuery(auth, query,objNode,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will import a custom pojo into the application and tier given.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @param objNode The name of the custom pojo
+     * @param xml Xml string for the custom pojo
+     * @return String.class
+     * 
+     * <p> queryTransactionDetectionImportPojo</p>
+     */
+    public String postRESTCustomPojo(String app, String tier, String objNode, String xml){
+        
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo POST for application ").append(app)
+                .append(" tier ").append(tier).append(" for custom pojo ").append(objNode).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionImportPojo(baseURL.getControllerURL(), app,tier, objNode); //tested
+        
+        
+        try{
+            //return R.executeTDPostQuery(auth, query, objNode,xml);
+            return R.executeAutoPostQuery(auth, query,objNode,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will export all health rules for the application name,
+     * <br/> this functionality is only in the controller version 3.9.x and above. 
+     * </p>
+     * 
+     * @param app
+     * @return String.class
+     * 
+     */
+    public String getRESTHealthRuleExportAll(String app){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nQuery to get health rules for application ").append(app).toString());}
+
+        query=HealthRuleQuery.queryHealthRulesExportAll(baseURL.getControllerURL(), app); //tested
+
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nHealthRule query for ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportHealthRule(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * <p>
+     *  This will export a single health rule for the application name and rule
+     * <br/> name given, this functionality is only 
+     * <br/> in the controller version 3.9.x and above. 
+     * </p>
+     * 
+     * @param app Application name
+     * @param name Health rule name
+     * @return String.class
+     */
+    public String getRESTHealthRuleExportSingle(String app, String name){
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nQuery to get health rule for application ").append(app)
+                .append(" for rule ").append(name).toString());}
+
+        query=HealthRuleQuery.queryHealthRulesExportSingle(baseURL.getControllerURL(), app, name); 
+
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nHealthRule query for ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportHealthRule(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will import a single health rule for the application name and rule
+     * <br/> name given, this functionality is only 
+     * <br/> in the controller version 3.9.x and above. 
+     * </p>
+     * 
+     * @param app Application name
+     * @param entityName Health rule name
+     * @param xml Xml String for the health rule entry
+     * @return String.class
+     */
+    public String postRESTHealthRule(String app, String entityName, String xml){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nHealth rule POST for application ").append(app)
+                .append(" for rule ").append(entityName).toString());}
+        
+
+        query=HealthRuleQuery.queryHealthRulesImportSingle(baseURL.getControllerURL(), app, entityName); //tested
+
+        
+        try{
+            return R.executeAutoPostQuery(auth, query,entityName,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
 }

@@ -21,6 +21,7 @@ public class s {
     public static final String HTTPS="https://";
     public static final String HTTP="http://";
     public static final String CONTROLLER_APPS="/controller/rest/applications/";
+    public static final String CONTROLLER_BT_URL="/controller/transactiondetection/";
     public static final String CONTROLLER_OBJ="/controller/";
     public static final String COLON=":";
     public static final String P="|";
@@ -38,6 +39,14 @@ public class s {
     public static final String URL_BACKENDS="/backends";
     public static final String URL_BACKENDS1="Backends|";
     public static final String URL_METRIC_LIST="/metrics";
+    public static final String URL_OVERWRITE="?overwrite=true";
+    public static final String URL_BT_AUTO="/auto";
+    public static final String URL_EXCLUDE="/exclude/";
+    public static final String URL_SERVLET_U="Servlet";
+    public static final String URL_SERVLET_L="servlet";
+    public static final String URL_POJO_CUSTOM="/pojo/custom/";
+    public static final String URL_HEALTHRULES="healthrules/";
+    public static final String URL_NAME="?name=";
     // App Agent Path
     // BDR Big Deal Retail/metric-data?metric-path=Application Infrastructure Performance|1stTier|Agent|App|Availability&time-range-type=BEFORE_NOW&duration-in-mins=15
     // {Application_Name}/metric-data?metric-path=Application Infrastructure Performance|{tier}|Agent|App|Availability&time-rante-type={type}&duration-in-mins={time}
@@ -315,6 +324,8 @@ public class s {
     public static final String[] LONG_METRIC_TYPES={"Business Transation","Backend","Agent","Hardware","JVM","Overall Application Performance","End User Management","Custom Metric"};
     
     
+    
+   
     
     /* * SNAPSHOTS * 
       

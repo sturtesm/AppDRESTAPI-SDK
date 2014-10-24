@@ -4,11 +4,15 @@
  */
 package org.appdynamics.appdrestapi.resources;
 
+import org.appdynamics.appdrestapi.data.AutoDiscoveryConfig;
 import org.appdynamics.appdrestapi.data.*;
-import org.appdynamics.appdrestapi.exportdata.ExApplication;
+import org.appdynamics.appdrestapi.exportdata.*;
+
 import org.appdynamics.appdrestapi.queries.ApplicationQuery;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.FormDataBodyPart;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -61,6 +65,9 @@ public class RESTExecuter {
         config = new DefaultClientConfig();
         //new code
         //logger.log(Level.SEVERE,"Creating certs");
+        
+        if(s.debugLevel > 3)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
+        
         TrustManager[] certs = new TrustManager[]{
           new X509TrustManager(){
               @Override
@@ -120,7 +127,8 @@ public class RESTExecuter {
             createConnection(auth);
         }
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         MetricDatas md = null;
@@ -168,9 +176,9 @@ public class RESTExecuter {
         if(client == null) {
             createConnection(auth);
         }
-
         
-        if(s.debugLevel > 2)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
         WebResource service = null;
         ClientResponse response = null;
         String value=null;
@@ -194,8 +202,9 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
-        if(s.debugLevel > 2)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
+        
         WebResource service = null;
         ClientResponse response = null;
         String apps=null;
@@ -223,8 +232,9 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
-        if(s.debugLevel > 2)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
+        
         WebResource service = null;
         ClientResponse response = null;
         BusinessTransactions bts=null;
@@ -256,8 +266,8 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
-        if(s.debugLevel > 2)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
         WebResource service = null;
         ClientResponse response = null;
         Applications apps=null;
@@ -305,8 +315,9 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         Tiers tiers= null;
@@ -328,8 +339,9 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         Nodes nodes=null;
@@ -358,8 +370,9 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         PolicyViolations pvs=null;
@@ -389,7 +402,7 @@ public class RESTExecuter {
         }
 
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("\nexecuteEvents Query:\n").append(query).toString());
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
         
         WebResource service = client.resource(query);
         
@@ -421,7 +434,9 @@ public class RESTExecuter {
         }
 
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         Backends bcs=null;
@@ -450,7 +465,9 @@ public class RESTExecuter {
         }
 
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         Snapshots rs=null;
@@ -479,7 +496,9 @@ public class RESTExecuter {
         }
 
         
-        if(s.debugLevel > 1 ) logger.log(Level.INFO,new StringBuilder().append("Query:\n").append(query).toString());
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
         WebResource service = client.resource(query);
         ClientResponse response = null;
         MetricItems mi=null;
@@ -503,5 +522,137 @@ public class RESTExecuter {
     }
     
 
+    // Working on this one
+    public AutoDiscoveryConfig executeExportAuto(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).append("\n\n").toString());
+        
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        AutoDiscoveryConfig value=null;
+        String export=null;
+        try{
+         
+            service = client.resource(query);
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            export= (String) response.getEntity(String.class);
+            
+            JAXBContext context = JAXBContext.newInstance(AutoDiscoveryConfig.class);
+            Unmarshaller un = context.createUnmarshaller();
+            InputStream inStream = new ByteArrayInputStream(export.getBytes());
+            value = (AutoDiscoveryConfig) un.unmarshal(inStream);
+            
+            
+        }catch(Exception e){
+            StringBuilder bud = new StringBuilder();
+            bud.append("\n   Exception getting Transaction Detection Auto export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus());
+            
+            throw new Exception(bud.toString());
+        }
+        
+        return value;
+    }
+    
+    // Working on this one later
+    public String executeAutoPostQuery(RESTAuth auth, String query, String entityName, String xml) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        String value=null;
+        
+        try{
+            
+            service = client.resource(query);
+            
+            FormDataMultiPart form=new FormDataMultiPart();
+            form.bodyPart(new FormDataBodyPart("name",new StringBuilder().append(entityName).append(".xml").toString()));
+            form.bodyPart(new FormDataBodyPart("filename", xml, MediaType.WILDCARD_TYPE));
+            
+            response = service.type(MediaType.MULTIPART_FORM_DATA_TYPE).post(ClientResponse.class,form);
+            
+            
+            if(response.getStatus() >= 500) 
+                logger.log(Level.SEVERE,new StringBuilder().append("Caught HTTP error number ").append(response.getStatus())
+                            .append(".\nUnable to get a proper response for query:\n").append(query).toString());
+            
+            value=new StringBuilder().append("Response was ").append(response.getStatus()).append(".").toString();
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        
+        return value;
+    }
+    
+    public String executeTDQuery(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        String value=null;
+        try{
+         
+            service = client.resource(query);
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            value= (String) response.getEntity(String.class);
+            
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting Transaction Detection export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        
+        return value;
+    }
+    
+
+    
+    public String executeExportHealthRule(RESTAuth auth, String query) throws Exception{
+        
+        if(client == null) {
+            createConnection(auth);
+        }
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        String value=null;
+        try{
+  
+            service = client.resource(query);
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            value= (String) response.getEntity(String.class);
+            
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        return value;
+        
+    }
+    
+    
     
 }
