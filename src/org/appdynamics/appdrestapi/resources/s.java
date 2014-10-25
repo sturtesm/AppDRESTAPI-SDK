@@ -323,6 +323,17 @@ public class s {
     public static final String[] SHORT_METRIC_TYPES={"BT","BE","Agent","HW","JVM","OAP","EUM","CUSTOM", "AJAX Requests", "Base Pages", "Iframes"};
     public static final String[] LONG_METRIC_TYPES={"Business Transation","Backend","Agent","Hardware","JVM","Overall Application Performance","End User Management","Custom Metric"};
     
+    //events?eventtype=CUSTOM&customeventtype=nagios&summary=test1&propertynames=key1&propertynames=key2&propertyvalues=value1&propertyvalues=value2
+    public static final String EVENT_TYPE_CUSTOM="?eventtype=CUSTOM";
+    public static final String CUSTOM_EVENT_TYPE="&customeventtype=";
+    public static final String EVENT_SUMMARY="&summary=";
+    public static final String PROPERTY_NAMES="&propertynames=";
+    public static final String PROPERTY_VALUES="&propertyvalues=";
+    public static final String EVENT_TIER="&tier=";
+    public static final String EVENT_NODE="&node=";
+    public static final String EVENT_BT="&bt=";
+    public static final String COMMENT="&comment=";
+    
     
     
    
