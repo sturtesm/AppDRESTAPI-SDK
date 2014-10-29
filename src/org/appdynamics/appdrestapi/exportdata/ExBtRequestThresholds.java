@@ -40,16 +40,25 @@ import javax.xml.bind.annotation.XmlSeeAlso;
                     <absolute-time-in-secs>45</absolute-time-in-secs>
                     <bt-sla-violation-multiplier>0</bt-sla-violation-multiplier>
                 </stall-configuration>
+                <percentile-config>
+                    <enabled>true</enabled>
+                    <percentile-values>
+                        <percentile-value>
+                            <value>95.0</value>
+                        </percentile-value>
+                    </percentile-values>
+                </percentile-config>
             </bt-request-thresholds>
  * 
  */
-@XmlSeeAlso({ExSlowThreshold.class,ExStallConfiguration.class})
+@XmlSeeAlso({ExSlowThreshold.class,ExStallConfiguration.class,ExPercentiles.class})
 public class ExBtRequestThresholds {
    private ExSlowThreshold startingNodeSlowThreshold;
    private ExSlowThreshold continuingSegmentSlowThreshold;
    private ExSlowThreshold exitCallSlowThreshold;
    private ExSlowThreshold extremelySlowThreshold;
    private ExStallConfiguration stallConfiguration;
+   private ExPercentiles percentiles;
    
    public ExBtRequestThresholds(){}
 
@@ -97,22 +106,32 @@ public class ExBtRequestThresholds {
     public void setExtremelySlowThreshold(ExSlowThreshold extremelySlowThreshold) {
         this.extremelySlowThreshold = extremelySlowThreshold;
     }
+    
+    @XmlElement(name=AppExportS.PERCENTILE_CONFIG)
+    public ExPercentiles getPercentiles() {
+        return percentiles;
+    }
+
+    public void setPercentiles(ExPercentiles percentiles) {
+        this.percentiles = percentiles;
+    }
    
    
    
    @Override
    public String toString(){
        StringBuilder bud = new StringBuilder();
-       bud.append(AppExportS.L2_1).append(AppExportS.BT_REQUEST_THRESHOLDS);
-       bud.append(AppExportS.L3).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
+       bud.append(AppExportS.L2).append(AppExportS.BT_REQUEST_THRESHOLDS);
+       bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
        bud.append(startingNodeSlowThreshold.toString());
-       bud.append(AppExportS.L3).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
+       bud.append(AppExportS.L2_1).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
        bud.append(continuingSegmentSlowThreshold.toString());
-       bud.append(AppExportS.L3).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
+       bud.append(AppExportS.L2_1).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
        bud.append(exitCallSlowThreshold.toString());
-       bud.append(AppExportS.L3).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
+       bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
        bud.append(extremelySlowThreshold.toString());
        bud.append(stallConfiguration.toString());
+       bud.append(percentiles);
        return bud.toString();
    }
    

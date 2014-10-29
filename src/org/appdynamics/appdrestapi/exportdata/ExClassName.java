@@ -44,9 +44,9 @@ public class ExClassName {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.CLASS_NAME);
-        bud.append(AppExportS.L5).append(AppExportS.FILTER_TYPE).append(AppExportS.VE).append(filterType);
-        bud.append(AppExportS.L5).append(AppExportS.FILTER_VALUE).append(AppExportS.VE).append(filterValue);
+        bud.append(AppExportS.L3).append(AppExportS.CLASS_NAME);
+        bud.append(AppExportS.L3_1).append(AppExportS.FILTER_TYPE).append(AppExportS.VE).append(filterType);
+        bud.append(AppExportS.L3_1).append(AppExportS.FILTER_VALUE).append(AppExportS.VE).append(filterValue);
         return bud.toString();
     }
 }

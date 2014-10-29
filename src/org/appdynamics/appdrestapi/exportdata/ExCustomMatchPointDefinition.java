@@ -113,12 +113,12 @@ public class ExCustomMatchPointDefinition {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);
-        bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L3).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
-        bud.append(AppExportS.L3).append(AppExportS.CUSTOM_BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(customBusinessTransactionName);
-        bud.append(AppExportS.L3).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
-        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L1_1).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);
+        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L2).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(customBusinessTransactionName);
+        bud.append(AppExportS.L2).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
+        bud.append(AppExportS.L2).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         bud.append(matchRule);
         return bud.toString();
     }

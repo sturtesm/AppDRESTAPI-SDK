@@ -48,9 +48,9 @@ public class ExMatchClass {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L5).append(AppExportS.NAME);
-        bud.append(AppExportS.L6).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        bud.append(matchClassName.toString());
+        bud.append(AppExportS.L3_1).append(AppExportS.NAME);
+        bud.append(AppExportS.L4).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(matchClassName);
         return bud.toString();
     }
 }

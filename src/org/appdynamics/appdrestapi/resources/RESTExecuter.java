@@ -653,6 +653,38 @@ public class RESTExecuter {
         
     }
     
+    public String executeEventPostQuery(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        String value=null;
+        
+        try{
+            
+            service = client.resource(query);
+            response = service.type(MediaType.APPLICATION_XML).post(ClientResponse.class);
+   
+            if(response.getStatus() >= 400) 
+                logger.log(Level.SEVERE,new StringBuilder().append("Caught HTTP error number ").append(response.getStatus())
+                            .append(".\nUnable to get a proper response for query:\n").append(query).toString());
+            
+            value=new StringBuilder().append("Response was ").append(response.getStatus()).append(".").toString();
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        
+        return value;
+    }
+    
     
     
 }

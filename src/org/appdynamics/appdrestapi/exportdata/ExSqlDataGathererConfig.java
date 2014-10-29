@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExSqlDataGathererConfig {
     private boolean attachToNewBTS;
     private String matchPattern;
+    private String matchType;
     private boolean inverse;
     private String name;
     
@@ -64,6 +65,16 @@ public class ExSqlDataGathererConfig {
     public void setName(String name) {
         this.name = name;
     }
+
+    @XmlElement(name=AppExportS.MATCH_TYPE)
+    public String getMatchType() {
+        return matchType;
+    }
+
+    public void setMatchType(String matchType) {
+        this.matchType = matchType;
+    }
+    
     
     @Override
     public String toString(){
@@ -71,7 +82,9 @@ public class ExSqlDataGathererConfig {
         bud.append(AppExportS.L1_1).append(AppExportS.SQL_DATA_GATHERER_CONFIG);
         bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         bud.append(AppExportS.L2).append(AppExportS.ATTACH_TO_NEW_BTS).append(AppExportS.VE).append(attachToNewBTS);
+        bud.append(AppExportS.L2).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
         bud.append(AppExportS.L2).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
+        bud.append(AppExportS.L2).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
         
         return bud.toString();
     }

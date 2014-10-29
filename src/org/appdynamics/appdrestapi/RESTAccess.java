@@ -10,6 +10,7 @@ import org.appdynamics.appdrestapi.queries.*;
 import org.appdynamics.appdrestapi.data.*;
 import org.appdynamics.appdrestapi.exportdata.*;
 import org.appdynamics.appdrestapi.resources.*;
+import org.appdynamics.appdrestapi.util.PostEvent;
 
 
 import java.util.logging.Logger;
@@ -2814,6 +2815,35 @@ public class RESTAccess {
             return R.executeAutoPostQuery(auth, query,entityName,xml);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     * This method will allow a user to post an event to the controller, the PostEvent
+     * has its own set of requirements. {@link PostEvent}
+     * </p>
+     * @param app Name of the application to post the event too
+     * @param postEvent PostEvent object that contains the information for the event.
+     * @return String.class
+     */
+    public String postRESTCustomEvent(String app, PostEvent postEvent){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nEvent POST for application ").append(app).append(" for custom event ").toString());}
+
+        try{
+            query=EventsQuery.queryPostEvent(baseURL.getControllerURL(), app, postEvent);
+            
+            //return R.executeTDPostQuery(auth, query, objNode,xml);
+            return R.executeEventPostQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
         }
         
         return null;

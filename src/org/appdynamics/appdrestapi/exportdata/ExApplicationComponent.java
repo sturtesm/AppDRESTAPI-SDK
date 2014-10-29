@@ -17,12 +17,12 @@ import java.util.ArrayList;
  * 
  * 
         <application-component>
-            <name>ApidLocker</name>
+            <name>2ndTier</name>
             <description/>
             <component-type>Application Server</component-type>
             <dynamic-scaling-enabled>false</dynamic-scaling-enabled>
             <entry-match-point-configurations/>
-            <BusinessTransactions/>
+            <business-transactions/>
             <memory-configuration>
                 <size-polling-interval>10</size-polling-interval>
                 <enable-cache-framework-size-monitoring>true</enable-cache-framework-size-monitoring>
@@ -36,10 +36,17 @@ import java.util.ArrayList;
             <custom-cache-configurations/>
             <backend-match-point-configurations/>
             <agent-configurations/>
+            <application-component-nodes>
+                <application-component-node>
+                    <name>2ndTierNode1</name>
+                    <node-unique-local-id>2ndTierNode1</node-unique-local-id>
+                    <node-type>Other</node-type>
+                </application-component-node>
+            </application-component-nodes>
         </application-component>
  * 
  */
-@XmlSeeAlso({ExBackendMatchPointConfigurations.class,ExMemoryConfiguration.class,ExCacheConfiguration.class,ExBusinessTransactions.class,ExBusinessTransactions.class,ExSla.class,
+@XmlSeeAlso({ExEntryMatchPointConfigurations.class,ExBackendMatchPointConfigurations.class,ExMemoryConfiguration.class,ExCacheConfiguration.class,ExBusinessTransactions.class,ExBusinessTransactions.class,ExSla.class,
     ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExBusinessTransactionConfig.class})
 
 public class ExApplicationComponent {
@@ -47,7 +54,7 @@ public class ExApplicationComponent {
     private String description;
     private String componentType;
     private String dynamicScalingEnabled;
-    private Object entryMatchPointConfigurations;
+    private ExEntryMatchPointConfigurations entryMatchPointConfigurations;
     private ExBusinessTransactions businessTransactions;
     private ExMemoryConfiguration memoryConfiguration;
     private Object instanceTrackerConfiguration;
@@ -96,11 +103,11 @@ public class ExApplicationComponent {
     }
 
     @XmlElement(name=AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS)
-    public Object getEntryMatchPointConfigurations() {
+    public ExEntryMatchPointConfigurations getEntryMatchPointConfigurations() {
         return entryMatchPointConfigurations;
     }
 
-    public void setEntryMatchPointConfigurations(Object entryMatchPointConfigurations) {
+    public void setEntryMatchPointConfigurations(ExEntryMatchPointConfigurations entryMatchPointConfigurations) {
         this.entryMatchPointConfigurations = entryMatchPointConfigurations;
     }
 
@@ -172,18 +179,22 @@ public class ExApplicationComponent {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.APPLICATION_COMPONENT);
-        bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L3).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
-        bud.append(AppExportS.L3).append(AppExportS.COMPONENT_TYPE).append(AppExportS.VE).append(componentType);
-        bud.append(AppExportS.L3).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS).append(AppExportS.VE).append(entryMatchPointConfigurations);
-        bud.append(businessTransactions.toString());
-        bud.append(memoryConfiguration.toString());
-        bud.append(AppExportS.L3).append(AppExportS.INSTANCE_TRACKER_CONFIGURATIONS).append(AppExportS.VE).append(instanceTrackerConfiguration.toString());
-        bud.append(cacheConfiguration.toString());
-        bud.append(AppExportS.L3).append(AppExportS.CUSTOM_CACHE_CONFIGURATIONS).append(AppExportS.VE).append(customCacheConfigurations.toString());
-        bud.append(backendMatchPointConfiguration.toString());
-        bud.append(AppExportS.L3).append(AppExportS.AGENT_CONFIGURATIONS).append(AppExportS.VE).append(agentConfigurations);
+        bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_COMPONENT);
+        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L2).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
+        bud.append(AppExportS.L2).append(AppExportS.COMPONENT_TYPE).append(AppExportS.VE).append(componentType);
+        bud.append(AppExportS.L2).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS).append(AppExportS.VE).append(entryMatchPointConfigurations);
+        bud.append(businessTransactions);
+        bud.append(memoryConfiguration);
+          //Didn't have entries
+        bud.append(AppExportS.L2).append(AppExportS.INSTANCE_TRACKER_CONFIGURATIONS).append(AppExportS.VE).append(instanceTrackerConfiguration);
+        bud.append(cacheConfiguration);
+          //Didn't have entries
+        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_CACHE_CONFIGURATIONS).append(AppExportS.VE).append(customCacheConfigurations);
+          //Didn't have entries
+        bud.append(backendMatchPointConfiguration);
+         //Didn't have entries
+        bud.append(AppExportS.L2).append(AppExportS.AGENT_CONFIGURATIONS).append(AppExportS.VE).append(agentConfigurations);
         
         
         

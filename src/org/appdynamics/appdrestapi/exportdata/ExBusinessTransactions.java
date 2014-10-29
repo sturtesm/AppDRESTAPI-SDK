@@ -36,7 +36,7 @@ public class ExBusinessTransactions {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTIONS);
+        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTIONS);
         for(ExBusinessTransaction bt:businessTransactions) bud.append(bt.toString());
         return bud.toString();
     }

@@ -106,14 +106,14 @@ public class ExSnapshotCollectionPolicy {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.SNAPSHOT_COLLECTION_POLICY);
+        bud.append(AppExportS.L2).append(AppExportS.SNAPSHOT_COLLECTION_POLICY);
         bud.append(minuteFrequency.toString());
-        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        //bud.append(AppExportS.L2_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         bud.append(nthOccurance.toString());
         bud.append(slaViolation.toString());
-        bud.append(AppExportS.L3).append(AppExportS.AUTOMATIC_COLLECTION_ENABLED).append(AppExportS.VE).append(automaticCollectionEnabled);
-        bud.append(AppExportS.L3).append(AppExportS.AUTOMATIC_SLOW_VOLUME_PERCENTAGE_THRESHOLD).append(AppExportS.VE).append(automaticSlowVolumePercentageThrehold);
-        bud.append(AppExportS.L3).append(AppExportS.AUTOMATIC_ERROR_VOLUME_PERCENTAGE_THRESHOLD).append(AppExportS.VE).append(automaticErrorVolumePercentageThreshold);
+        bud.append(AppExportS.L2_1).append(AppExportS.AUTOMATIC_COLLECTION_ENABLED).append(AppExportS.VE).append(automaticCollectionEnabled);
+        bud.append(AppExportS.L2_1).append(AppExportS.AUTOMATIC_SLOW_VOLUME_PERCENTAGE_THRESHOLD).append(AppExportS.VE).append(automaticSlowVolumePercentageThrehold);
+        bud.append(AppExportS.L2_1).append(AppExportS.AUTOMATIC_ERROR_VOLUME_PERCENTAGE_THRESHOLD).append(AppExportS.VE).append(automaticErrorVolumePercentageThreshold);
         
         return bud.toString();
     }

@@ -44,8 +44,8 @@ public class ExNthOccurance {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.NTH_OCCURANCE).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.L3_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L2_1).append(AppExportS.NTH_OCCURANCE).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         return bud.toString();
     }
 }

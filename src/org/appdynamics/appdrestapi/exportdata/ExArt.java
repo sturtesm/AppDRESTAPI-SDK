@@ -39,6 +39,11 @@ public class ExArt {
         this.warning = warning;
     }
     
+    public void setLevel(int val){
+        critical.setLevel(val);
+        warning.setLevel(val);
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();

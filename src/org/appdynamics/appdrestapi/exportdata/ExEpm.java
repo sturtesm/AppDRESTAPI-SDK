@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExEpm {
     private ExCritical critical;
     private ExWarning warning;
+
     
     public ExEpm(){}
 
@@ -38,10 +39,14 @@ public class ExEpm {
         this.warning = warning;
     }
     
+    public void setLevel(int val){
+        critical.setLevel(val);
+        warning.setLevel(val);
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        //bud.append(AppExportS.L3).append(AppExportS.EPM);
         bud.append(critical);
         bud.append(warning);
         return bud.toString();

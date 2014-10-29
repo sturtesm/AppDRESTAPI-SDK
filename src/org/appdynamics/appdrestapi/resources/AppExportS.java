@@ -39,7 +39,7 @@ public class AppExportS {
     public static final String CONFIGURATION="configuration";
     public static final String APPLICATION_INSTRUMENTATION_LEVEL="application-instrumentation-level";
     public static final String SNAPSHOT_EVALUATION_INTERVAL="snapshot-evaluation-interval";
-    public static final String SNAPSHOT_QUIET_TIME_POST_SLA_FAILURE="snaphost-quiet-time-post-sla-failure";
+    public static final String SNAPSHOT_QUIET_TIME_POST_SLA_FAILURE="snapshot-quiet-time-post-sla-failure";
     public static final String POLICY_ENGINE_ENABLED="policy-engine-enabled";
     public static final String CALL_GRAPH="call-graph";
     public static final String SAMPLING_RATE="sampling-rate";
@@ -54,7 +54,7 @@ public class AppExportS {
     public static final String ENABLED="enabled";
     public static final String CRITICAL="critical";
     public static final String WARNING="warning";
-    public static final String BACKGROUND_BUSINESS_TRANSACTION_CONFIG="background-transaction-config";
+    public static final String BACKGROUND_BUSINESS_TRANSACTION_CONFIG="background-business-transaction-config";
     public static final String SNAPSHOT_COLLECTION_POLICY="snapshot-collection-policy";
     public static final String MINUTE_FREQUENCY="minute-frequency";
     public static final String NTH_OCCURANCE="nth-occurance";
@@ -130,6 +130,9 @@ public class AppExportS {
     public static final String HTTP_DATA_GATHERER_CONFIG="http-data-gatherer-config";
     public static final String ATTACH_TO_NEW_BTS="attach-to-new-bts";
     public static final String PARAMETERS="parameters";
+    public static final String PARAMETER="parameter";
+    public static final String HEADERS="headers";
+    public static final String HEADER="header";
     public static final String GATHER_URL="gather-url";
     public static final String GATHER_SESSION_ID="gather-session-id";
     public static final String GATHER_USER_PRINCIPAL="gather-user-principal";
@@ -318,7 +321,9 @@ public class AppExportS {
     public static final String EXCLUDE="exclude";
     public static final String SERVLET_RULE="servlet-rule";
     
-
+    public static final String PERCENTILE_VALUE="percentile-value";
+    public static final String PERCENTILE_VALUES="percentile-values";
+    public static final String PERCENTILE_CONFIG="percentile-config";
     
     /*
      * Custom Match Rule
@@ -333,6 +338,37 @@ public class AppExportS {
     public static final String SPLIT_CONFIG="split-config";
     public static final String MATCH_METHOD="match-method";
     public static final String NAMING_ACTIONS="naming-actions";
+    public static final String OPERATION="operation";
+    public static final String URI="uri";
+    public static final String SERVLET_NAME="servlet-name";
+    public static final String HOST="host";
+    public static final String PORT="port";
+    public static final String HTTP_METHOD="http-method";
+    public static final String GENERIC_METHOD_CONFIG="generic-method-config";
+    public static final String COOKIE="cookie";
+    public static final String COOKIES="cookies";
+    public static final String METHOD_CONFIG="method-config";
+    public static final String RETURN_TYPE="return-type";
+    
+    /*
+     *  Health Rules
+     * 
+            
+
+     * 
+     */
+    
+    
+    public static final String AFFECTED_BT_MATCH_CRITERIA="affected-bt-match-criteria";
+    public static final String AFFECTED_ENTITIES_MATCH_CRITERIA="affected-entities-match-criteria";
+    public static final String WAIT_TIME_MIN="wait-time-min";
+    public static final String DURATION_MIN="duration-min";
+    public static final String ALWAYS_ENABLED="always-enabled";
+    public static final String FUNCTION_TYPE="function-type";
+    public static final String CONDITION_1="condition1";
+    public static final String CONDITION_2="condition2";
+    public static final String CONDITION_3="condition3";
+    public static final String CONDITION_4="condition4";
    
     /*
      *  Object Import Export
@@ -352,6 +388,7 @@ public class AppExportS {
     public static final String POLICY_CONDITION="policy-condition";
     public static final String ENTITY_AGGREGATION_SCOPE="entity-aggregation-scope";
     public static final String CRITICAL_EXECUTION_CRITERIA="critical-execution-criteria";
+    public static final String WARNING_EXECUTION_CRITERIA="warning-execution-criteria";
     
     
     /*

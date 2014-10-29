@@ -108,14 +108,14 @@ public class ExPojoRule {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.POJO_RULE);
-        bud.append(AppExportS.L5).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L5).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
-        bud.append(AppExportS.L5).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
-        bud.append(AppExportS.L5).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
-        bud.append(AppExportS.L5).append(AppExportS.MATCH_CLASS).append(matchClass.toString());
-        bud.append(AppExportS.L5).append(AppExportS.SPLIT_CONFIG).append(splitConfig.toString());
-        bud.append(AppExportS.L5).append(AppExportS.MATCH_METHOD).append(matchMethod.toString());
+        bud.append(AppExportS.L2_1).append(AppExportS.POJO_RULE);
+        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L3).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
+        bud.append(AppExportS.L3).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        bud.append(AppExportS.L3).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
+        bud.append(AppExportS.L3).append(AppExportS.MATCH_CLASS).append(matchClass);
+        bud.append(AppExportS.L3).append(AppExportS.SPLIT_CONFIG).append(splitConfig);
+        bud.append(AppExportS.L3).append(AppExportS.MATCH_METHOD).append(matchMethod);
         
         return bud.toString();
     }
