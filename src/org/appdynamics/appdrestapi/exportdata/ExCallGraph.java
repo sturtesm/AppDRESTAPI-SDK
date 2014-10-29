@@ -91,13 +91,14 @@ public class ExCallGraph {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.CALL_GRAPH);
-        bud.append(AppExportS.L2_1).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        bud.append(AppExportS.L2_1).append(AppExportS.SAMPLING_RATE).append(AppExportS.VE).append(samplingRate);
-        bud.append(AppExportS.L2_1).append(AppExportS.RAW_SQL).append(AppExportS.VE).append(rawSQL);
-        bud.append(AppExportS.L2_1).append(AppExportS.EXCLUDE_PACKAGES).append(AppExportS.VE).append(excludePackages);
-        bud.append(AppExportS.L2_1).append(AppExportS.INCLUDE_PACKAGES).append(AppExportS.VE).append(includePackages);
-        bud.append(AppExportS.L2_1).append(AppExportS.HOTSPOTS_ENABLED).append(AppExportS.VE).append(hotSpotsEnabled);
+        bud.append(AppExportS.L1_1).append(AppExportS.CALL_GRAPH);
+        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.L2).append(AppExportS.SAMPLING_RATE).append(AppExportS.VE).append(samplingRate);
+        bud.append(AppExportS.L2).append(AppExportS.RAW_SQL).append(AppExportS.VE).append(rawSQL);
+        bud.append(AppExportS.L2).append(AppExportS.EXCLUDE_PACKAGES).append(AppExportS.VE).append(excludePackages);
+        bud.append(AppExportS.L2).append(AppExportS.INCLUDE_PACKAGES).append(AppExportS.VE).append(includePackages);
+        bud.append(AppExportS.L2).append(AppExportS.MIN_DURATION_FOR_DB_CALLS).append(AppExportS.VE).append(minDurationForDBCalls);
+        bud.append(AppExportS.L2).append(AppExportS.HOTSPOTS_ENABLED).append(AppExportS.VE).append(hotSpotsEnabled);
         return bud.toString();
     }
     

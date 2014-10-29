@@ -60,9 +60,9 @@ public class ExSlowThreshold {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.EVALUATION_TYPE).append(AppExportS.VE).append(evaluationType);
-        bud.append(AppExportS.L3_1).append(AppExportS.EVALUATION_MINS).append(AppExportS.VE).append(evaluationMins);
-        bud.append(AppExportS.L3_1).append(AppExportS.STANDARD_DEVIATION_THRESHOLD).append(AppExportS.VE).append(standardDeviationThreshold);
+        bud.append(AppExportS.L3).append(AppExportS.EVALUATION_TYPE).append(AppExportS.VE).append(evaluationType);
+        bud.append(AppExportS.L3).append(AppExportS.EVALUATION_MINS).append(AppExportS.VE).append(evaluationMins);
+        bud.append(AppExportS.L3).append(AppExportS.STANDARD_DEVIATION_THRESHOLD).append(AppExportS.VE).append(standardDeviationThreshold);
         return bud.toString();
     }
 }

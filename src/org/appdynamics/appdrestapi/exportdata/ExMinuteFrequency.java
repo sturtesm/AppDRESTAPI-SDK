@@ -46,8 +46,8 @@ public class ExMinuteFrequency {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.MINUTE_FREQUENCY).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.L3_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L2_1).append(AppExportS.MINUTE_FREQUENCY).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         return bud.toString();
     }
     

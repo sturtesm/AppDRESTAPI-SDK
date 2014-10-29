@@ -137,17 +137,17 @@ public class ExErrorConfiguration {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.ERROR_CONFIGURATION);
-        bud.append(AppExportS.L2_1).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        bud.append(AppExportS.L2_1).append(AppExportS.DETECT_PHP_ERRORS).append(AppExportS.VE).append(detectPhpErrors);
-        bud.append(AppExportS.L2_1).append(AppExportS.PHP_ERROR_LEVEL).append(AppExportS.VE).append(detectPhpErrors);
-        bud.append(AppExportS.L2_1).append(AppExportS.DISABLE_DEFAULT_HTTP_ERROR_CODE).append(AppExportS.VE).append(disableDefaultHttpErrorCode);
-        bud.append(AppExportS.L2_1).append(AppExportS.IGNORE_EXCEPTIONS).append(AppExportS.VE).append(ignoreException);
-        bud.append(AppExportS.L2_1).append(AppExportS.IGNORE_LOGGER_NAME).append(AppExportS.VE).append(ignoreLoggerNames);
-        bud.append(AppExportS.L2_1).append(AppExportS.CAPTURE_LOGGER_ERROR_AND_FATAL_MESSAGE).append(AppExportS.VE).append(captureLoggerErrorAndFatalMessages);
-        bud.append(AppExportS.L2_1).append(AppExportS.MAX_FRAMES_IN_ROOT_CAUSE).append(AppExportS.VE).append(maxFramesInRootCause);
-        bud.append(AppExportS.L2_1).append(AppExportS.STACK_TRACE_LINE_LIMIT).append(AppExportS.VE).append(maxFramesInRootCause);
-        bud.append(AppExportS.L2_1).append(AppExportS.MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE).append(AppExportS.VE).append(markTransactionAsErrorOnErrorMessageLogTag);
+        bud.append(AppExportS.L1_1).append(AppExportS.ERROR_CONFIGURATION);
+        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.L2).append(AppExportS.DETECT_PHP_ERRORS).append(AppExportS.VE).append(detectPhpErrors);
+        bud.append(AppExportS.L2).append(AppExportS.PHP_ERROR_LEVEL).append(AppExportS.VE).append(detectPhpErrors);
+        bud.append(AppExportS.L2).append(AppExportS.DISABLE_DEFAULT_HTTP_ERROR_CODE).append(AppExportS.VE).append(disableDefaultHttpErrorCode);
+        bud.append(AppExportS.L2).append(AppExportS.IGNORE_EXCEPTIONS).append(AppExportS.VE).append(ignoreException);
+        bud.append(AppExportS.L2).append(AppExportS.IGNORE_LOGGER_NAME).append(AppExportS.VE).append(ignoreLoggerNames);
+        bud.append(AppExportS.L2).append(AppExportS.CAPTURE_LOGGER_ERROR_AND_FATAL_MESSAGE).append(AppExportS.VE).append(captureLoggerErrorAndFatalMessages);
+        bud.append(AppExportS.L2).append(AppExportS.MAX_FRAMES_IN_ROOT_CAUSE).append(AppExportS.VE).append(maxFramesInRootCause);
+        bud.append(AppExportS.L2).append(AppExportS.STACK_TRACE_LINE_LIMIT).append(AppExportS.VE).append(maxFramesInRootCause);
+        bud.append(AppExportS.L2).append(AppExportS.MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE).append(AppExportS.VE).append(markTransactionAsErrorOnErrorMessageLogTag);
         
         return bud.toString();
     }

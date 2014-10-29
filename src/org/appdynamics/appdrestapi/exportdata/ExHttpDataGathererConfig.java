@@ -82,6 +82,7 @@ public class ExHttpDataGathererConfig {
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1_1).append(AppExportS.HTTP_DATA_GATHERER_CONFIG);
         bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L2).append(AppExportS.ATTACH_TO_NEW_BTS).append(AppExportS.VE).append(attachToNewBts);
         bud.append(AppExportS.L2).append(AppExportS.GATHER_URL).append(AppExportS.VE).append(gatherUrl);
         bud.append(AppExportS.L2).append(AppExportS.GATHER_SESSION_ID).append(AppExportS.VE).append(gatherSessionId);
         bud.append(AppExportS.L2).append(AppExportS.GATHER_USER_PRINCIPAL).append(AppExportS.VE).append(gatherUserPrincipal);

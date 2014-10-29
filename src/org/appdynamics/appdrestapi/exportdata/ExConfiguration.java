@@ -315,14 +315,14 @@ public class ExConfiguration {
         bud.append(AppExportS.L1_1).append(AppExportS.SNAPSHOT_QUIET_TIME_POST_SLA_FAILURE).append(AppExportS.VE).append(snapshotQuietTimePostSLAFailure);
         bud.append(AppExportS.L1_1).append(AppExportS.POLICY_ENGINE_ENABLED).append(AppExportS.VE).append(policyEngineEnabled);
         bud.append(AppExportS.L1_1).append(AppExportS.ASYNC_ACTIVITY_SUPPORTED).append(AppExportS.VE).append(asyncActivitySupported);
-        //bud.append(AppExportS.L2).append(AppExportS.CALL_GRAPH);
+        
         for(ExCallGraph graph: callGraphs) bud.append(graph.toString());
         bud.append(sla.toString());
         for(ExErrorConfiguration error: errorConfiguration) bud.append(error.toString());
         
-        bud.append(businessTransactionConfig.toString());
-        bud.append(backgroundBusinessTransactionConfig.toString());
-        bud.append(eumConfiguration.toString());
+        bud.append(businessTransactionConfig);
+        bud.append(backgroundBusinessTransactionConfig);
+        bud.append(eumConfiguration);
         return bud.toString();
     }
     

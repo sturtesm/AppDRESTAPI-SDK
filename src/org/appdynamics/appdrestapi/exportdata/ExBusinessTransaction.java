@@ -202,17 +202,18 @@ public class ExBusinessTransaction {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTION);
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L4).append(AppExportS.BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(businessTransactionName);
-        bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENTS).append(AppExportS.VE).append(applicationComponent);
-        bud.append(AppExportS.L4).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
+        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTION);
+        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L2_1).append(AppExportS.BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(businessTransactionName);
+        bud.append(AppExportS.L2_1).append(AppExportS.APPLICATION_COMPONENTS).append(AppExportS.VE).append(applicationComponent);
+        bud.append(AppExportS.L2_1).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
+        sla.setLevel(1);
         bud.append(sla.toString());
         bud.append(namingConfig.toString());
         bud.append(businessTransactionConfig.toString());
         for(String data: dataGathererConfig) bud.append(data);
-        bud.append(AppExportS.L4).append(AppExportS.ENABLED_FOR_EUM).append(AppExportS.VE).append(enabledForEum);
-        bud.append(AppExportS.L4).append(AppExportS.EUM_AUTO_ENABLE_POSSIBLE).append(AppExportS.VE).append(eumAutoEnablePossible);
+        bud.append(AppExportS.L2_1).append(AppExportS.ENABLED_FOR_EUM).append(AppExportS.VE).append(enabledForEum);
+        bud.append(AppExportS.L2_1).append(AppExportS.EUM_AUTO_ENABLE_POSSIBLE).append(AppExportS.VE).append(eumAutoEnablePossible);
         return bud.toString();
     }
     

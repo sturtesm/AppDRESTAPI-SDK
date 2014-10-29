@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  */
 public class ExSplitConfig {
     private String type;
+    private String operation;
     
     public ExSplitConfig(){}
 
@@ -28,11 +29,22 @@ public class ExSplitConfig {
     public void setType(String type) {
         this.type = type;
     }
+
+    @XmlAttribute(name=AppExportS.OPERATION)
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+    
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L5).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        if(operation != null) bud.append(AppExportS.L3_1).append(AppExportS.OPERATION).append(AppExportS.VE).append(operation);
+        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         return bud.toString();
     }
     

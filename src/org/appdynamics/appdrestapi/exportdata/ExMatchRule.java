@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso({ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
 public class ExMatchRule {
     private ExPojoRule pojoRule;
+    private ExServletRule servletRule;
     
     public ExMatchRule(){}
 
@@ -45,11 +46,24 @@ public class ExMatchRule {
     public void setPojoRule(ExPojoRule pojoRule) {
         this.pojoRule = pojoRule;
     }
+
+    @XmlElement(name=AppExportS.SERVLET_RULE)
+    public ExServletRule getServletRule() {
+        return servletRule;
+    }
+
+    public void setServletRule(ExServletRule servletRule) {
+        this.servletRule = servletRule;
+    }
+    
+    
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        if(pojoRule != null) bud.append(AppExportS.L3).append(AppExportS.POJO_RULE).append(pojoRule.toString());
+        bud.append(AppExportS.L2).append(AppExportS.MATCH_RULE);
+        if(pojoRule != null) bud.append(pojoRule);
+        if(servletRule != null) bud.append(servletRule);
         return bud.toString();
     }
 }

@@ -82,7 +82,7 @@ public class ExBusinessTransactionConfig {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTION_CONFIG);
+        bud.append(AppExportS.L1_1).append(AppExportS.BUSINESS_TRANSACTION_CONFIG);
         bud.append(snapshotCollectionPolicy.toString());
         bud.append(btRequestThreshold.toString());
         return bud.toString();

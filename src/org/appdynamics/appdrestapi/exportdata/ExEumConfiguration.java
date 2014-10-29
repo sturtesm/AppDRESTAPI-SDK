@@ -170,20 +170,20 @@ public class ExEumConfiguration {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.EUM_CONFIGURATION);
-        bud.append(AppExportS.L2_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L2_1).append(AppExportS.EXTERNAL_JS_FETCH_RUL).append(AppExportS.VE).append(externalJsFetchUrl);
-        bud.append(AppExportS.L2_1).append(AppExportS.HEART_BEAT_URL).append(AppExportS.VE).append(heartBeatUrl);
-        bud.append(AppExportS.L2_1).append(AppExportS.AUTOMATIC).append(AppExportS.VE).append(automatic);
-        bud.append(AppExportS.L2_1).append(AppExportS.FRAMEWORKS_TO_ENABLE_ATTRIBUTE_INJECTION).append(AppExportS.VE).append(frameworksToEnable);
-        bud.append(AppExportS.L2_1).append(AppExportS.MANUAL).append(AppExportS.VE).append(manual);
-        bud.append(AppExportS.L2_1).append(AppExportS.EUM_PARSER_RULES).append(AppExportS.VE).append(eumParserRules);
-        bud.append(AppExportS.L2_1).append(AppExportS.EUM_INJECTION_RULES).append(AppExportS.VE).append(eumInjectionRules);
-        bud.append(AppExportS.L2_1).append(AppExportS.EXCLUCE_RULES).append(AppExportS.VE).append(excludeRules);
-        bud.append(AppExportS.L2_1).append(AppExportS.INCLUDE_RULES).append(AppExportS.VE).append(includeRules);
-        bud.append(AppExportS.L2_1).append(AppExportS.EUM_CLOUD_APPLICATION_KEY).append(AppExportS.VE).append(eumCloudApplicationKey);
-        bud.append(AppExportS.L2_1).append(AppExportS.EUM_BEACON_URL).append(AppExportS.VE).append(eumBeaconUrl);
-        bud.append(AppExportS.L2_1).append(AppExportS.EUM_TARGET_TIERS).append(AppExportS.VE).append(eumTargetTiers);
+        bud.append(AppExportS.L1_1).append(AppExportS.EUM_CONFIGURATION);
+        bud.append(AppExportS.L2).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L2).append(AppExportS.EXTERNAL_JS_FETCH_RUL).append(AppExportS.VE).append(externalJsFetchUrl);
+        bud.append(AppExportS.L2).append(AppExportS.HEART_BEAT_URL).append(AppExportS.VE).append(heartBeatUrl);
+        bud.append(AppExportS.L2).append(AppExportS.AUTOMATIC).append(AppExportS.VE).append(automatic);
+        bud.append(AppExportS.L2).append(AppExportS.FRAMEWORKS_TO_ENABLE_ATTRIBUTE_INJECTION).append(AppExportS.VE).append(frameworksToEnable);
+        bud.append(AppExportS.L2).append(AppExportS.MANUAL).append(AppExportS.VE).append(manual);
+        bud.append(AppExportS.L2).append(AppExportS.EUM_PARSER_RULES).append(AppExportS.VE).append(eumParserRules);
+        bud.append(AppExportS.L2).append(AppExportS.EUM_INJECTION_RULES).append(AppExportS.VE).append(eumInjectionRules);
+        bud.append(AppExportS.L2).append(AppExportS.EXCLUCE_RULES).append(AppExportS.VE).append(excludeRules);
+        bud.append(AppExportS.L2).append(AppExportS.INCLUDE_RULES).append(AppExportS.VE).append(includeRules);
+        bud.append(AppExportS.L2).append(AppExportS.EUM_CLOUD_APPLICATION_KEY).append(AppExportS.VE).append(eumCloudApplicationKey);
+        bud.append(AppExportS.L2).append(AppExportS.EUM_BEACON_URL).append(AppExportS.VE).append(eumBeaconUrl);
+        bud.append(AppExportS.L2).append(AppExportS.EUM_TARGET_TIERS).append(AppExportS.VE).append(eumTargetTiers);
         return bud.toString();
     }
     

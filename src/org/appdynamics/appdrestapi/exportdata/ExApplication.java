@@ -223,16 +223,17 @@ public class ExApplication {
         bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         bud.append(AppExportS.L1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
         bud.append(AppExportS.L1).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
-        bud.append(configuration.toString());
-        bud.append(dataGathererConfigs.toString()); //done
-        bud.append(applicationComponents.toString()); //need sla, business_transaction
-        bud.append(entryPointMatchConfigurations.toString());
-        bud.append(backendMatchPointConfigurations.toString());
-        bud.append(metricBaselines.toString());
+        //bud.append(configuration); //done
+        //bud.append(dataGathererConfigs); //done 10/25
+        //bud.append(applicationComponents); //done 10/25
         
-        bud.append(agentConfigurations.toString());
+        bud.append(entryPointMatchConfigurations);
+        //bud.append(backendMatchPointConfigurations.toString());
+        //bud.append(metricBaselines.toString());
         
-        bud.append(eumCloudConfig.toString()); //done
+        //bud.append(agentConfigurations.toString());
+        
+        //bud.append(eumCloudConfig.toString()); //done
         }catch(Exception e){e.printStackTrace();}
         return bud.toString();
     }

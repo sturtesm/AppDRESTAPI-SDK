@@ -86,12 +86,12 @@ public class ExSlaViolation {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.SLA_VIOLATION).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.L3_1).append(AppExportS.COLLECT_OUTLIERS_ONLY).append(AppExportS.VE).append(collectOutliersOnly);
-        bud.append(AppExportS.L3_1).append(AppExportS.DURATION).append(AppExportS.VE).append(duration);
-        bud.append(AppExportS.L3_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L3_1).append(AppExportS.MAX_ATTEMPTS_FOR_OUTLIERS).append(AppExportS.VE).append(maxAttemptsForOutliers);
-        bud.append(AppExportS.L3_1).append(AppExportS.WARNING_VIOLATION).append(AppExportS.VE).append(warningViolation);
+        bud.append(AppExportS.L2_1).append(AppExportS.SLA_VIOLATION).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.L3).append(AppExportS.COLLECT_OUTLIERS_ONLY).append(AppExportS.VE).append(collectOutliersOnly);
+        bud.append(AppExportS.L3).append(AppExportS.DURATION).append(AppExportS.VE).append(duration);
+        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L3).append(AppExportS.MAX_ATTEMPTS_FOR_OUTLIERS).append(AppExportS.VE).append(maxAttemptsForOutliers);
+        bud.append(AppExportS.L3).append(AppExportS.WARNING_VIOLATION).append(AppExportS.VE).append(warningViolation);
         return bud.toString();
     }
 }

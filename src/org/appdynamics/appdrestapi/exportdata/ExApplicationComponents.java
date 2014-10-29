@@ -276,7 +276,6 @@ public class ExApplicationComponents {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1).append(AppExportS.APPLICATION_COMPONENTS);
-        //bud.append(" size ").append(applicationComponents.size());
         for(ExApplicationComponent ap:applicationComponents) bud.append(ap.toString());
         return bud.toString();
     }
