@@ -7,6 +7,10 @@ service. When developers working with the REST API they tend to write their own 
 client using either Jersey libraries or base java IO classes. The RESTAccess solution 
 relies on a core class org.appdynamics.appdrestapi.RESTAccess.
 
+The AppDynamics 3.9 controller has added additional functionality, the SDK version 1.0.14
+is written to take advantage of this functionality. The new features in the SDK are not 
+compatible with 3.8 controllers, if you need the SDK please use version 1.0.13 for 3.8 
+controllers.
 
 Requirements:
 ------------
@@ -56,3 +60,6 @@ by calling access.getEvents, additionally the event types and severity needs to 
 
 System.out.println(access.getEvents(app,"APPLICATION_ERROR,DIAGNOSTIC_SESSION", "INFO,WARN,ERROR",calendarStart.getTimeInMillis(), calendarNow.getTimeInMillis()));
 ```
+
+
+For support please email: gilbert.solorzano@appdynamics.com
