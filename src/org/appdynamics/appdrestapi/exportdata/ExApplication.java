@@ -233,17 +233,17 @@ public class ExApplication {
         bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         bud.append(AppExportS.L1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
         bud.append(AppExportS.L1).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
-        //bud.append(configuration); //done
-        //bud.append(dataGathererConfigs); //done 10/25
-        //bud.append(applicationComponents); //done 10/25
+        bud.append(configuration); //done
+        bud.append(dataGathererConfigs); //done 10/25
+        bud.append(applicationComponents); //done 10/25
         bud.append(healthRules);
-        //bud.append(entryPointMatchConfigurations);
-        //bud.append(backendMatchPointConfigurations.toString());
-        //bud.append(metricBaselines.toString());
+        bud.append(entryPointMatchConfigurations);
+        bud.append(backendMatchPointConfigurations.toString());
+        bud.append(metricBaselines.toString());
         
-        //bud.append(agentConfigurations.toString());
+        bud.append(agentConfigurations.toString());
         
-        //bud.append(eumCloudConfig.toString()); //done
+        bud.append(eumCloudConfig.toString()); //done
         }catch(Exception e){e.printStackTrace();}
         return bud.toString();
     }
