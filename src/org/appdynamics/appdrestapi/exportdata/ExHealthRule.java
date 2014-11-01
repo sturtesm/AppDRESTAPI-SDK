@@ -3,11 +3,159 @@
  * and open the template in the editor.
  */
 package org.appdynamics.appdrestapi.exportdata;
+import org.appdynamics.appdrestapi.resources.AppExportS;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  *
  * @author gilbert.solorzano
+ * L1_1
  * 
+ */
+@XmlSeeAlso({ExAffectedEntitiesMatchCriteria.class,ExHRExecutionCriteria.class})
+public class ExHealthRule {
+    private String name,type,descr,schedule;
+    private boolean enabled,isDefault,alwaysEnabled;
+    private Integer durationMin,waitTime;
+    private ExAffectedEntitiesMatchCriteria affectedEntitiesMC;
+    private ExHRExecutionCriteria critical,warning;
+    
+    
+    public ExHealthRule(){}
+
+    @XmlElement(name=AppExportS.NAME)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    @XmlElement(name=AppExportS.TYPE)
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @XmlElement(name=AppExportS.DESCRIPTION)
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
+
+    @XmlElement(name=AppExportS.ENABLED)
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @XmlElement(name=AppExportS.IS_DEFAULT)
+    public boolean isIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    @XmlElement(name=AppExportS.ALWAYS_ENABLED)
+    public boolean isAlwaysEnabled() {
+        return alwaysEnabled;
+    }
+
+    public void setAlwaysEnabled(boolean alwaysEnabled) {
+        this.alwaysEnabled = alwaysEnabled;
+    }
+
+    @XmlElement(name=AppExportS.DURATION_MIN)
+    public Integer getDurationMin() {
+        return durationMin;
+    }
+
+    public void setDurationMin(Integer durationMin) {
+        this.durationMin = durationMin;
+    }
+
+    @XmlElement(name=AppExportS.WAIT_TIME_MIN)
+    public Integer getWaitTime() {
+        return waitTime;
+    }
+
+    public void setWaitTime(Integer waitTime) {
+        this.waitTime = waitTime;
+    }
+
+    @XmlElement(name=AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA)
+    public ExAffectedEntitiesMatchCriteria getAffectedEntitiesMC() {
+        return affectedEntitiesMC;
+    }
+
+    public void setAffectedEntitiesMC(ExAffectedEntitiesMatchCriteria affectedEntitiesMC) {
+        this.affectedEntitiesMC = affectedEntitiesMC;
+    }
+
+    @XmlElement(name=AppExportS.CRITICAL_EXECUTION_CRITERIA)
+    public ExHRExecutionCriteria getCritical() {
+        return critical;
+    }
+
+    public void setCritical(ExHRExecutionCriteria critical) {
+        this.critical = critical;
+    }
+
+    @XmlElement(name=AppExportS.WARNING_EXECUTION_CRITERIA)
+    public ExHRExecutionCriteria getWarning() {
+        return warning;
+    }
+
+    public void setWarning(ExHRExecutionCriteria warning) {
+        this.warning = warning;
+    }
+
+    @XmlElement(name=AppExportS.SCHEDULE)
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+    
+    
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.HEALTH_RULE);
+        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L2_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.L2_1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(descr);
+        bud.append(AppExportS.L2_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.L2_1).append(AppExportS.IS_DEFAULT).append(AppExportS.VE).append(isDefault);
+        bud.append(AppExportS.L2_1).append(AppExportS.ALWAYS_ENABLED).append(AppExportS.VE).append(alwaysEnabled);
+        bud.append(AppExportS.L2_1).append(AppExportS.DURATION_MIN).append(AppExportS.VE).append(durationMin);
+        bud.append(AppExportS.L2_1).append(AppExportS.WAIT_TIME_MIN).append(AppExportS.VE).append(waitTime);
+        if(schedule != null) bud.append(AppExportS.L2_1).append(AppExportS.SCHEDULE).append(AppExportS.VE).append(schedule);
+        bud.append(affectedEntitiesMC);
+        if(critical != null){bud.append(AppExportS.L2_1).append(AppExportS.CRITICAL_EXECUTION_CRITERIA);bud.append(critical);}
+        if(warning != null){bud.append(AppExportS.L2_1).append(AppExportS.WARNING_EXECUTION_CRITERIA);bud.append(warning);}
+        return bud.toString();
+    }
+    
+}
+/*
  * <health-rule>
             <name>Business Transaction response time is much higher than normal</name>
             <type>BUSINESS_TRANSACTION</type>
@@ -124,6 +272,3 @@ package org.appdynamics.appdrestapi.exportdata;
             </warning-execution-criteria>
         </health-rule>
  */
-public class ExHealthRule {
-    
-}

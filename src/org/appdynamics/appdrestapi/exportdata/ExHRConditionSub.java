@@ -8,8 +8,6 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-import sun.tools.tree.ConditionalExpression;
 /**
  *
  * @author gilbert.solorzano
@@ -36,22 +34,18 @@ import sun.tools.tree.ConditionalExpression;
                     </condition1>
                     * 
  */
-@XmlSeeAlso({ExHRMetricExpression.class,ExHRConditionSub.class,ExHRMetricBaseline.class})
-public class ExHRCondition {
+@XmlSeeAlso(ExHRMetricExpression.class)
+public class ExHRConditionSub {
     private String type;
     private String displayName;
     private String conditionValueType;
     private String conditionValue;
-    private String conditionExpression;
     private String operator;
     private boolean useActiveBaseline;
     private ExHRMetricExpression metricExpression;
-    private ExHRCondition condition1,condition2;
-    private ExHRMetricBaseline metricBaseline;
-    private int level=0;
     
     
-    public ExHRCondition(){}
+    public ExHRConditionSub(){}
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -115,76 +109,19 @@ public class ExHRCondition {
     public void setMetricExpression(ExHRMetricExpression metricExpression) {
         this.metricExpression = metricExpression;
     }
-
-    @XmlElement(name=AppExportS.CONDITION_1)
-    public ExHRCondition getCondition1() {
-        return condition1;
-    }
-
-    public void setCondition1(ExHRCondition condition1) {
-        this.condition1 = condition1;
-    }
-
-    @XmlElement(name=AppExportS.CONDITION_2)
-    public ExHRCondition getCondition2() {
-        return condition2;
-    }
-
-    public void setCondition2(ExHRCondition condition2) {
-        this.condition2 = condition2;
-    }
-
-    @XmlElement(name=AppExportS.CONDITION_EXPRESSION)
-    public String getConditionExpression() {
-        return conditionExpression;
-    }
-
-    public void setConditionExpression(String conditionExpression) {
-        this.conditionExpression = conditionExpression;
-    }
-
-    @XmlElement(name=AppExportS.METRIC_BASELINE)
-    public ExHRMetricBaseline getMetricBaseline() {
-        return metricBaseline;
-    }
-
-    public void setMetricBaseline(ExHRMetricBaseline metricBaseline) {
-        this.metricBaseline = metricBaseline;
-    }
-
     
-    
-    @XmlTransient
-    public String getLevel() {
-        if(level == 1) return AppExportS.L4;
-        if(level == 2) return AppExportS.L4_1;
-        if(level == 3) return AppExportS.L5;
-        return AppExportS.L3_1;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
     
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(getLevel()).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        if(condition1 != null){
-            bud.append(getLevel()).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
-            if(condition1 != null){ level++;bud.append(getLevel()).append(AppExportS.CONDITION_1);condition1.setLevel((level++));bud.append(condition1);}
-            if(condition2 != null){ bud.append(getLevel()).append(AppExportS.CONDITION_2);condition2.setLevel((level));bud.append(condition2);}
-        }else{
-            bud.append(getLevel()).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
-            bud.append(getLevel()).append(AppExportS.CONDITION_VALUE_TYPE).append(AppExportS.VE).append(conditionValueType);
-            bud.append(getLevel()).append(AppExportS.CONDITION_VALUE).append(AppExportS.VE).append(conditionValue);
-            bud.append(getLevel()).append(AppExportS.CONDITION_EXPRESSION).append(AppExportS.VE).append(conditionExpression);
-            bud.append(getLevel()).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
-            bud.append(getLevel()).append(AppExportS.USE_ACTIVE_BASELINE).append(AppExportS.VE).append(useActiveBaseline);
-            if(metricBaseline != null) bud.append(metricBaseline);
-            bud.append(metricExpression);
-        }
+        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.L3_1).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        bud.append(AppExportS.L3_1).append(AppExportS.CONDITION_VALUE_TYPE).append(AppExportS.VE).append(conditionValueType);
+        bud.append(AppExportS.L3_1).append(AppExportS.CONDITION_VALUE).append(AppExportS.VE).append(conditionValue);
+        bud.append(AppExportS.L3_1).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
+        bud.append(AppExportS.L3_1).append(AppExportS.USE_ACTIVE_BASELINE).append(AppExportS.VE).append(useActiveBaseline);
+        bud.append(metricExpression);
         
         return bud.toString();
         

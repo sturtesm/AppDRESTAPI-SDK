@@ -353,13 +353,11 @@ public class AppExportS {
     /*
      *  Health Rules
      * 
-            
-
-     * 
      */
     
     
     public static final String AFFECTED_BT_MATCH_CRITERIA="affected-bt-match-criteria";
+    public static final String AFFECTED_INFRA_MATCH_CRITERIA="affected-infra-match-criteria";
     public static final String AFFECTED_ENTITIES_MATCH_CRITERIA="affected-entities-match-criteria";
     public static final String WAIT_TIME_MIN="wait-time-min";
     public static final String DURATION_MIN="duration-min";
@@ -369,6 +367,16 @@ public class AppExportS {
     public static final String CONDITION_2="condition2";
     public static final String CONDITION_3="condition3";
     public static final String CONDITION_4="condition4";
+    public static final String NODE_MATCH_CRITERIA="node-match-criteria";
+    public static final String NODE_META_INFO_MATCH_CRITERIA="node-meta-info-match-criteria";
+    public static final String VM_SYS_PROPERTIES="vm-sys-properties";
+    public static final String HEALTH_RULE="health-rule";
+    public static final String HEALTH_RULES="health-rules";
+    public static final String NODE_TYPES="node-types";
+    public static final String NODE_TYPE="node-type";
+    public static final String COMPONENTS="components";
+    public static final String APPLICATION_COMPONENT_NODE="application-component-node";
+    public static final String NODES="nodes";
    
     /*
      *  Object Import Export
@@ -389,8 +397,8 @@ public class AppExportS {
     public static final String ENTITY_AGGREGATION_SCOPE="entity-aggregation-scope";
     public static final String CRITICAL_EXECUTION_CRITERIA="critical-execution-criteria";
     public static final String WARNING_EXECUTION_CRITERIA="warning-execution-criteria";
-    
-    
+    public static final String SCHEDULE="schedule";
+    public static final String OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA="overall-affected-entities-match-criteria";
     /*
      * This will help build xml structures
      */

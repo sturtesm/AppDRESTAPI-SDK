@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 
 @XmlRootElement(name=AppExportS.APPLICATION)
-@XmlSeeAlso({ExApplicationComponents.class,ExApplicationComponent.class,ExAgentConfiguration.class,ExAgentConfigurations.class,
+@XmlSeeAlso({ExHealthRules.class,ExApplicationComponents.class,ExApplicationComponent.class,ExAgentConfiguration.class,ExAgentConfigurations.class,
     ExApplication.class,ExApplicationComponents.class,ExApplicationDiagnosticData.class,ExArt.class,
     ExBackendMatchPointConfigurations.class,ExBackgroundBusinessTransactionConfig.class,ExBtRequestThresholds.class,
     ExBusinessTransactionConfig.class,ExBusinessTransactionGroup.class,ExCallGraph.class,ExConfiguration.class,ExCritical.class,
@@ -61,6 +61,7 @@ public class ExApplication {
     private ExWorkflows workflows;
     private ExAgentConfigurations agentConfigurations;
     private ExEumCloudConfig eumCloudConfig;
+    private ExHealthRules healthRules;
     
     
     public ExApplication(){}
@@ -211,6 +212,15 @@ public class ExApplication {
     public void setEumCloudConfig(ExEumCloudConfig eumCloudConfig) {
         this.eumCloudConfig = eumCloudConfig;
     }
+
+    @XmlElement(name=AppExportS.HEALTH_RULES)
+    public ExHealthRules getHealthRules() {
+        return healthRules;
+    }
+
+    public void setHealthRules(ExHealthRules healthRules) {
+        this.healthRules = healthRules;
+    }
     
 
     
@@ -226,8 +236,8 @@ public class ExApplication {
         //bud.append(configuration); //done
         //bud.append(dataGathererConfigs); //done 10/25
         //bud.append(applicationComponents); //done 10/25
-        
-        bud.append(entryPointMatchConfigurations);
+        bud.append(healthRules);
+        //bud.append(entryPointMatchConfigurations);
         //bud.append(backendMatchPointConfigurations.toString());
         //bud.append(metricBaselines.toString());
         
