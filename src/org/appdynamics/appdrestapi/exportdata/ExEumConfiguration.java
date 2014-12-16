@@ -47,6 +47,8 @@ public class ExEumConfiguration {
     private String eumTargetTiers;
     
     public ExEumConfiguration(){}
+    
+    
 
     @XmlElement(name=AppExportS.ENABLED)
     public boolean isEnabled() {
@@ -120,7 +122,7 @@ public class ExEumConfiguration {
         this.eumInjectionRules = eumInjectionRules;
     }
 
-    @XmlElement(name=AppExportS.EXCLUCE_RULES)
+    @XmlElement(name=AppExportS.EXCLUDE_RULES)
     public String getExcludeRules() {
         return excludeRules;
     }
@@ -179,12 +181,171 @@ public class ExEumConfiguration {
         bud.append(AppExportS.L2).append(AppExportS.MANUAL).append(AppExportS.VE).append(manual);
         bud.append(AppExportS.L2).append(AppExportS.EUM_PARSER_RULES).append(AppExportS.VE).append(eumParserRules);
         bud.append(AppExportS.L2).append(AppExportS.EUM_INJECTION_RULES).append(AppExportS.VE).append(eumInjectionRules);
-        bud.append(AppExportS.L2).append(AppExportS.EXCLUCE_RULES).append(AppExportS.VE).append(excludeRules);
+        bud.append(AppExportS.L2).append(AppExportS.EXCLUDE_RULES).append(AppExportS.VE).append(excludeRules);
         bud.append(AppExportS.L2).append(AppExportS.INCLUDE_RULES).append(AppExportS.VE).append(includeRules);
         bud.append(AppExportS.L2).append(AppExportS.EUM_CLOUD_APPLICATION_KEY).append(AppExportS.VE).append(eumCloudApplicationKey);
         bud.append(AppExportS.L2).append(AppExportS.EUM_BEACON_URL).append(AppExportS.VE).append(eumBeaconUrl);
         bud.append(AppExportS.L2).append(AppExportS.EUM_TARGET_TIERS).append(AppExportS.VE).append(eumTargetTiers);
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExEumConfiguration obj){
+        if(this.equals(obj)) return AppExportS._;
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.EUM_CONFIGURATION);
+        
+        if(enabled != obj.isEnabled()){
+            bud.append(AppExportS.L2).append(AppExportS.ENABLED);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+        }
+        
+        if(!externalJsFetchUrl.equals(obj.getExternalJsFetchUrl())){
+            bud.append(AppExportS.L2).append(AppExportS.EXTERNAL_JS_FETCH_RUL);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(externalJsFetchUrl);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getExternalJsFetchUrl());
+        }
+        
+        if(!heartBeatUrl.equals(obj.getHeartBeatUrl())){
+            bud.append(AppExportS.L2).append(AppExportS.HEART_BEAT_URL);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(heartBeatUrl);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getHeartBeatUrl());
+        }
+        
+        if(automatic != obj.isAutomatic()){
+            bud.append(AppExportS.L2).append(AppExportS.AUTOMATIC);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(automatic);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAutomatic());
+        }
+        
+        if(frameworksToEnable.equals(obj.getFrameworksToEnable())){
+            bud.append(AppExportS.L2).append(AppExportS.FRAMEWORKS_TO_ENABLE_ATTRIBUTE_INJECTION);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(frameworksToEnable);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFrameworksToEnable());
+        }
+        
+        if(manual != obj.isManual()){
+            bud.append(AppExportS.L2).append(AppExportS.MANUAL);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(manual);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isManual());
+        }
+        
+        if(eumParserRules.equals(obj.getEumParserRules())){
+            bud.append(AppExportS.L2).append(AppExportS.EUM_PARSER_RULES);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(eumParserRules);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumParserRules());
+        }
+        
+        if(eumInjectionRules.equals(obj.getEumInjectionRules())){
+            bud.append(AppExportS.L2).append(AppExportS.EUM_INJECTION_RULES);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(eumInjectionRules);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumInjectionRules());
+        }
+        
+        if(excludeRules.equals(obj.getExcludeRules())){
+            bud.append(AppExportS.L2).append(AppExportS.EXCLUDE_RULES);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(eumCloudApplicationKey);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumCloudApplicationKey());
+        }
+        
+        if(includeRules.equals(obj.getIncludeRules())){
+            bud.append(AppExportS.L2).append(AppExportS.INCLUDE_RULES);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(includeRules);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getIncludeRules());
+        }
+        
+        if(eumCloudApplicationKey.equals(obj.getEumCloudApplicationKey())){
+            bud.append(AppExportS.L2).append(AppExportS.EUM_CLOUD_APPLICATION_KEY);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(eumCloudApplicationKey);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumCloudApplicationKey());
+        }
+        
+        if(eumBeaconUrl.equals(obj.getEumBeaconUrl())){
+            bud.append(AppExportS.L2).append(AppExportS.EUM_BEACON_URL);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(eumBeaconUrl);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumBeaconUrl());
+        
+        }
+        
+        if(eumTargetTiers.equals(obj.getEumTargetTiers())){ 
+            bud.append(AppExportS.L2).append(AppExportS.EUM_TARGET_TIERS);
+            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(eumTargetTiers);
+            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumTargetTiers());
+        }
+        
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + (this.enabled ? 1 : 0);
+        hash = 71 * hash + (this.externalJsFetchUrl != null ? this.externalJsFetchUrl.hashCode() : 0);
+        hash = 71 * hash + (this.heartBeatUrl != null ? this.heartBeatUrl.hashCode() : 0);
+        hash = 71 * hash + (this.automatic ? 1 : 0);
+        hash = 71 * hash + (this.frameworksToEnable != null ? this.frameworksToEnable.hashCode() : 0);
+        hash = 71 * hash + (this.manual ? 1 : 0);
+        hash = 71 * hash + (this.eumParserRules != null ? this.eumParserRules.hashCode() : 0);
+        hash = 71 * hash + (this.eumInjectionRules != null ? this.eumInjectionRules.hashCode() : 0);
+        hash = 71 * hash + (this.excludeRules != null ? this.excludeRules.hashCode() : 0);
+        hash = 71 * hash + (this.includeRules != null ? this.includeRules.hashCode() : 0);
+        hash = 71 * hash + (this.eumCloudApplicationKey != null ? this.eumCloudApplicationKey.hashCode() : 0);
+        hash = 71 * hash + (this.eumBeaconUrl != null ? this.eumBeaconUrl.hashCode() : 0);
+        hash = 71 * hash + (this.eumTargetTiers != null ? this.eumTargetTiers.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExEumConfiguration other = (ExEumConfiguration) obj;
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if ((this.externalJsFetchUrl == null) ? (other.externalJsFetchUrl != null) : !this.externalJsFetchUrl.equals(other.externalJsFetchUrl)) {
+            return false;
+        }
+        if ((this.heartBeatUrl == null) ? (other.heartBeatUrl != null) : !this.heartBeatUrl.equals(other.heartBeatUrl)) {
+            return false;
+        }
+        if (this.automatic != other.automatic) {
+            return false;
+        }
+        if ((this.frameworksToEnable == null) ? (other.frameworksToEnable != null) : !this.frameworksToEnable.equals(other.frameworksToEnable)) {
+            return false;
+        }
+        if (this.manual != other.manual) {
+            return false;
+        }
+        if ((this.eumParserRules == null) ? (other.eumParserRules != null) : !this.eumParserRules.equals(other.eumParserRules)) {
+            return false;
+        }
+        if ((this.eumInjectionRules == null) ? (other.eumInjectionRules != null) : !this.eumInjectionRules.equals(other.eumInjectionRules)) {
+            return false;
+        }
+        if ((this.excludeRules == null) ? (other.excludeRules != null) : !this.excludeRules.equals(other.excludeRules)) {
+            return false;
+        }
+        if ((this.includeRules == null) ? (other.includeRules != null) : !this.includeRules.equals(other.includeRules)) {
+            return false;
+        }
+        if ((this.eumCloudApplicationKey == null) ? (other.eumCloudApplicationKey != null) : !this.eumCloudApplicationKey.equals(other.eumCloudApplicationKey)) {
+            return false;
+        }
+        if ((this.eumBeaconUrl == null) ? (other.eumBeaconUrl != null) : !this.eumBeaconUrl.equals(other.eumBeaconUrl)) {
+            return false;
+        }
+        if ((this.eumTargetTiers == null) ? (other.eumTargetTiers != null) : !this.eumTargetTiers.equals(other.eumTargetTiers)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

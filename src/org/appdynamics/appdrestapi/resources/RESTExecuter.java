@@ -625,7 +625,39 @@ public class RESTExecuter {
         return value;
     }
     
+    public CustomMatchPoints executeTDObjQuery(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
 
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
+        WebResource service = null;
+        ClientResponse response = null;
+         
+        CustomMatchPoints value=null;
+        String export=null;
+        try{
+         
+            service = client.resource(query);
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            export= (String) response.getEntity(String.class);
+            
+            JAXBContext context = JAXBContext.newInstance(CustomMatchPoints.class);
+            Unmarshaller un = context.createUnmarshaller();
+            InputStream inStream = new ByteArrayInputStream(export.getBytes());
+            value = (CustomMatchPoints) un.unmarshal(inStream);
+            
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting Transaction Detection export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        
+        return value;
+    }
     
     public String executeExportHealthRule(RESTAuth auth, String query) throws Exception{
         
@@ -643,6 +675,38 @@ public class RESTExecuter {
             service = client.resource(query);
             response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
             value= (String) response.getEntity(String.class);
+            
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        return value;
+        
+    }
+    
+    public HealthRules executeExportHealthRuleObj(RESTAuth auth, String query) throws Exception{
+        
+        if(client == null) {
+            createConnection(auth);
+        }
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        HealthRules value=null;
+        String export=null;
+        try{
+         
+            service = client.resource(query);
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            export= (String) response.getEntity(String.class);
+            
+            JAXBContext context = JAXBContext.newInstance(HealthRules.class);
+            Unmarshaller un = context.createUnmarshaller();
+            InputStream inStream = new ByteArrayInputStream(export.getBytes());
+            value = (HealthRules) un.unmarshal(inStream);
             
             
         }catch(Exception e){
@@ -679,10 +743,43 @@ public class RESTExecuter {
             
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception getting application export: \nQuery:\n\t")
-                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ")
+                    .append(response.getStatus()).toString());
         }
         
         return value;
+    }
+    
+    public ConfigurationItems executeConfigurationItems(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        
+        WebResource service = client.resource(query);
+        ClientResponse response = null;
+        ConfigurationItems mi=null;
+        try{
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            mi= (ConfigurationItems) response.getEntity(ConfigurationItems.class);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder()
+                    .append("Exception getting entity, please insure that your query is correct. \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(". Response code ")
+                    .append(response.getStatus()).toString());
+        } 
+        
+        if(s.debugLevel > 1){
+            logger.log(Level.INFO,new StringBuilder().append("Number of ConfigurationItems returns is ")
+                    .append(mi.getConfigurationItems().size()).toString());
+        }
+        
+        if(s.debugLevel > 2) logger.log(Level.FINE,new StringBuilder().append(mi.toString()).toString());
+        
+        return mi;
     }
     
     

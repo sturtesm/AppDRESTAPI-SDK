@@ -57,4 +57,32 @@ public class ExGenericMethodConfig {
         bud.append(methodConfig);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + (this.className != null ? this.className.hashCode() : 0);
+        hash = 47 * hash + (this.methodConfig != null ? this.methodConfig.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExGenericMethodConfig other = (ExGenericMethodConfig) obj;
+        if ((this.className == null) ? (other.className != null) : !this.className.equals(other.className)) {
+            return false;
+        }
+        if (this.methodConfig != other.methodConfig && (this.methodConfig == null || !this.methodConfig.equals(other.methodConfig))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

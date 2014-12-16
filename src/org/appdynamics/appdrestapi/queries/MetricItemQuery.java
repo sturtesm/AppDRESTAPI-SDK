@@ -4,10 +4,6 @@
  */
 package org.appdynamics.appdrestapi.queries;
 
-
-
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import org.appdynamics.appdrestapi.resources.QueryEncoder;
 import org.appdynamics.appdrestapi.resources.s;
 
@@ -17,7 +13,7 @@ import org.appdynamics.appdrestapi.resources.s;
  * @author gilbert.solorzano
  */
 public class MetricItemQuery {
-    private static Logger logger=Logger.getLogger(TierQuery.class.getName());
+    
     
     public static String queryMetricList(String baseURL, String application){
         StringBuilder bud = new StringBuilder();

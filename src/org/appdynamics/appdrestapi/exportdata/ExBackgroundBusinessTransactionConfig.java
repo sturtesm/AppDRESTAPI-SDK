@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
             <bt-request-thresholds>
                 <starting-node-slow-threshold>
                     <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
+                    <evaluation-mins>180</evaluation-mins>
                     <standard-deviation-threshold>3.0</standard-deviation-threshold>
                 </starting-node-slow-threshold>
                 <continuing-segment-slow-threshold>
@@ -34,13 +34,13 @@ import javax.xml.bind.annotation.XmlSeeAlso;
                     <standard-deviation-threshold>3.0</standard-deviation-threshold>
                 </continuing-segment-slow-threshold>
                 <exit-call-slow-threshold>
-                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
+                    <evaluation-type>PERCENTAGE_DEVIATION</evaluation-type>
+                    <percentage-threshold>20</percentage-threshold>
                     <evaluation-mins>120</evaluation-mins>
-                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
                 </exit-call-slow-threshold>
                 <starting-node-extremely-slow-threshold>
                     <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
+                    <evaluation-mins>180</evaluation-mins>
                     <standard-deviation-threshold>4.0</standard-deviation-threshold>
                 </starting-node-extremely-slow-threshold>
                 <stall-configuration>
@@ -93,4 +93,43 @@ public class ExBackgroundBusinessTransactionConfig {
         bud.append(btRequestThresholds.toString());
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExBackgroundBusinessTransactionConfig obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.BACKGROUND_BUSINESS_TRANSACTION_CONFIG);
+        
+        bud.append(snapshotCollectionPolicy.whatIsDifferent(obj.getSnapshotCollectionPolicy()));
+        bud.append(btRequestThresholds.whatIsDifferent(obj.getBtRequestThresholds()));
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + (this.snapshotCollectionPolicy != null ? this.snapshotCollectionPolicy.hashCode() : 0);
+        hash = 47 * hash + (this.btRequestThresholds != null ? this.btRequestThresholds.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBackgroundBusinessTransactionConfig other = (ExBackgroundBusinessTransactionConfig) obj;
+        if (this.snapshotCollectionPolicy != other.snapshotCollectionPolicy && (this.snapshotCollectionPolicy == null || !this.snapshotCollectionPolicy.equals(other.snapshotCollectionPolicy))) {
+            return false;
+        }
+        if (this.btRequestThresholds != other.btRequestThresholds && (this.btRequestThresholds == null || !this.btRequestThresholds.equals(other.btRequestThresholds))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

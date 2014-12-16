@@ -87,4 +87,43 @@ public class ExBusinessTransactionConfig {
         bud.append(btRequestThreshold.toString());
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExBusinessTransactionConfig obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.BACKGROUND_BUSINESS_TRANSACTION_CONFIG);
+        
+        bud.append(snapshotCollectionPolicy.whatIsDifferent(obj.getSnapshotCollectionPolicy()));
+        bud.append(btRequestThreshold.whatIsDifferent(obj.getBtRequestThreshold()));
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + (this.snapshotCollectionPolicy != null ? this.snapshotCollectionPolicy.hashCode() : 0);
+        hash = 53 * hash + (this.btRequestThreshold != null ? this.btRequestThreshold.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBusinessTransactionConfig other = (ExBusinessTransactionConfig) obj;
+        if (this.snapshotCollectionPolicy != other.snapshotCollectionPolicy && (this.snapshotCollectionPolicy == null || !this.snapshotCollectionPolicy.equals(other.snapshotCollectionPolicy))) {
+            return false;
+        }
+        if (this.btRequestThreshold != other.btRequestThreshold && (this.btRequestThreshold == null || !this.btRequestThreshold.equals(other.btRequestThreshold))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

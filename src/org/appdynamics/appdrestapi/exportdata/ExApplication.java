@@ -29,17 +29,11 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 
 @XmlRootElement(name=AppExportS.APPLICATION)
-@XmlSeeAlso({ExHealthRules.class,ExApplicationComponents.class,ExApplicationComponent.class,ExAgentConfiguration.class,ExAgentConfigurations.class,
-    ExApplication.class,ExApplicationComponents.class,ExApplicationDiagnosticData.class,ExArt.class,
-    ExBackendMatchPointConfigurations.class,ExBackgroundBusinessTransactionConfig.class,ExBtRequestThresholds.class,
-    ExBusinessTransactionConfig.class,ExBusinessTransactionGroup.class,ExCallGraph.class,ExConfiguration.class,ExCritical.class,
-    ExDataGathererConfigs.class,ExEntryMatchPointConfigurations.class,ExEpm.class,ExErrorConfiguration.class,ExEumCloudConfig.class,
-    ExEumConfiguration.class,ExExcludeConfig.class,ExHttpDataGathererConfig.class,ExInfoPointGathererConfigs.class,
-    ExMetricBaseline.class,ExMetricBaselines.class,ExPageConfig.class,ExProperties.class,ExProperty.class,
-    ExPropertyDefinition.class,ExPropertyDefinitions.class,ExSla.class,ExSlaViolation.class,ExSlowThreshold.class,
-    ExSnapshotCollectionPolicy.class,ExSqlDataGathererConfig.class,ExStallConfiguration.class,ExTasks.class,ExWarning.class,
-    ExWorkflows.class,ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,
-    ExMatchMethod.class,ExMatchClassName.class,ExCustomMatchPointDefinitions.class,ExAgentConfigurations.class})
+@XmlSeeAlso({ExConfiguration.class,ExDataGathererConfigs.class,ExApplicationComponents.class,
+    ExBusinessTransactionGroup.class,ExEntryMatchPointConfigurations.class,
+    ExBackendMatchPointConfigurations.class,ExMetricBaselines.class,
+    ExInfoPointGathererConfigs.class,ExTasks.class,ExWorkflows.class,ExAgentConfigurations.class,
+    ExEumCloudConfig.class,ExHealthRules.class})
 
 public class ExApplication {
     private String name;
@@ -229,21 +223,22 @@ public class ExApplication {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         try{
-        bud.append(AppExportS.APPLICATION);
-        bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
-        bud.append(AppExportS.L1).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
-        bud.append(configuration); //done
-        bud.append(dataGathererConfigs); //done 10/25
-        bud.append(applicationComponents); //done 10/25
-        bud.append(healthRules);
-        bud.append(entryPointMatchConfigurations);
-        bud.append(backendMatchPointConfigurations.toString());
-        bud.append(metricBaselines.toString());
+            bud.append(AppExportS.APPLICATION);
+            bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+            bud.append(AppExportS.L1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
+            bud.append(AppExportS.L1).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
+            bud.append(configuration); //done
+            bud.append(dataGathererConfigs); //done 10/25
+            bud.append(applicationComponents); //done 10/25
+            bud.append(healthRules);
+            bud.append(entryPointMatchConfigurations);
+            bud.append(backendMatchPointConfigurations.toString());
+            bud.append(metricBaselines.toString());
+
+            bud.append(agentConfigurations.toString());
+
+            bud.append(eumCloudConfig.toString());
         
-        bud.append(agentConfigurations.toString());
-        
-        bud.append(eumCloudConfig.toString()); //done
         }catch(Exception e){e.printStackTrace();}
         return bud.toString();
     }

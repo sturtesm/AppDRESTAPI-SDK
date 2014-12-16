@@ -53,6 +53,8 @@ public class ExCritical {
     public String getIndent(){
         if(level == 1) return AppExportS.L3;
         if(level == 2) return AppExportS.L3_1;
+        
+        if(level == 3) return AppExportS.L3_1;
         return AppExportS.L2_1;
     }
 
@@ -64,5 +66,57 @@ public class ExCritical {
 
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExCritical obj){
+        StringBuilder bud = new StringBuilder();
+        
+        if(this.equals(obj)) return AppExportS._;
+        
+        bud.append(getIndent()).append(AppExportS.CRITICAL);level++;
+        if(value != obj.getValue()){      
+            bud.append(getIndent()).append(AppExportS.VALUE);
+            bud.append(getIndent()).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(getIndent()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+        }
+        
+        if(enabled != obj.isEnabled()){
+            bud.append(getIndent()).append(AppExportS.ENABLED);
+            bud.append(getIndent()).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(getIndent()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+        }
+        
+        return bud.toString();
+    }
+    
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (int) (this.value ^ (this.value >>> 32));
+        hash = 59 * hash + (this.enabled ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExCritical other = (ExCritical) obj;
+        if (this.value != other.value) {
+            return false;
+        }
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

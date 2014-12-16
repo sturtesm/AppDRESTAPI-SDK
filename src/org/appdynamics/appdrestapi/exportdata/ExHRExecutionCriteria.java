@@ -47,6 +47,32 @@ public class ExHRExecutionCriteria {
         bud.append(policyCondition);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (this.policyCondition != null ? this.policyCondition.hashCode() : 0);
+        hash = 59 * hash + (this.aggScope != null ? this.aggScope.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRExecutionCriteria other = (ExHRExecutionCriteria) obj;
+        if (this.policyCondition != other.policyCondition && (this.policyCondition == null || !this.policyCondition.equals(other.policyCondition))) {
+            return false;
+        }
+        if (this.aggScope != other.aggScope && (this.aggScope == null || !this.aggScope.equals(other.aggScope))) {
+            return false;
+        }
+        return true;
+    }
     
     
     

@@ -135,4 +135,86 @@ public class ExBtRequestThresholds {
        return bud.toString();
    }
    
+   public String whatIsDifferent(ExBtRequestThresholds obj){
+       if(this.equals(obj)) return AppExportS._;
+       
+       StringBuilder bud = new StringBuilder();
+       bud.append(AppExportS.L2).append(AppExportS.BT_REQUEST_THRESHOLDS);
+       
+       String val=startingNodeSlowThreshold.whatIsDifferent(obj.startingNodeSlowThreshold);
+       
+       if(val.length() > 8){
+           bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
+           bud.append(val);
+       }
+       
+       val=continuingSegmentSlowThreshold.whatIsDifferent(obj.getContinuingSegmentSlowThreshold());
+       if(val.length() > 8){
+           bud.append(AppExportS.L2_1).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
+           bud.append(val);
+       }
+       
+       //Here is where I die
+       val=exitCallSlowThreshold.whatIsDifferent(obj.getExitCallSlowThreshold());
+       if(val.length() > 8){
+           bud.append(AppExportS.L2_1).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
+           bud.append(val);
+       }
+       
+       val=extremelySlowThreshold.whatIsDifferent(obj.getExtremelySlowThreshold());
+       if(val.length() > 8){
+           bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
+           bud.append(val);
+       }
+       
+       bud.append(stallConfiguration.whatIsDifferent(obj.getStallConfiguration()));
+       bud.append(percentiles.whatIsDifferent(obj.getPercentiles()));
+       return bud.toString();
+       
+   }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + (this.startingNodeSlowThreshold != null ? this.startingNodeSlowThreshold.hashCode() : 0);
+        hash = 71 * hash + (this.continuingSegmentSlowThreshold != null ? this.continuingSegmentSlowThreshold.hashCode() : 0);
+        hash = 71 * hash + (this.exitCallSlowThreshold != null ? this.exitCallSlowThreshold.hashCode() : 0);
+        hash = 71 * hash + (this.extremelySlowThreshold != null ? this.extremelySlowThreshold.hashCode() : 0);
+        hash = 71 * hash + (this.stallConfiguration != null ? this.stallConfiguration.hashCode() : 0);
+        hash = 71 * hash + (this.percentiles != null ? this.percentiles.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBtRequestThresholds other = (ExBtRequestThresholds) obj;
+        if (this.startingNodeSlowThreshold != other.startingNodeSlowThreshold && (this.startingNodeSlowThreshold == null || !this.startingNodeSlowThreshold.equals(other.startingNodeSlowThreshold))) {
+            return false;
+        }
+        if (this.continuingSegmentSlowThreshold != other.continuingSegmentSlowThreshold && (this.continuingSegmentSlowThreshold == null || !this.continuingSegmentSlowThreshold.equals(other.continuingSegmentSlowThreshold))) {
+            return false;
+        }
+        if (this.exitCallSlowThreshold != other.exitCallSlowThreshold && (this.exitCallSlowThreshold == null || !this.exitCallSlowThreshold.equals(other.exitCallSlowThreshold))) {
+            return false;
+        }
+        if (this.extremelySlowThreshold != other.extremelySlowThreshold && (this.extremelySlowThreshold == null || !this.extremelySlowThreshold.equals(other.extremelySlowThreshold))) {
+            return false;
+        }
+        if (this.stallConfiguration != other.stallConfiguration && (this.stallConfiguration == null || !this.stallConfiguration.equals(other.stallConfiguration))) {
+            return false;
+        }
+        if (this.percentiles != other.percentiles && (this.percentiles == null || !this.percentiles.equals(other.percentiles))) {
+            return false;
+        }
+        return true;
+    }
+   
+   
+   
 }

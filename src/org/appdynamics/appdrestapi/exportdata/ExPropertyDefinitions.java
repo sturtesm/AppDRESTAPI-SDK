@@ -57,4 +57,63 @@ public class ExPropertyDefinitions {
         for(ExPropertyDefinition prop:propertyDefinitions) bud.append(prop.toString());
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExPropertyDefinitions obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud=new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.PROPERTY_DEFINITIONS);
+        
+        for(ExPropertyDefinition val: propertyDefinitions){
+            boolean fnd=false;
+            for(ExPropertyDefinition val1: obj.getPropertyDefinitions()){
+                if(val.getName().equals(val1.getName())){
+                    bud.append(val.whatIsDifferent(val1));fnd=true;
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION);
+                bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(val.getName());
+            }
+        }
+        
+        for(ExPropertyDefinition val: obj.getPropertyDefinitions()){
+            boolean fnd=false;
+            for(ExPropertyDefinition val1: propertyDefinitions){
+                if(val.getName().equals(val1.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION);
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(val.getName());
+            }
+        }
+        
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (this.propertyDefinitions != null ? this.propertyDefinitions.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExPropertyDefinitions other = (ExPropertyDefinitions) obj;
+        if (this.propertyDefinitions != other.propertyDefinitions && (this.propertyDefinitions == null || !this.propertyDefinitions.equals(other.propertyDefinitions))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -122,8 +122,66 @@ public class ExAgentConfiguration {
         bud.append(AppExportS.L1_1).append(AppExportS.AGENT_CONFIGURATION);
         bud.append(AppExportS.L2).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
         bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        bud.append(propertyDefinitions.toString());
-        bud.append(properties.toString());
+        bud.append(propertyDefinitions);
+        bud.append(properties);
         return bud.toString();
     }
+
+    public String whatIsDifferent(ExAgentConfiguration obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        if(!agentType.equals(obj.getAgentType())) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.AGENT_CONFIGURATION);
+        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        
+        if(override != obj.isOverride()){
+                bud.append(AppExportS.L2).append(AppExportS.OVERRIDE);
+                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(override);
+                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isOverride());
+        }
+        
+        bud.append(propertyDefinitions.whatIsDifferent(obj.getPropertyDefinitions()));
+        bud.append(properties.whatIsDifferent(obj.getProperties()));
+        
+        return bud.toString();
+        
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + (this.override ? 1 : 0);
+        hash = 59 * hash + (this.agentType != null ? this.agentType.hashCode() : 0);
+        hash = 59 * hash + (this.propertyDefinitions != null ? this.propertyDefinitions.hashCode() : 0);
+        hash = 59 * hash + (this.properties != null ? this.properties.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExAgentConfiguration other = (ExAgentConfiguration) obj;
+        if (this.override != other.override) {
+            return false;
+        }
+        if ((this.agentType == null) ? (other.agentType != null) : !this.agentType.equals(other.agentType)) {
+            return false;
+        }
+        if (this.propertyDefinitions != other.propertyDefinitions && (this.propertyDefinitions == null || !this.propertyDefinitions.equals(other.propertyDefinitions))) {
+            return false;
+        }
+        if (this.properties != other.properties && (this.properties == null || !this.properties.equals(other.properties))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
- * L2_1
+ * L3
             <affected-entities-match-criteria>
                 <affected-bt-match-criteria>
                     <type>ALL</type>
@@ -104,4 +104,67 @@ public class ExAffectedBTMatchCriteria {
         }
         return bud.toString();
     }
+    
+    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3).append(AppExportS.XOpen(AppExportS.AFFECTED_BT_MATCH_CRITERIA));
+        bud.append(AppExportS.XElement(6, AppExportS.TYPE, type));
+        if(appComponents != null){
+            bud.append(AppExportS.L3_1).append(AppExportS.XOpen(AppExportS.APPLICATION_COMPONENTS));
+            bud.append(appComponents);
+            bud.append(AppExportS.L3_1).append(AppExportS.XClose(AppExportS.APPLICATION_COMPONENTS));
+        }
+        if(bts.size() > 0){
+            for(ExHRBusinessTransaction bt:bts) bud.append(bt);
+        }
+        if(matchType != null){
+            bud.append(AppExportS.XElement(6, AppExportS.MATCH_TYPE, matchType));
+            bud.append(AppExportS.XElement(6, AppExportS.MATCH_PATTERN, matchPattern));
+            bud.append(AppExportS.XElement(6, AppExportS.INVERSE, inverse));
+        }
+        bud.append(AppExportS.L3).append(AppExportS.XClose(AppExportS.AFFECTED_BT_MATCH_CRITERIA));
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 89 * hash + (this.inverse ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExAffectedBTMatchCriteria other = (ExAffectedBTMatchCriteria) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if (this.appComponents != other.appComponents && (this.appComponents == null || !this.appComponents.equals(other.appComponents))) {
+            return false;
+        }
+        if (this.bts != other.bts && (this.bts == null || !this.bts.equals(other.bts))) {
+            return false;
+        }
+        if ((this.matchType == null) ? (other.matchType != null) : !this.matchType.equals(other.matchType)) {
+            return false;
+        }
+        if ((this.matchPattern == null) ? (other.matchPattern != null) : !this.matchPattern.equals(other.matchPattern)) {
+            return false;
+        }
+        if (this.inverse != other.inverse) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

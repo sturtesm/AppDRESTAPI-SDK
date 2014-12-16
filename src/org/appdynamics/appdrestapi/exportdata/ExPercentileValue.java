@@ -40,6 +40,46 @@ public class ExPercentileValue {
         bud.append(AppExportS.L4).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
         return bud.toString();
     }
+
+    public String whatIsDifferent(ExPercentileValue obj){
+        if(this.equals(obj)) return AppExportS._;
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3_1).append(AppExportS.PERCENTILE_VALUE);
+        
+        if(value != obj.getValue()){
+            bud.append(AppExportS.L4).append(AppExportS.VALUE);
+            bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+        }
+        
+        return bud.toString();
+    }
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.value) ^ (Double.doubleToLongBits(this.value) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExPercentileValue other = (ExPercentileValue) obj;
+        if (Double.doubleToLongBits(this.value) != Double.doubleToLongBits(other.value)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     
 }

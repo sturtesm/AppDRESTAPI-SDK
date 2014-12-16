@@ -43,4 +43,70 @@ public class ExProperties {
         for(ExProperty prop:properties) bud.append(prop.toString());
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExProperties obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2_1).append(AppExportS.PROPERTIES);
+        
+        for(ExProperty prop:properties){
+            boolean fnd=false;
+            for(ExProperty prop1: obj.getProperties()){
+                if(prop.getPropertyDefinition().equals(prop1.getPropertyDefinition())){
+                    fnd=true;
+                    if(!prop.getStringValue().equals(prop1.getStringValue())){  
+                        bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
+                        bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(prop.getStringValue());
+                        bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(prop1.getStringValue());
+                    }
+                }
+            }
+            
+            if(!fnd){
+                        bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
+                        bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(prop.getStringValue());
+            }
+            
+        }
+        
+        for(ExProperty prop:obj.getProperties()){
+            boolean fnd=false;
+            for(ExProperty prop1: properties){
+                if(prop.getPropertyDefinition().equals(prop1.getPropertyDefinition())){
+                    fnd=true;
+                }
+            }
+            
+            if(!fnd){
+                        bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
+                        bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(prop.getStringValue()); 
+            }
+        }
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.properties != null ? this.properties.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExProperties other = (ExProperties) obj;
+        if (this.properties != other.properties && (this.properties == null || !this.properties.equals(other.properties))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

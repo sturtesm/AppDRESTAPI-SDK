@@ -43,4 +43,28 @@ public class ExHRNodes {
         for(String node:nodes)bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT_NODE).append(AppExportS.VE).append(node);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.nodes != null ? this.nodes.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRNodes other = (ExHRNodes) obj;
+        if (this.nodes != other.nodes && (this.nodes == null || !this.nodes.equals(other.nodes))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

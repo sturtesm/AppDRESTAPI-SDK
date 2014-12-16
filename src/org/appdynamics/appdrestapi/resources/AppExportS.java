@@ -11,7 +11,7 @@ package org.appdynamics.appdrestapi.resources;
 public class AppExportS {
     
     
-    
+    public static final String _="";
     public static final String VE=" = ";
     public static final String VS=" :: ";
     public static final String L0="\n";
@@ -28,13 +28,17 @@ public class AppExportS {
     public static final String L6="\n\t\t\t\t\t\t";
     public static final String L6_1="\n\t\t\t\t\t\t   ";
     public static final String S4="    ";
-    
+    public static final String TRUE="true";
+    public static final String FALSE="false";
+    public static final String ZERO="0";
     
     public static final String APPLICATION="application";
     public static final String CONTROLLER_VERSION="controller-version";
     public static final String NAME="name";
     public static final String DESCRIPTION="description";
     public static final String ENV_PROPERTIES="env-properties";
+    public static final String SRC=" SRC ";
+    public static final String DEST=" DEST ";
     
     public static final String CONFIGURATION="configuration";
     public static final String APPLICATION_INSTRUMENTATION_LEVEL="application-instrumentation-level";
@@ -71,6 +75,8 @@ public class AppExportS {
     public static final String EVALUATION_TYPE="evaluation-type";
     public static final String EVALUATION_MINS="evaluation-mins";
     public static final String STANDARD_DEVIATION_THRESHOLD="standard-deviation-threshold";
+    public static final String PERCENTAGE_THRESHOLD="percentage-threshold";
+    public static final String STATIC_THRESHOLD_IN_MILLIS="static-threshold-in-millis";
     public static final String CONTINUING_SEGMENT_SLOW_THRESHOLD="continuing-segment-slow-threshold";
     public static final String EXIT_CALL_SLOW_THRESHOLD="exit-call-slow-threshold";
     public static final String STARTING_NODE_EXTREMELY_SLOW_THRESHOLD="starting-node-extremely-slow-threshold";
@@ -89,24 +95,30 @@ public class AppExportS {
     public static final String DISABLE_DEFAULT_HTTP_ERROR_CODE="disable_default_http_error_code";
     public static final String IGNORE_EXCEPTIONS="ignore-exceptions";
     public static final String IGNORE_LOGGER_NAME="ignore-logger-names";
+    public static final String IGNORE_EXCEPTION_MSG_PATTERNS="ignore-exception-msg-patterns";
+    public static final String IGNORE_LOGGER_MSG_PATTERNS="ignore-logger-msg-patterns";
     public static final String CAPTURE_LOGGER_ERROR_AND_FATAL_MESSAGE="capture-logger-error-and-fatal-messages";
+    public static final String CUSTOM_LOGGER_DEFINITION="custom-logger-definition";
     public static final String MAX_FRAMES_IN_ROOT_CAUSE="max-frames-in-root-cause";
     public static final String STACK_TRACE_LINE_LIMIT="stack-trace-line-limit";
     public static final String MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE="mark-transaction-as-error-on-error-message-log-tag";
     public static final String ASYNC_ACTIVITY_SUPPORTED="async-activity-supported";
+    public static final String DISABLE_JAVA_LOGGING="disable-java-logging";
+    public static final String DISABLE_LOG4J_LOGGING="disable-log4j-logging";
+    public static final String JAVA_APP_AGENT="java-app-agent";
+    public static final String DOTNET_APP_AGENT="dotnet-app-agent";
+    public static final String PHP_APP_AGENT="php-app-agent";
+    public static final String NODEJS_APP_AGENT="nodejs-app-agent";
+    public static final String DISABLE="disable";
+    public static final String ERROR_REDIRECT_PAGE="error-redirect-page";
+    public static final String HTTP_ERROR_RETURN_CODE="http-error-return-code";
+    public static final String LOWER_BOUND="lower-bound";
+    public static final String UPPER_BOUND="upper-bound"; 
+    public static final String[] SLOWTHRESHOLD_TYPES={"STANDARD_DEVIATION","STATIC","PERCENTAGE_DEVIATION"};
+    
     
     /*
-     * <error-configuration agent-type="php-app-agent">
-            <detect-php-errors>true</detect-php-errors>
-            <php-error-level>ERROR</php-error-level>
-            <disable_default_http_error_code>false</disable_default_http_error_code>
-            <ignore-exceptions/>
-            <ignore-logger-names/>
-            <capture-logger-error-and-fatal-messages>false</capture-logger-error-and-fatal-messages>
-            <max-frames-in-root-cause>0</max-frames-in-root-cause>
-            <stack-trace-line-limit>0</stack-trace-line-limit>
-            <mark-transaction-as-error-on-error-message-log-tag>true</mark-transaction-as-error-on-error-message-log-tag>
-        </error-configuration>
+     * 
      */
     
     
@@ -118,7 +130,7 @@ public class AppExportS {
     public static final String MANUAL="manual";
     public static final String EUM_PARSER_RULES="eum-parser-rules";
     public static final String EUM_INJECTION_RULES="eum-injection-rules";
-    public static final String EXCLUCE_RULES="exclude-rules";
+    public static final String EXCLUDE_RULES="exclude-rules";
     public static final String INCLUDE_RULES="include-rules";
     public static final String EUM_CLOUD_APPLICATION_KEY="eum-cloud-application-key";
     public static final String EUM_BEACON_URL="eum-beacon-url";
@@ -359,6 +371,7 @@ public class AppExportS {
     public static final String AFFECTED_BT_MATCH_CRITERIA="affected-bt-match-criteria";
     public static final String AFFECTED_INFRA_MATCH_CRITERIA="affected-infra-match-criteria";
     public static final String AFFECTED_ENTITIES_MATCH_CRITERIA="affected-entities-match-criteria";
+    public static final String AFFECTED_ADD_MATCH_CRITERIA="affected-add-match-criteria";
     public static final String WAIT_TIME_MIN="wait-time-min";
     public static final String DURATION_MIN="duration-min";
     public static final String ALWAYS_ENABLED="always-enabled";
@@ -377,6 +390,8 @@ public class AppExportS {
     public static final String COMPONENTS="components";
     public static final String APPLICATION_COMPONENT_NODE="application-component-node";
     public static final String NODES="nodes";
+    public static final String ADD_TYPES="add-types";
+    public static final String ADD_TYPE="add-type";
    
     /*
      *  Object Import Export
@@ -447,6 +462,12 @@ public class AppExportS {
             case 6: 
                     bud.append(L3_1);
                     break;
+            case 7: 
+                    bud.append(L4);
+                    break;
+            case 8: 
+                    bud.append(L4_1);
+                    break;
             default: 
                     bud.append(L2_1);
                     break;
@@ -455,6 +476,23 @@ public class AppExportS {
         bud.append(XOpen(xmlType)).append(value).append(XClose(xmlType));
         
         return bud.toString();
+    }
+    
+    public static String XElement(int position, String xmlType, boolean value){
+        if(value){
+            return XElement(position,xmlType,TRUE);
+        }else{
+            return XElement(position,xmlType,FALSE);
+        }
+        
+    }
+    
+    public static String XElement(int position, String xmlType, Integer value){
+        return XElement(position,xmlType,value.toString());
+    }
+    
+    public static String XElement(int position, String xmlType, Double value){
+        return XElement(position,xmlType,value.toString());
     }
     
     public static String XAttribute(String name, String value){

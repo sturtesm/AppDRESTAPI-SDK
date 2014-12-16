@@ -47,4 +47,40 @@ public class ExHRBusinessTransaction {
         return bud.toString();
     }
     
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3_1).append(AppExportS.XOpenAttr(AppExportS.BUSINESS_TRANSACTION));
+        
+        bud.append(AppExportS.XAttribute(AppExportS.APPLICATION_COMPONENT,applicationComponent)).append(AppExportS.XC);
+        bud.append(value).append(AppExportS.XClose(AppExportS.BUSINESS_TRANSACTION));
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (this.applicationComponent != null ? this.applicationComponent.hashCode() : 0);
+        hash = 67 * hash + (this.value != null ? this.value.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRBusinessTransaction other = (ExHRBusinessTransaction) obj;
+        if ((this.applicationComponent == null) ? (other.applicationComponent != null) : !this.applicationComponent.equals(other.applicationComponent)) {
+            return false;
+        }
+        if ((this.value == null) ? (other.value != null) : !this.value.equals(other.value)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -49,4 +49,28 @@ public class ExHRNameValueCriteria {
         for(ExNameValue val: nameValues)bud.append(val);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + (this.nameValues != null ? this.nameValues.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRNameValueCriteria other = (ExHRNameValueCriteria) obj;
+        if (this.nameValues != other.nameValues && (this.nameValues == null || !this.nameValues.equals(other.nameValues))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

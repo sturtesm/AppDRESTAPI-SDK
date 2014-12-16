@@ -189,6 +189,65 @@ public class ExHRCondition {
         return bud.toString();
         
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 29 * hash + (this.displayName != null ? this.displayName.hashCode() : 0);
+        hash = 29 * hash + (this.conditionValueType != null ? this.conditionValueType.hashCode() : 0);
+        hash = 29 * hash + (this.conditionValue != null ? this.conditionValue.hashCode() : 0);
+        hash = 29 * hash + (this.conditionExpression != null ? this.conditionExpression.hashCode() : 0);
+        hash = 29 * hash + (this.operator != null ? this.operator.hashCode() : 0);
+        hash = 29 * hash + (this.useActiveBaseline ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRCondition other = (ExHRCondition) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if ((this.displayName == null) ? (other.displayName != null) : !this.displayName.equals(other.displayName)) {
+            return false;
+        }
+        if ((this.conditionValueType == null) ? (other.conditionValueType != null) : !this.conditionValueType.equals(other.conditionValueType)) {
+            return false;
+        }
+        if ((this.conditionValue == null) ? (other.conditionValue != null) : !this.conditionValue.equals(other.conditionValue)) {
+            return false;
+        }
+        if ((this.conditionExpression == null) ? (other.conditionExpression != null) : !this.conditionExpression.equals(other.conditionExpression)) {
+            return false;
+        }
+        if ((this.operator == null) ? (other.operator != null) : !this.operator.equals(other.operator)) {
+            return false;
+        }
+        if (this.useActiveBaseline != other.useActiveBaseline) {
+            return false;
+        }
+        if (this.metricExpression != other.metricExpression && (this.metricExpression == null || !this.metricExpression.equals(other.metricExpression))) {
+            return false;
+        }
+        if (this.condition1 != other.condition1 && (this.condition1 == null || !this.condition1.equals(other.condition1))) {
+            return false;
+        }
+        if (this.condition2 != other.condition2 && (this.condition2 == null || !this.condition2.equals(other.condition2))) {
+            return false;
+        }
+        if (this.metricBaseline != other.metricBaseline && (this.metricBaseline == null || !this.metricBaseline.equals(other.metricBaseline))) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }

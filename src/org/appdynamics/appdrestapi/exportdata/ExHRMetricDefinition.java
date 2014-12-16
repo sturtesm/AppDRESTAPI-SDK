@@ -56,4 +56,32 @@ public class ExHRMetricDefinition {
         bud.append(AppExportS.L4_1).append(AppExportS.LOGICAL_METRIC_NAME).append(AppExportS.VE).append(logicalMetricName);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 41 * hash + (this.logicalMetricName != null ? this.logicalMetricName.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRMetricDefinition other = (ExHRMetricDefinition) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if ((this.logicalMetricName == null) ? (other.logicalMetricName != null) : !this.logicalMetricName.equals(other.logicalMetricName)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

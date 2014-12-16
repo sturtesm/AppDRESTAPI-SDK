@@ -35,8 +35,8 @@ public class ExAffectedOverallCriteria {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
-        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.L2_1).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
+        bud.append(AppExportS.L3).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         return bud.toString();
     }
     

@@ -69,7 +69,6 @@ public class ExSla {
     }
     
     
-    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
@@ -84,4 +83,53 @@ public class ExSla {
         bud.append(epm.toString());
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExSla obj){
+        if(this.equals(obj)) return AppExportS._;
+
+        StringBuilder bud=new StringBuilder();
+        art.setLevel(level);
+        epm.setLevel(level);
+        bud.append(getIndent()).append(AppExportS.SLA);
+        level++;
+        if(!art.equals(obj.getArt())){
+            bud.append(getIndent()).append(AppExportS.ART);
+            bud.append(art.whatIsDifferent(obj.getArt()));
+        }
+        if(!epm.equals(obj.getEpm())){
+            bud.append(getIndent()).append(AppExportS.EPM);
+            bud.append(epm.whatIsDifferent(obj.getEpm()));
+        }
+        
+        return bud.toString();
+    }
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + (this.art != null ? this.art.hashCode() : 0);
+        hash = 11 * hash + (this.epm != null ? this.epm.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExSla other = (ExSla) obj;
+        if (this.art != other.art && (this.art == null || !this.art.equals(other.art))) {
+            return false;
+        }
+        if (this.epm != other.epm && (this.epm == null || !this.epm.equals(other.epm))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

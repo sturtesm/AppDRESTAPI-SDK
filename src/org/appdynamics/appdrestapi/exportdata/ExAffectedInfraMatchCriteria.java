@@ -70,4 +70,34 @@ public class ExAffectedInfraMatchCriteria {
         if(nodeComp != null) bud.append(nodeComp);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.type != null ? this.type.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExAffectedInfraMatchCriteria other = (ExAffectedInfraMatchCriteria) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if (this.nodeMatchCriteria != other.nodeMatchCriteria && (this.nodeMatchCriteria == null || !this.nodeMatchCriteria.equals(other.nodeMatchCriteria))) {
+            return false;
+        }
+        if (this.nodeComp != other.nodeComp && (this.nodeComp == null || !this.nodeComp.equals(other.nodeComp))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

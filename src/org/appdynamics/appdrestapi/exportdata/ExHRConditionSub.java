@@ -126,6 +126,51 @@ public class ExHRConditionSub {
         return bud.toString();
         
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 83 * hash + (this.displayName != null ? this.displayName.hashCode() : 0);
+        hash = 83 * hash + (this.conditionValueType != null ? this.conditionValueType.hashCode() : 0);
+        hash = 83 * hash + (this.conditionValue != null ? this.conditionValue.hashCode() : 0);
+        hash = 83 * hash + (this.operator != null ? this.operator.hashCode() : 0);
+        hash = 83 * hash + (this.useActiveBaseline ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRConditionSub other = (ExHRConditionSub) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if ((this.displayName == null) ? (other.displayName != null) : !this.displayName.equals(other.displayName)) {
+            return false;
+        }
+        if ((this.conditionValueType == null) ? (other.conditionValueType != null) : !this.conditionValueType.equals(other.conditionValueType)) {
+            return false;
+        }
+        if ((this.conditionValue == null) ? (other.conditionValue != null) : !this.conditionValue.equals(other.conditionValue)) {
+            return false;
+        }
+        if ((this.operator == null) ? (other.operator != null) : !this.operator.equals(other.operator)) {
+            return false;
+        }
+        if (this.useActiveBaseline != other.useActiveBaseline) {
+            return false;
+        }
+        if (this.metricExpression != other.metricExpression && (this.metricExpression == null || !this.metricExpression.equals(other.metricExpression))) {
+            return false;
+        }
+        return true;
+    }
     
     
 }

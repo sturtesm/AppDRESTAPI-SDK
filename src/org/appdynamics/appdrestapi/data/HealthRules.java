@@ -4,6 +4,7 @@
  */
 package org.appdynamics.appdrestapi.data;
 
+import org.appdynamics.appdrestapi.exportdata.ExHealthRule;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import java.util.ArrayList;
@@ -62,6 +63,39 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 </health-rules>
  * 
  */
+@XmlSeeAlso(ExHealthRule.class)
+@XmlRootElement(name=AppExportS.HEALTH_RULES)
 public class HealthRules {
+    private String controllerVersion;
+    private ArrayList<ExHealthRule> healthRules=new ArrayList<ExHealthRule>();
     
+    public HealthRules(){}
+
+    @XmlAttribute(name=AppExportS.CONTROLLER_VERSION)
+    public String getControllerVersion() {
+        return controllerVersion;
+    }
+
+    public void setControllerVersion(String controllerVersion) {
+        this.controllerVersion = controllerVersion;
+    }
+
+    @XmlElement(name=AppExportS.HEALTH_RULE)
+    public ArrayList<ExHealthRule> getHealthRules() {
+        return healthRules;
+    }
+
+    public void setHealthRules(ArrayList<ExHealthRule> healthRules) {
+        this.healthRules = healthRules;
+    }
+    
+    
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
+        for(ExHealthRule val: healthRules) bud.append(val);
+        return bud.toString();
+    }
 }

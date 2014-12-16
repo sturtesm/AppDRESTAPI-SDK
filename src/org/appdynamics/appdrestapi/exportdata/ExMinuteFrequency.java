@@ -51,4 +51,54 @@ public class ExMinuteFrequency {
         return bud.toString();
     }
     
+    public String whatIsDifferent(ExMinuteFrequency obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2_1).append(AppExportS.MINUTE_FREQUENCY);
+        
+        if(value != obj.getValue()){
+            bud.append(AppExportS.L3).append(AppExportS.VALUE);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+        }
+        
+        if(enabled != obj.isEnabled()){
+            bud.append(AppExportS.L3).append(AppExportS.ENABLED);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+        }
+        
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + (int) (this.value ^ (this.value >>> 32));
+        hash = 47 * hash + (this.enabled ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExMinuteFrequency other = (ExMinuteFrequency) obj;
+        if (this.value != other.value) {
+            return false;
+        }
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 }

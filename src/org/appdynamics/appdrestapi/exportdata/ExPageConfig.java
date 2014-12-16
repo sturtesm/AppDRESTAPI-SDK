@@ -47,4 +47,32 @@ public class ExPageConfig {
         bud.append(AppExportS.L2).append(AppExportS.PAGE_CONFIG_VERSION).append(AppExportS.VE).append(pageConfigVersion);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (this.pageConfig != null ? this.pageConfig.hashCode() : 0);
+        hash = 37 * hash + (this.pageConfigVersion != null ? this.pageConfigVersion.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExPageConfig other = (ExPageConfig) obj;
+        if ((this.pageConfig == null) ? (other.pageConfig != null) : !this.pageConfig.equals(other.pageConfig)) {
+            return false;
+        }
+        if ((this.pageConfigVersion == null) ? (other.pageConfigVersion != null) : !this.pageConfigVersion.equals(other.pageConfigVersion)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

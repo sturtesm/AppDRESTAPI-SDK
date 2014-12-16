@@ -109,4 +109,47 @@ public class ExHRMetricExpression {
         
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 83 * hash + (this.functionType != null ? this.functionType.hashCode() : 0);
+        hash = 83 * hash + (this.value != null ? this.value.hashCode() : 0);
+        hash = 83 * hash + (this.isLiteralExpression ? 1 : 0);
+        hash = 83 * hash + (this.displayName != null ? this.displayName.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRMetricExpression other = (ExHRMetricExpression) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if ((this.functionType == null) ? (other.functionType != null) : !this.functionType.equals(other.functionType)) {
+            return false;
+        }
+        if (this.value != other.value && (this.value == null || !this.value.equals(other.value))) {
+            return false;
+        }
+        if (this.isLiteralExpression != other.isLiteralExpression) {
+            return false;
+        }
+        if ((this.displayName == null) ? (other.displayName != null) : !this.displayName.equals(other.displayName)) {
+            return false;
+        }
+        if (this.metricDef != other.metricDef && (this.metricDef == null || !this.metricDef.equals(other.metricDef))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

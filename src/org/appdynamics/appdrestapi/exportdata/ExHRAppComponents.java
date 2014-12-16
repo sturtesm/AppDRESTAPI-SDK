@@ -7,7 +7,6 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +35,42 @@ public class ExHRAppComponents {
     @Override
     public String toString(){
         StringBuilder bud =new StringBuilder();
-        for(String app:appComponent)bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT).append(AppExportS.VE).append(app);
+        for(String app:appComponent){
+            bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT).append(AppExportS.VE).append(app);
+        }
         return bud.toString();
     }
+    
+
+    public String toXML(){
+        StringBuilder bud =new StringBuilder();
+        for(String app:appComponent){
+            bud.append(AppExportS.XElement(7, AppExportS.APPLICATION_COMPONENT, app));
+        }
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + (this.appComponent != null ? this.appComponent.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExHRAppComponents other = (ExHRAppComponents) obj;
+        if (this.appComponent != other.appComponent && (this.appComponent == null || !this.appComponent.equals(other.appComponent))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -2335,8 +2335,11 @@ public class RESTAccess {
         if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQueryIndex ")
                     .append(" for application ").append(app).append(" automatic rule ").append(objNode).toString());}
         
-        
+        if(objNode != null){
         query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
+        }else{
+            query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app, tier);
+        }
         
         //This will be the final check, to insure that we don't send a bad query.
         if(query==null){ 
@@ -2562,6 +2565,87 @@ public class RESTAccess {
         return null;
     }
     
+    
+    
+    /**
+     * <p>
+     *  This will export all custom pojo into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @return CustomMatchPoints.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionExportAllPojo
+     * </p>
+     */
+    public CustomMatchPoints getRESTCustomPojoExportAllObj(String app){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo Export query for application ").append(app).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionExportAllPojo(baseURL.getControllerURL(), app); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeTDObjQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * <p>
+     *  This will export all custom pojo into the application and tier.
+     * </p>
+     * 
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @return CustomMatchPoints.class
+     * 
+     * <p>
+     * <br/>queryTransactionDetectionExportAllPojo
+     * </p>
+     */
+    public CustomMatchPoints getRESTCustomPojoExportAllObj(String app, String tier){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo Export query for application ").append(app).append(" tier ").append(tier).toString());}
+        
+        query=TransactionDetectionQuery.queryTransactionDetectionExportAllPojo(baseURL.getControllerURL(), app, tier); //tested
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nQueryIndex sent ").append(" application ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeTDObjQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
     /**
      * <p>
      *  This will export a single custom pojo into the application.
@@ -2747,6 +2831,43 @@ public class RESTAccess {
         return null;
     }
     
+    /**
+     * <p>
+     *  This will export all health rules for the application name,
+     * <br/> this functionality is only in the controller version 3.9.x and above. 
+     * </p>
+     * 
+     * @param app
+     * @return HealthRules.class
+     * 
+     */
+    public HealthRules getRESTHealthRuleObjExportAll(String app){
+        String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nQuery to get health rules for application ").append(app).toString());}
+
+        query=HealthRuleQuery.queryHealthRulesExportAll(baseURL.getControllerURL(), app); //tested
+
+        
+        //This will be the final check, to insure that we don't send a bad query.
+        if(query==null){ 
+            logger.log(Level.WARNING,new StringBuilder()
+                    .append("\nHealthRule query for ")
+                    .append(app).toString());
+            return null;
+        }
+        
+        
+        try{
+            return R.executeExportHealthRuleObj(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
     
     /**
      * <p>
@@ -2849,5 +2970,57 @@ public class RESTAccess {
         return null;
     }
     
+    /**
+     * <p>
+     * This method will allow a user to post an event to the controller, the PostEvent
+     * has its own set of requirements. {@link PostEvent}
+     * </p>
+     * @param app Name of the application to post the event too
+     * @param summary Summary of the event
+     * @param comment Comment for the event
+     * @return String.class
+     */
+    public String postRESTCustomEvent(String app, String summary, String comment){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nEvent POST for application ").append(app).append(" for custom event ").toString());}
+
+        try{
+            query=EventsQuery.queryPostEvent(baseURL.getControllerURL(), app, new PostEvent(summary,comment));
+            
+            //return R.executeTDPostQuery(auth, query, objNode,xml);
+            return R.executeEventPostQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
+    public ConfigurationItems getConfigurationItems(String application){
+        try{
+            return R.executeConfigurationItems(auth, 
+                    ConfigurationItemQuery.queryConfiguration(baseURL.getControllerURL(), application));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
+    
+    public ConfigurationItems getConfigurationItems(String application, String metricName){
+        try{
+            return R.executeConfigurationItems(auth, 
+                    ConfigurationItemQuery.queryConfiguration(baseURL.getControllerURL(), application, metricName));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
     
 }

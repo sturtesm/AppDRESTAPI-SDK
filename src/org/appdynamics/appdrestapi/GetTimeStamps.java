@@ -34,7 +34,7 @@ public class GetTimeStamps {
         
         cal.set(Calendar.HOUR_OF_DAY, 0);
         bud.append("-----------------------Days-----------------------\n");
-        for(int i=1; i < 45;i++){
+        for(int i=1; i < 160;i++){
             int a = 24 * -1;
             cal.add(Calendar.HOUR,a);
             bud.append("Days : ").append(getStringTime(cal));

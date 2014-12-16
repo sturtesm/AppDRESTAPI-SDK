@@ -22,6 +22,7 @@ public class s {
     public static final String HTTP="http://";
     public static final String CONTROLLER_APPS="/controller/rest/applications/";
     public static final String CONTROLLER_BT_URL="/controller/transactiondetection/";
+    public static final String CONTROLLER_CONFIG="/controller/rest/configuration";
     public static final String CONTROLLER_OBJ="/controller/";
     public static final String COLON=":";
     public static final String P="|";
@@ -334,8 +335,44 @@ public class s {
     public static final String EVENT_BT="&bt=";
     public static final String COMMENT="&comment=";
     
+    /*
+     * Pojo
+     * <custom-match-points controller-version="003-009-003-000">
+    <custom-match-point>
+        <name>Cron4J</name>
+        <business-transaction-name>Cron4J</business-transaction-name>
+        <entry-point>POJO</entry-point>
+        <background>false</background>
+        <enabled>false</enabled>
+        <match-rule>
+            <pojo-rule>
+                <enabled>false</enabled>
+                <priority>0</priority>
+                <display-name>Cron4J</display-name>
+                <background>true</background>
+                <match-class type="inherits-from-class">
+                    <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+                </match-class>
+                <split-config type="4"/>
+                <match-method>
+                    <name filter-type="EQUALS" filter-value="execute"/>
+                </match-method>
+            </pojo-rule>
+        </match-rule>
+    </custom-match-point>
+     */
     
-    
+    public static final String CUSTOM_MATCH_POINTS="custom-match-points";
+    public static final String CUSTOM_MATCH_POINT="custom-match-point";
+    public static final String ENTRY_POINT="entry-point";
+    /*
+     * Configuration items
+     * 
+     */
+    public static final String CONFIGURATION_ITEM="configuration-item";
+    public static final String CONFIGURATION_ITEMS="configuration-items";
+    public static final String UPDATEABLE="updateable";
+    public static final String SCOPE="scope";
    
     
     /* * SNAPSHOTS * 

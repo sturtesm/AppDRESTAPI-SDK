@@ -52,5 +52,33 @@ public class ExEumCloudConfig {
         bud.append(pageConfig.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + (this.excludeConfig != null ? this.excludeConfig.hashCode() : 0);
+        hash = 19 * hash + (this.pageConfig != null ? this.pageConfig.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExEumCloudConfig other = (ExEumCloudConfig) obj;
+        if (this.excludeConfig != other.excludeConfig && (this.excludeConfig == null || !this.excludeConfig.equals(other.excludeConfig))) {
+            return false;
+        }
+        if (this.pageConfig != other.pageConfig && (this.pageConfig == null || !this.pageConfig.equals(other.pageConfig))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

@@ -68,4 +68,47 @@ public class ExAffectedEntitiesMatchCriteria {
         
         return bud.toString();
     }
+    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
+        if(btCriteria != null) bud.append(btCriteria);
+        if(infraCriteria != null) bud.append(infraCriteria);
+        if(overallCriteria != null) bud.append(overallCriteria);
+        
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.btCriteria != null ? this.btCriteria.hashCode() : 0);
+        hash = 83 * hash + (this.infraCriteria != null ? this.infraCriteria.hashCode() : 0);
+        hash = 83 * hash + (this.overallCriteria != null ? this.overallCriteria.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExAffectedEntitiesMatchCriteria other = (ExAffectedEntitiesMatchCriteria) obj;
+        if (this.btCriteria != other.btCriteria && (this.btCriteria == null || !this.btCriteria.equals(other.btCriteria))) {
+            return false;
+        }
+        if (this.infraCriteria != other.infraCriteria && (this.infraCriteria == null || !this.infraCriteria.equals(other.infraCriteria))) {
+            return false;
+        }
+        if (this.overallCriteria != other.overallCriteria && (this.overallCriteria == null || !this.overallCriteria.equals(other.overallCriteria))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

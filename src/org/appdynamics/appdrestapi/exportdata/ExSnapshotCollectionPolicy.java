@@ -107,7 +107,7 @@ public class ExSnapshotCollectionPolicy {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2).append(AppExportS.SNAPSHOT_COLLECTION_POLICY);
-        bud.append(minuteFrequency.toString());
+        bud.append(minuteFrequency);
         //bud.append(AppExportS.L2_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         bud.append(nthOccurance.toString());
         bud.append(slaViolation.toString());
@@ -117,4 +117,84 @@ public class ExSnapshotCollectionPolicy {
         
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExSnapshotCollectionPolicy obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.SNAPSHOT_COLLECTION_POLICY);
+        if(minuteFrequency != null) bud.append(minuteFrequency.whatIsDifferent(obj.getMinuteFrequency()));
+        if(nthOccurance != null) bud.append(nthOccurance.whatIsDifferent(obj.getNthOccurance()));
+        if(slaViolation != null) bud.append(slaViolation.whatIsDifferent(obj.getSlaViolation()));
+        
+        if(automaticCollectionEnabled != obj.isAutomaticCollectionEnabled()){
+            bud.append(AppExportS.L3).append(AppExportS.AUTOMATIC_COLLECTION_ENABLED);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(automaticCollectionEnabled);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAutomaticCollectionEnabled());
+            
+        }
+        
+        if(automaticSlowVolumePercentageThrehold != obj.getAutomaticSlowVolumePercentageThrehold()){
+            bud.append(AppExportS.L3).append(AppExportS.AUTOMATIC_SLOW_VOLUME_PERCENTAGE_THRESHOLD);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(automaticSlowVolumePercentageThrehold);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getAutomaticSlowVolumePercentageThrehold());
+            
+        }
+        
+        if(automaticErrorVolumePercentageThreshold != obj.getAutomaticErrorVolumePercentageThreshold()){
+            bud.append(AppExportS.L3).append(AppExportS.AUTOMATIC_ERROR_VOLUME_PERCENTAGE_THRESHOLD);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(automaticErrorVolumePercentageThreshold);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getAutomaticErrorVolumePercentageThreshold());
+            
+        }
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + (this.minuteFrequency != null ? this.minuteFrequency.hashCode() : 0);
+        hash = 23 * hash + (this.enabled ? 1 : 0);
+        hash = 23 * hash + (this.nthOccurance != null ? this.nthOccurance.hashCode() : 0);
+        hash = 23 * hash + (this.slaViolation != null ? this.slaViolation.hashCode() : 0);
+        hash = 23 * hash + (this.automaticCollectionEnabled ? 1 : 0);
+        hash = 23 * hash + this.automaticSlowVolumePercentageThrehold;
+        hash = 23 * hash + this.automaticErrorVolumePercentageThreshold;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExSnapshotCollectionPolicy other = (ExSnapshotCollectionPolicy) obj;
+        if (this.minuteFrequency != other.minuteFrequency && (this.minuteFrequency == null || !this.minuteFrequency.equals(other.minuteFrequency))) {
+            return false;
+        }
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if (this.nthOccurance != other.nthOccurance && (this.nthOccurance == null || !this.nthOccurance.equals(other.nthOccurance))) {
+            return false;
+        }
+        if (this.slaViolation != other.slaViolation && (this.slaViolation == null || !this.slaViolation.equals(other.slaViolation))) {
+            return false;
+        }
+        if (this.automaticCollectionEnabled != other.automaticCollectionEnabled) {
+            return false;
+        }
+        if (this.automaticSlowVolumePercentageThrehold != other.automaticSlowVolumePercentageThrehold) {
+            return false;
+        }
+        if (this.automaticErrorVolumePercentageThreshold != other.automaticErrorVolumePercentageThreshold) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
