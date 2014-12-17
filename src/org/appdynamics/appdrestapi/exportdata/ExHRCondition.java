@@ -9,7 +9,6 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
-import sun.tools.tree.ConditionalExpression;
 /**
  *
  * @author gilbert.solorzano
