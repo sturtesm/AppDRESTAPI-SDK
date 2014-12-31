@@ -43,7 +43,7 @@
                         deprecation="on"
                         optimize="off"
                         includes="**"
-                        target="1.6"
+                        target="1.7"
                         includeantruntime="false">
                         <classpath refid="compile.classpath"/>
                 </javac>

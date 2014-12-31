@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 
 /**
@@ -70,6 +70,7 @@ import javax.xml.bind.annotation.XmlAttribute;
             <propertie-definitions/>
             <properties>
  */
+@XmlSeeAlso({ExPropertyDefinitions.class,ExProperties.class})
 public class ExAgentConfiguration {
     private boolean override;
     private String agentType;

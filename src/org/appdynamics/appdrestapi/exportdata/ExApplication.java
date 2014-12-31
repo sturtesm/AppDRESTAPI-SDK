@@ -9,13 +9,9 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 //import org.appdynamics.appdrestapi.resources.s;
 
 
-import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
@@ -196,8 +192,6 @@ public class ExApplication {
         this.agentConfigurations = agentConfigurations;
     }
     
-    
-
     @XmlElement(name=AppExportS.EUM_CLOUD_CONFIG)
     public ExEumCloudConfig getEumCloudConfig() {
         return eumCloudConfig;
@@ -230,14 +224,15 @@ public class ExApplication {
             bud.append(configuration); //done
             bud.append(dataGathererConfigs); //done 10/25
             bud.append(applicationComponents); //done 10/25
-            bud.append(healthRules);
+            bud.append(healthRules); // done 12/30
+            
             bud.append(entryPointMatchConfigurations);
-            bud.append(backendMatchPointConfigurations.toString());
-            bud.append(metricBaselines.toString());
-
-            bud.append(agentConfigurations.toString());
-
-            bud.append(eumCloudConfig.toString());
+            bud.append(backendMatchPointConfigurations);
+        
+            bud.append(metricBaselines); //done 12/22 needs testing
+            
+            bud.append(agentConfigurations); //done 12/22 needs testing
+            bud.append(eumCloudConfig); //done 12/30
         
         }catch(Exception e){e.printStackTrace();}
         return bud.toString();

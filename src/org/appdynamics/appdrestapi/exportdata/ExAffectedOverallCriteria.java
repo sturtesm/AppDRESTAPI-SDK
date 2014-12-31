@@ -30,7 +30,17 @@ public class ExAffectedOverallCriteria {
         this.type = type;
     }
     
-    
+    public String whatIsDifferent(ExAffectedOverallCriteria obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2_1).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
+        bud.append(AppExportS.L3).append(AppExportS.TYPE);
+        bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType()); 
+                
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -38,6 +48,28 @@ public class ExAffectedOverallCriteria {
         bud.append(AppExportS.L2_1).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
         bud.append(AppExportS.L3).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + (this.type != null ? this.type.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExAffectedOverallCriteria other = (ExAffectedOverallCriteria) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        return true;
     }
     
     

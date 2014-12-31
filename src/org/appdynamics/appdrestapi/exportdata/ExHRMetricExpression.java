@@ -94,7 +94,48 @@ public class ExHRMetricExpression {
         this.metricDef = metricDef;
     }
     
-    
+     public String whatIsDifferent(ExHRMetricExpression obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L4).append(AppExportS.METRIC_EXPRESSION);
+        
+        if(!type.equals(obj.getType())){     
+             bud.append(AppExportS.L4_1).append(AppExportS.TYPE);
+             bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+             bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+         }
+        
+        if(!functionType.equals(obj.getFunctionType())){     
+            bud.append(AppExportS.L4_1).append(AppExportS.FUNCTION_TYPE);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(functionType);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFunctionType());   
+        }
+
+        if(!value.equals(obj.getValue())){     
+            bud.append(AppExportS.L4_1).append(AppExportS.VALUE);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());   
+        }
+        
+        
+        if(isLiteralExpression != obj.isIsLiteralExpression() ){     
+            bud.append(AppExportS.L4_1).append(AppExportS.IS_LITERAL_EXPRESSION);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(isLiteralExpression);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsLiteralExpression());   
+        }
+        
+        
+        if(!displayName.equals(obj.getDisplayName())){     
+            bud.append(AppExportS.L4_1).append(AppExportS.DISPLAY_NAME);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(displayName);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDisplayName());   
+        }
+        
+        bud.append(metricDef.whatIsDifferent(obj.getMetricDef()));
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

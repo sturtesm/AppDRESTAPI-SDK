@@ -85,7 +85,65 @@ public class ExAffectedBTMatchCriteria {
         this.inverse = inverse;
     }
     
-    
+    public String whatIsDifferent(ExAffectedBTMatchCriteria obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);
+        
+        if(!type.equals(obj.getType())){     
+            bud.append(AppExportS.L2_1).append(AppExportS.DESCRIPTION);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+        }
+        
+        if(appComponents != null){
+            bud.append(appComponents.whatIsDifferent(obj.getAppComponents()));
+        }else{
+            if(obj.getAppComponents()!=null){
+                        bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
+                    for(String value: obj.getAppComponents().getAppComponent()){
+                        bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                    }
+            }
+        }
+        
+        for(ExHRBusinessTransaction value: bts){
+            boolean fnd=false;
+            for(ExHRBusinessTransaction _value:obj.getBts()){
+                  if(value.equals(_value))fnd=true;
+            }
+            if(!fnd) bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+        }
+        
+        for(ExHRBusinessTransaction value: obj.getBts()){
+            boolean fnd=false;
+            for(ExHRBusinessTransaction _value:bts){
+                  if(value.equals(_value))fnd=true;
+            }
+            if(!fnd) bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+        }
+        
+        if(matchType != null ){
+            if(!matchType.equals(obj.getMatchType())){
+                bud.append(AppExportS.L3_1).append(AppExportS.MATCH_TYPE);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType()); 
+            }
+            if(!matchPattern.equals(obj.getMatchPattern())){
+                bud.append(AppExportS.L3_1).append(AppExportS.MATCH_PATTERN);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern()); 
+            }
+            if(inverse != obj.isInverse()){
+                bud.append(AppExportS.L3_1).append(AppExportS.INVERSE);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());  
+            }
+        }
+        
+        return bud.toString();
+     }
     
     
     @Override
@@ -94,7 +152,7 @@ public class ExAffectedBTMatchCriteria {
         bud.append(AppExportS.L3).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);
         bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         if(appComponents != null){bud.append(AppExportS.L3_1).append(AppExportS.APPLICATION_COMPONENTS);bud.append(appComponents);}
-        if(bts.size() > 0){
+        if(!bts.isEmpty()){
             for(ExHRBusinessTransaction bt:bts) bud.append(bt);
         }
         if(matchType != null){
@@ -102,6 +160,9 @@ public class ExAffectedBTMatchCriteria {
             bud.append(AppExportS.L3_1).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
             bud.append(AppExportS.L3_1).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
         }
+        
+        //private String matchType,matchPattern;
+        //private boolean inverse;
         return bud.toString();
     }
     

@@ -118,9 +118,87 @@ public class ExNodeMatchCriteria {
         this.inverse = inverse;
     }
     
-    
-    
-    
+    public String whatIsDifferent(ExNodeMatchCriteria obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3_1).append(AppExportS.NODE_MATCH_CRITERIA);
+        
+        if(!type.equals(obj.getType())){
+                bud.append(AppExportS.L3_1).append(AppExportS.TYPE);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType()); 
+        }
+        
+        if(matchType != null ){
+            if(!matchType.equals(obj.getMatchType())){
+                bud.append(AppExportS.L3_1).append(AppExportS.MATCH_TYPE);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType()); 
+            }
+            if(!matchPattern.equals(obj.getMatchPattern())){
+                bud.append(AppExportS.L3_1).append(AppExportS.MATCH_PATTERN);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern()); 
+            }
+            if(inverse != obj.isInverse()){
+                bud.append(AppExportS.L3_1).append(AppExportS.INVERSE);
+                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());  
+            }
+        }
+        
+        if(nodeTypes != null){
+                bud.append(nodeTypes.whatIsDifferent(obj.getNodeTypes()));
+        }else{
+            if(obj.getNodeTypes() != null){
+               bud.append(AppExportS.L3_1).append(AppExportS.NODE_TYPES);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeTypes());
+            }
+        }
+        
+        if(nodes != null){
+                bud.append(nodes.whatIsDifferent(obj.getNodes()));
+        }else{
+            if(obj.getNodes() != null){
+               bud.append(AppExportS.L3_1).append(AppExportS.NODES);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodes());
+            }
+            
+        }
+        
+        if(nodeMetaInfoMatchCriteria != null){
+                bud.append(nodeMetaInfoMatchCriteria.whatIsDifferent(obj.getNodeMetaInfoMatchCriteria()));
+        }else{
+            if(obj.getNodeMetaInfoMatchCriteria() != null){
+               bud.append(AppExportS.L3_1).append(AppExportS.NODE_META_INFO_MATCH_CRITERIA);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeMetaInfoMatchCriteria());
+            }
+            
+        }
+        
+        if(vmSysProperties != null){
+            bud.append(vmSysProperties.whatIsDifferent(obj.getVmSysProperties()));
+        }else{
+            if(obj.getVmSysProperties()!= null){
+               bud.append(AppExportS.L3_1).append(AppExportS.VM_SYS_PROPERTIES);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeMetaInfoMatchCriteria());
+            }
+            
+        }
+        
+        if(envProperties != null){
+            bud.append(envProperties.whatIsDifferent(obj.getEnvProperties()));
+        }else{
+            if(obj.getEnvProperties()!= null){
+               bud.append(AppExportS.L3_1).append(AppExportS.ENV_PROPERTIES);
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEnvProperties());
+            }
+            
+        }
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -140,4 +218,60 @@ public class ExNodeMatchCriteria {
 
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.type != null ? this.type.hashCode() : 0);
+        hash = 79 * hash + (this.matchType != null ? this.matchType.hashCode() : 0);
+        hash = 79 * hash + (this.matchPattern != null ? this.matchPattern.hashCode() : 0);
+        hash = 79 * hash + (this.inverse ? 1 : 0);
+        hash = 79 * hash + (this.nodeMetaInfoMatchCriteria != null ? this.nodeMetaInfoMatchCriteria.hashCode() : 0);
+        hash = 79 * hash + (this.vmSysProperties != null ? this.vmSysProperties.hashCode() : 0);
+        hash = 79 * hash + (this.envProperties != null ? this.envProperties.hashCode() : 0);
+        hash = 79 * hash + (this.nodeTypes != null ? this.nodeTypes.hashCode() : 0);
+        hash = 79 * hash + (this.nodes != null ? this.nodes.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExNodeMatchCriteria other = (ExNodeMatchCriteria) obj;
+        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+            return false;
+        }
+        if ((this.matchType == null) ? (other.matchType != null) : !this.matchType.equals(other.matchType)) {
+            return false;
+        }
+        if ((this.matchPattern == null) ? (other.matchPattern != null) : !this.matchPattern.equals(other.matchPattern)) {
+            return false;
+        }
+        if (this.inverse != other.inverse) {
+            return false;
+        }
+        if (this.nodeMetaInfoMatchCriteria != other.nodeMetaInfoMatchCriteria && (this.nodeMetaInfoMatchCriteria == null || !this.nodeMetaInfoMatchCriteria.equals(other.nodeMetaInfoMatchCriteria))) {
+            return false;
+        }
+        if (this.vmSysProperties != other.vmSysProperties && (this.vmSysProperties == null || !this.vmSysProperties.equals(other.vmSysProperties))) {
+            return false;
+        }
+        if (this.envProperties != other.envProperties && (this.envProperties == null || !this.envProperties.equals(other.envProperties))) {
+            return false;
+        }
+        if (this.nodeTypes != other.nodeTypes && (this.nodeTypes == null || !this.nodeTypes.equals(other.nodeTypes))) {
+            return false;
+        }
+        if (this.nodes != other.nodes && (this.nodes == null || !this.nodes.equals(other.nodes))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

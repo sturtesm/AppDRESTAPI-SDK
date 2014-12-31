@@ -7,7 +7,6 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ import java.util.ArrayList;
         <agent_configuration/>
     </agent-configurations>
  */
-@XmlSeeAlso({ExAgentConfiguration.class,ExPropertyDefinitions.class,ExPropertyDefinition.class,ExProperties.class,ExProperty.class})
+@XmlSeeAlso(ExAgentConfiguration.class)
 public class ExAgentConfigurations {
     private ArrayList<ExAgentConfiguration> agentConfiguration=new ArrayList<ExAgentConfiguration>();
     
@@ -39,7 +38,7 @@ public class ExAgentConfigurations {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1).append(AppExportS.AGENT_CONFIGURATIONS).append(" size ").append(agentConfiguration.size());
-        for(ExAgentConfiguration agent:agentConfiguration) bud.append(agent.toString());
+        for(ExAgentConfiguration agent:agentConfiguration) bud.append(agent);
         return bud.toString();
     }
     

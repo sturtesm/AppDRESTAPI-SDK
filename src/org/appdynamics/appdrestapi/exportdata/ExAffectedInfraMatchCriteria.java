@@ -60,6 +60,36 @@ public class ExAffectedInfraMatchCriteria {
         this.nodeComp = nodeComp;
     }
     
+    public String whatIsDifferent(ExAffectedInfraMatchCriteria obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3).append(AppExportS.AFFECTED_INFRA_MATCH_CRITERIA);
+        if(!type.equals(obj.getType())){     
+            bud.append(AppExportS.L3_1).append(AppExportS.TYPE);
+            bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+            bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+        }
+        
+        if(nodeMatchCriteria != null){
+            bud.append(nodeMatchCriteria.whatIsDifferent(obj.getNodeMatchCriteria()));
+        }else{
+            if(obj.getNodeMatchCriteria() != null){
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeMatchCriteria());
+            }
+        }
+        
+        if(nodeComp != null){
+            bud.append(nodeComp.whatIsDifferent(obj.getNodeComp()));
+        }else{
+            if(obj.getNodeComp() != null){
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeComp());
+            }
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

@@ -205,6 +205,37 @@ public class ExTransactionConfigurations {
         this.configurations = configurations;
     }
 
+    public String whatIsDifferent(ExTransactionConfigurations obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.TRANSACTION_CONFIGURATIONS);
+        
+        for(ExEEPointConfiguration value:configurations){
+            boolean fnd=false;
+            for(ExEEPointConfiguration _value: obj.getConfigurations()){
+                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            
+            if(!fnd)bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(value);
+        }
+        
+        for(ExEEPointConfiguration value:obj.getConfigurations()){
+            boolean fnd=false;
+            for(ExEEPointConfiguration _value: configurations){
+                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
+                    fnd=true;
+                    
+                }
+            }
+            if(!fnd)bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(value);
+        }
+        
+        return bud.toString();
+    }
     @Override
     public String toString() {
         StringBuilder bud = new StringBuilder();
@@ -212,6 +243,29 @@ public class ExTransactionConfigurations {
         for(ExEEPointConfiguration eep: configurations) bud.append(eep.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.configurations != null ? this.configurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExTransactionConfigurations other = (ExTransactionConfigurations) obj;
+        if (this.configurations != other.configurations && (this.configurations == null || !this.configurations.equals(other.configurations))) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

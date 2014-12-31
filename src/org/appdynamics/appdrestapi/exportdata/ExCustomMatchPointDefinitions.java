@@ -33,6 +33,40 @@ public class ExCustomMatchPointDefinitions {
         this.customMatchPointDefinitions = customMatchPointDefinitions;
     }
     
+    public String whatIsDifferent(ExCustomMatchPointDefinitions obj){
+        if( this.equals(obj) ) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3).append(AppExportS.COOKIES);
+        
+        for(ExCustomMatchPointDefinition value:customMatchPointDefinitions){
+            boolean fnd=false;
+            for(ExCustomMatchPointDefinition _value:obj.getCustomMatchPointDefinitions()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+            }
+        }
+        
+        for(ExCustomMatchPointDefinition value:obj.getCustomMatchPointDefinitions()){
+            boolean fnd=false;
+            for(ExCustomMatchPointDefinition _value:customMatchPointDefinitions){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+            }
+        }
+    
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -41,4 +75,28 @@ public class ExCustomMatchPointDefinitions {
         for(ExCustomMatchPointDefinition cm:customMatchPointDefinitions) bud.append(cm.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + (this.customMatchPointDefinitions != null ? this.customMatchPointDefinitions.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExCustomMatchPointDefinitions other = (ExCustomMatchPointDefinitions) obj;
+        if (this.customMatchPointDefinitions != other.customMatchPointDefinitions && (this.customMatchPointDefinitions == null || !this.customMatchPointDefinitions.equals(other.customMatchPointDefinitions))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

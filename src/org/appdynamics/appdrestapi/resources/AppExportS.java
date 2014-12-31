@@ -210,7 +210,7 @@ public class AppExportS {
      * depending on the type String, Boolean, Integer...
      */
     public static final String AGENT_CONFIGURATIONS="agent-configurations";
-    public static final String AGENT_CONFIGURATION="agent-configuration";
+    public static final String AGENT_CONFIGURATION="agent_configuration";
     public static final String OVERRIDE="override";
     public static final String AGENT_TYPE="agent-type";
     public static final String PROPERTY_DEFINITIONS="property-definitions";

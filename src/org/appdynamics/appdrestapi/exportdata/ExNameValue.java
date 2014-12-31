@@ -41,7 +41,18 @@ public class ExNameValue {
         this.value = value;
     }
     
-    
+    public String whatIsDifferent(ExNameValue obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L4).append(AppExportS.NAME_VALUE);
+        
+        bud.append(AppExportS.L4_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

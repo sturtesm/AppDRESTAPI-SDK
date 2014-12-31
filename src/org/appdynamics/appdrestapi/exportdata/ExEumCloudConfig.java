@@ -44,12 +44,22 @@ public class ExEumCloudConfig {
         this.excludeConfig = excludeConfig;
     }
 
+    public String whatIsDifferent(ExEumCloudConfig obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+          bud.append(AppExportS.L1).append(AppExportS.EUM_CLOUD_CONFIG);
+          bud.append(excludeConfig.whatIsDifferent(obj.getExcludeConfig()));
+          bud.append(pageConfig.whatIsDifferent(obj.getPageConfig()));
+        return bud.toString();
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1).append(AppExportS.EUM_CLOUD_CONFIG);
-        bud.append(excludeConfig.toString());
-        bud.append(pageConfig.toString());
+        bud.append(excludeConfig);
+        bud.append(pageConfig);
         return bud.toString();
     }
 

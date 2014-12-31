@@ -61,17 +61,64 @@ public class ExEEPointConfiguration {
         this.discoveryConfig = discoveryConfig;
     }
     
-    
+    public String whatIsDifferent(ExEEPointConfiguration obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3).append(AppExportS.CONFIGURATION);
+        bud.append(AppExportS.L3_1).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        
+        if(enable != obj.isEnable()){
+            bud.append(AppExportS.L3_1).append(AppExportS.ENABLE);
+            bud.append(AppExportS.L4).append(AppExportS.SRC).append(enable);
+            bud.append(AppExportS.L4).append(AppExportS.DEST).append(obj.isEnable());
+        }
+        
+        bud.append(discoveryConfig.whatIsDifferent(obj.getDiscoveryConfig()));
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.CONFIGURATION);
-        bud.append(AppExportS.L4).append(AppExportS.ENABLE).append(AppExportS.VE).append(enable);
-        bud.append(AppExportS.L4).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        bud.append(AppExportS.L3_1).append(AppExportS.ENABLE).append(AppExportS.VE).append(enable);
+        bud.append(AppExportS.L3_1).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
         bud.append(discoveryConfig.toString());
-        bud.append(AppExportS.L3);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (this.transactionEntryPointType != null ? this.transactionEntryPointType.hashCode() : 0);
+        hash = 37 * hash + (this.enable ? 1 : 0);
+        hash = 37 * hash + (this.discoveryConfig != null ? this.discoveryConfig.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExEEPointConfiguration other = (ExEEPointConfiguration) obj;
+        if ((this.transactionEntryPointType == null) ? (other.transactionEntryPointType != null) : !this.transactionEntryPointType.equals(other.transactionEntryPointType)) {
+            return false;
+        }
+        if (this.enable != other.enable) {
+            return false;
+        }
+        if (this.discoveryConfig != other.discoveryConfig && (this.discoveryConfig == null || !this.discoveryConfig.equals(other.discoveryConfig))) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }
