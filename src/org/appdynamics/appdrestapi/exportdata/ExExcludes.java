@@ -41,7 +41,7 @@ public class ExExcludes {
             for(ExExclude _value:obj.getExcludes()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
-                    value.whatIsDifferent(_value);
+                    bud.append(value.whatIsDifferent(_value));
                 }
             }
             if(!fnd)bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(value);

@@ -41,7 +41,29 @@ public class ExCacheConfiguration {
         this.disableStandardCacheFrameworks = disableStandardCacheFrameworks;
     }
     
-    
+    public String whatIsDifferent(ExCacheConfiguration obj){
+        
+        if(this.equals(obj) ) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3).append(AppExportS.CACHE_CONFIGURATION);
+
+        
+        if(disableCacheMonitoring != obj.isDisableCacheMonitoring()){     
+            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(disableCacheMonitoring);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisableCacheMonitoring());    
+        }
+        
+        if(disableStandardCacheFrameworks != obj.isDisableStandardCacheFrameworks()){     
+            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_MEMORY_MONITORING);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(disableStandardCacheFrameworks);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisableStandardCacheFrameworks());    
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -52,4 +74,32 @@ public class ExCacheConfiguration {
         
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + (this.disableCacheMonitoring ? 1 : 0);
+        hash = 19 * hash + (this.disableStandardCacheFrameworks ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExCacheConfiguration other = (ExCacheConfiguration) obj;
+        if (this.disableCacheMonitoring != other.disableCacheMonitoring) {
+            return false;
+        }
+        if (this.disableStandardCacheFrameworks != other.disableStandardCacheFrameworks) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

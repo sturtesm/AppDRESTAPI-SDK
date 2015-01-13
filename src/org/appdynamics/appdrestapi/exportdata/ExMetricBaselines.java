@@ -53,7 +53,7 @@ public class ExMetricBaselines {
             for(ExMetricBaseline _value:obj.getMetricBaselines()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
-                    value.whatIsDifferent(_value);
+                    bud.append(value.whatIsDifferent(_value));
                 }
             }
             if(!fnd){
