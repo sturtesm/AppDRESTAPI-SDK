@@ -17,7 +17,8 @@ public class s {
     public static double percentageThreshold=0.25;
     public static final int MAX_TRIES=3;
     
-    
+    public static final String HTTP_PROXYHOST="http.proxyHost";
+    public static final String HTTP_PROXYPORT="http.proxyPort";
     public static final String HTTPS="https://";
     public static final String HTTP="http://";
     public static final String CONTROLLER_APPS="/controller/rest/applications/";

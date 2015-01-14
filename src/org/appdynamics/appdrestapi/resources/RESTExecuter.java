@@ -15,7 +15,9 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.FormDataBodyPart;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+
+import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -37,6 +39,10 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.net.InetSocketAddress;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -44,7 +50,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-
+import java.io.IOException;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -102,13 +108,34 @@ public class RESTExecuter {
                         public boolean verify(String hostname, SSLSession session){return true;}
                     },ctx));
             
+            
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception ocurred while attempting to associating our SSL cert to the session.").toString());
         }
         //old code
         //logger.log(Level.SEVERE,"Near the end. " + config.getProperties().toString());
         try{
-            client = Client.create(config);
+            if(auth.isUseProxy()){
+                System.setProperty(s.HTTP_PROXYHOST, auth.getProxy().getHost());
+                System.setProperty(s.HTTP_PROXYPORT, auth.getProxy().getPort().toString());
+                
+                client = new Client(new URLConnectionClientHandler(
+                        new HttpURLConnectionFactory(){
+                            Proxy p = null;
+                            @Override
+                            public HttpURLConnection getHttpURLConnection(URL url) throws IOException{
+                                if( p == null){
+                                    p = new Proxy(Proxy.Type.HTTP, 
+                                            new InetSocketAddress(System.getProperty(s.HTTP_PROXYHOST),Integer.getInteger(System.getProperty(s.HTTP_PROXYPORT),80))
+                                            );
+                                }
+                                
+                                return (HttpURLConnection) url.openConnection(p);
+                            }
+                })  ,config);
+            }else{
+                client = Client.create(config);
+            }
             client.addFilter(new HTTPBasicAuthFilter(auth.getUserNameForAuth(),auth.getPasswd()));
         }catch(Exception e){
             StringBuilder bud = new StringBuilder();
