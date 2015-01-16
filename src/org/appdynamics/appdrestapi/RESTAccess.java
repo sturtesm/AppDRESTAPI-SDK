@@ -111,6 +111,26 @@ public class RESTAccess {
         
     }
     
+     /**
+     * <p>
+     * Returns a RESTAccess object that can be used to query the AppDynamics 
+     * controller.
+     * </p>
+     * 
+     * @param controllerURL FQDN of the controller
+     * @param port Port the controller is using
+     * @param ssl Use SSL
+     * @param username User to execute the query as
+     * @param password Password to use with the connection
+     * @param account Account name to use with the queries
+     */
+    public RESTAccess(String controllerURL, String port, boolean ssl, String username, String password, String account, RESTProxy proxy){
+        baseURL=new RESTBaseURL(controllerURL, port, ssl);
+        auth=new RESTAuth(username, password, account, true,proxy);
+        R=new RESTExecuter();
+        
+    }
+    
     /**
      * <p>
      * Turns debug level on, this will produce a lot of logging output and 
