@@ -80,7 +80,7 @@ public class RESTProxy {
     
     public String getHost(){
         if(url != null){
-            return url.split("/")[3];
+            return url.split("\\/")[2];
         }
         return "";
     }
