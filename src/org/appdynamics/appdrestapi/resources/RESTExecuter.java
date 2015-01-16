@@ -126,7 +126,7 @@ public class RESTExecuter {
                             public HttpURLConnection getHttpURLConnection(URL url) throws IOException{
                                 if( p == null){
                                     p = new Proxy(Proxy.Type.HTTP, 
-                                            new InetSocketAddress(System.getProperty(s.HTTP_PROXYHOST),Integer.getInteger(System.getProperty(s.HTTP_PROXYPORT),80))
+                                            new InetSocketAddress(System.getProperty(s.HTTP_PROXYHOST), new Integer(System.getProperty(s.HTTP_PROXYPORT)))
                                             );
                                 }
                                 
