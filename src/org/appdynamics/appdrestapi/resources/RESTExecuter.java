@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.resources;
 import org.appdynamics.appdrestapi.data.AutoDiscoveryConfig;
 import org.appdynamics.appdrestapi.data.*;
 import org.appdynamics.appdrestapi.exportdata.*;
+import org.appdynamics.appdrestapi.resources.s;
 
 import org.appdynamics.appdrestapi.queries.ApplicationQuery;
 import org.appdynamics.appdrestapi.resources.AppExportS;
@@ -198,6 +199,49 @@ public class RESTExecuter {
         return md;
     }
     
+    public Dashboard executeDashboardExportByIdQuery(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        String value=null;
+        ExDashboard val=null;
+        Dashboard dash=null;
+        try{
+         
+            service = client.resource(query);
+            
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            //logger.log(Level.INFO, new StringBuilder().append("responsecode:::").append(response.getStatus()).toString());
+            if(response.getStatus() == 200){
+                value= (String) response.getEntity(String.class);
+                JAXBContext context = JAXBContext.newInstance(ExDashboard.class);
+                Unmarshaller un = context.createUnmarshaller();
+                InputStream inStream = new ByteArrayInputStream(value.getBytes());
+                val = (ExDashboard) un.unmarshal(inStream);
+            
+                dash=new Dashboard();
+                dash.setExists(true);
+                dash.setName(val.getName());
+                dash.setValue(value);
+                //logger.log(Level.INFO,val.toString());
+            }else{
+                dash = new Dashboard();
+                dash.setExists(false);
+            }
+
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting dashboard export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        return dash;
+        
+    }
     
     public String executeApplicationExportByIdQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {

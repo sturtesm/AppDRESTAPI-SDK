@@ -25,12 +25,14 @@ public class s {
     public static final String CONTROLLER_BT_URL="/controller/transactiondetection/";
     public static final String CONTROLLER_CONFIG="/controller/rest/configuration";
     public static final String CONTROLLER_OBJ="/controller/";
+    public static final String CONTROLLER_DASHBOARD="/controller/CustomDashboardImportExportServlet?dashboardId=";
     public static final String COLON=":";
     public static final String P="|";
     public static final String F="/";
     public static final String Q="?";
     public static final String D_=" - ";
     
+    public static final String CONTENT_DISPOSITION="Content-Disposition";
     public static final String URL_TIERS="/tiers";
     public static final String URL_NODES="/nodes";
     public static final String URL_PROBLEMS="/problems";
