@@ -47,7 +47,18 @@ public class ExGenericMethodConfig {
         this.methodConfig = methodConfig;
     }
     
-    
+    public String whatIsDifferent(ExGenericMethodConfig obj){
+        if(this.equals(obj) || !className.equals(obj.getClassName())) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3_1).append(AppExportS.METHOD_CONFIG);
+
+        bud.append(AppExportS.L4).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className); 
+        bud.append(methodConfig.whatIsDifferent(obj.getMethodConfig()));
+        
+        return bud.toString();
+    } 
     
     @Override
     public String toString(){

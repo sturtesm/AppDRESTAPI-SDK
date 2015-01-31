@@ -13,6 +13,9 @@ public class RESTAuth {
     private String passwd;
     private String multiTenant="customer1";
     private boolean isMultiTenant;
+    private RESTProxy proxy;
+    private boolean useProxy=false;
+    
 
     public RESTAuth(){}
     
@@ -27,7 +30,19 @@ public class RESTAuth {
         this.passwd=passwd;
         this.multiTenant=multiTenant;
         this.isMultiTenant=isMultiTenant;
+        this.useProxy=false;
     }
+    
+     public RESTAuth(String name, String passwd, String multiTenant, boolean isMultiTenant, RESTProxy proxy){
+        this.name=name;
+        this.passwd=passwd;
+        this.multiTenant=multiTenant;
+        this.isMultiTenant=isMultiTenant;
+        this.useProxy=true;
+        this.proxy=proxy;
+    }
+    
+
 
     public String getName() {
         return name;
@@ -75,4 +90,26 @@ public class RESTAuth {
         bud.append("\tPasswd ").append(getPasswd()).append("\n");
         return bud.toString();
     }
+
+    public RESTProxy getProxy() {
+        return proxy;
+    }
+
+    public void setProxy(RESTProxy proxy) {
+        useProxy=true;
+        this.proxy = proxy;
+    }
+
+    public boolean isUseProxy() {
+        return useProxy;
+    }
+
+    public void setUseProxy(boolean useProxy) {
+        this.useProxy = useProxy;
+    }
+
+    
+   
+    
+    
 }

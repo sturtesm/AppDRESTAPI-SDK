@@ -67,7 +67,35 @@ public class ExMethodInvocationDataGathererConfig {
         this.transformerType = transformerType;
     }
     
-    
+    public String whatIsDifferent(ExMethodInvocationDataGathererConfig obj){
+        
+        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L2).append(AppExportS.METHOD_INVOCATION_DATA_GATHERER_CONFIG);
+        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+        if(position != obj.getPosition()){     
+            bud.append(AppExportS.L3).append(AppExportS.POSITION);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(position);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPosition());    
+        }
+        
+        if(!gathererType.equals(obj.getGathererType())){
+            bud.append(AppExportS.L1_1).append(AppExportS.GATHERER_TYPE);
+            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(gathererType);
+            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getGathererType());    
+        }
+        
+        if(!transformerType.equals(obj.getTransformerType())){
+            bud.append(AppExportS.L1_1).append(AppExportS.TRANSFORMER_TYPE);
+            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(transformerType);
+            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getTransformerType());    
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -79,5 +107,41 @@ public class ExMethodInvocationDataGathererConfig {
         bud.append(AppExportS.L2_1).append(AppExportS.TRANSFORMER_TYPE).append(AppExportS.VE).append(transformerType);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 47 * hash + this.position;
+        hash = 47 * hash + (this.gathererType != null ? this.gathererType.hashCode() : 0);
+        hash = 47 * hash + (this.transformerType != null ? this.transformerType.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExMethodInvocationDataGathererConfig other = (ExMethodInvocationDataGathererConfig) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if (this.position != other.position) {
+            return false;
+        }
+        if ((this.gathererType == null) ? (other.gathererType != null) : !this.gathererType.equals(other.gathererType)) {
+            return false;
+        }
+        if ((this.transformerType == null) ? (other.transformerType != null) : !this.transformerType.equals(other.transformerType)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

@@ -66,7 +66,57 @@ public class ExDataGathererConfigs {
         this.pojoDataGathererConfig = pojoDataGathererConfig;
     }
     
-    
+    public String whatIsDifferent(ExDataGathererConfigs obj){
+        
+        if(this.equals(obj) ) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        
+        bud.append(AppExportS.L1).append(AppExportS.DATA_GATHERER_CONFIGS);
+        
+        
+        if(httpDataGathererConfig != null){ 
+            if(obj.getHttpDataGathererConfig() != null && httpDataGathererConfig.getName().equals(obj.getHttpDataGathererConfig().getName())){
+                bud.append(httpDataGathererConfig.whatIsDifferent(obj.getHttpDataGathererConfig()));
+            }else{
+                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(httpDataGathererConfig);
+                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getHttpDataGathererConfig());
+            }
+        }else{ 
+            if(obj.getHttpDataGathererConfig()!= null){
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getHttpDataGathererConfig());
+            }
+        }
+        
+        if(sqlDataGathererConfig != null){ 
+            if(obj.getSqlDataGathererConfig() != null && sqlDataGathererConfig.getName().equals(obj.getSqlDataGathererConfig().getName())){
+                bud.append(sqlDataGathererConfig.whatIsDifferent(obj.getSqlDataGathererConfig()));
+            }else{
+                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(sqlDataGathererConfig);
+                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSqlDataGathererConfig());
+            }
+        }else{ 
+            if(obj.getSqlDataGathererConfig()!= null){
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSqlDataGathererConfig());
+            }
+        }
+        
+        if(pojoDataGathererConfig != null){ 
+            if(obj.getPojoDataGathererConfig()!= null && pojoDataGathererConfig.getName().equals(obj.getPojoDataGathererConfig().getName())){
+                bud.append(pojoDataGathererConfig.whatIsDifferent(obj.getPojoDataGathererConfig()));
+            }else{
+                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(pojoDataGathererConfig);
+                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPojoDataGathererConfig());
+            }
+        }else{ 
+            if(obj.getPojoDataGathererConfig()!= null){
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPojoDataGathererConfig());
+            }
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -78,5 +128,37 @@ public class ExDataGathererConfigs {
         if(pojoDataGathererConfig != null) bud.append(pojoDataGathererConfig.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + (this.httpDataGathererConfig != null ? this.httpDataGathererConfig.hashCode() : 0);
+        hash = 11 * hash + (this.pojoDataGathererConfig != null ? this.pojoDataGathererConfig.hashCode() : 0);
+        hash = 11 * hash + (this.sqlDataGathererConfig != null ? this.sqlDataGathererConfig.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExDataGathererConfigs other = (ExDataGathererConfigs) obj;
+        if (this.httpDataGathererConfig != other.httpDataGathererConfig && (this.httpDataGathererConfig == null || !this.httpDataGathererConfig.equals(other.httpDataGathererConfig))) {
+            return false;
+        }
+        if (this.pojoDataGathererConfig != other.pojoDataGathererConfig && (this.pojoDataGathererConfig == null || !this.pojoDataGathererConfig.equals(other.pojoDataGathererConfig))) {
+            return false;
+        }
+        if (this.sqlDataGathererConfig != other.sqlDataGathererConfig && (this.sqlDataGathererConfig == null || !this.sqlDataGathererConfig.equals(other.sqlDataGathererConfig))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

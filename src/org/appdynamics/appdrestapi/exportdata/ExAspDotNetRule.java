@@ -65,6 +65,30 @@ public class ExAspDotNetRule {
         this.className = className;
     }
     
+    public String whatIsDifferent(ExAspDotNetRule obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append(AppExportS.ASP_DOTNET_RULE);
+        
+        if(enabled != obj.isEnabled()){
+            bud.append(AppExportS.L3).append(AppExportS.ENABLED);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            
+        }
+        
+        if(priority != obj.getPriority()){
+            bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+            
+        }
+        
+        bud.append(className.whatIsDifferent(obj.getClassName()));
+        
+        return bud.toString();
+    }
     
     
     @Override
@@ -76,5 +100,37 @@ public class ExAspDotNetRule {
         bud.append(className.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + (this.enabled ? 1 : 0);
+        hash = 61 * hash + this.priority;
+        hash = 61 * hash + (this.className != null ? this.className.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExAspDotNetRule other = (ExAspDotNetRule) obj;
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if (this.priority != other.priority) {
+            return false;
+        }
+        if (this.className != other.className && (this.className == null || !this.className.equals(other.className))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  */
-@XmlSeeAlso({ExBusinessTransactions.class,ExSla.class,ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExBusinessTransactionConfig.class})
+@XmlSeeAlso(ExBusinessTransaction.class)
 public class ExBusinessTransactions {
     private ArrayList<ExBusinessTransaction> businessTransactions=new ArrayList<ExBusinessTransaction>();
     

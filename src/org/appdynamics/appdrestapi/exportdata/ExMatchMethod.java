@@ -33,6 +33,15 @@ public class ExMatchMethod {
         this.matchClassName = matchClassName;
     }
     
+    public String whatIsDifferent(ExMatchMethod obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3_1).append(AppExportS.NAME);
+        bud.append(matchClassName.whatIsDifferent(obj.getMatchClassName()));
+        return bud.toString();
+    }
+    
     
     @Override
     public String toString(){
@@ -41,4 +50,28 @@ public class ExMatchMethod {
         bud.append(matchClassName);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.matchClassName != null ? this.matchClassName.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExMatchMethod other = (ExMatchMethod) obj;
+        if (this.matchClassName != other.matchClassName && (this.matchClassName == null || !this.matchClassName.equals(other.matchClassName))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

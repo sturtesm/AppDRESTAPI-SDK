@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.resources;
 import org.appdynamics.appdrestapi.data.AutoDiscoveryConfig;
 import org.appdynamics.appdrestapi.data.*;
 import org.appdynamics.appdrestapi.exportdata.*;
+import org.appdynamics.appdrestapi.resources.s;
 
 import org.appdynamics.appdrestapi.queries.ApplicationQuery;
 import org.appdynamics.appdrestapi.resources.AppExportS;
@@ -15,7 +16,9 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.FormDataBodyPart;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+
+import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -37,6 +40,10 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.net.InetSocketAddress;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -44,7 +51,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-
+import java.io.IOException;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -102,13 +109,34 @@ public class RESTExecuter {
                         public boolean verify(String hostname, SSLSession session){return true;}
                     },ctx));
             
+            
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception ocurred while attempting to associating our SSL cert to the session.").toString());
         }
         //old code
         //logger.log(Level.SEVERE,"Near the end. " + config.getProperties().toString());
         try{
-            client = Client.create(config);
+            if(auth.isUseProxy()){
+                System.setProperty(s.HTTP_PROXYHOST, auth.getProxy().getHost());
+                System.setProperty(s.HTTP_PROXYPORT, auth.getProxy().getPort().toString());
+                
+                client = new Client(new URLConnectionClientHandler(
+                        new HttpURLConnectionFactory(){
+                            Proxy p = null;
+                            @Override
+                            public HttpURLConnection getHttpURLConnection(URL url) throws IOException{
+                                if( p == null){
+                                    p = new Proxy(Proxy.Type.HTTP, 
+                                            new InetSocketAddress(System.getProperty(s.HTTP_PROXYHOST), new Integer(System.getProperty(s.HTTP_PROXYPORT)))
+                                            );
+                                }
+                                
+                                return (HttpURLConnection) url.openConnection(p);
+                            }
+                })  ,config);
+            }else{
+                client = Client.create(config);
+            }
             client.addFilter(new HTTPBasicAuthFilter(auth.getUserNameForAuth(),auth.getPasswd()));
         }catch(Exception e){
             StringBuilder bud = new StringBuilder();
@@ -171,6 +199,49 @@ public class RESTExecuter {
         return md;
     }
     
+    public Dashboard executeDashboardExportByIdQuery(RESTAuth auth, String query) throws Exception{
+        if(client == null) {
+            createConnection(auth);
+        }
+        
+        if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
+        
+        WebResource service = null;
+        ClientResponse response = null;
+        String value=null;
+        ExDashboard val=null;
+        Dashboard dash=null;
+        try{
+         
+            service = client.resource(query);
+            
+            response = service.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+            //logger.log(Level.INFO, new StringBuilder().append("responsecode:::").append(response.getStatus()).toString());
+            if(response.getStatus() == 200){
+                value= (String) response.getEntity(String.class);
+                JAXBContext context = JAXBContext.newInstance(ExDashboard.class);
+                Unmarshaller un = context.createUnmarshaller();
+                InputStream inStream = new ByteArrayInputStream(value.getBytes());
+                val = (ExDashboard) un.unmarshal(inStream);
+            
+                dash=new Dashboard();
+                dash.setExists(true);
+                dash.setName(val.getName());
+                dash.setValue(value);
+                //logger.log(Level.INFO,val.toString());
+            }else{
+                dash = new Dashboard();
+                dash.setExists(false);
+            }
+
+            
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception getting dashboard export: \nQuery:\n\t")
+                    .append(query).append("\nError:").append(e.getMessage()).append(".\nResponse code is ").append(response.getStatus()).toString());
+        }
+        return dash;
+        
+    }
     
     public String executeApplicationExportByIdQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {

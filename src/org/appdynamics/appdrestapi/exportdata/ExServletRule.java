@@ -194,7 +194,84 @@ public class ExServletRule {
         this.genericMethodConfig = genericMethodConfig;
     }
     
-    
+    public String whatIsDifferent(ExServletRule obj){
+        if(this.equals(obj) ) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2_1).append(AppExportS.SERVLET_RULE);;
+        
+        if(enabled!=obj.isEnabled()){
+                bud.append(AppExportS.L3).append(AppExportS.ENABLED);
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+        }
+        
+        if(priority != obj.getPriority()){
+                bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+        }
+       
+        if(className != null){ bud.append(className.whatIsDifferent(obj.getClassName()));}
+        else{ 
+            if(obj.getClassName() != null){
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getClassName());
+            }
+        }
+        
+        if(uri != null){ bud.append(uri.whatIsDifferent(obj.getUri()));}
+        else{
+            if(obj.getUri() != null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getUri());
+        }
+        
+        if(servletName != null){ bud.append(servletName.whatIsDifferent(obj.getServletName()));}
+        else{
+            if(obj.getServletName()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getServletName());
+        }
+        
+        if(host != null){ bud.append(host.whatIsDifferent(obj.getHost()));}
+        else{
+            if(obj.getHost()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getHost());
+        }
+        
+        if(port != null){ bud.append(port.whatIsDifferent(obj.getPort()));}
+        else{
+            if(obj.getPort()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getPort());
+        }
+        
+        if(!httpMethod.equals(obj.getHttpMethod())){
+                bud.append(AppExportS.L3).append(AppExportS.HTTP_METHOD);
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(httpMethod);
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getHttpMethod());
+        }
+        
+        if(parameters != null){ bud.append(parameters.whatIsDifferent(obj.getParameters()));}
+        else{
+            if(obj.getParameters()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getParameters());
+        }
+        
+        if(headers != null){ bud.append(headers.whatIsDifferent(obj.getHeaders()));}
+        else{
+            if(obj.getHeaders()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getHeaders());
+        }
+        
+        if(cookies != null){ bud.append(cookies.whatIsDifferent(obj.getCookies()));}
+        else{
+            if(obj.getCookies()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getCookies());
+        }
+        
+        if(properties != null){ bud.append(properties.whatIsDifferent(obj.getProperties()));}
+        else{
+            if(obj.getProperties()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getProperties());
+        }
+        
+        if(genericMethodConfig != null){ bud.append(genericMethodConfig.whatIsDifferent(obj.getGenericMethodConfig()));}
+        else{
+            if(obj.getGenericMethodConfig()!= null) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(obj.getGenericMethodConfig());
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -217,5 +294,77 @@ public class ExServletRule {
         
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + (this.enabled ? 1 : 0);
+        hash = 67 * hash + this.priority;
+        hash = 67 * hash + (this.className != null ? this.className.hashCode() : 0);
+        hash = 67 * hash + (this.uri != null ? this.uri.hashCode() : 0);
+        hash = 67 * hash + (this.servletName != null ? this.servletName.hashCode() : 0);
+        hash = 67 * hash + (this.host != null ? this.host.hashCode() : 0);
+        hash = 67 * hash + (this.port != null ? this.port.hashCode() : 0);
+        hash = 67 * hash + (this.parameters != null ? this.parameters.hashCode() : 0);
+        hash = 67 * hash + (this.headers != null ? this.headers.hashCode() : 0);
+        hash = 67 * hash + (this.cookies != null ? this.cookies.hashCode() : 0);
+        hash = 67 * hash + (this.properties != null ? this.properties.hashCode() : 0);
+        hash = 67 * hash + (this.genericMethodConfig != null ? this.genericMethodConfig.hashCode() : 0);
+        hash = 67 * hash + (this.httpMethod != null ? this.httpMethod.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExServletRule other = (ExServletRule) obj;
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if (this.priority != other.priority) {
+            return false;
+        }
+        if (this.className != other.className && (this.className == null || !this.className.equals(other.className))) {
+            return false;
+        }
+        if (this.uri != other.uri && (this.uri == null || !this.uri.equals(other.uri))) {
+            return false;
+        }
+        if (this.servletName != other.servletName && (this.servletName == null || !this.servletName.equals(other.servletName))) {
+            return false;
+        }
+        if (this.host != other.host && (this.host == null || !this.host.equals(other.host))) {
+            return false;
+        }
+        if (this.port != other.port && (this.port == null || !this.port.equals(other.port))) {
+            return false;
+        }
+        if (this.parameters != other.parameters && (this.parameters == null || !this.parameters.equals(other.parameters))) {
+            return false;
+        }
+        if (this.headers != other.headers && (this.headers == null || !this.headers.equals(other.headers))) {
+            return false;
+        }
+        if (this.cookies != other.cookies && (this.cookies == null || !this.cookies.equals(other.cookies))) {
+            return false;
+        }
+        if (this.properties != other.properties && (this.properties == null || !this.properties.equals(other.properties))) {
+            return false;
+        }
+        if (this.genericMethodConfig != other.genericMethodConfig && (this.genericMethodConfig == null || !this.genericMethodConfig.equals(other.genericMethodConfig))) {
+            return false;
+        }
+        if ((this.httpMethod == null) ? (other.httpMethod != null) : !this.httpMethod.equals(other.httpMethod)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

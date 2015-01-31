@@ -39,6 +39,16 @@ public class ExHRExecutionCriteria {
     }
     
 
+    public String whatIsDifferent(ExHRExecutionCriteria obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append("Execution Criteria");
+        bud.append(aggScope.whatIsDifferent(obj.getAggScope()));
+        bud.append(policyCondition.whatIsDifferent(obj.getPolicyCondition()));
+        return bud.toString();
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
@@ -73,7 +83,5 @@ public class ExHRExecutionCriteria {
         }
         return true;
     }
-    
-    
     
 }

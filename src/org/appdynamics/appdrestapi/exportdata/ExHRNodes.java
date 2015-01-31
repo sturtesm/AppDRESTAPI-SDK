@@ -34,7 +34,28 @@ public class ExHRNodes {
         this.nodes = nodes;
     }
     
-    
+    public String whatIsDifferent(ExHRNodes obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3_1).append(AppExportS.NODES);
+        
+        for(String value: nodes){
+            if(!obj.getNodes().contains(value)){
+                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
+                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            }
+        }
+        
+        for(String value: obj.getNodes()){
+            if(!nodes.contains(value)){
+                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
+                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+            }
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

@@ -74,6 +74,29 @@ public class ExDiscoveryConfig {
         this.namingConfig = namingConfig;
     }
     
+    public String whatIsDifferent(ExDiscoveryConfig obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_CONFIG);
+        
+        if(!discoveryResolution.equals(obj.discoveryResolution)){
+            bud.append(AppExportS.L3_1).append(AppExportS.DISCOVERY_RESOLUTION);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryResolution);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDiscoveryResolution());
+        }
+        
+        if(discoveryConfigEnabled != obj.isDiscoveryConfigEnabled()){
+            bud.append(AppExportS.L3_1).append(AppExportS.DISCOVERY_CONFIG_ENABLED);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryConfigEnabled);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryConfigEnabled());
+        }
+        
+        bud.append(excludes.whatIsDifferent(obj.getExcludes()));
+        bud.append(namingConfig.whatIsDifferent(obj.getNamingConfig()));
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -86,4 +109,40 @@ public class ExDiscoveryConfig {
         bud.append(namingConfig);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + (this.discoveryResolution != null ? this.discoveryResolution.hashCode() : 0);
+        hash = 89 * hash + (this.discoveryConfigEnabled ? 1 : 0);
+        hash = 89 * hash + (this.excludes != null ? this.excludes.hashCode() : 0);
+        hash = 89 * hash + (this.namingConfig != null ? this.namingConfig.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExDiscoveryConfig other = (ExDiscoveryConfig) obj;
+        if ((this.discoveryResolution == null) ? (other.discoveryResolution != null) : !this.discoveryResolution.equals(other.discoveryResolution)) {
+            return false;
+        }
+        if (this.discoveryConfigEnabled != other.discoveryConfigEnabled) {
+            return false;
+        }
+        if (this.excludes != other.excludes && (this.excludes == null || !this.excludes.equals(other.excludes))) {
+            return false;
+        }
+        if (this.namingConfig != other.namingConfig && (this.namingConfig == null || !this.namingConfig.equals(other.namingConfig))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -68,6 +68,26 @@ public class ExExclude {
         this.aspDotNetRule = aspDotNetRule;
     }
     
+    public String whatIsDifferent(ExExclude obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append(AppExportS.EXCLUDE);
+        bud.append(AppExportS.L3_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+        if(servletRule != null){ bud.append(servletRule.whatIsDifferent(obj.getServletRule()));}
+        else{
+            if(obj.getServletRule() != null){
+                bud.append(AppExportS.L4).append(AppExportS.DEST).append(obj.getServletRule());
+            }
+        }
+        if(aspDotNetRule != null){ bud.append(aspDotNetRule.whatIsDifferent(obj.getAspDotNetRule()));}
+        else{
+            if(obj.getAspDotNetRule() != null) bud.append(AppExportS.L4).append(AppExportS.DEST).append(obj.getAspDotNetRule());
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -78,4 +98,37 @@ public class ExExclude {
         if(aspDotNetRule != null) bud.append(aspDotNetRule);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 61 * hash + (this.servletRule != null ? this.servletRule.hashCode() : 0);
+        hash = 61 * hash + (this.aspDotNetRule != null ? this.aspDotNetRule.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExExclude other = (ExExclude) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if (this.servletRule != other.servletRule && (this.servletRule == null || !this.servletRule.equals(other.servletRule))) {
+            return false;
+        }
+        if (this.aspDotNetRule != other.aspDotNetRule && (this.aspDotNetRule == null || !this.aspDotNetRule.equals(other.aspDotNetRule))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
 }

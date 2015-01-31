@@ -255,8 +255,7 @@ import java.util.ArrayList;
  * 
  */
 
-@XmlSeeAlso({ExApplicationComponent.class,ExMemoryConfiguration.class,ExCacheConfiguration.class,ExBusinessTransactions.class,ExBusinessTransaction.class,ExSla.class,
-    ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExBusinessTransactionConfig.class})
+@XmlSeeAlso(ExApplicationComponent.class)
 public class ExApplicationComponents {
     private ArrayList<ExApplicationComponent> applicationComponents=new ArrayList<ExApplicationComponent>();
     

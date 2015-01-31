@@ -9,13 +9,9 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 //import org.appdynamics.appdrestapi.resources.s;
 
 
-import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
@@ -196,8 +192,6 @@ public class ExApplication {
         this.agentConfigurations = agentConfigurations;
     }
     
-    
-
     @XmlElement(name=AppExportS.EUM_CLOUD_CONFIG)
     public ExEumCloudConfig getEumCloudConfig() {
         return eumCloudConfig;
@@ -217,6 +211,49 @@ public class ExApplication {
     }
     
 
+    public String whatIsDifferent(ExApplication obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.APPLICATION);
+        
+        bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+            
+        if(!name.equals(obj.getName())){     
+            bud.append(AppExportS.L1_1).append(AppExportS.NAME);
+            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(name);
+            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName());    
+        }
+        
+        if(description != obj.getDescription()){
+            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
+            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
+        }
+        
+        if(controllerVersion != obj.getControllerVersion()){
+            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
+            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
+        }
+        
+        bud.append(configuration.whatIsDifferent(obj.getConfiguration())); //done
+        bud.append(dataGathererConfigs.whatIsDifferent(obj.getDataGathererConfigs())); //done 10/25
+        bud.append(applicationComponents); //done 10/25
+        bud.append(healthRules.whatIsDifferent(obj.getHealthRules())); // done 12/30
+
+        bud.append(entryPointMatchConfigurations.whatIsDifferent(obj.getEntryPointMatchConfigurations()));
+        bud.append(backendMatchPointConfigurations);
+
+        bud.append(metricBaselines.whatIsDifferent(obj.getMetricBaselines())); //done 12/31
+
+        bud.append(agentConfigurations.whatIsDifferent(obj.getAgentConfigurations())); //done 12/31, need testing
+        bud.append(eumCloudConfig.whatIsDifferent(obj.getEumCloudConfig())); //done 12/30
+        
+        
+        return bud.toString();
+    }
     
     
     @Override 
@@ -230,17 +267,106 @@ public class ExApplication {
             bud.append(configuration); //done
             bud.append(dataGathererConfigs); //done 10/25
             bud.append(applicationComponents); //done 10/25
-            bud.append(healthRules);
+            bud.append(healthRules); // done 12/30
+            
             bud.append(entryPointMatchConfigurations);
-            bud.append(backendMatchPointConfigurations.toString());
-            bud.append(metricBaselines.toString());
-
-            bud.append(agentConfigurations.toString());
-
-            bud.append(eumCloudConfig.toString());
+            bud.append(backendMatchPointConfigurations);
+        
+            bud.append(metricBaselines); //done 12/31
+            
+            bud.append(agentConfigurations); //done 12/31, need testing
+            bud.append(eumCloudConfig); //done 12/30
         
         }catch(Exception e){e.printStackTrace();}
         return bud.toString();
     }
+
     //Configuration
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 97 * hash + (this.description != null ? this.description.hashCode() : 0);
+        hash = 97 * hash + (this.envProperties != null ? this.envProperties.hashCode() : 0);
+        hash = 97 * hash + (this.controllerVersion != null ? this.controllerVersion.hashCode() : 0);
+        hash = 97 * hash + (this.configuration != null ? this.configuration.hashCode() : 0);
+        hash = 97 * hash + (this.dataGathererConfigs != null ? this.dataGathererConfigs.hashCode() : 0);
+        hash = 97 * hash + (this.applicationComponents != null ? this.applicationComponents.hashCode() : 0);
+        hash = 97 * hash + (this.businessTransactionGroups != null ? this.businessTransactionGroups.hashCode() : 0);
+        hash = 97 * hash + (this.entryPointMatchConfigurations != null ? this.entryPointMatchConfigurations.hashCode() : 0);
+        hash = 97 * hash + (this.backendMatchPointConfigurations != null ? this.backendMatchPointConfigurations.hashCode() : 0);
+        hash = 97 * hash + (this.metricBaselines != null ? this.metricBaselines.hashCode() : 0);
+        hash = 97 * hash + (this.infoPointGathereConfigs != null ? this.infoPointGathereConfigs.hashCode() : 0);
+        hash = 97 * hash + (this.tasks != null ? this.tasks.hashCode() : 0);
+        hash = 97 * hash + (this.workflows != null ? this.workflows.hashCode() : 0);
+        hash = 97 * hash + (this.agentConfigurations != null ? this.agentConfigurations.hashCode() : 0);
+        hash = 97 * hash + (this.eumCloudConfig != null ? this.eumCloudConfig.hashCode() : 0);
+        hash = 97 * hash + (this.healthRules != null ? this.healthRules.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExApplication other = (ExApplication) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if ((this.description == null) ? (other.description != null) : !this.description.equals(other.description)) {
+            return false;
+        }
+        if ((this.envProperties == null) ? (other.envProperties != null) : !this.envProperties.equals(other.envProperties)) {
+            return false;
+        }
+        if ((this.controllerVersion == null) ? (other.controllerVersion != null) : !this.controllerVersion.equals(other.controllerVersion)) {
+            return false;
+        }
+        if (this.configuration != other.configuration && (this.configuration == null || !this.configuration.equals(other.configuration))) {
+            return false;
+        }
+        if (this.dataGathererConfigs != other.dataGathererConfigs && (this.dataGathererConfigs == null || !this.dataGathererConfigs.equals(other.dataGathererConfigs))) {
+            return false;
+        }
+        if (this.applicationComponents != other.applicationComponents && (this.applicationComponents == null || !this.applicationComponents.equals(other.applicationComponents))) {
+            return false;
+        }
+        if (this.businessTransactionGroups != other.businessTransactionGroups && (this.businessTransactionGroups == null || !this.businessTransactionGroups.equals(other.businessTransactionGroups))) {
+            return false;
+        }
+        if (this.entryPointMatchConfigurations != other.entryPointMatchConfigurations && (this.entryPointMatchConfigurations == null || !this.entryPointMatchConfigurations.equals(other.entryPointMatchConfigurations))) {
+            return false;
+        }
+        if (this.backendMatchPointConfigurations != other.backendMatchPointConfigurations && (this.backendMatchPointConfigurations == null || !this.backendMatchPointConfigurations.equals(other.backendMatchPointConfigurations))) {
+            return false;
+        }
+        if (this.metricBaselines != other.metricBaselines && (this.metricBaselines == null || !this.metricBaselines.equals(other.metricBaselines))) {
+            return false;
+        }
+        if (this.infoPointGathereConfigs != other.infoPointGathereConfigs && (this.infoPointGathereConfigs == null || !this.infoPointGathereConfigs.equals(other.infoPointGathereConfigs))) {
+            return false;
+        }
+        if (this.tasks != other.tasks && (this.tasks == null || !this.tasks.equals(other.tasks))) {
+            return false;
+        }
+        if (this.workflows != other.workflows && (this.workflows == null || !this.workflows.equals(other.workflows))) {
+            return false;
+        }
+        if (this.agentConfigurations != other.agentConfigurations && (this.agentConfigurations == null || !this.agentConfigurations.equals(other.agentConfigurations))) {
+            return false;
+        }
+        if (this.eumCloudConfig != other.eumCloudConfig && (this.eumCloudConfig == null || !this.eumCloudConfig.equals(other.eumCloudConfig))) {
+            return false;
+        }
+        if (this.healthRules != other.healthRules && (this.healthRules == null || !this.healthRules.equals(other.healthRules))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

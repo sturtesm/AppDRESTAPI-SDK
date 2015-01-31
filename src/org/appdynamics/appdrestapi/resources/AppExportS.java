@@ -40,6 +40,10 @@ public class AppExportS {
     public static final String SRC=" SRC ";
     public static final String DEST=" DEST ";
     
+    public static final String CUSTOM_DASHBOARD_VERSION="custom-dashboard-version";
+    public static final String CUSTOM_DASHBOARD="custom-dashboard";
+    public static final String HEIGHT="height";
+    public static final String WIDTH="'width";
     public static final String CONFIGURATION="configuration";
     public static final String APPLICATION_INSTRUMENTATION_LEVEL="application-instrumentation-level";
     public static final String SNAPSHOT_EVALUATION_INTERVAL="snapshot-evaluation-interval";
@@ -210,7 +214,7 @@ public class AppExportS {
      * depending on the type String, Boolean, Integer...
      */
     public static final String AGENT_CONFIGURATIONS="agent-configurations";
-    public static final String AGENT_CONFIGURATION="agent-configuration";
+    public static final String AGENT_CONFIGURATION="agent_configuration";
     public static final String OVERRIDE="override";
     public static final String AGENT_TYPE="agent-type";
     public static final String PROPERTY_DEFINITIONS="property-definitions";

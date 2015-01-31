@@ -56,7 +56,22 @@ public class ExMatchRule {
         this.servletRule = servletRule;
     }
     
-    
+    public String whatIsDifferent(ExMatchRule obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.MATCH_RULE);
+        
+        if(pojoRule != null && obj.getPojoRule() != null){
+            pojoRule.whatIsDifferent(obj.getPojoRule());
+        }
+        
+        if(servletRule != null && obj.getServletRule()!= null){
+            servletRule.whatIsDifferent(obj.getServletRule());
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -66,4 +81,32 @@ public class ExMatchRule {
         if(servletRule != null) bud.append(servletRule);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + (this.pojoRule != null ? this.pojoRule.hashCode() : 0);
+        hash = 47 * hash + (this.servletRule != null ? this.servletRule.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExMatchRule other = (ExMatchRule) obj;
+        if (this.pojoRule != other.pojoRule && (this.pojoRule == null || !this.pojoRule.equals(other.pojoRule))) {
+            return false;
+        }
+        if (this.servletRule != other.servletRule && (this.servletRule == null || !this.servletRule.equals(other.servletRule))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

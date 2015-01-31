@@ -76,16 +76,74 @@ public class ExBackendIdentityOption {
     }
     
     
+    public String whatIsDifferent(ExBackendIdentityOption obj){
+        
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        
+        bud.append(AppExportS.L3_1).append(AppExportS.BACKEND_IDENTITY_OPTION);
+        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+       if(enabled != obj.isEnabled()){
+            bud.append(AppExportS.L4_1).append(AppExportS.ENABLED);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+       }
+       
+       bud.append(namingOptions.whatIsDifferent(obj.getNamingOptions()));
+       bud.append(namingActions.whatIsDifferent(obj.getNamingActions()));
+
+        return bud.toString();
+    }
+    
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3_1).append(AppExportS.BACKEND_IDENTITY_OPTION);
         bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        if(namingOptions != null) bud.append(namingOptions.toString());
-        if(namingActions != null) bud.append(namingActions.toString());
+        if(namingOptions != null) bud.append(namingOptions);
+        if(namingActions != null) bud.append(namingActions);
         bud.append(AppExportS.L4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 67 * hash + (this.namingOptions != null ? this.namingOptions.hashCode() : 0);
+        hash = 67 * hash + (this.namingActions != null ? this.namingActions.hashCode() : 0);
+        hash = 67 * hash + (this.enabled ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBackendIdentityOption other = (ExBackendIdentityOption) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if (this.namingOptions != other.namingOptions && (this.namingOptions == null || !this.namingOptions.equals(other.namingOptions))) {
+            return false;
+        }
+        if (this.namingActions != other.namingActions && (this.namingActions == null || !this.namingActions.equals(other.namingActions))) {
+            return false;
+        }
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

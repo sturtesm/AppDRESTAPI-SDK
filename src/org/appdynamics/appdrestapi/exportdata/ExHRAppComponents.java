@@ -30,7 +30,28 @@ public class ExHRAppComponents {
         this.appComponent = appComponent;
     }
     
-    
+    public String whatIsDifferent(ExHRAppComponents obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3_1).append(AppExportS.APPLICATION_COMPONENTS);
+        
+        for(String value: appComponent){
+            if(!obj.getAppComponent().contains(value)){
+                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
+                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            }
+        }
+        
+        for(String value: obj.getAppComponent()){
+            if(!appComponent.contains(value)){
+                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
+                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+            }
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

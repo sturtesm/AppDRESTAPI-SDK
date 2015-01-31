@@ -177,7 +177,7 @@ public class ExPropertyDefinition {
         }
         
         if(!type.equals(obj.getType())){
-                        bud.append(AppExportS.L3).append(AppExportS.TYPE).append(" is different.");
+                        bud.append(AppExportS.L3).append(AppExportS.TYPE);
                         bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(type);
                         bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());
             

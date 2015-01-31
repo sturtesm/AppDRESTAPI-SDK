@@ -105,6 +105,38 @@ public class ExPojoRule {
         this.matchMethod = matchMethod;
     }
     
+    public String whatIsDifferent(ExPojoRule obj){
+        if(this.equals(obj) || !displayName.equals(obj.getDisplayName())) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2_1).append(AppExportS.POJO_RULE);
+        bud.append(AppExportS.L3).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        
+        if(enabled!=obj.isEnabled()){
+                bud.append(AppExportS.L3).append(AppExportS.ENABLED);
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+        }
+        
+        if(priority != obj.getPriority()){
+                bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+        }
+        
+        if(background != obj.isBackground()){
+                bud.append(AppExportS.L3).append(AppExportS.BACKGROUND);
+                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(background);
+                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isBackground());
+        }
+        
+        bud.append(matchClass.whatIsDifferent(obj.getMatchClass()));
+        bud.append(splitConfig.whatIsDifferent(obj.getSplitConfig()));
+        bud.append(matchMethod.whatIsDifferent(obj.getMatchMethod()));
+        
+        return bud.toString();
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
@@ -119,5 +151,53 @@ public class ExPojoRule {
         
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + (this.enabled ? 1 : 0);
+        hash = 89 * hash + this.priority;
+        hash = 89 * hash + (this.displayName != null ? this.displayName.hashCode() : 0);
+        hash = 89 * hash + (this.background ? 1 : 0);
+        hash = 89 * hash + (this.matchClass != null ? this.matchClass.hashCode() : 0);
+        hash = 89 * hash + (this.splitConfig != null ? this.splitConfig.hashCode() : 0);
+        hash = 89 * hash + (this.matchMethod != null ? this.matchMethod.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExPojoRule other = (ExPojoRule) obj;
+        if (this.enabled != other.enabled) {
+            return false;
+        }
+        if (this.priority != other.priority) {
+            return false;
+        }
+        if ((this.displayName == null) ? (other.displayName != null) : !this.displayName.equals(other.displayName)) {
+            return false;
+        }
+        if (this.background != other.background) {
+            return false;
+        }
+        if (this.matchClass != other.matchClass && (this.matchClass == null || !this.matchClass.equals(other.matchClass))) {
+            return false;
+        }
+        if (this.splitConfig != other.splitConfig && (this.splitConfig == null || !this.splitConfig.equals(other.splitConfig))) {
+            return false;
+        }
+        if (this.matchMethod != other.matchMethod && (this.matchMethod == null || !this.matchMethod.equals(other.matchMethod))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

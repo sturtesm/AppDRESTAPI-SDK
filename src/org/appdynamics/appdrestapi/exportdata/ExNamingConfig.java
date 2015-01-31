@@ -55,14 +55,50 @@ public class ExNamingConfig {
         this.nameValues = nameValues;
     }
     
-    
+    public String whatIsDifferent(ExNamingConfig obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.NAMING_CONFIG);
+        bud.append(AppExportS.L3).append(AppExportS.SCHEME).append(AppExportS.VE).append(scheme);
+        bud.append(nameValues.whatIsDifferent(obj.getNameValues()));
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2).append(AppExportS.NAMING_CONFIG);
         bud.append(AppExportS.L3).append(AppExportS.SCHEME).append(AppExportS.VE).append(scheme);
-        bud.append(nameValues.toString());
+        bud.append(nameValues);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + (this.scheme != null ? this.scheme.hashCode() : 0);
+        hash = 29 * hash + (this.nameValues != null ? this.nameValues.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExNamingConfig other = (ExNamingConfig) obj;
+        if ((this.scheme == null) ? (other.scheme != null) : !this.scheme.equals(other.scheme)) {
+            return false;
+        }
+        if (this.nameValues != other.nameValues && (this.nameValues == null || !this.nameValues.equals(other.nameValues))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

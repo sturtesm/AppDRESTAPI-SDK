@@ -86,7 +86,45 @@ public class ExMetricBaseline {
         this.numberOfDays = numberOfDays;
     }
     
-    
+     public String whatIsDifferent(ExMetricBaseline obj){
+        if(this.equals(obj) ) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.METRIC_BASELINE);
+        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+        if(!seasonality.equals(obj.getSeasonality())){     
+             bud.append(AppExportS.L2).append(AppExportS.SEASONALITY);
+             bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(seasonality);
+             bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSeasonality());   
+         }
+        
+        if(fixed != obj.isFixed()){     
+            bud.append(AppExportS.L2).append(AppExportS.FIXED);
+            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(fixed);
+            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isFixed());   
+        }
+
+        if(isDefault != obj.isIsDefault()){     
+            bud.append(AppExportS.L2).append(AppExportS.IS_DEFAULT);
+            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(isDefault);
+            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsDefault());   
+        }
+        
+        if(allDate != obj.isAllDate()){     
+            bud.append(AppExportS.L2).append(AppExportS.ALL_DATE);
+            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(allDate);
+            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAllDate());   
+        }
+        
+        if(numberOfDays != obj.getNumberOfDays()){     
+            bud.append(AppExportS.L2).append(AppExportS.NUMBER_OF_DAYS);
+            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(numberOfDays);
+            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNumberOfDays());   
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -100,4 +138,48 @@ public class ExMetricBaseline {
         bud.append(AppExportS.L2).append(AppExportS.NUMBER_OF_DAYS).append(AppExportS.VE).append(numberOfDays);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + (this.seasonality != null ? this.seasonality.hashCode() : 0);
+        hash = 73 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 73 * hash + (this.fixed ? 1 : 0);
+        hash = 73 * hash + (this.isDefault ? 1 : 0);
+        hash = 73 * hash + (this.allDate ? 1 : 0);
+        hash = 73 * hash + this.numberOfDays;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExMetricBaseline other = (ExMetricBaseline) obj;
+        if ((this.seasonality == null) ? (other.seasonality != null) : !this.seasonality.equals(other.seasonality)) {
+            return false;
+        }
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if (this.fixed != other.fixed) {
+            return false;
+        }
+        if (this.isDefault != other.isDefault) {
+            return false;
+        }
+        if (this.allDate != other.allDate) {
+            return false;
+        }
+        if (this.numberOfDays != other.numberOfDays) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

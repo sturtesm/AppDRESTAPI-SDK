@@ -353,14 +353,70 @@ public class ExEntryMatchPointConfiguration {
         this.transactionConfigurations = transactionConfigurations;
     }
     
+    public String whatIsDifferent(ExEntryMatchPointConfiguration obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
+        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        
+        if(override != obj.isOverride()){
+            bud.append(AppExportS.L2).append(AppExportS.OVERRIDE);
+            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(override);
+            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isOverride());
+        }
+        
+        bud.append(transactionConfigurations.whatIsDifferent(obj.getTransactionConfigurations()));
+        bud.append(customMatchPointDefinitions.whatIsDifferent(obj.getCustomMatchPointDefinitions()));
+        
+        return bud.toString();
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
         bud.append(AppExportS.L2).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
         bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
         bud.append(transactionConfigurations.toString());
         bud.append(customMatchPointDefinitions.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + (this.override ? 1 : 0);
+        hash = 31 * hash + (this.agentType != null ? this.agentType.hashCode() : 0);
+        hash = 31 * hash + (this.customMatchPointDefinitions != null ? this.customMatchPointDefinitions.hashCode() : 0);
+        hash = 31 * hash + (this.transactionConfigurations != null ? this.transactionConfigurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExEntryMatchPointConfiguration other = (ExEntryMatchPointConfiguration) obj;
+        if (this.override != other.override) {
+            return false;
+        }
+        if ((this.agentType == null) ? (other.agentType != null) : !this.agentType.equals(other.agentType)) {
+            return false;
+        }
+        if (this.customMatchPointDefinitions != other.customMatchPointDefinitions && (this.customMatchPointDefinitions == null || !this.customMatchPointDefinitions.equals(other.customMatchPointDefinitions))) {
+            return false;
+        }
+        if (this.transactionConfigurations != other.transactionConfigurations && (this.transactionConfigurations == null || !this.transactionConfigurations.equals(other.transactionConfigurations))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

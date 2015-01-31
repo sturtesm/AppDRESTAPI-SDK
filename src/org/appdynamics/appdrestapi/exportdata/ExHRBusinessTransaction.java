@@ -36,7 +36,26 @@ public class ExHRBusinessTransaction {
         this.value = value;
     }
     
-    
+    public String whatIsDifferent(ExHRBusinessTransaction obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3_1).append(AppExportS.BUSINESS_TRANSACTION);
+        
+        if(!applicationComponent.equals(obj.getApplicationComponent())){     
+            bud.append(AppExportS.L3).append(AppExportS.APPLICATION_COMPONENT);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(applicationComponent);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getApplicationComponent());   
+        }
+        
+        if(!value.equals(obj.getValue())){     
+            bud.append(AppExportS.L3).append(AppExportS.VALUE);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());   
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

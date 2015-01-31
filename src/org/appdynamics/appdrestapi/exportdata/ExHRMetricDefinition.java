@@ -46,7 +46,26 @@ public class ExHRMetricDefinition {
         this.logicalMetricName = logicalMetricName;
     }
     
-    
+    public String whatIsDifferent(ExHRMetricDefinition obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L4).append(AppExportS.METRIC_DEFINITION);
+        
+        if(!type.equals(obj.getType())){     
+             bud.append(AppExportS.L4_1).append(AppExportS.TYPE);
+             bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+             bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+         }
+        
+        if(!logicalMetricName.equals(obj.getLogicalMetricName())){     
+            bud.append(AppExportS.L4_1).append(AppExportS.LOGICAL_METRIC_NAME);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(logicalMetricName);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getLogicalMetricName());   
+        }
+
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

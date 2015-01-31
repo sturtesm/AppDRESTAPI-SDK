@@ -8,7 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  *
@@ -36,12 +36,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 
             </property-definitions>
  */
+@XmlSeeAlso(ExPropertyDefinition.class)
 public class ExPropertyDefinitions {
     private ArrayList<ExPropertyDefinition> propertyDefinitions=new ArrayList<ExPropertyDefinition>();
     
     public ExPropertyDefinitions(){}
 
-    @XmlElement(name=AppExportS.PROPERTY_DEFINITIONS)
+    @XmlElement(name=AppExportS.PROPERTY_DEFINITION)
     public ArrayList<ExPropertyDefinition> getPropertyDefinitions() {
         return propertyDefinitions;
     }

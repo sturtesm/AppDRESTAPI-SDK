@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
                 </property>
  * 
  */
+@XmlSeeAlso(ExProperty.class)
 public class ExProperties {
     private ArrayList<ExProperty> properties=new ArrayList<ExProperty>();
     

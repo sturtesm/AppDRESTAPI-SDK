@@ -53,7 +53,34 @@ public class ExMemoryConfiguration {
         this.enableMemoryMonitoring = enableMemoryMonitoring;
     }
     
-    
+    public String whatIsDifferent(ExMemoryConfiguration obj){
+        
+        if(this.equals(obj) ) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L3).append(AppExportS.MEMORY_CONFIGURATION);
+        
+        if(sizePollingInterval != obj.getSizePollingInterval()){     
+            bud.append(AppExportS.L2_1).append(AppExportS.SIZE_POLLING_INTERVAL);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(sizePollingInterval);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSizePollingInterval());    
+        }
+        
+        if(enableCacheFrameworkSizeMonitoring != obj.isEnableCacheFrameworkSizeMonitoring()){     
+            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enableCacheFrameworkSizeMonitoring);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableCacheFrameworkSizeMonitoring());    
+        }
+        
+        if(enableMemoryMonitoring != obj.isEnableMemoryMonitoring()){     
+            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_MEMORY_MONITORING);
+            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enableMemoryMonitoring);
+            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableMemoryMonitoring());    
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -66,4 +93,36 @@ public class ExMemoryConfiguration {
         return bud.toString();
         
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + this.sizePollingInterval;
+        hash = 23 * hash + (this.enableCacheFrameworkSizeMonitoring ? 1 : 0);
+        hash = 23 * hash + (this.enableMemoryMonitoring ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExMemoryConfiguration other = (ExMemoryConfiguration) obj;
+        if (this.sizePollingInterval != other.sizePollingInterval) {
+            return false;
+        }
+        if (this.enableCacheFrameworkSizeMonitoring != other.enableCacheFrameworkSizeMonitoring) {
+            return false;
+        }
+        if (this.enableMemoryMonitoring != other.enableMemoryMonitoring) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

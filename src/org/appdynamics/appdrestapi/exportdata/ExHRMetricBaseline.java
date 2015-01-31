@@ -31,6 +31,17 @@ public class ExHRMetricBaseline {
         this.name = name;
     }
     
+    public String whatIsDifferent(ExHRMetricBaseline obj){
+        if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append(AppExportS.METRIC_BASELINE);
+        bud.append(AppExportS.L3_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(name);
+             bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName()); 
+        return bud.toString();
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();

@@ -134,5 +134,57 @@ public class ExBackendDiscoveryConfiguration {
         if(backendDiscoveryConditions != null) bud.append(backendDiscoveryConditions.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 59 * hash + (this.backendIdentityOptions != null ? this.backendIdentityOptions.hashCode() : 0);
+        hash = 59 * hash + (this.backendDiscoveryConditions != null ? this.backendDiscoveryConditions.hashCode() : 0);
+        hash = 59 * hash + (this.discoveryEnabled ? 1 : 0);
+        hash = 59 * hash + (this.correlationEnabled ? 1 : 0);
+        hash = 59 * hash + (this.supportsCorrelation ? 1 : 0);
+        hash = 59 * hash + this.priority;
+        hash = 59 * hash + (this.exitPointType != null ? this.exitPointType.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBackendDiscoveryConfiguration other = (ExBackendDiscoveryConfiguration) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if (this.backendIdentityOptions != other.backendIdentityOptions && (this.backendIdentityOptions == null || !this.backendIdentityOptions.equals(other.backendIdentityOptions))) {
+            return false;
+        }
+        if (this.backendDiscoveryConditions != other.backendDiscoveryConditions && (this.backendDiscoveryConditions == null || !this.backendDiscoveryConditions.equals(other.backendDiscoveryConditions))) {
+            return false;
+        }
+        if (this.discoveryEnabled != other.discoveryEnabled) {
+            return false;
+        }
+        if (this.correlationEnabled != other.correlationEnabled) {
+            return false;
+        }
+        if (this.supportsCorrelation != other.supportsCorrelation) {
+            return false;
+        }
+        if (this.priority != other.priority) {
+            return false;
+        }
+        if ((this.exitPointType == null) ? (other.exitPointType != null) : !this.exitPointType.equals(other.exitPointType)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

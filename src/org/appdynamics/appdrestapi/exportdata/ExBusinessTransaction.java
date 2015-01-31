@@ -91,7 +91,7 @@ import java.util.ArrayList;
  * 
  */
 
-@XmlSeeAlso({ExSla.class,ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExBusinessTransactionConfig.class})
+@XmlSeeAlso({ExSla.class,ExNamingConfig.class,ExBusinessTransactionConfig.class})
 public class ExBusinessTransaction {
     private String name;
     private String businessTransactionName;

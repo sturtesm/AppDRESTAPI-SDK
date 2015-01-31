@@ -46,8 +46,7 @@ import java.util.ArrayList;
         </application-component>
  * 
  */
-@XmlSeeAlso({ExEntryMatchPointConfigurations.class,ExBackendMatchPointConfigurations.class,ExMemoryConfiguration.class,ExCacheConfiguration.class,ExBusinessTransactions.class,ExBusinessTransactions.class,ExSla.class,
-    ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExBusinessTransactionConfig.class})
+@XmlSeeAlso({ExEntryMatchPointConfigurations.class,ExBusinessTransactions.class,ExMemoryConfiguration.class,ExCacheConfiguration.class,ExBackendMatchPointConfigurations.class})
 
 public class ExApplicationComponent {
     private String name;

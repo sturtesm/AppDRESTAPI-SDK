@@ -80,6 +80,38 @@ public class ExAffectedEntitiesMatchCriteria {
         return bud.toString();
     }
 
+    public String whatIsDifferent(ExAffectedEntitiesMatchCriteria obj){
+        if(this.equals(obj)) return AppExportS._;
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
+        if(btCriteria != null){
+            bud.append(btCriteria.whatIsDifferent(obj.getBtCriteria()));
+        }else{
+            if(obj.getBtCriteria() != null){
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBtCriteria());
+            }
+        }
+        if(infraCriteria != null){
+            bud.append(infraCriteria.whatIsDifferent(obj.getInfraCriteria()));
+        }else{
+            if(obj.getInfraCriteria() != null){
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getInfraCriteria());
+            }
+        }
+        
+        if(overallCriteria != null){
+            bud.append(overallCriteria.whatIsDifferent(obj.getOverallCriteria()));
+        }else{
+            if(obj.getOverallCriteria()!= null){
+                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOverallCriteria());
+            }
+        }
+        
+        
+        return bud.toString();
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

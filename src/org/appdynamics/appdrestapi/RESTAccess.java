@@ -111,6 +111,27 @@ public class RESTAccess {
         
     }
     
+     /**
+     * <p>
+     * Returns a RESTAccess object that can be used to query the AppDynamics 
+     * controller.
+     * </p>
+     * 
+     * @param controllerURL FQDN of the controller
+     * @param port Port the controller is using
+     * @param ssl Use SSL
+     * @param username User to execute the query as
+     * @param password Password to use with the connection
+     * @param account Account name to use with the queries
+     * @param  proxy Proxy object with needed information
+     */
+    public RESTAccess(String controllerURL, String port, boolean ssl, String username, String password, String account, RESTProxy proxy){
+        baseURL=new RESTBaseURL(controllerURL, port, ssl);
+        auth=new RESTAuth(username, password, account, true,proxy);
+        R=new RESTExecuter();
+        
+    }
+    
     /**
      * <p>
      * Turns debug level on, this will produce a lot of logging output and 
@@ -177,10 +198,28 @@ public class RESTAccess {
         return null;
     }
     
+     /**
+     * <p>
+     * This will return a Dashboard object which consists of a name, value (xml string) and boolean exists
+     * that checks to insure the dashboard exists.
+     * </p>
+     * 
+     * @param dashId Id of the application 
+     * @return {@link Dashboard}
+     */
+    public Dashboard getDashboardExportById(int dashId){
+        try{
+            return R.executeDashboardExportByIdQuery(auth, DashboardQuery.queryDashboardExportById(baseURL.getControllerURL(), dashId));
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n").append(e.getMessage()).append("\n").toString());
+        }
+        return null;
+    }
+    
 
     /**
      * <p>
-     * This will return the list of the metric path bases for example:
+     * This will return the list of the metric base paths available for example:
      * <p>
      *  <ul>
         <li>metric-items</li>
@@ -214,7 +253,7 @@ public class RESTAccess {
         </ul>
      *
      *  <p>
-     *      These paths can the be used to traverse custom metrics paths.
+     *      These paths can then be used to traverse custom metrics paths with AppDynamics.
      *  </p>
      * 
      * @param application Name of the application

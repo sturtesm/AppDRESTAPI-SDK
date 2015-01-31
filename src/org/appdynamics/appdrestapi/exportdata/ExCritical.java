@@ -68,9 +68,10 @@ public class ExCritical {
     }
     
     public String whatIsDifferent(ExCritical obj){
-        StringBuilder bud = new StringBuilder();
         
         if(this.equals(obj)) return AppExportS._;
+        
+        StringBuilder bud = new StringBuilder();
         
         bud.append(getIndent()).append(AppExportS.CRITICAL);level++;
         if(value != obj.getValue()){      
