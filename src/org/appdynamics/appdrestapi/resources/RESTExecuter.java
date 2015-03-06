@@ -793,9 +793,7 @@ public class RESTExecuter {
             createConnection(auth);
         }
 
-        
         if(s.debugLevel > 1)logger.log(Level.INFO,new StringBuilder().append("\nExecuting query: ").append(query).toString());
-        
         
         WebResource service = null;
         ClientResponse response = null;

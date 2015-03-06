@@ -54,13 +54,13 @@ public class ExMethodConfig {
         bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(returnType != null){
-                bud.append(AppExportS.L3_1).append(AppExportS.RETURN_TYPE);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(returnType);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
+                bud.append(AppExportS.L4).append(AppExportS.RETURN_TYPE);
+                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(returnType);
+                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
         }else{
             if(obj.getReturnType()!= null){
-                bud.append(AppExportS.L3_1).append(AppExportS.RETURN_TYPE);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
+                bud.append(AppExportS.L4_1).append(AppExportS.RETURN_TYPE);
+                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
             }
         }
        

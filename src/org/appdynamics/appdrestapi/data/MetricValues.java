@@ -40,6 +40,23 @@ public class MetricValues {
         this.metricValue = metricValue;
     }
     
+    /**
+     * <p>
+     * This is going to get a single value from the arraylist.
+     * </p>
+     * @return {@link MetricValue}
+     */
+    public MetricValue getSingleValue(){
+        if(metricValue != null && ! metricValue.isEmpty() ) return metricValue.get(0);
+        return null;
+    }
+    
+    public boolean hasNoValues(){
+        boolean empty=true;
+        if(metricValue != null && metricValue.size()>0) empty=false;
+        return empty;
+    }
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();

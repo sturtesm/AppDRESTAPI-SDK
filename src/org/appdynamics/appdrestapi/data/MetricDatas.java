@@ -9,10 +9,6 @@ import org.appdynamics.appdrestapi.resources.s;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -35,21 +31,23 @@ public class MetricDatas {
     
     
     public MetricValue getSingleRollUpMetricValue(){
-        if(metric_data.size() > 0 && metric_data.get(0) != null 
-                && metric_data.get(0).getMetricValues().size() > 0 
-                && metric_data.get(0).getMetricValues().get(0).getMetricValue().size() > 0){
-            return metric_data.get(0).getMetricValues().get(0).getMetricValue().get(0);
-        }
+        
+        if(metric_data != null && !metric_data.isEmpty() ) return metric_data.get(0).getSingleValue();
+
         return null;
     }
     
     public ArrayList<MetricValue> getSingleMetricValues(){
-        if(metric_data.size() > 0 && metric_data.get(0) != null 
-                && metric_data.get(0).getMetricValues().size() > 0 
-                && metric_data.get(0).getMetricValues().get(0).getMetricValue().size() > 0){
-            return metric_data.get(0).getMetricValues().get(0).getMetricValue();
-        }
+        
+        if(metric_data != null && !metric_data.isEmpty() ) return metric_data.get(0).getSingleMetricValues();
+        
         return null;
+    }
+    
+    public boolean hasNoValues(){
+        boolean empty=true;
+        if(metric_data != null && metric_data.size() > 0) empty=metric_data.get(0).hasNoValues();
+        return empty;
     }
     
     @Override

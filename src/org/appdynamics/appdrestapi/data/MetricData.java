@@ -56,6 +56,24 @@ public class MetricData {
         this.metricValues = metricValues;
     }
     
+    public MetricValue getSingleValue(){
+        if(metricValues != null && !metricValues.isEmpty()) return metricValues.get(0).getSingleValue();
+        return null;
+    }
+    
+    public ArrayList<MetricValue> getSingleMetricValues(){
+        if(metricValues != null && !metricValues.isEmpty()) metricValues.get(0);
+        return null;
+    }
+    
+    public boolean hasNoValues(){
+        boolean empty=true;
+        if(metricValues.size()>0)  empty=metricValues.get(0).hasNoValues();
+        return empty;
+        
+    }
+    
+    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();

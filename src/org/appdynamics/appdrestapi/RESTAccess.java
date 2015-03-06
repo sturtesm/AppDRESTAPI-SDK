@@ -20,14 +20,15 @@ import java.util.logging.Level;
  *
  * @author soloink
  * <p>
- * The RESTAccess is a class that allows access to AppDynamics REST api. The intention
+ * The RESTAccess is a class that allows access to AppDynamics REST API. The intention
  * is to provide a easy method to to access the AppDynamics Controller REST service.
- * 
+ * <p>
  * <p>
  * Metrics : 
  * 1 minute level data upto 4 hours
  * 10 minute level data after 4 hours upto 48 hours
  * 1 hour level data after 48 hours upto 365 days.
+ * </p>
  * 
  * 
  */
@@ -3028,6 +3029,33 @@ public class RESTAccess {
 
         try{
             query=EventsQuery.queryPostEvent(baseURL.getControllerURL(), app, new PostEvent(summary,comment));
+            
+            //return R.executeTDPostQuery(auth, query, objNode,xml);
+            return R.executeEventPostQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+     /**
+     * <p>
+     * This method will allow a user to mark nodes historical
+     * </p>
+     * @param ids The id or ids that should be marked for deletion
+     * @return String.class
+     */
+    public String postRESTMarkNodeHistorical(String ids){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nMark Node Historical with ids = ").append(ids).toString());}
+
+        try{
+            query=MarkHistoricalQuery.queryMarkNodeHistorical(baseURL.getControllerURL(), ids);
             
             //return R.executeTDPostQuery(auth, query, objNode,xml);
             return R.executeEventPostQuery(auth, query);

@@ -166,11 +166,13 @@ public class ExHRCondition {
     }
     
     public String whatIsDifferent(ExHRCondition obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj) ) return AppExportS._;
         
         StringBuilder bud = new StringBuilder();
         
-        
+        //System.out.println(toString());
+        //System.out.println("--------------------\n");
+        //System.out.println(obj.toString());
         bud.append(getLevel()).append(AppExportS.CONDITION_1);
         level++;
         int b=level;
@@ -181,14 +183,17 @@ public class ExHRCondition {
              bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
          }
         level=b;
+        //if(displayName == null) System.out.println("My displany name is null!");
         
-        if(!displayName.equals(obj.getDisplayName())){     
+        if(displayName != null ){
+            if(!displayName.equals(obj.getDisplayName())){     
              bud.append(getLevel()).append(AppExportS.DISPLAY_NAME);level++;
              bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(displayName);
              bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDisplayName());   
          }
+        }
         level=b;
-        
+        if(conditionValueType != null)
         if(!conditionValueType.equals(obj.getConditionValueType())){     
              bud.append(getLevel()).append(AppExportS.CONDITION_VALUE_TYPE);level++;
              bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(conditionValueType);
@@ -196,19 +201,21 @@ public class ExHRCondition {
          }
         level=b;
         
+        if(conditionValue != null)
         if(!conditionValue.equals(obj.getConditionValue())){     
              bud.append(getLevel()).append(AppExportS.CONDITION_VALUE);level++;
              bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(conditionValue);
              bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getConditionValue());   
          }
         level=b;
-   
+        if(operator != null)
         if(!operator.equals(obj.getOperator())){     
              bud.append(getLevel()).append(AppExportS.OPERATOR);level++;
              bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(operator);
              bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperator());   
          }
         level=b;
+        
         
         if(useActiveBaseline != obj.isUseActiveBaseline()){     
              bud.append(getLevel()).append(AppExportS.USE_ACTIVE_BASELINE);level++;

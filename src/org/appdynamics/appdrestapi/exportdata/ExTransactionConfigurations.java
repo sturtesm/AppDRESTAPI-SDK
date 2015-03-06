@@ -227,8 +227,7 @@ public class ExTransactionConfigurations {
             boolean fnd=false;
             for(ExEEPointConfiguration _value: configurations){
                 if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
-                    fnd=true;
-                    
+                    fnd=true;     
                 }
             }
             if(!fnd)bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(value);

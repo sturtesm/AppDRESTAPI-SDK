@@ -14,8 +14,10 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  */
-@XmlSeeAlso({ExEntryMatchPointConfiguration.class,ExEEPointConfiguration.class,ExDiscoveryConfig.class,ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExclude.class,ExServletRule.class,ExClassName.class,ExCustomMatchPointDefinitions.class,ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,
-    ExMatchMethod.class,ExMatchClassName.class})
+@XmlSeeAlso({ExEntryMatchPointConfiguration.class,ExEEPointConfiguration.class,ExDiscoveryConfig.class,
+    ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExclude.class,ExServletRule.class,ExClassName.class,
+    ExCustomMatchPointDefinitions.class,ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,
+    ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
 public class ExEntryMatchPointConfigurations {
     private ArrayList<ExEntryMatchPointConfiguration> entryMatchPointConfiguration=new ArrayList<ExEntryMatchPointConfiguration>();
     

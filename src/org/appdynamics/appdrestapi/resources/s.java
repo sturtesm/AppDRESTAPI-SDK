@@ -26,6 +26,7 @@ public class s {
     public static final String CONTROLLER_CONFIG="/controller/rest/configuration";
     public static final String CONTROLLER_OBJ="/controller/";
     public static final String CONTROLLER_DASHBOARD="/controller/CustomDashboardImportExportServlet?dashboardId=";
+    public static final String CONTROLLER_MARK_HISTORICAL="/controller/rest/mark-nodes-historical?application-component-node-ids=";
     public static final String COLON=":";
     public static final String P="|";
     public static final String F="/";
@@ -423,4 +424,8 @@ public class s {
     }
     
     public static long _20HOURSINMILLIS= 1000*60*20;
+    
+    public static String SEVERITY_INFO="INFO";
+    public static String SEVERITY_WARN="WARN";
+    public static String SEVERITY_ERROR="ERROR";
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class PostEvent {
     private String summary;
+    private String severity;
     private String comment;
     private String eventType;
     private String customEventType;
@@ -131,5 +132,38 @@ public class PostEvent {
         }
         return bud.toString();
     }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        
+        boolean fnd=false;
+        if(severity.equalsIgnoreCase(s.SEVERITY_WARN)) {this.severity=s.SEVERITY_WARN;fnd=true;}
+        if(severity.equalsIgnoreCase(s.SEVERITY_ERROR)){this.severity=s.SEVERITY_ERROR;fnd=true;}
+        if(severity.equalsIgnoreCase(s.SEVERITY_INFO)){this.severity=s.SEVERITY_INFO;fnd=true;}
+        
+        if(!fnd)
+           this.severity = s.SEVERITY_INFO;
+    }
+
+    public ArrayList<String> getPropertyKey() {
+        return propertyKey;
+    }
+
+    public void setPropertyKey(ArrayList<String> propertyKey) {
+        this.propertyKey = propertyKey;
+    }
+
+    public ArrayList<String> getPropertyValue() {
+        return propertyValue;
+    }
+
+    public void setPropertyValue(ArrayList<String> propertyValue) {
+        this.propertyValue = propertyValue;
+    }
+    
+    
    
 }
