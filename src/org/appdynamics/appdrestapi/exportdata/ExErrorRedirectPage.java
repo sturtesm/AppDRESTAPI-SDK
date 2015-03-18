@@ -79,7 +79,7 @@ public class ExErrorRedirectPage {
     }
     
     public String whatIsDifferent(ExErrorRedirectPage obj){
-        if(!name.equals(obj.getName())) return AppExportS._;
+        if(!name.equals(obj.getName())) return AppExportS._U;
         
         
         StringBuilder bud = new StringBuilder();

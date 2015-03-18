@@ -61,7 +61,7 @@ public class ExApplicationDiagnosticData {
     
     
      public String whatIsDifferent(ExApplicationDiagnosticData obj){
-        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._;
+        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);

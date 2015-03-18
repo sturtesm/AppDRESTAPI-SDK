@@ -101,7 +101,6 @@ public class ExBusinessTransaction {
     private ExNamingConfig namingConfig;
     private ExBusinessTransactionConfig businessTransactionConfig;
     private ArrayList<String> dataGathererConfig=new ArrayList<String>();
-    //private String dataGathererConfig;
     private boolean enabledForEum;
     private String eumAutoEnablePossible;
     
@@ -197,7 +196,73 @@ public class ExBusinessTransaction {
         this.eumAutoEnablePossible = eumAutoEnablePossible;
     }
     
-    
+    /*
+    private boolean enabledForEum;
+    private String eumAutoEnablePossible;
+    */
+    public String whatIsDifferent(ExBusinessTransaction obj){
+        if(this.equals(obj) || !this.name.equals(obj.getName())) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTION);
+        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+        if(!businessTransactionName.equals(obj.getBusinessTransactionName())){
+            bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTION_NAME);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(businessTransactionName);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBusinessTransactionName());  
+        }
+        
+        if(!applicationComponent.equals(obj.getApplicationComponent())){
+            bud.append(AppExportS.L3).append(AppExportS.APPLICATION_COMPONENT);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(applicationComponent);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getApplicationComponent());  
+        }
+        
+        if(background != obj.isBackground()){
+            bud.append(AppExportS.L3).append(AppExportS.BACKGROUND);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(background);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isBackground());  
+        }
+        
+        if(sla != null) bud.append(sla.whatIsDifferent(obj.getSla()));
+        if(namingConfig != null) bud.append(namingConfig.whatIsDifferent(obj.getNamingConfig()));
+        if(businessTransactionConfig != null) bud.append(businessTransactionConfig.whatIsDifferent(obj.getBusinessTransactionConfig()));
+        
+        
+        for(String value:dataGathererConfig){
+            boolean fnd=false;
+            for(String _value:obj.getDataGathererConfig()){
+                if(value.equals(_value)) fnd=true;
+            }
+            
+            if(!fnd) bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+        }
+        
+        for(String value:obj.getDataGathererConfig()){
+            boolean fnd=false;
+            for(String _value:dataGathererConfig){
+                if(value.equals(_value)) fnd=true;
+            }
+            
+            if(!fnd) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+        }
+        
+        if(enabledForEum != obj.isEnabledForEum()){
+            bud.append(AppExportS.L3).append(AppExportS.ENABLED_FOR_EUM);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabledForEum);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabledForEum());  
+        }
+        
+        if(!eumAutoEnablePossible.equals(obj.eumAutoEnablePossible)){
+            bud.append(AppExportS.L3).append(AppExportS.EUM_AUTO_ENABLE_POSSIBLE);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(eumAutoEnablePossible);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEumAutoEnablePossible()); 
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -208,13 +273,73 @@ public class ExBusinessTransaction {
         bud.append(AppExportS.L2_1).append(AppExportS.APPLICATION_COMPONENTS).append(AppExportS.VE).append(applicationComponent);
         bud.append(AppExportS.L2_1).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
         sla.setLevel(1);
-        bud.append(sla.toString());
-        bud.append(namingConfig.toString());
-        bud.append(businessTransactionConfig.toString());
+        bud.append(sla);
+        bud.append(namingConfig);
+        bud.append(businessTransactionConfig);
         for(String data: dataGathererConfig) bud.append(data);
         bud.append(AppExportS.L2_1).append(AppExportS.ENABLED_FOR_EUM).append(AppExportS.VE).append(enabledForEum);
         bud.append(AppExportS.L2_1).append(AppExportS.EUM_AUTO_ENABLE_POSSIBLE).append(AppExportS.VE).append(eumAutoEnablePossible);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 31 * hash + (this.businessTransactionName != null ? this.businessTransactionName.hashCode() : 0);
+        hash = 31 * hash + (this.applicationComponent != null ? this.applicationComponent.hashCode() : 0);
+        hash = 31 * hash + (this.background ? 1 : 0);
+        hash = 31 * hash + (this.sla != null ? this.sla.hashCode() : 0);
+        hash = 31 * hash + (this.namingConfig != null ? this.namingConfig.hashCode() : 0);
+        hash = 31 * hash + (this.businessTransactionConfig != null ? this.businessTransactionConfig.hashCode() : 0);
+        hash = 31 * hash + (this.dataGathererConfig != null ? this.dataGathererConfig.hashCode() : 0);
+        hash = 31 * hash + (this.enabledForEum ? 1 : 0);
+        hash = 31 * hash + (this.eumAutoEnablePossible != null ? this.eumAutoEnablePossible.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBusinessTransaction other = (ExBusinessTransaction) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if ((this.businessTransactionName == null) ? (other.businessTransactionName != null) : !this.businessTransactionName.equals(other.businessTransactionName)) {
+            return false;
+        }
+        if ((this.applicationComponent == null) ? (other.applicationComponent != null) : !this.applicationComponent.equals(other.applicationComponent)) {
+            return false;
+        }
+        if (this.background != other.background) {
+            return false;
+        }
+        if (this.sla != other.sla && (this.sla == null || !this.sla.equals(other.sla))) {
+            return false;
+        }
+        if (this.namingConfig != other.namingConfig && (this.namingConfig == null || !this.namingConfig.equals(other.namingConfig))) {
+            return false;
+        }
+        if (this.businessTransactionConfig != other.businessTransactionConfig && (this.businessTransactionConfig == null || !this.businessTransactionConfig.equals(other.businessTransactionConfig))) {
+            return false;
+        }
+        if (this.dataGathererConfig != other.dataGathererConfig && (this.dataGathererConfig == null || !this.dataGathererConfig.equals(other.dataGathererConfig))) {
+            return false;
+        }
+        if (this.enabledForEum != other.enabledForEum) {
+            return false;
+        }
+        if ((this.eumAutoEnablePossible == null) ? (other.eumAutoEnablePossible != null) : !this.eumAutoEnablePossible.equals(other.eumAutoEnablePossible)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

@@ -78,7 +78,7 @@ public class ExBackendIdentityOption {
     
     public String whatIsDifferent(ExBackendIdentityOption obj){
         
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

@@ -69,7 +69,7 @@ public class ExWarning {
     public String whatIsDifferent(ExWarning obj){
         StringBuilder bud = new StringBuilder();
         
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         bud.append(getIndent()).append(AppExportS.WARNING);level++;
         if(value != obj.getValue()){

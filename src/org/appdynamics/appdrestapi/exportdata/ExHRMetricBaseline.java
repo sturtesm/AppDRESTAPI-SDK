@@ -32,7 +32,7 @@ public class ExHRMetricBaseline {
     }
     
     public String whatIsDifferent(ExHRMetricBaseline obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.METRIC_BASELINE);

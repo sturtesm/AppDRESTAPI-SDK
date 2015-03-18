@@ -87,7 +87,7 @@ public class ExMetricBaseline {
     }
     
      public String whatIsDifferent(ExMetricBaseline obj){
-        if(this.equals(obj) ) return AppExportS._;
+        if(this.equals(obj) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1_1).append(AppExportS.METRIC_BASELINE);

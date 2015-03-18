@@ -81,7 +81,7 @@ public class ExAffectedEntitiesMatchCriteria {
     }
 
     public String whatIsDifferent(ExAffectedEntitiesMatchCriteria obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         StringBuilder bud = new StringBuilder();
         
         bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);

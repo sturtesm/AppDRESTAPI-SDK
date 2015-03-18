@@ -44,7 +44,7 @@ public class ExMatchClass {
     }
     
     public String whatIsDifferent(ExMatchClass obj){
-        if(this.equals(obj) || !type.equals(obj.getType())) return AppExportS._;
+        if(this.equals(obj) || !type.equals(obj.getType())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

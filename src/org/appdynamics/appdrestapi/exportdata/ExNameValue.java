@@ -42,14 +42,17 @@ public class ExNameValue {
     }
     
     public String whatIsDifferent(ExNameValue obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L4).append(AppExportS.NAME_VALUE);
         
         bud.append(AppExportS.L4_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+        if(!value.equals(obj.getValue())){
+            bud.append(AppExportS.L4_1).append(AppExportS.VALUE);
+            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+        }
         
         return bud.toString();
     }
@@ -62,4 +65,32 @@ public class ExNameValue {
         bud.append(AppExportS.L5).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 71 * hash + (this.value != null ? this.value.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExNameValue other = (ExNameValue) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if ((this.value == null) ? (other.value != null) : !this.value.equals(other.value)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

@@ -108,7 +108,7 @@ public class ExCustomMatchPointDefinition {
     }
     
     public String whatIsDifferent(ExCustomMatchPointDefinition obj){
-        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._;
+        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1_1).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);

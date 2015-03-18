@@ -110,7 +110,7 @@ public class ExCustomLoggerDefinition {
     public String whatIsDifferent(ExCustomLoggerDefinition obj){
         StringBuilder bud = new StringBuilder();
         
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         bud.append(AppExportS.L2_1).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
         bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);

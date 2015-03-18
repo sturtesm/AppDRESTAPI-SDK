@@ -41,7 +41,7 @@ public class ExHRNameValueCriteria {
     }
     
      public String whatIsDifferent(ExHRNameValueCriteria obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3_1).append(AppExportS.NODE_META_INFO_MATCH_CRITERIA);

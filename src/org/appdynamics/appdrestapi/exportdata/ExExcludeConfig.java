@@ -39,7 +39,7 @@ public class ExExcludeConfig {
     }
     
 public String whatIsDifferent(ExExcludeConfig obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1_1).append(AppExportS.EXCLUDE_CONFIG);

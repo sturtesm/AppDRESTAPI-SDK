@@ -31,7 +31,7 @@ public class ExExcludes {
     }
     
     public String whatIsDifferent(ExExcludes obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud =new StringBuilder();
         bud.append(AppExportS.L4).append(AppExportS.EXCLUDES);

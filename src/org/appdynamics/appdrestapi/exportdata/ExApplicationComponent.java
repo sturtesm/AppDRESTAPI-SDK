@@ -173,7 +173,56 @@ public class ExApplicationComponent {
         this.agentConfigurations = agentConfigurations;
     }
     
-    
+    /*
+
+    private ExEntryMatchPointConfigurations entryMatchPointConfigurations;
+    private ExBusinessTransactions businessTransactions;
+    private ExMemoryConfiguration memoryConfiguration;
+    private Object instanceTrackerConfiguration;
+    private ExCacheConfiguration cacheConfiguration;
+    private Object customCacheConfigurations;
+    private ExBackendMatchPointConfigurations backendMatchPointConfiguration;
+    private Object agentConfigurations;
+    */
+    public String whatIsDifferent(ExApplicationComponent obj){
+        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_COMPONENT);
+        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+        if(description != null && !description.equals(obj.getDescription())){
+                bud.append(AppExportS.L2).append(AppExportS.DESCRIPTION);
+                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
+                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());
+        }
+        
+        if(componentType != null && !componentType.equals(obj.getComponentType()) ){
+                bud.append(AppExportS.L2).append(AppExportS.COMPONENT_TYPE);
+                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(componentType);
+                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getComponentType());
+            
+        }
+        
+        if(dynamicScalingEnabled != null && !dynamicScalingEnabled.equals(obj.getDynamicScalingEnabled()) ){
+                bud.append(AppExportS.L2).append(AppExportS.DYNAMIC_SCALING_ENABLED);
+                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(dynamicScalingEnabled);
+                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDynamicScalingEnabled());
+            
+        }
+        
+        bud.append(entryMatchPointConfigurations.whatIsDifferent(obj.getEntryMatchPointConfigurations()));
+        bud.append(businessTransactions.whatIsDifferent(obj.getBusinessTransactions()));
+        bud.append(memoryConfiguration.whatIsDifferent(obj.getMemoryConfiguration()));
+        //bud.append(instanceTrackerConfiguration
+        bud.append(cacheConfiguration.whatIsDifferent(obj.getCacheConfiguration()));
+        // customCacheConfigurations
+        // backendMatchPointConfiguration
+        // agentConfigurations
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -199,5 +248,74 @@ public class ExApplicationComponent {
         
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 79 * hash + (this.description != null ? this.description.hashCode() : 0);
+        hash = 79 * hash + (this.componentType != null ? this.componentType.hashCode() : 0);
+        hash = 79 * hash + (this.dynamicScalingEnabled != null ? this.dynamicScalingEnabled.hashCode() : 0);
+        hash = 79 * hash + (this.entryMatchPointConfigurations != null ? this.entryMatchPointConfigurations.hashCode() : 0);
+        hash = 79 * hash + (this.businessTransactions != null ? this.businessTransactions.hashCode() : 0);
+        hash = 79 * hash + (this.memoryConfiguration != null ? this.memoryConfiguration.hashCode() : 0);
+        hash = 79 * hash + (this.instanceTrackerConfiguration != null ? this.instanceTrackerConfiguration.hashCode() : 0);
+        hash = 79 * hash + (this.cacheConfiguration != null ? this.cacheConfiguration.hashCode() : 0);
+        hash = 79 * hash + (this.customCacheConfigurations != null ? this.customCacheConfigurations.hashCode() : 0);
+        hash = 79 * hash + (this.backendMatchPointConfiguration != null ? this.backendMatchPointConfiguration.hashCode() : 0);
+        hash = 79 * hash + (this.agentConfigurations != null ? this.agentConfigurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExApplicationComponent other = (ExApplicationComponent) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if ((this.description == null) ? (other.description != null) : !this.description.equals(other.description)) {
+            return false;
+        }
+        if ((this.componentType == null) ? (other.componentType != null) : !this.componentType.equals(other.componentType)) {
+            return false;
+        }
+        if ((this.dynamicScalingEnabled == null) ? (other.dynamicScalingEnabled != null) : !this.dynamicScalingEnabled.equals(other.dynamicScalingEnabled)) {
+            return false;
+        }
+        if (this.entryMatchPointConfigurations != other.entryMatchPointConfigurations && (this.entryMatchPointConfigurations == null || !this.entryMatchPointConfigurations.equals(other.entryMatchPointConfigurations))) {
+            return false;
+        }
+        if (this.businessTransactions != other.businessTransactions && (this.businessTransactions == null || !this.businessTransactions.equals(other.businessTransactions))) {
+            return false;
+        }
+        if (this.memoryConfiguration != other.memoryConfiguration && (this.memoryConfiguration == null || !this.memoryConfiguration.equals(other.memoryConfiguration))) {
+            return false;
+        }
+        if (this.instanceTrackerConfiguration != other.instanceTrackerConfiguration && (this.instanceTrackerConfiguration == null || !this.instanceTrackerConfiguration.equals(other.instanceTrackerConfiguration))) {
+            return false;
+        }
+        if (this.cacheConfiguration != other.cacheConfiguration && (this.cacheConfiguration == null || !this.cacheConfiguration.equals(other.cacheConfiguration))) {
+            return false;
+        }
+        if (this.customCacheConfigurations != other.customCacheConfigurations && (this.customCacheConfigurations == null || !this.customCacheConfigurations.equals(other.customCacheConfigurations))) {
+            return false;
+        }
+        if (this.backendMatchPointConfiguration != other.backendMatchPointConfiguration && (this.backendMatchPointConfiguration == null || !this.backendMatchPointConfiguration.equals(other.backendMatchPointConfiguration))) {
+            return false;
+        }
+        if (this.agentConfigurations != other.agentConfigurations && (this.agentConfigurations == null || !this.agentConfigurations.equals(other.agentConfigurations))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     
 }

@@ -101,4 +101,35 @@ public class TransactionDetectionQuery {
         return bud.toString();
     }
     
+    
+    public static String queryGenericTransactionDetectionExport(String baseURL, String application, String type, String entryPoint){
+        StringBuilder bud = new StringBuilder();
+        bud.append(baseURL).append(s.CONTROLLER_BT_URL).append(QueryEncoder.encode(application));
+        bud.append(s.URL_CUSTOM_MATCH).append(s.F).append(type);
+        if(entryPoint != null) bud.append(s.F).append(QueryEncoder.encode(entryPoint));
+        return bud.toString();
+    }
+    
+    public static String queryGenericTransactionDetectionExport(String baseURL, String application,String tier, String type, String entryPoint){
+        StringBuilder bud = new StringBuilder();
+        bud.append(baseURL).append(s.CONTROLLER_BT_URL).append(QueryEncoder.encode(application));
+        bud.append(s.F).append(QueryEncoder.encode(tier)).append(s.URL_CUSTOM_MATCH).append(s.F).append(type); //.append(QueryEncoder.encode(entryPoint));
+         if(entryPoint != null) bud.append(s.F).append(QueryEncoder.encode(entryPoint));
+        return bud.toString();
+    }
+    
+    public static String queryGenericTransactionDetectionImport(String baseURL, String application, String type, String entryPoint){
+        StringBuilder bud = new StringBuilder();
+        bud.append(queryGenericTransactionDetectionExport(baseURL,application,type,entryPoint)).append(s.URL_OVERWRITE);
+        return bud.toString();
+    }
+    
+    public static String queryGenericTransactionDetectionImport(String baseURL, String application,String tier, String type, String entryPoint){
+        StringBuilder bud = new StringBuilder();
+        bud.append(queryGenericTransactionDetectionExport(baseURL,application,tier,type,entryPoint)).append(s.URL_OVERWRITE);
+        return bud.toString();
+    }
+    
+    
+    
 }

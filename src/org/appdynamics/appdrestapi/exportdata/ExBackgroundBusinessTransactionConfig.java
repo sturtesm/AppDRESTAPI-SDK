@@ -95,7 +95,7 @@ public class ExBackgroundBusinessTransactionConfig {
     }
     
     public String whatIsDifferent(ExBackgroundBusinessTransactionConfig obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1_1).append(AppExportS.BACKGROUND_BUSINESS_TRANSACTION_CONFIG);

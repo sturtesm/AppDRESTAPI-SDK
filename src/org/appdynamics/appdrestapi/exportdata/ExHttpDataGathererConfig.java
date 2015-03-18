@@ -78,7 +78,7 @@ public class ExHttpDataGathererConfig {
     }
     
     public String whatIsDifferent(ExHttpDataGathererConfig obj){
-        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._;
+        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

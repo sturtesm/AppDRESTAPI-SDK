@@ -36,7 +36,7 @@ public class ExNVProperties {
     }
     
     public String whatIsDifferent(ExNVProperties obj){
-        if( this.equals(obj) ) return AppExportS._;
+        if( this.equals(obj) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

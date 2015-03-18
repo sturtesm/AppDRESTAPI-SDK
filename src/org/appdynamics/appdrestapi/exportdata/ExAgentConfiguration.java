@@ -129,9 +129,9 @@ public class ExAgentConfiguration {
     }
 
     public String whatIsDifferent(ExAgentConfiguration obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
-        if(!agentType.equals(obj.getAgentType())) return AppExportS._;
+        if(!agentType.equals(obj.getAgentType())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1_1).append(AppExportS.AGENT_CONFIGURATION);

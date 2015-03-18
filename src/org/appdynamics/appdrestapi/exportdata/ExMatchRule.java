@@ -57,7 +57,7 @@ public class ExMatchRule {
     }
     
     public String whatIsDifferent(ExMatchRule obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2).append(AppExportS.MATCH_RULE);

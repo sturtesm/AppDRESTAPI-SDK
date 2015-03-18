@@ -33,7 +33,7 @@ public class ExEntryMatchPointConfigurations {
     }
     
     public String whatIsDifferent(ExEntryMatchPointConfigurations obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS);

@@ -86,7 +86,7 @@ public class ExAffectedBTMatchCriteria {
     }
     
     public String whatIsDifferent(ExAffectedBTMatchCriteria obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);

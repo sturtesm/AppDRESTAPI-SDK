@@ -31,7 +31,7 @@ public class ExAffectedOverallCriteria {
     }
     
     public String whatIsDifferent(ExAffectedOverallCriteria obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2_1).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);

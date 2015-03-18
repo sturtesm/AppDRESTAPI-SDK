@@ -32,7 +32,7 @@ public class ExNameValues {
     }
     
     public String whatIsDifferent(ExNameValues obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         
@@ -41,8 +41,10 @@ public class ExNameValues {
         for(ExNameValue value:nameValues){
             boolean fnd=false;
             for(ExNameValue _value:obj.getNameValues()){
-                fnd=true;
-                bud.append(value.whatIsDifferent(_value));
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
             }
             
             if(!fnd) bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
@@ -51,7 +53,9 @@ public class ExNameValues {
         for(ExNameValue value:obj.getNameValues()){
             boolean fnd=false;
             for(ExNameValue _value:nameValues){
-                fnd=true;
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
             }
             
             if(!fnd) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);

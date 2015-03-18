@@ -36,7 +36,7 @@ public class ExHRNodeTypes {
     }
     
     public String whatIsDifferent(ExHRNodeTypes obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3_1).append(AppExportS.NODES);

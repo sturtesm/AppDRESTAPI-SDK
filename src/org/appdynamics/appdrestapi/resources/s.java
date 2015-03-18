@@ -50,6 +50,7 @@ public class s {
     public static final String URL_SERVLET_U="Servlet";
     public static final String URL_SERVLET_L="servlet";
     public static final String URL_POJO_CUSTOM="/pojo/custom/";
+    public static final String URL_CUSTOM_MATCH="/custom";
     public static final String URL_HEALTHRULES="healthrules/";
     public static final String URL_NAME="?name=";
     // App Agent Path
@@ -327,6 +328,23 @@ public class s {
     
     public static final String[] SHORT_METRIC_TYPES={"BT","BE","Agent","HW","JVM","OAP","EUM","CUSTOM", "AJAX Requests", "Base Pages", "Iframes"};
     public static final String[] LONG_METRIC_TYPES={"Business Transation","Backend","Agent","Hardware","JVM","Overall Application Performance","End User Management","Custom Metric"};
+    
+    public static final String[] JAVA_CUSTOM_MATCHES={"binaryRemoting","servlet","strutsAction","springBean","ejb","pojo","jms","webService"};
+    public static final String[] DOTNET_CUSTOM_MATCHES={"aspDotNet","dotNetWebService","wcf","poco","dotNetJms","dotNetRemoting"};
+    public static final String[] PHP_CUSTOM_MATCHES={"phpWeb","phpMvc","phpDrupal","phpWordpress","phpCli","phpWeb","phpWebService"};
+    public static final String[] NODEJS_CUSTOM_MATCHES={"nodeJsWeb"};
+    /*
+    binaryRemoting (for Thrift)
+servlet
+strutsAction
+springBean
+ejb
+pojo
+jms
+webService
+
+
+    */
     
     //events?eventtype=CUSTOM&customeventtype=nagios&summary=test1&propertynames=key1&propertynames=key2&propertyvalues=value1&propertyvalues=value2
     public static final String EVENT_TYPE_CUSTOM="?eventtype=CUSTOM";

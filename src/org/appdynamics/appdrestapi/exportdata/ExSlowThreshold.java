@@ -106,7 +106,7 @@ public class ExSlowThreshold {
     }
 
     public String whatIsDifferent(ExSlowThreshold obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

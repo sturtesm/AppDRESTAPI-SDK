@@ -48,7 +48,7 @@ public class ExGenericMethodConfig {
     }
     
     public String whatIsDifferent(ExGenericMethodConfig obj){
-        if(this.equals(obj) || !className.equals(obj.getClassName())) return AppExportS._;
+        if(this.equals(obj) || !className.equals(obj.getClassName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

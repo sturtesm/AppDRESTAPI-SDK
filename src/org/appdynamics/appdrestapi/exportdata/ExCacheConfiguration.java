@@ -43,7 +43,7 @@ public class ExCacheConfiguration {
     
     public String whatIsDifferent(ExCacheConfiguration obj){
         
-        if(this.equals(obj) ) return AppExportS._;
+        if(this.equals(obj) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

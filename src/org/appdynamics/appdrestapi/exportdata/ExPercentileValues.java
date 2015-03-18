@@ -44,7 +44,7 @@ public class ExPercentileValues {
     }
     
     public String whatIsDifferent(ExPercentileValues obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.PERCENTILE_VALUES);

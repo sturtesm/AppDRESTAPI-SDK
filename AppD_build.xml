@@ -8,7 +8,7 @@
 
 
     <property name="RESTAPI.basename"   value="RESTAPI"/>
-    <property name="RESTAPI.version"     value="1.0.16"/>
+    <property name="RESTAPI.version"     value="2.0.0"/>
     <property name="RESTAPI.basename.dev"   value="RESTAPI_dev"/>
     <property name="RESTAPI.version.dev"     value="1.0.14"/>
     
@@ -56,6 +56,7 @@
           </manifest>
           <fileset dir="${build.dir}">
             <include name="org/appdynamics/appdrestapi/RESTAccess.class"/>
+            <include name="org/appdynamics/appdrestapi/RESTAccess2.class"/>
             <include name="org/appdynamics/appdrestapi/GetTimeStamps.class"/>
             <include name="org/appdynamics/appdrestapi/agent/*.class"/>
             <include name="org/appdynamics/appdrestapi/data/*.class"/>

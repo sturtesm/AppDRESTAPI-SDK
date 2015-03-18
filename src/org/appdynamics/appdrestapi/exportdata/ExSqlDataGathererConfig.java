@@ -76,7 +76,7 @@ public class ExSqlDataGathererConfig {
     }
     
      public String whatIsDifferent(ExSqlDataGathererConfig obj){
-        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._;
+        if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

@@ -30,7 +30,7 @@ public class ExHealthRules {
     }
     
     public String whatIsDifferent(ExHealthRules obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         
         StringBuilder bud = new StringBuilder();

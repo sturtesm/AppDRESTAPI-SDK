@@ -34,10 +34,11 @@ import java.util.logging.Level;
  */
 public class RESTAccess {
     private static Logger logger=Logger.getLogger(RESTAccess.class.getName());
-    private RESTBaseURL baseURL;
-    private RESTAuth auth;
-    private RESTExecuter R;
+    protected RESTBaseURL baseURL;
+    protected RESTAuth auth;
+    protected RESTExecuter R;
     
+    //public RESTAccess(){}
     
     /**
      * <p>
@@ -2178,7 +2179,6 @@ public class RESTAccess {
      * <p>
      * Returns transaction detection auto discovery rules for the application.
      * </p>
-     * @param queryIndex Index of the type of query to run
      * @param app Name of the application which holds the metric
      * @return {@link AutoDiscoveryConfig}
      * 
@@ -2376,7 +2376,7 @@ public class RESTAccess {
                     .append(" for application ").append(app).append(" automatic rule ").append(objNode).toString());}
         
         if(objNode != null){
-        query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
+            query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
         }else{
             query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app, tier);
         }
@@ -2419,7 +2419,11 @@ public class RESTAccess {
         if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder().append("\nQuery for application ").append(app)
                 .append(" automatic rule ").append(objNode).toString());}
         
-        query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
+        if(objNode != null){
+            query=TransactionDetectionQuery.queryTransactionDetectionAutoSingle(baseURL.getControllerURL(), app, tier, objNode); //tested
+        }else{
+            query=TransactionDetectionQuery.queryTransactionDetectionAutoAll(baseURL.getControllerURL(), app, tier);
+        }
         
         //This will be the final check, to insure that we don't send a bad query.
         if(query==null){ 

@@ -106,7 +106,7 @@ public class ExPojoRule {
     }
     
     public String whatIsDifferent(ExPojoRule obj){
-        if(this.equals(obj) || !displayName.equals(obj.getDisplayName())) return AppExportS._;
+        if(this.equals(obj) || !displayName.equals(obj.getDisplayName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2_1).append(AppExportS.POJO_RULE);

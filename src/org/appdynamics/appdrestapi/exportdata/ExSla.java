@@ -85,7 +85,7 @@ public class ExSla {
     }
     
     public String whatIsDifferent(ExSla obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
 
         StringBuilder bud=new StringBuilder();
         art.setLevel(level);

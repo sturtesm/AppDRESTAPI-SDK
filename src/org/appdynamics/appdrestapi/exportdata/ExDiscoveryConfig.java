@@ -75,7 +75,7 @@ public class ExDiscoveryConfig {
     }
     
     public String whatIsDifferent(ExDiscoveryConfig obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_CONFIG);

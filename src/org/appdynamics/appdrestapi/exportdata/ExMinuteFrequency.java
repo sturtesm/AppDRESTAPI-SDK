@@ -52,7 +52,7 @@ public class ExMinuteFrequency {
     }
     
     public String whatIsDifferent(ExMinuteFrequency obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         
         StringBuilder bud = new StringBuilder();

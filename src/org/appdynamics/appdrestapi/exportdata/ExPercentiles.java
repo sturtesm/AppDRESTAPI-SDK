@@ -70,7 +70,7 @@ public class ExPercentiles {
     }
 
     public String whatIsDifferent(ExPercentiles obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2_1).append(AppExportS.PERCENTILE_CONFIG);

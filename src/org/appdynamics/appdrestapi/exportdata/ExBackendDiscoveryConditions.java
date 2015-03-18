@@ -36,7 +36,7 @@ public class ExBackendDiscoveryConditions {
 
      public String whatIsDifferent(ExBackendDiscoveryConditions obj){
         
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

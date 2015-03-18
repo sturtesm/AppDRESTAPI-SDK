@@ -45,7 +45,7 @@ public class ExEumCloudConfig {
     }
 
     public String whatIsDifferent(ExEumCloudConfig obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
           bud.append(AppExportS.L1).append(AppExportS.EUM_CLOUD_CONFIG);

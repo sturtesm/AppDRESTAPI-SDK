@@ -38,7 +38,7 @@ public class ExHRNodeComponents {
     }
     
     public String whatIsDifferent(ExHRNodeComponents obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L4).append(AppExportS.COMPONENTS);

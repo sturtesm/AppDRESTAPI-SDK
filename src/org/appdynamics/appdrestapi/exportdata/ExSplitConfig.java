@@ -40,7 +40,7 @@ public class ExSplitConfig {
     }
     
     public String whatIsDifferent(ExSplitConfig obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         if(operation != null){

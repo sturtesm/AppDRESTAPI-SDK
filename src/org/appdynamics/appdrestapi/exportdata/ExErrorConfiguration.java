@@ -427,7 +427,7 @@ public class ExErrorConfiguration {
     
     
     public String whatIsDifferent(ExErrorConfiguration obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         // If we are looking at two different agents there is no need to compare
         if(!agentType.equals(obj.getAgentType())) return "";

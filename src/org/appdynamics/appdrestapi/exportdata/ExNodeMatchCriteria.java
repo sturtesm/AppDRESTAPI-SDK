@@ -119,7 +119,7 @@ public class ExNodeMatchCriteria {
     }
     
     public String whatIsDifferent(ExNodeMatchCriteria obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         

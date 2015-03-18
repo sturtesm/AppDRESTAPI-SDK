@@ -40,7 +40,7 @@ public class ExClassName {
     }
     
     public String whatIsDifferent(ExClassName obj){
-        if(this.equals(obj)) return AppExportS._;
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L3).append(AppExportS.CLASS_NAME);
