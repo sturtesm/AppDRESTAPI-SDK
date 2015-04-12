@@ -14,8 +14,10 @@ import java.util.Calendar;
 public class GetTimeStamps {
     
     /**
+     * <p>
      * This will return a set of timestamps that can be used to help with the use
      * of the RESTAPI API.
+     * </p>
      * 
      * @param args None required
      */

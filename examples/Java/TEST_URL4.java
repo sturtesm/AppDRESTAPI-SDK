@@ -18,7 +18,7 @@ import java.util.Calendar;
 public class TEST_URL4 {
     
     public static void main(String[] args){
-        String controller="gsappdyn01";
+        String controller="appdyn02";
         String port="8090"; 
         
         String user="gsadmin";
@@ -51,7 +51,7 @@ public class TEST_URL4 {
             System.out.println("The name of the application is " + appl.getName() + " the id is " + appl.getId());
         }
         
-        String app="BDR Big Deal Retail";
+        String app=apps.getApplications().get(0).getName();
         
         /*
          * To print all of the nodes for the app
@@ -74,7 +74,7 @@ public class TEST_URL4 {
             System.out.println("The name of the tier is " + tierl.getName() + " the its ID is " + tierl.getId());
         }
         
-        String tier="3dTier";
+        String tier=tiers.getTiers().get(0).getName();
         
         /*
          *  To extract metrics you need to get the timestamps of when you want the data. 
@@ -129,28 +129,38 @@ public class TEST_URL4 {
          */
         
         app="BDR Big Deal Retail";
+        /*
+         Before continueing insure that the applications and healthrules exist
+        
         String healthrule="Check Node Metric";
         // Check to make sure the rule is present
         System.out.println(access.getRESTHealthRuleExportSingle(app, healthrule));
         // Copy the rule to a string
         String healthXML=access.getRESTHealthRuleExportSingle(app, healthrule);
         // Change the application 
-        app="APPD Big Deal Retail";
+        app="BDR";
         // Post the rule
         System.out.println(access.postRESTHealthRule(app, healthrule, healthXML));
         // Check to see if the rule is present
         System.out.println(access.getRESTHealthRuleExportSingle(app, healthrule));
+        */
+        
         
         /*
          * 
          *  To Post an event first you execute the following 
-         * 
+         *  
          */
-        PostEvent event=new PostEvent("Change 12 of 14");
+        PostEvent event=new PostEvent("Change 1 of 14");
+        
+        /*
+        Defaults:
+            customeventtype="custom"
+            serverity="info"
+        */
 
         // The custom even has now been posted to the app
         System.out.println(access.postRESTCustomEvent(app, event));
-       
     }
     
 

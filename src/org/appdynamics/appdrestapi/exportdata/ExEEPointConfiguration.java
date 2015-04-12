@@ -86,7 +86,7 @@ public class ExEEPointConfiguration {
         bud.append(AppExportS.L3).append(AppExportS.CONFIGURATION);
         bud.append(AppExportS.L3_1).append(AppExportS.ENABLE).append(AppExportS.VE).append(enable);
         bud.append(AppExportS.L3_1).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
-        bud.append(discoveryConfig.toString());
+        bud.append(discoveryConfig);
         return bud.toString();
     }
 

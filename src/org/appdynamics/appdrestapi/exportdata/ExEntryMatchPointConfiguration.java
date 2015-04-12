@@ -378,8 +378,8 @@ public class ExEntryMatchPointConfiguration {
         bud.append(AppExportS.L1_1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
         bud.append(AppExportS.L2).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
         bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        bud.append(transactionConfigurations.toString());
-        bud.append(customMatchPointDefinitions.toString());
+        bud.append(transactionConfigurations);
+        bud.append(customMatchPointDefinitions);
         return bud.toString();
     }
 

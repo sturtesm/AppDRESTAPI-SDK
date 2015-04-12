@@ -10,19 +10,83 @@ import org.appdynamics.appdrestapi.resources.s;
 /**
  *
  * @author gilbert.solorzano
-    Overall Application Performance|activemq-instance-mytrees|Average Response Time (ms)
-    Overall Application Performance|activemq-instance-mytrees|Calls per Minute
-    Overall Application Performance|activemq-instance-mytrees|Error Page Redirects per Minute
-    Overall Application Performance|activemq-instance-mytrees|Errors per Minute
-    Overall Application Performance|activemq-instance-mytrees|Exceptions per Minute
-    Overall Application Performance|activemq-instance-mytrees|HTTP Error Codes per Minute
-    Overall Application Performance|activemq-instance-mytrees|Infrastructure Errors per Minute
-    Overall Application Performance|activemq-instance-mytrees|Number of Slow Calls
-    Overall Application Performance|activemq-instance-mytrees|Number of Very Slow Calls
-    Overall Application Performance|activemq-instance-mytrees|Stall Count
+    Overall Application Performance|activemq-instance|Average Response Time (ms)
+    Overall Application Performance|activemq-instance|Calls per Minute
+    Overall Application Performance|activemq-instance|Error Page Redirects per Minute
+    Overall Application Performance|activemq-instance|Errors per Minute
+    Overall Application Performance|activemq-instance|Exceptions per Minute
+    Overall Application Performance|activemq-instance|HTTP Error Codes per Minute
+    Overall Application Performance|activemq-instance|Infrastructure Errors per Minute
+    Overall Application Performance|activemq-instance|Number of Slow Calls
+    Overall Application Performance|activemq-instance|Number of Very Slow Calls
+    Overall Application Performance|activemq-instance|Stall Count
     * 
  */
 public class OverAllPerformanceMetricQuery {
+    
+    // This is going to grab all of the metrics
+    public static String queryOAPAppAll(String baseURL, String application, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.OVERALL_APPLICATION_PERF);
+        bud.append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryOAPTierAll(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.OVERALL_APPLICATION_PERF);
+        bud.append(tier).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryOAPNodeAll(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.OVERALL_APPLICATION_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;        
+        
+        return val.toString();
+    }
     
     //Stall Count
     public static String queryOAPAppStallCount(String baseURL, String application, long start, long end, boolean rollup){
@@ -530,6 +594,7 @@ public class OverAllPerformanceMetricQuery {
         
         return val.toString();
     }
+    
     //CallsPerMinute
     public static String queryOAPAppCallsPerMinute(String baseURL, String application, long start, long end, boolean rollup){
         StringBuilder val=new StringBuilder();
@@ -593,7 +658,8 @@ public class OverAllPerformanceMetricQuery {
         
         return val.toString();
     }
-     // Avg Response Time
+    
+    // Avg Response Time
     public static String queryOAPAppAvgResponseTimeMS(String baseURL, String application,long start, long end, boolean rollup){
         StringBuilder val=new StringBuilder();
         val.append(baseURL).append(s.CONTROLLER_APPS);

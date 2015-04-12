@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class ExBackendDiscoveryConfiguration {
     private String name;
     private ExBackendIdentityOptions backendIdentityOptions;
-    private ExBackendDiscoveryConditions backendDiscoveryConditions;
+    private Object backendDiscoveryConditions; //I don't have an example
     private boolean discoveryEnabled;
     private boolean correlationEnabled;
     private boolean supportsCorrelation;
@@ -65,11 +65,11 @@ public class ExBackendDiscoveryConfiguration {
     }
 
     @XmlElement(name=AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS)
-    public ExBackendDiscoveryConditions getBackendDiscoveryConditions() {
+    public Object getBackendDiscoveryConditions() {
         return backendDiscoveryConditions;
     }
 
-    public void setBackendDiscoveryConditions(ExBackendDiscoveryConditions backendDiscoveryConditions) {
+    public void setBackendDiscoveryConditions(Object backendDiscoveryConditions) {
         this.backendDiscoveryConditions = backendDiscoveryConditions;
     }
 
@@ -118,7 +118,62 @@ public class ExBackendDiscoveryConfiguration {
         this.exitPointType = exitPointType;
     }
     
-    
+    /*
+    private String name;
+    private ExBackendIdentityOptions backendIdentityOptions;
+    private Object backendDiscoveryConditions; //I don't have an example
+    private boolean discoveryEnabled;
+    private boolean correlationEnabled;
+    private boolean supportsCorrelation;
+    private int priority;
+    private String exitPointType;
+    */
+    public String whatIsDifferent(ExBackendDiscoveryConfiguration obj){
+        
+        if(this.equals(obj)) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2_1).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATION);
+        bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        
+        if(!exitPointType.equals(obj.getExitPointType())){
+            bud.append(AppExportS.L3).append(AppExportS.EXIT_POINT_TYPE);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(exitPointType);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getExitPointType()); 
+            
+        }
+        if(discoveryEnabled != obj.isDiscoveryEnabled()){
+            bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_ENABLED);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryEnabled);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryEnabled()); 
+            
+        }
+        
+        if(correlationEnabled != obj.isCorrelationEnabled()){
+            bud.append(AppExportS.L3).append(AppExportS.CORRELATION_ENABLED);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(correlationEnabled);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isCorrelationEnabled()); 
+            
+        }
+        
+        if(supportsCorrelation != obj.isSupportsCorrelation()){
+            bud.append(AppExportS.L3).append(AppExportS.SUPPORTS_CORRELATION);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(supportsCorrelation);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isSupportsCorrelation()); 
+            
+        }
+        
+        if(priority != obj.getPriority()){
+            bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
+            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority()); 
+            
+        }
+        
+        bud.append(backendIdentityOptions.whatIsDifferent(obj.getBackendIdentityOptions()));
+        //bud.append(backendDiscoveryConditions.whatIsDifferent(obj.getBackendDiscoveryConditions()));
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -130,8 +185,8 @@ public class ExBackendDiscoveryConfiguration {
         bud.append(AppExportS.L3).append(AppExportS.SUPPORTS_CORRELATION).append(AppExportS.VE).append(supportsCorrelation);
         bud.append(AppExportS.L3).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
         bud.append(AppExportS.L3).append(AppExportS.EXIT_POINT_TYPE).append(AppExportS.VE).append(exitPointType);
-        if(backendIdentityOptions != null) bud.append(backendIdentityOptions.toString());
-        if(backendDiscoveryConditions != null) bud.append(backendDiscoveryConditions.toString());
+        bud.append(backendIdentityOptions);
+        if(backendDiscoveryConditions != null) bud.append(backendDiscoveryConditions);
         return bud.toString();
     }
 

@@ -116,27 +116,27 @@ public class RESTAccess2 extends RESTAccess{
      * @param queryIndex The index for this query
      * @param app The name of the application
      * @param objNode The name of the custom match rule
-     * @return String.class
+     * @return {@link String}
      * 
      *  
      *  
      * <p>
-     * <br/>Index  0 : Collects all of the custom match rules of type binaryRemoting for the application
-     * <br/>Index  1 : Collects the custom match rules of type binaryRemoting with the name objNode
-     * <br/>Index  2 : Collects all of the custom match rules of type servlet for the application
-     * <br/>Index  3 : Collects the custom match rules of type servlet with the name objNode
-     * <br/>Index  4 : Collects all of the custom match rules of type strutsAction for the application
-     * <br/>Index  5 : Collects the custom match rules of type strutsAction with the name objNode
-     * <br/>Index  6 : Collects all of the custom match rules of type springBean for the application
-     * <br/>Index  7 : Collects the custom match rules of type springBean with the name objNode
-     * <br/>Index  8 : Collects all of the custom match rules of type ejb for the application
-     * <br/>Index  9 : Collects the custom match rules of type ejb with the name objNode
-     * <br/>Index  10 : Collects all of the custom match rules of type pojo for the application
-     * <br/>Index  11 : Collects the custom match rules of type pojo with the name objNode
-     * <br/>Index  12 : Collects all of the custom match rules of type jms for the application
-     * <br/>Index  13 : Collects the custom match rules of type jms with the name objNode
-     * <br/>Index  14 : Collects all of the custom match rules of type webService for the application
-     * <br/>Index  15 : Collects the custom match rules of type webService with the name objNode
+     * <br>Index  0 : Collects all of the custom match rules of type binaryRemoting for the application
+     * <br>Index  1 : Collects the custom match rules of type binaryRemoting with the name objNode
+     * <br>Index  2 : Collects all of the custom match rules of type servlet for the application
+     * <br>Index  3 : Collects the custom match rules of type servlet with the name objNode
+     * <br>Index  4 : Collects all of the custom match rules of type strutsAction for the application
+     * <br>Index  5 : Collects the custom match rules of type strutsAction with the name objNode
+     * <br>Index  6 : Collects all of the custom match rules of type springBean for the application
+     * <br>Index  7 : Collects the custom match rules of type springBean with the name objNode
+     * <br>Index  8 : Collects all of the custom match rules of type ejb for the application
+     * <br>Index  9 : Collects the custom match rules of type ejb with the name objNode
+     * <br>Index  10 : Collects all of the custom match rules of type pojo for the application
+     * <br>Index  11 : Collects the custom match rules of type pojo with the name objNode
+     * <br>Index  12 : Collects all of the custom match rules of type jms for the application
+     * <br>Index  13 : Collects the custom match rules of type jms with the name objNode
+     * <br>Index  14 : Collects all of the custom match rules of type webService for the application
+     * <br>Index  15 : Collects the custom match rules of type webService with the name objNode
      * </p>
      */
     public String getRESTCustomJavaExport(int queryIndex,String app,String objNode){
@@ -225,26 +225,26 @@ public class RESTAccess2 extends RESTAccess{
      * @param app The name of the application
      * @param tier The name of the tier
      * @param objNode The name of the custom match rule
-     * @return String.class
+     * @return {@link String}
      * 
      *  
      * <p>
-     * <br/>Index  0 : Collects all of the custom match rules of type <b>binaryRemoting</b> for the tier
-     * <br/>Index  1 : Collects the custom match rules of type binaryRemoting with the name objNode
-     * <br/>Index  2 : Collects all of the custom match rules of type servlet for the tier
-     * <br/>Index  3 : Collects the custom match rules of type servlet with the name objNode
-     * <br/>Index  4 : Collects all of the custom match rules of type strutsAction for the tier
-     * <br/>Index  5 : Collects the custom match rules of type strutsAction with the name objNode
-     * <br/>Index  6 : Collects all of the custom match rules of type springBean for the tier
-     * <br/>Index  7 : Collects the custom match rules of type springBean with the name objNode
-     * <br/>Index  8 : Collects all of the custom match rules of type ejb for the tier
-     * <br/>Index  9 : Collects the custom match rules of type ejb with the name objNode
-     * <br/>Index  10 : Collects all of the custom match rules of type pojo for the tier
-     * <br/>Index  11 : Collects the custom match rules of type pojo with the name objNode
-     * <br/>Index  12 : Collects all of the custom match rules of type jms for the tier
-     * <br/>Index  13 : Collects the custom match rules of type jms with the name objNode
-     * <br/>Index  14 : Collects all of the custom match rules of type webService for the tier
-     * <br/>Index  15 : Collects the custom match rules of type webService with the name objNode
+     * <br>Index  0 : Collects all of the custom match rules of type <b>binaryRemoting</b> for the tier
+     * <br>Index  1 : Collects the custom match rules of type binaryRemoting with the name objNode
+     * <br>Index  2 : Collects all of the custom match rules of type servlet for the tier
+     * <br>Index  3 : Collects the custom match rules of type servlet with the name objNode
+     * <br>Index  4 : Collects all of the custom match rules of type strutsAction for the tier
+     * <br>Index  5 : Collects the custom match rules of type strutsAction with the name objNode
+     * <br>Index  6 : Collects all of the custom match rules of type springBean for the tier
+     * <br>Index  7 : Collects the custom match rules of type springBean with the name objNode
+     * <br>Index  8 : Collects all of the custom match rules of type ejb for the tier
+     * <br>Index  9 : Collects the custom match rules of type ejb with the name objNode
+     * <br>Index  10 : Collects all of the custom match rules of type pojo for the tier
+     * <br>Index  11 : Collects the custom match rules of type pojo with the name objNode
+     * <br>Index  12 : Collects all of the custom match rules of type jms for the tier
+     * <br>Index  13 : Collects the custom match rules of type jms with the name objNode
+     * <br>Index  14 : Collects all of the custom match rules of type webService for the tier
+     * <br>Index  15 : Collects the custom match rules of type webService with the name objNode
 
      * </p>
      */
@@ -334,22 +334,22 @@ public class RESTAccess2 extends RESTAccess{
      * @param app The name of the application
      * @param tier The name of the tier
      * @param objNode The name of the custom match rule
-     * @return String.class
+     * @return {@link String}
      * 
      *  
      *  <p>
-     * <br/>Index  0 : Collects all of the custom match rules of type aspDotNet for the tier
-     * <br/>Index  1 : Collects the custom match rules of type aspDotNet with the name objNode
-     * <br/>Index  2 : Collects all of the custom match rules of type dotNetWebService for the tier
-     * <br/>Index  3 : Collects the custom match rules of type dotNetWebService with the name objNode
-     * <br/>Index  4 : Collects all of the custom match rules of type wcf for the tier
-     * <br/>Index  5 : Collects the custom match rules of type wcf with the name objNode
-     * <br/>Index  6 : Collects all of the custom match rules of type poco for the tier
-     * <br/>Index  7 : Collects the custom match rules of type poco with the name objNode
-     * <br/>Index  8 : Collects all of the custom match rules of type dotNetJms for the tier
-     * <br/>Index  9 : Collects the custom match rules of type dotNetJms with the name objNode
-     * <br/>Index  10 : Collects all of the custom match rules of type dotNetRemoting for the application
-     * <br/>Index  11 : Collects the custom match rules of type dotNetRemoting with the name objNode
+     * <br>Index  0 : Collects all of the custom match rules of type aspDotNet for the tier
+     * <br>Index  1 : Collects the custom match rules of type aspDotNet with the name objNode
+     * <br>Index  2 : Collects all of the custom match rules of type dotNetWebService for the tier
+     * <br>Index  3 : Collects the custom match rules of type dotNetWebService with the name objNode
+     * <br>Index  4 : Collects all of the custom match rules of type wcf for the tier
+     * <br>Index  5 : Collects the custom match rules of type wcf with the name objNode
+     * <br>Index  6 : Collects all of the custom match rules of type poco for the tier
+     * <br>Index  7 : Collects the custom match rules of type poco with the name objNode
+     * <br>Index  8 : Collects all of the custom match rules of type dotNetJms for the tier
+     * <br>Index  9 : Collects the custom match rules of type dotNetJms with the name objNode
+     * <br>Index  10 : Collects all of the custom match rules of type dotNetRemoting for the application
+     * <br>Index  11 : Collects the custom match rules of type dotNetRemoting with the name objNode
      * </p>
      */
     public String getRESTCustomDotNetExport(int queryIndex,String app, String tier, String objNode){
@@ -423,23 +423,22 @@ public class RESTAccess2 extends RESTAccess{
      * 
      * @param queryIndex The index for this query
      * @param app The name of the application
-     * @param type The type of custom match rule
      * @param objNode The name of the custom match rule
-     * @return String.class
+     * @return {@link String}
      * 
      * <p>
-     * <br/>Index  0 : Collects all of the custom match rules of type aspDotNet for the application
-     * <br/>Index  1 : Collects the custom match rules of type aspDotNet with the name objNode
-     * <br/>Index  2 : Collects all of the custom match rules of type dotNetWebService for the application
-     * <br/>Index  3 : Collects the custom match rules of type dotNetWebService with the name objNode
-     * <br/>Index  4 : Collects all of the custom match rules of type wcf for the application
-     * <br/>Index  5 : Collects the custom match rules of type wcf with the name objNode
-     * <br/>Index  6 : Collects all of the custom match rules of type poco for the application
-     * <br/>Index  7 : Collects the custom match rules of type poco with the name objNode
-     * <br/>Index  8 : Collects all of the custom match rules of type dotNetJms for the application
-     * <br/>Index  9 : Collects the custom match rules of type dotNetJms with the name objNode
-     * <br/>Index  10 : Collects all of the custom match rules of type dotNetRemoting for the application
-     * <br/>Index  11 : Collects the custom match rules of type dotNetRemoting with the name objNode
+     * <br>Index  0 : Collects all of the custom match rules of type aspDotNet for the application
+     * <br>Index  1 : Collects the custom match rules of type aspDotNet with the name objNode
+     * <br>Index  2 : Collects all of the custom match rules of type dotNetWebService for the application
+     * <br>Index  3 : Collects the custom match rules of type dotNetWebService with the name objNode
+     * <br>Index  4 : Collects all of the custom match rules of type wcf for the application
+     * <br>Index  5 : Collects the custom match rules of type wcf with the name objNode
+     * <br>Index  6 : Collects all of the custom match rules of type poco for the application
+     * <br>Index  7 : Collects the custom match rules of type poco with the name objNode
+     * <br>Index  8 : Collects all of the custom match rules of type dotNetJms for the application
+     * <br>Index  9 : Collects the custom match rules of type dotNetJms with the name objNode
+     * <br>Index  10 : Collects all of the custom match rules of type dotNetRemoting for the application
+     * <br>Index  11 : Collects the custom match rules of type dotNetRemoting with the name objNode
      * </p>
      */
     public String getRESTCustomDotNetExport(int queryIndex,String app,String objNode){
@@ -517,12 +516,8 @@ public class RESTAccess2 extends RESTAccess{
      * @param app The name of the application
      * @param objNode The name of the custom pojo
      * @param xml Xml string for the custom pojo
-     * @return String.class
+     * @return {@link String}
      * 
-     *     public static final String[] JAVA_CUSTOM_MATCHES={"binaryRemoting","servlet","strutsAction","springBean","ejb","pojo","jms","webService"};
-    public static final String[] DOTNET_CUSTOM_MATCHES={"aspDotNet","dotNetWebService","wcf","poco","dotNetJms","dotNetRemoting"};
-    public static final String[] PHP_CUSTOM_MATCHES={"phpWeb","phpMvc","phpDrupal","phpWordpress","phpCli","phpWeb","phpWebService"};
-    public static final String[] NODEJS_CUSTOM_MATCHES={"nodeJsWeb"};
      * 
      * <p> 
      * <br>Index 0: Import Java custom match rule binaryRemoting
@@ -616,9 +611,9 @@ public class RESTAccess2 extends RESTAccess{
      * @param tier The name of the tier
      * @param objNode The name of the custom pojo
      * @param xml Xml string for the custom pojo
-     * @return String.class
+     * @return {@link String}
      * 
-     *      * <p> 
+     * <p> 
      * <br>Index 0: Import Java custom match rule binaryRemoting
      * <br>Index 1: Import Java custom match rule servlet
      * <br>Index 2: Import Java custom match rule strutsAction
@@ -690,7 +685,7 @@ public class RESTAccess2 extends RESTAccess{
         
         
         try{
-            //return R.executeTDPostQuery(auth, query, objNode,xml);
+           
             return R.executeAutoPostQuery(auth, query,objNode,xml);
         }catch(Exception e){
             logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")

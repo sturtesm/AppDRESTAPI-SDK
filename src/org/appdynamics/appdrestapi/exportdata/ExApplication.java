@@ -226,13 +226,13 @@ public class ExApplication {
             bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName());    
         }
         
-        if(description != obj.getDescription()){
+        if(!description.equals(obj.getDescription())){
             bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
             bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
             bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
         }
         
-        if(controllerVersion != obj.getControllerVersion()){
+        if(!controllerVersion.equals(obj.getControllerVersion())){
             bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
             bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
             bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    

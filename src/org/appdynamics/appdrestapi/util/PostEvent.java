@@ -14,10 +14,10 @@ import java.util.ArrayList;
  */
 public class PostEvent {
     private String summary;
-    private String severity;
+    private String severity=s.SEVERITY_INFO;
     private String comment;
     private String eventType;
-    private String customEventType;
+    private String customEventType=s.CUSTOM_V;
     private String node;
     private String tier;
     private String bt;
@@ -122,10 +122,11 @@ public class PostEvent {
         bud.append(s.EVENT_TYPE_CUSTOM);
         bud.append(s.EVENT_SUMMARY).append(QueryEncoder.encode(summary));
         if(customEventType != null)bud.append(s.CUSTOM_EVENT_TYPE).append(QueryEncoder.encode(customEventType));
-        if(comment != null) bud.append(s.COMMENT).append(QueryEncoder.encode(comment));
+        if(comment != null) bud.append(s.EVENT_COMMENT).append(QueryEncoder.encode(comment));
         if(tier != null) bud.append(s.EVENT_TIER).append(QueryEncoder.encode(tier));
         if(node != null) bud.append(s.EVENT_NODE).append(QueryEncoder.encode(node));
         if(bt != null) bud.append(s.EVENT_BT).append(QueryEncoder.encode(bt));
+        if(severity != null) bud.append(s.EVENT_SEVERITY).append(severity);
         if(propertyKey.size() > 0){
             for(String key:propertyKey) bud.append(s.PROPERTY_NAMES).append(key);
             for(String val:propertyValue) bud.append(s.PROPERTY_VALUES).append(val);

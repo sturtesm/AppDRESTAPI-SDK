@@ -298,10 +298,16 @@ public class AppExportS {
     public static final String GATHERER_TYPE="gatherer-type";
     public static final String POSITION="position";
     public static final String TRANSFORMER_TYPE="transformer-type";
+    public static final String INFO_POINT_METRIC_DEFINITION="info-point-metric-definition";
     public static final String METHOD_NAME="method-name";
     public static final String METHOD_PARAMETER_TYPES="method-parameter-types";
+    public static final String METHOD_PARAMETER_TRANSFORMER="method-parameter-transformer";
     public static final String POJO_METHOD_DEFINITION="pojo-method-definition";
     public static final String POJO_DATA_GATHERER_CONFIG="pojo-data-gatherer-config";
+    public static final String ROLLUP_TYPE="rollup-type";
+    public static final String INSTRUMENTATION_POINT="instrumentation-point";
+    public static final String APPLY_TO_ALL_BTS="apply-to-all-bts";
+   
     
     
     /* Need application component */

@@ -16,6 +16,51 @@ import org.appdynamics.appdrestapi.resources.s;
  * 
  */
 public class HardwareResourcesMetricQuery {
+    // All CPU Metrics
+    public static String queryHDTierCPUAll(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_CPU).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryHDNodeCPUAll(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_CPU).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
     
     // CPU Busy for the Tier
     public static String queryHDTierCPUBusy(String baseURL, String application,String tier, long start, long end, boolean rollup){
@@ -154,6 +199,53 @@ public class HardwareResourcesMetricQuery {
     }
     
     /* ***************** Disk ************************** */
+    // All Disk data
+    public static String queryHDTierDisksAll(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_DISKS).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryHDNodeDisksAll(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_DISKS).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    //DisksKBReadPerSec
     public static String queryHDTierDisksKBReadPerSec(String baseURL, String application,String tier, long start, long end, boolean rollup){
         StringBuilder val=new StringBuilder();
         val.append(baseURL).append(s.CONTROLLER_APPS);
@@ -335,6 +427,53 @@ public class HardwareResourcesMetricQuery {
     }
     
     /* ***************** Memory ************************ */
+    //All Memory Metrics
+    public static String queryHDTierMemoryAll(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_JVM_MEMORY).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryHDNodeMemoryAll(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_JVM_MEMORY).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    // Memory Free Perc
     public static String queryHDTierMemoryFreePerc(String baseURL, String application,String tier, long start, long end, boolean rollup){
         StringBuilder val=new StringBuilder();
         val.append(baseURL).append(s.CONTROLLER_APPS);
@@ -563,6 +702,52 @@ public class HardwareResourcesMetricQuery {
     
     
     /* ***************** Network *********************** */
+    //All Network
+    public static String queryHDTierNetworkAll(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_NETWORK).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryHDNodeNetworkAll(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_NETWORK).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    //NetworkIncomingKB
     public static String queryHDTierNetworkIncomingKB(String baseURL, String application,String tier, long start, long end, boolean rollup){
         StringBuilder val=new StringBuilder();
         val.append(baseURL).append(s.CONTROLLER_APPS);
@@ -917,10 +1102,103 @@ public class HardwareResourcesMetricQuery {
         //val.append(s.LAST_15_MINUTES);
         val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
         val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);
+        
+        
+        return val.toString();
+    }
+    
+    /* ******************************** System *********************************** */
+    //System All
+    public static String queryHDTierSystemAll(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_SYSTEM).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);
+        
+        
+        return val.toString();
+    }
+    
+    public static String queryHDNodeSystemAll(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_SYSTEM).append(s._ALL_);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);
+        
+        
+        return val.toString();
+    }
+    //System
+    public static String queryHDTierSystemRQ(String baseURL, String application,String tier, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_SYSTEM).append(s.HD_RQ);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
         if(!rollup) val.append(s.NO_ROLL_UP);;
         
         
         return val.toString();
     }
+    
+    public static String queryHDNodeSystemRQ(String baseURL, String application,String tier, String node, long start, long end, boolean rollup){
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.APPLICATION_INFRA_PERF);
+        bud.append(tier);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.HARDWARE_RESOURCES);
+        bud.append(s.HD_SYSTEM).append(s.HD_RQ);
+        val.append(QueryEncoder.encode(bud.toString()));  
+        
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+        if(!rollup) val.append(s.NO_ROLL_UP);;
+        
+        
+        return val.toString();
+    }
+    
             
 }

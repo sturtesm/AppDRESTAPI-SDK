@@ -11,7 +11,8 @@ import java.util.HashMap;
  * @author soloink
  */
 public class s {
-    public static final String RESTAPI_VERSION="1.0.12";
+    public static final String RESTAPI_VERSION="2.0.0";
+    public static final String _ALL_="*";
     public static int debugLevel=0;
     public static int detailLevel=0;
     public static double percentageThreshold=0.25;
@@ -86,6 +87,8 @@ public class s {
     public static final String HD_NETWORK_OUTGOING_KB_PER_SEC="Outgoing KB/sec";
     public static final String HD_NETWORK_OUTGOING_PACKETS="Outgoing packets";
     public static final String HD_NETWORK_OUTGOING_PACKETS_PER_SEC="Outgoing packets/sec";
+    public static final String HD_SYSTEM="System|";
+    public static final String HD_RQ="RQ";
    
     public static final String JVM="|JVM|";
     public static final String JVM_PROCESS_CPU_BURNT_MS_PER_MIN="Process CPU Burnt (ms/min)";
@@ -95,7 +98,13 @@ public class s {
     public static final String JVM_GARBAGE_COLLECTION_MAJOR_COLLECTION_TIME_SPENT_PER_MIN_MS="Major Collection Time Spent Per Min (ms)";
     public static final String JVM_GARBAGE_COLLECTION_MINOR_COLLECTION_TIME_SPENT_PER_MIN_MS="Minor Collection Time Spent Per Min (ms)";
     public static final String JVM_GARBAGE_COLLECTION_NUMBER_OF_MAJOR_COLLECTION_PER_MIN="Number of Major Collections Per Min";
-    public static final String JVM_GARBAGE_COLLECTION_NUMBER_OF_MINOR_COLLECTIONS_PER_MIN="Number of Minor Collections Per Min";
+    public static final String JVM_GARBAGE_COLLECTION_NUMBER_OF_MINOR_COLLECTIONS_PER_MIN="Number of Minor Collections Per Min"; // Memory Pools|
+    public static final String JVM_MEMORY_POOLS="Memory Pools|";
+    public static final String JVM_CODE_CACHE="Code Cache|";
+    public static final String JVM_PS_EDEN_SPACE="PS Eden Space|";
+    public static final String JVM_PS_OLD_GEN="PS Old Gen|";
+    public static final String JVM_PS_PERM_GEN="PS Perm Gen|";
+    public static final String JVM_PS_SURVIVOR_SPACE="PS Survivor Space|";
     public static final String JVM_MEMORY_HEAP="Heap|";
     public static final String JVM_MEMORY_NON_HEAP="Non-Heap|";
     public static final String JVM_MEMORY_HEAP_COMMITED_MB="Committed (MB)";
@@ -347,6 +356,7 @@ webService
     */
     
     //events?eventtype=CUSTOM&customeventtype=nagios&summary=test1&propertynames=key1&propertynames=key2&propertyvalues=value1&propertyvalues=value2
+    public static final String CUSTOM_V="custom";
     public static final String EVENT_TYPE_CUSTOM="?eventtype=CUSTOM";
     public static final String CUSTOM_EVENT_TYPE="&customeventtype=";
     public static final String EVENT_SUMMARY="&summary=";
@@ -355,7 +365,8 @@ webService
     public static final String EVENT_TIER="&tier=";
     public static final String EVENT_NODE="&node=";
     public static final String EVENT_BT="&bt=";
-    public static final String COMMENT="&comment=";
+    public static final String EVENT_COMMENT="&comment=";
+    public static final String EVENT_SEVERITY="&severity=";
     
     /*
      * Pojo

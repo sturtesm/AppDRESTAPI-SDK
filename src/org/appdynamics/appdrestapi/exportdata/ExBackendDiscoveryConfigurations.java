@@ -82,6 +82,40 @@ public class ExBackendDiscoveryConfigurations {
         this.backendDiscoveryConfigurations = backendDiscoveryConfigurations;
     }
     
+    public String whatIsDifferent(ExBackendDiscoveryConfigurations obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1_1).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS);
+        
+        for(ExBackendDiscoveryConfiguration value:backendDiscoveryConfigurations){
+            boolean fnd=false;
+            for(ExBackendDiscoveryConfiguration _value:obj.getBackendDiscoveryConfigurations()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        for(ExBackendDiscoveryConfiguration value:obj.getBackendDiscoveryConfigurations()){
+            boolean fnd=false;
+            for(ExBackendDiscoveryConfiguration _value:backendDiscoveryConfigurations){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
@@ -90,4 +124,28 @@ public class ExBackendDiscoveryConfigurations {
         for(ExBackendDiscoveryConfiguration bdc: backendDiscoveryConfigurations) bud.append(bdc.toString());
         return bud.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + (this.backendDiscoveryConfigurations != null ? this.backendDiscoveryConfigurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBackendDiscoveryConfigurations other = (ExBackendDiscoveryConfigurations) obj;
+        if (this.backendDiscoveryConfigurations != other.backendDiscoveryConfigurations && (this.backendDiscoveryConfigurations == null || !this.backendDiscoveryConfigurations.equals(other.backendDiscoveryConfigurations))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

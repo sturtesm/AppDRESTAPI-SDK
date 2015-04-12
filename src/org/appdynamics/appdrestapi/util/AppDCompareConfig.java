@@ -23,7 +23,7 @@ public class AppDCompareConfig {
     /**
      * 
      * @param filePath This is the path of the file
-     * @return 
+     * @return {@link ExApplication}
      */
     public ExApplication getAppObjectFromFile(String filePath){
         ExApplication app2=null;
