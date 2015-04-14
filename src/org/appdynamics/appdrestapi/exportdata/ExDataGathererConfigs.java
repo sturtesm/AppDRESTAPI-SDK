@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  * <data-gatherer-configs>
         <http-data-gatherer-config attach-to-new-bts="true">
             <parameters/>

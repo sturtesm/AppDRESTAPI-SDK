@@ -11,7 +11,8 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
  *                          <name-value>
                                 <name>uri-length</name>
                                 <value>first-n-segments</value>

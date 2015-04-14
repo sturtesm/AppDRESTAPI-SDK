@@ -13,7 +13,8 @@ import java.util.ArrayList;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <nodes>
 <application-component-node>1stTierNode2</application-component-node>
 <application-component-node>2ndTierNode2</application-component-node>

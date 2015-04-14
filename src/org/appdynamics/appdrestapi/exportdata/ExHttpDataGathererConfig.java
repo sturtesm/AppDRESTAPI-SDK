@@ -13,7 +13,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  *
  * @author gilbert.solorzano
- * 
+ *
+ */
+/*
  * <http-data-gatherer-config attach-to-new-bts="true">
             <parameters/>
             <gather-url>true</gather-url>

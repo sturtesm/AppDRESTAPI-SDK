@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
+ * 
  * <entry-match-point-configuration>
             <override>true</override>
             <agent-type>APP_AGENT</agent-type>

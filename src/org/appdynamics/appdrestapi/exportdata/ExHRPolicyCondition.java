@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * L2_1 NOT USED, MIGHT BE DELETED!!!
  * 
+ */
+/*
  * <policy-condition>
                     <type>boolean</type>
                     <operator>AND</operator>

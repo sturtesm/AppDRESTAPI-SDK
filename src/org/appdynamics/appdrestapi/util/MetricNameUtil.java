@@ -12,7 +12,8 @@ import org.appdynamics.appdrestapi.resources.s;
  * 
  * The key for this function is to find the name of the metric and be able to 
  * return the proper name, title or identification for the 
- * 
+ */
+/*
  
  getRESTBackendMetricQuery(0, app, backendS, start, end, true)
 MetricPath :: Backends|alerts|Average Response Time (ms)

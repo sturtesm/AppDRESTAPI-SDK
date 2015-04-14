@@ -14,7 +14,9 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * 
- * 
+ *
+ */
+/*
         <pojo-data-gatherer-config attach-to-new-bts="false">
             <name>DataCol1</name>
             <pojo-method-definition>

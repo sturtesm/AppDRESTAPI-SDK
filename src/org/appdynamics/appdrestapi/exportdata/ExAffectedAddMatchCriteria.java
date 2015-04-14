@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  * L2_1
+ */
+/*
  * <affected-entities-match-criteria>
     <affected-add-match-criteria>
     <type>ALL_ADDS</type>

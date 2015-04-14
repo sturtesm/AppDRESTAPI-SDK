@@ -12,7 +12,6 @@ import java.util.HashMap;
  */
 public class s {
     public static final String RESTAPI_VERSION="2.0.0";
-    public static final String _ALL_="*";
     public static int debugLevel=0;
     public static int detailLevel=0;
     public static double percentageThreshold=0.25;
@@ -33,6 +32,8 @@ public class s {
     public static final String F="/";
     public static final String Q="?";
     public static final String D_=" - ";
+    public static final String _ALL_="*";
+   
     
     public static final String CONTENT_DISPOSITION="Content-Disposition";
     public static final String URL_TIERS="/tiers";
@@ -101,10 +102,10 @@ public class s {
     public static final String JVM_GARBAGE_COLLECTION_NUMBER_OF_MINOR_COLLECTIONS_PER_MIN="Number of Minor Collections Per Min"; // Memory Pools|
     public static final String JVM_MEMORY_POOLS="Memory Pools|";
     public static final String JVM_CODE_CACHE="Code Cache|";
-    public static final String JVM_PS_EDEN_SPACE="PS Eden Space|";
-    public static final String JVM_PS_OLD_GEN="PS Old Gen|";
-    public static final String JVM_PS_PERM_GEN="PS Perm Gen|";
-    public static final String JVM_PS_SURVIVOR_SPACE="PS Survivor Space|";
+    public static final String JVM_PS_EDEN_SPACE="Eden Space|";
+    public static final String JVM_PS_OLD_GEN="Old Gen|";
+    public static final String JVM_PS_PERM_GEN="Perm Gen|";
+    public static final String JVM_PS_SURVIVOR_SPACE="Survivor Space|";
     public static final String JVM_MEMORY_HEAP="Heap|";
     public static final String JVM_MEMORY_NON_HEAP="Non-Heap|";
     public static final String JVM_MEMORY_HEAP_COMMITED_MB="Committed (MB)";

@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  * <bt-request-thresholds>
                 <starting-node-slow-threshold>
                     <evaluation-type>STANDARD_DEVIATION</evaluation-type>

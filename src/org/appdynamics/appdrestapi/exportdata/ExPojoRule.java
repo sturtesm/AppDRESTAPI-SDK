@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * 
  * 
+ * 
+ */
+/*
                         <pojo-rule>
                             <enabled>false</enabled>
                             <priority>0</priority>

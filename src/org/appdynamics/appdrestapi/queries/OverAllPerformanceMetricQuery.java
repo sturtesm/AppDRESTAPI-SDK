@@ -34,7 +34,7 @@ public class OverAllPerformanceMetricQuery {
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
         bud.append(s.OVERALL_APPLICATION_PERF);
-        bud.append(s._ALL_);
+        bud.append(s.P).append(s._ALL_);
         val.append(QueryEncoder.encode(bud.toString()));  
         
         //val.append(s.LAST_15_MINUTES);
@@ -55,7 +55,7 @@ public class OverAllPerformanceMetricQuery {
         // This has to be encoded otherwise the query will fail.
         StringBuilder bud = new StringBuilder();
         bud.append(s.OVERALL_APPLICATION_PERF);
-        bud.append(tier).append(s._ALL_);
+        bud.append(tier).append(s.P).append(s._ALL_);
         val.append(QueryEncoder.encode(bud.toString()));  
         
         //val.append(s.LAST_15_MINUTES);
@@ -77,7 +77,7 @@ public class OverAllPerformanceMetricQuery {
         StringBuilder bud = new StringBuilder();
         bud.append(s.OVERALL_APPLICATION_PERF);
         bud.append(tier);
-        bud.append(s.INDIVIDUAL_NODES).append(node).append(s._ALL_);
+        bud.append(s.INDIVIDUAL_NODES).append(node).append(s.P).append(s._ALL_);
         val.append(QueryEncoder.encode(bud.toString()));  
         
         //val.append(s.LAST_15_MINUTES);

@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <property>
                     <property-definition>disable-exit-call-metrics-for</property-definition>
                     <string-value/>

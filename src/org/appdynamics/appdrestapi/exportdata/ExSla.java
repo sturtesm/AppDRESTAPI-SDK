@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <sla>
             <art>
                 <critical enabled="true">30000</critical>

@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  *          <custom-logger-definition disable="false">
                 <name>GLog</name>
                 <pojo-method-definition>

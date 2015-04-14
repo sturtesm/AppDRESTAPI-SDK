@@ -84,8 +84,7 @@ public class RESTAccess2 extends RESTAccess{
      * @param account Account name to use with the queries
      */
     public RESTAccess2(String controllerURL, String port, boolean ssl, String username, String password, String account){
-        super(controllerURL,port,ssl,username,password,account);
-        
+        super(controllerURL,port,ssl,username,password,account);  
     }
     
      /**

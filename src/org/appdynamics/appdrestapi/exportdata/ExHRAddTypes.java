@@ -16,6 +16,8 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  * <add-types>
         <add-type>BASE_PAGE</add-type>
     </add-types>

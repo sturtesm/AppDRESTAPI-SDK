@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  * <property-definition>
                     <name>max-jdbc-calls-per-callgraph</name>
                     <description>Maximum number of sql queries  that will be reported per callgraph. Note - Only queries taking more time than 'min-duration-for-jdbc-callsample' wil be reported. Does not need a restart</description>

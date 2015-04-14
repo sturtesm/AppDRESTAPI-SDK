@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  * <eum-configuration>
             <enabled>false</enabled>
             <external-js-fetch-url/>

@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  *
  * @author gilbert.solorzano
+ */
+/*
  * 
                                     <properties>
                                         <property name="uri-suffix-scheme" value="custom-expression"/>

@@ -16,6 +16,9 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  * <error-configuration agent-type="java-app-agent">
             <disable-java-logging>false</disable-java-logging>
             <disable-log4j-logging>false</disable-log4j-logging>

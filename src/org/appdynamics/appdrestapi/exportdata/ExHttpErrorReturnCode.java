@@ -14,7 +14,9 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * L2_1
- * 
+ *
+ */
+/*
  * 
             <http-error-return-code disable="false">
                 <name>Nothing Code</name>

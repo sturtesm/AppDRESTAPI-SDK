@@ -14,7 +14,8 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
  * <node-types>
 <node-type>APP_AGENT</node-type>
 </node-types>

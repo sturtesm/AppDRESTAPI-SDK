@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
  * @author gilbert.solorzano
+ */
+/*
  * 
                                     <properties>
                                         <property name="uri-suffix-scheme" value="custom-expression"/>

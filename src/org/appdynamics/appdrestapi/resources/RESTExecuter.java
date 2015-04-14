@@ -58,7 +58,11 @@ import java.util.logging.Level;
 
 /**
  *
- * @author soloink
+ * @author gilbert.solorzano
+ * 
+ * <p>
+ * The executor handles the process of communicating with the controller and retrieving the data.
+ * </p>
  */
 public class RESTExecuter {
     private com.sun.jersey.api.client.config.ClientConfig config = null;

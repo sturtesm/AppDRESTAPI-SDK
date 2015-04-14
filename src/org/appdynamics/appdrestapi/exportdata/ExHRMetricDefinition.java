@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * L4
  * 
+ */
+/*
  * 
                             <metric-definition>
                                 <type>LOGICAL_METRIC</type>

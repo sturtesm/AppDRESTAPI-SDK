@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * 
  * L2
+ * 
+ */
+/*
             <affected-entities-match-criteria>
                 <affected-bt-match-criteria>
                     <type>ALL</type>

@@ -11,8 +11,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  *
  * 
- * <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+ * 
  * @author gilbert.solorzano
+ */
+/*
+ * <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
  * 6
  */
 public class ExMatchClassName {

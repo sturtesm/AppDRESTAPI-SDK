@@ -12,7 +12,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * L2_1
- *              
+ *     
+ */
+/*
                     <percentile-values>
                         <percentile-value>
                             <value>50.0</value>

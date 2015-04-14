@@ -16,12 +16,11 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
  * @author gilbert.solorzano
- * This is going to be the root object for the export.
+ * <p>
+ * This is going to be the root object for the export for the application object. 
+ * </p>
  * 
-@XmlSeeAlso({ExConfiguration.class,ExEumCloudConfig.class})
 * 
-* ,ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,
-    ExMatchMethod.class,ExMatchClassName.class,ExCustomMatchPointDefinitions.class
  */
 
 @XmlRootElement(name=AppExportS.APPLICATION)

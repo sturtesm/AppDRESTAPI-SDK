@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <sla-violation collect-outliers-only="true" duration="5"
                     enabled="true" max-attempts-for-outliers="20" warning-violation="true">5</sla-violation>
  */

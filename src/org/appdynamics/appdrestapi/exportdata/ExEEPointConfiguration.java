@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  * <configuration transaction-entry-point-type="BINARY_REMOTING">
                     <enable>true</enable>
                     <discovery-config discovery-resolution="FIRST_ENTRY_POINT">

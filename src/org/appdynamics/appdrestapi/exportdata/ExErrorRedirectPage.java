@@ -14,7 +14,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author gilbert.solorzano
  * 
- * 
+ *
+ */
+/*
             <error-redirect-page disable="false">
                 <name>Page1</name>
                 <match-type>CONTAINS</match-type>

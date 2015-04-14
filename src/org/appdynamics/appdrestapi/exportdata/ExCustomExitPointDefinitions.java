@@ -14,7 +14,8 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
 <custom-exit-point-definition>
 <name>CB_Locked</name>
 <instrumentation-point>

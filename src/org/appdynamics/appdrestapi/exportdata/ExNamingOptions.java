@@ -15,7 +15,8 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
  * 
                             <naming-options>
                                 <name-value>

@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  * 
  * L2_1
  * 
+ */
+/*
             <ignore-logger-msg-patterns>
                 <match-type>EQUALS</match-type>
                 <match-pattern>bart</match-pattern>

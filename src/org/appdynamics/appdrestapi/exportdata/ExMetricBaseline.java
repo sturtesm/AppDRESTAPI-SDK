@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  *         <metric-baseline seasonality="NONE">
             <name>All data - Last 15 days</name>
             <fixed>false</fixed>

@@ -13,7 +13,10 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
  * @author gilbert.solorzano
+ *
  * 
+ */
+/*
  * <agent_configuration>
             <override>true</override>
             <agent-type>APP_AGENT</agent-type>

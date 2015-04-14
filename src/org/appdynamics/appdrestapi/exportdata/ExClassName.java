@@ -11,7 +11,8 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <class-name filter-type="EQUALS" filter-value="org.cometd.server.CometdServlet"/>
  * 
  */

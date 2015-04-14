@@ -15,6 +15,9 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  * L3
+ */
+
+/*
             <affected-entities-match-criteria>
                 <affected-bt-match-criteria>
                     <type>ALL</type>

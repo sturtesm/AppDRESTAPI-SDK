@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <snapshot-collection-policy>
                 <minute-frequency enabled="true">10</minute-frequency>
                 <nth-occurance enabled="false">100</nth-occurance>

@@ -12,6 +12,10 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
  * @author gilbert.solorzano
+ * 
+ * 
+ */
+/*
  * <background-business-transaction-config>
             <snapshot-collection-policy>
                 <minute-frequency enabled="true">10</minute-frequency>

@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  * <minute-frequency enabled="true">10</minute-frequency>
  */
 public class ExMinuteFrequency {

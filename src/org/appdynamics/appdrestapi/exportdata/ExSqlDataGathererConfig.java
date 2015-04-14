@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <sql-data-gatherer-config attach-to-new-bts="true">
             <match-type>NOT_EMPTY</match-type>
             <match-pattern/>

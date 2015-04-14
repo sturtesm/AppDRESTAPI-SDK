@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * 
  * L2_1
+ * 
+ */
+/*
                 <affected-infra-match-criteria>
                     <type>NODES</type>
                     <node-match-criteria>

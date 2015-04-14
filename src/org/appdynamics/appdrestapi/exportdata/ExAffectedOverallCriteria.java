@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  *
  * @author gilbert.solorzano
+ * 
+ */
+/*
  * <overall-affected-entities-match-criteria>
 <type>APPLICATION</type>
 </overall-affected-entities-match-criteria>

@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
                             <exclude name="CometD Servlet">
                                 <servlet-rule>
                                     <enabled>true</enabled>

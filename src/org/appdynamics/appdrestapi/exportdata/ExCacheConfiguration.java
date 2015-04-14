@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  *
  * @author gilbert.solorzano
+ * 
+ */
+/*
  * <cache-configuration>
                 <disable-cache-monitoring>false</disable-cache-monitoring>
                 <disable-standard-cache-frameworks>false</disable-standard-cache-frameworks>

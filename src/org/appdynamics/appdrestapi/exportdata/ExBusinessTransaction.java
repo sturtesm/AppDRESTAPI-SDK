@@ -16,7 +16,9 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
- * 
+ *
+ */
+/*
                 <business-transaction excluded="false" transaction-entry-point-type="SERVLET">
                     <name>/examples/jsp</name>
                     <business-transaction-name>/examples/jsp</business-transaction-name>

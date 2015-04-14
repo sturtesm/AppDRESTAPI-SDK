@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
 <discovery-config discovery-resolution="FIRST_ENTRY_POINT">
     <discovery-config-enabled>true</discovery-config-enabled>
                             <exclude name="CometD Servlet">

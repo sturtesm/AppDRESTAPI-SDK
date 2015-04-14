@@ -15,7 +15,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
- * 
+ *
+ */
+/*
                     <naming-config scheme="uri">
                         <name-values>
                             <name-value>

@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * 
  * 
+ */
+/*
+ * 
                                     <generic-method-config>
                                         <class-name>org.json.JSONObject</class-name>
                                         <method-config return-type="true">

@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
             <memory-configuration>
                 <size-polling-interval>10</size-polling-interval>
                 <enable-cache-framework-size-monitoring>true</enable-cache-framework-size-monitoring>

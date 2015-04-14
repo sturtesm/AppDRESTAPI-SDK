@@ -13,6 +13,9 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
             <pojo-method-definition>
                 <class-name>com.appdynamics.testappserver.spring.SpringBean3</class-name>
                 <method-name>businessMethod</method-name>

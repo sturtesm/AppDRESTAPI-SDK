@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  *                          <match-class type="inherits-from-class">
                                 <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
                             </match-class>5

@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 /**
  *
  * @author gilbert.solorzano
- * 
+ */
+/*
  * <property-definitions>
                 <property-definition>
                     <name>max-jdbc-calls-per-callgraph</name>

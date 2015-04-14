@@ -16,6 +16,8 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
  * <metric-baselines>
         <metric-baseline seasonality="NONE">
             <name>All data - Last 15 days</name>

@@ -15,7 +15,8 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
         <application-component>
             <name>2ndTier</name>
             <description/>

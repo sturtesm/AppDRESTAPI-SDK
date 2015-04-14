@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
             <custom-match-point-definitions>
                 <custom-match-point-definition transaction-entry-point-type="POJO">
                     <name>Cron4J</name>

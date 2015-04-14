@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
             <method-invocation-data-gatherer-config>
                 <name>DataColl</name>
                 <position>0</position>

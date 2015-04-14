@@ -15,6 +15,9 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  *             <properties>
                 <property>
                     <property-definition>enable-json-bci-rules</property-definition>

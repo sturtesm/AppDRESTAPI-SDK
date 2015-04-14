@@ -12,7 +12,9 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
- * 
+ *
+ */
+/*
  * <starting-node-slow-threshold>
                 <evaluation-type>STANDARD_DEVIATION</evaluation-type>
                     <evaluation-mins>120</evaluation-mins>

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 /**
  *
  * @author gilbert.solorzano
+ * 
+ */
+/*
  * <application-components>
 <application-component>1stTier</application-component>
 </application-components>

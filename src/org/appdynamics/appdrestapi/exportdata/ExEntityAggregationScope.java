@@ -15,6 +15,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * 
  * L2_1
+ * 
+ */
+/*
                 <entity-aggregation-scope>
                     <type>AGGREGATE</type>
                     <value>0</value>

@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  * 
+ */
+/*
                                         <method-config return-type="true">
                                             <name>mapName</name>
                                         </method-config>

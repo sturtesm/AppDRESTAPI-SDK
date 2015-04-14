@@ -15,6 +15,9 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  * 
+ * 
+ */
+/*
  * <backend-discovery-configurations>
                 <backend-discovery-configuration>
                     <name>Default Cassandra configuration</name>

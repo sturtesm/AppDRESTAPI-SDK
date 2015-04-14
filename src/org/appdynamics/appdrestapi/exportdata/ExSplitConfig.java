@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author gilbert.solorzano
  * 
  * We will need to revisit because this is going to change.
- * 
+ */
+/*
  * <split-config type="4"/>
  */
 public class ExSplitConfig {

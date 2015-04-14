@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  * @author gilbert.solorzano
  * 
- * 
+ */
+/*
                     <match-rule>
                         <pojo-rule>
                             <enabled>false</enabled>

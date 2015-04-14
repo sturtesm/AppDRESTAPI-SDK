@@ -12,8 +12,10 @@ import javax.xml.bind.annotation.XmlAttribute;
 /**
  *
  * @author gilbert.solorzano
- * 
- * <stall-configuration>
+ *
+ */
+
+ /* <stall-configuration>
                     <absolute>true</absolute>
                     <absolute-time-in-secs>45</absolute-time-in-secs>
                     <bt-sla-violation-multiplier>0</bt-sla-violation-multiplier>

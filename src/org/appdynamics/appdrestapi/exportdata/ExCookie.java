@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author gilbert.solorzano
  * 
  * 
+ */
+/*
                                     <cookies>
                                         <cookie match-type="check-for-existence">
                                             <name filter-type="EQUALS" filter-value="nah"/>
