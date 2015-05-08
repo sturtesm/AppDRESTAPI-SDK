@@ -319,4 +319,31 @@ public class BusinessTransactionQuery {
         return val.toString();
     }
     
+    /*
+    Added by Hugh Brian
+    */
+    public static String queryAllMetricsPerBT(String baseURL, String application, String tier, String btName,  long start, long end, boolean rollup){
+
+
+        StringBuilder val=new StringBuilder();
+        val.append(baseURL).append(s.CONTROLLER_APPS);
+        val.append(QueryEncoder.encode(application));
+        val.append(s.URL_METRIC_PATH);
+        // This has to be encoded otherwise the query will fail.
+        StringBuilder bud = new StringBuilder();
+        bud.append(s.URL_BUSINESS_TRANSACTION_PERFORMANCE).append(s.URL_BUSINESS_TRANSACTIONS);
+        bud.append(tier).append(s.P).append(btName).append(s.P).append("*");
+        val.append(QueryEncoder.encode(bud.toString()));
+
+        //val.append(s.LAST_15_MINUTES);
+        val.append(s.TIME_BETWEEN).append(s.TIME_START_TIME).append(start);
+        val.append(s.TIME_END_TIME).append(end);
+
+
+        String retValue = val.toString();
+
+
+        return val.toString();
+    }
+    
 }

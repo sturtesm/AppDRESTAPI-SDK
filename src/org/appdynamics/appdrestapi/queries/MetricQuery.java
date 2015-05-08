@@ -1068,6 +1068,12 @@ public class MetricQuery {
         return BusinessTransactionQuery.queryBTSTALL_COUNT(baseURL, application, tier, site, start, end, rollup);
     }
     
+    /* Added Hugh Brian */
+    public String queryAllMetricsForBT( String application, String tier, String btName, long start, long end, boolean rollup)
+    {
+        return BusinessTransactionQuery.queryAllMetricsPerBT( baseURL,  application,  tier, btName,  start,  end,  rollup);
+    }
+    
     /*
      * *************************************************************************
      *              Backends 

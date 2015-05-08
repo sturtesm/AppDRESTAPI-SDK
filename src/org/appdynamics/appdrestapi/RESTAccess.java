@@ -33,7 +33,7 @@ import java.util.logging.Level;
  * 
  */
 public class RESTAccess {
-    private static Logger logger=Logger.getLogger(RESTAccess.class.getName());
+    private static final Logger logger=Logger.getLogger(RESTAccess.class.getName());
     protected RESTBaseURL baseURL;
     protected RESTAuth auth;
     protected RESTExecuter R;
@@ -282,7 +282,7 @@ public class RESTAccess {
 	<ul>   <li>metric-item</li>
 	<ul>	   <li>name = Business Transactions</li>
 		   <li>type = folder</li></ul></ul>
-	<ul>   metric-item</li>
+	<ul><li>   metric-item</li>
 	<ul>	   <li>name = Business Transaction Groups</li>
 		   <li>type = folder</li></ul></ul>
         </ul>     * 
@@ -1044,7 +1044,6 @@ public class RESTAccess {
         <br>Index 112 : queryJVMNodeMemoryHeapAll
         <br>Index 113 : queryJVMNodeMemoryNonHeapAll
         <br>Index 114 : queryOAPNodeAll
-     * </p>
      * </p>
      */
     public MetricDatas getRESTMetricQuery(int queryIndex, String application, String tier, long start, long end, boolean rollup){
@@ -2364,6 +2363,7 @@ public class RESTAccess {
      * <br>Index  8 : queryBTNUMBER_OF_SLOW_CALLS
      * <br>Index  9 : queryBTNUMBER_OF_VERY_SLOW_CALLS
      * <br>Index 10 : queryBTSTALL_COUNT
+     * <br>Index 100: queryAllMetricsForBT
      * </p>
      */
     public MetricDatas getRESTBTMetricQuery(int queryIndex, String application, String tier, String btName, long start, long end, boolean rollup){
@@ -2404,6 +2404,9 @@ public class RESTAccess {
                 break;
             case 10:
                 query=mq.queryBTSTALL_COUNT(application, tier, btName, start, end, rollup);
+                break;
+            case 100:
+                query=mq.queryAllMetricsForBT(application, tier, btName, start, end, rollup);
                 break;
             default:
                 break;
