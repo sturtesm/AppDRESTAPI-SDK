@@ -355,6 +355,8 @@ public class AppExportS {
     public static final String CUSTOM_BUSINESS_TRANSACTION_NAME="custom-business-transaction-name";
     public static final String MATCH_RULE="match-rule";
     public static final String POJO_RULE="pojo-rule";
+    public static final String POCO_RULE="poco-rule";
+    public static final String WEB_RULE="web-rule";
     public static final String ASP_DOTNET_RULE="asp-dotnet-rule";
     public static final String MATCH_CLASS="match-class";
     public static final String SPLIT_CONFIG="split-config";

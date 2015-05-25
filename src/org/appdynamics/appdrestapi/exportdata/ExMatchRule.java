@@ -4,6 +4,7 @@
  */
 package org.appdynamics.appdrestapi.exportdata;
 
+import java.util.Objects;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -32,13 +33,34 @@ import javax.xml.bind.annotation.XmlSeeAlso;
                     </match-rule>
  * 3
  */
-@XmlSeeAlso({ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
+@XmlSeeAlso({ExPojoRule.class,ExPocoRule.class,ExWebRule.class,ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
 public class ExMatchRule {
     private ExPojoRule pojoRule;
+    private ExPocoRule pocoRule;
     private ExServletRule servletRule;
+    private ExWebRule webRule;
     
     public ExMatchRule(){}
 
+    @XmlElement(name=AppExportS.WEB_RULE)
+    public ExWebRule getWebRule() {
+        return webRule;
+    }
+
+    public void setWebRule(ExWebRule webRule) {
+        this.webRule = webRule;
+    }
+
+    
+    @XmlElement(name=AppExportS.POCO_RULE)
+    public ExPocoRule getPocoRule() {
+        return pocoRule;
+    }
+
+    public void setPocoRule(ExPocoRule pocoRule) {
+        this.pocoRule = pocoRule;
+    }
+    
     @XmlElement(name=AppExportS.POJO_RULE)
     public ExPojoRule getPojoRule() {
         return pojoRule;
@@ -71,6 +93,13 @@ public class ExMatchRule {
             servletRule.whatIsDifferent(obj.getServletRule());
         }
         
+        if(pocoRule != null && obj.getPocoRule() != null){
+            pocoRule.whatIsDifferent(obj.getPocoRule());
+        }
+        
+        if(webRule != null && obj.getWebRule() != null){
+            webRule.whatIsDifferent(obj.getWebRule());
+        }
         return bud.toString();
     }
     
@@ -79,15 +108,19 @@ public class ExMatchRule {
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.L2).append(AppExportS.MATCH_RULE);
         if(pojoRule != null) bud.append(pojoRule);
+        if(pocoRule != null) bud.append(pocoRule);
         if(servletRule != null) bud.append(servletRule);
+        if(webRule != null) bud.append(webRule);
         return bud.toString();
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + (this.pojoRule != null ? this.pojoRule.hashCode() : 0);
-        hash = 47 * hash + (this.servletRule != null ? this.servletRule.hashCode() : 0);
+        hash = 59 * hash + Objects.hashCode(this.pojoRule);
+        hash = 59 * hash + Objects.hashCode(this.pocoRule);
+        hash = 59 * hash + Objects.hashCode(this.servletRule);
+        hash = 59 * hash + Objects.hashCode(this.webRule);
         return hash;
     }
 
@@ -100,14 +133,22 @@ public class ExMatchRule {
             return false;
         }
         final ExMatchRule other = (ExMatchRule) obj;
-        if (this.pojoRule != other.pojoRule && (this.pojoRule == null || !this.pojoRule.equals(other.pojoRule))) {
+        if (!Objects.equals(this.pojoRule, other.pojoRule)) {
             return false;
         }
-        if (this.servletRule != other.servletRule && (this.servletRule == null || !this.servletRule.equals(other.servletRule))) {
+        if (!Objects.equals(this.pocoRule, other.pocoRule)) {
+            return false;
+        }
+        if (!Objects.equals(this.servletRule, other.servletRule)) {
+            return false;
+        }
+        if (!Objects.equals(this.webRule, other.webRule)) {
             return false;
         }
         return true;
     }
+
+    
     
     
 }
