@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import org.appdynamics.appdrestapi.resources.s;
 
 /**
  *
@@ -77,7 +78,9 @@ public class ExServletRule {
     private ExGenericMethodConfig genericMethodConfig;
     private String httpMethod;
     
-
+    public ExServletRule(){}
+    
+    
     @XmlElement(name=AppExportS.ENABLED)
     public boolean isEnabled() {
         return enabled;
@@ -366,6 +369,22 @@ public class ExServletRule {
         return true;
     }
     
-    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3).append(AppExportS.XOpen(s.SERVLET_RULE));
+        bud.append(AppExportS.XElement(6, AppExportS.ENABLED, enabled));
+        bud.append(AppExportS.XElement(6, AppExportS.PRIORITY, priority));
+        bud.append(uri.toXML());
+        bud.append(AppExportS.L3_1).append(AppExportS.XO).append(AppExportS.PROPERTIES).append(AppExportS.XCT);
+        bud.append(AppExportS.L3).append(AppExportS.XClose(s.SERVLET_RULE));
+        return bud.toString();
+    }
     
 }
+
+/*
+               <enabled>true</enabled>
+                <priority>10</priority>
+                <uri filter-type="[CONTAINS]" filter-value="[CHECK]"/>
+                <properties/>
+*/

@@ -45,7 +45,15 @@ public class CustomMatchPoints {
         this.customMatchPoints = customMatchPoints;
     }
     
-    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.XOpenAttr(s.CUSTOM_MATCH_POINTS))
+                .append( AppExportS.XAttribute(AppExportS.CONTROLLER_VERSION, controllerVersion) )
+                .append( AppExportS.XC);
+        for(CustomMatchPoint cmp:customMatchPoints) bud.append(cmp.toXML());
+        bud.append(AppExportS.L0).append(AppExportS.XClose(s.CUSTOM_MATCH_POINTS));
+        return bud.toString();
+    }
     
     @Override
     public String toString(){

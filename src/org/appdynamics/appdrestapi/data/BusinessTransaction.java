@@ -12,15 +12,6 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author gilbert.solorzano
  * 
- * <business-transaction>
-  <id>6210</id>
-  <name>_APPDYNAMICS_DEFAULT_TX_</name>
-  <entryPointType>POJO</entryPointType>
-  <internalName>_APPDYNAMICS_DEFAULT_TX_</internalName>
-  <tierId>578</tierId>
-  <tierName>my-family-booklet-dev</tierName>
-  <background>false</background>
-</business-transaction>
  * 
  */
 public class BusinessTransaction {
@@ -103,9 +94,34 @@ public class BusinessTransaction {
         bud.append("\n\tname = ").append(name);
         bud.append("\n\tentryPointType=").append(entryPointType);
         bud.append("\n\tinternalName=").append(internalName);
+        bud.append("\n\ttierId=").append(tierId);
+        bud.append("\n\ttierName=").append(tierName);
         bud.append("\n\tbackground=").append(background).append("\n");
         return bud.toString();
     }
     
     
 }
+
+/*
+
+ * <business-transaction>
+  <id>6210</id>
+  <name>_APPDYNAMICS_DEFAULT_TX_</name>
+  <entryPointType>POJO</entryPointType>
+  <internalName>_APPDYNAMICS_DEFAULT_TX_</internalName>
+  <tierId>578</tierId>
+  <tierName>my-family-booklet-dev</tierName>
+  <background>false</background>
+</business-transaction>
+
+<business-transaction>
+<id>397</id>
+<name>/product/furniture</name>
+<entryPointType>SERVLET</entryPointType>
+<internalName>/product/furniture</internalName>
+<tierId>44</tierId>
+<tierName>1stTier</tierName>
+<background>false</background>
+</business-transaction>
+*/

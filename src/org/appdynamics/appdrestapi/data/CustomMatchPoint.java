@@ -83,13 +83,27 @@ public class CustomMatchPoint {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(s.CUSTOM_MATCH_POINT);
+        bud.append(AppExportS.L1_1).append(AppExportS.XOpen(s.CUSTOM_MATCH_POINT));
         bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(businessTransactionName);
         bud.append(AppExportS.L2).append(s.ENTRY_POINT).append(AppExportS.VE).append(entryPoint);
         bud.append(AppExportS.L2).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
         bud.append(AppExportS.L2).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
         bud.append(matchRule);
+
+        return bud.toString();
+    }
+    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L1).append(AppExportS.XOpen(s.CUSTOM_MATCH_POINT));
+        bud.append(AppExportS.XElement(2, s.NAME, name));
+        bud.append(AppExportS.XElement(2, AppExportS.BUSINESS_TRANSACTION_NAME, businessTransactionName));
+        bud.append(AppExportS.XElement(2,s.ENTRY_POINT,entryPoint));
+        bud.append(AppExportS.XElement(2,AppExportS.BACKGROUND,background));
+        bud.append(AppExportS.XElement(2,AppExportS.ENABLED,enabled));
+        bud.append(matchRule.toXML());
+        bud.append(AppExportS.L1).append(AppExportS.XClose(s.CUSTOM_MATCH_POINT));
         return bud.toString();
     }
 }
@@ -116,6 +130,22 @@ public class CustomMatchPoint {
                     <name filter-type="EQUALS" filter-value="execute"/>
                 </match-method>
             </pojo-rule>
+        </match-rule>
+    </custom-match-point>
+
+    <custom-match-point>
+        <name>[NAME]</name>
+        <business-transaction-name>[NAME]</business-transaction-name>
+        <entry-point>SERVLET</entry-point>
+        <background>false</background>
+        <enabled>true</enabled>
+        <match-rule>
+            <servlet-rule>
+                <enabled>true</enabled>
+                <priority>10</priority>
+                <uri filter-type="[CONTAINS]" filter-value="[CHECK]"/>
+                <properties/>
+            </servlet-rule>
         </match-rule>
     </custom-match-point>
  */

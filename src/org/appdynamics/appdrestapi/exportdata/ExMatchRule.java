@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import org.appdynamics.appdrestapi.resources.s;
 
 /**
  *
@@ -149,6 +150,23 @@ public class ExMatchRule {
     }
 
     
-    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L2).append(AppExportS.XOpen(s.MATCH_RULE));
+        bud.append(servletRule.toXML());
+        bud.append(AppExportS.L2).append(AppExportS.XClose(s.MATCH_RULE));
+        return bud.toString();
+    }
     
 }
+
+/*
+        <match-rule>
+            <servlet-rule>
+                <enabled>true</enabled>
+                <priority>10</priority>
+                <uri filter-type="[CONTAINS]" filter-value="[CHECK]"/>
+                <properties/>
+            </servlet-rule>
+        </match-rule>
+*/

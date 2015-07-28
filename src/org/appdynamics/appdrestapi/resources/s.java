@@ -371,13 +371,12 @@ webService
     
     /*
      * Pojo
-     * <custom-match-points controller-version="003-009-003-000">
-    <custom-match-point>
-        <name>Cron4J</name>
+
         <business-transaction-name>Cron4J</business-transaction-name>
         <entry-point>POJO</entry-point>
         <background>false</background>
         <enabled>false</enabled>
+    
         <match-rule>
             <pojo-rule>
                 <enabled>false</enabled>
@@ -392,13 +391,27 @@ webService
                     <name filter-type="EQUALS" filter-value="execute"/>
                 </match-method>
             </pojo-rule>
+            <match-rule>
+            <servlet-rule>
+                <enabled>true</enabled>
+                <priority>10</priority>
+                <uri filter-type="[CONTAINS]" filter-value="[CHECK]"/>
+                <properties/>
+            </servlet-rule>
         </match-rule>
-    </custom-match-point>
+        </match-rule>
+
      */
     
+    public static final String[] FILTER_TYPE_VALUES={"EQUALS","STARTSWITH","CONTAINS","NOT_EMPTY"};
+    public static final String NOT_EMPTY_VALUE="&lt;not empty>";
     public static final String CUSTOM_MATCH_POINTS="custom-match-points";
     public static final String CUSTOM_MATCH_POINT="custom-match-point";
     public static final String ENTRY_POINT="entry-point";
+    public static final String MATCH_RULE="match-rule";
+    public static final String POJO_RULE="pojo-rule";
+    public static final String SERVLET_RULE="servlet-rule";
+    public static final String URI="uri";
     /*
      * Configuration items
      * 

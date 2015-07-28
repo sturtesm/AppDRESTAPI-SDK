@@ -7,12 +7,16 @@ package org.appdynamics.appdrestapi.queries;
 import org.appdynamics.appdrestapi.resources.QueryEncoder;
 import org.appdynamics.appdrestapi.resources.s;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 
 /**
  *
  * @author gilbert.solorzano
  */
 public class TransactionDetectionQuery {
+    private static final Logger logger=Logger.getLogger(TransactionDetectionQuery.class.getName());
     protected String baseURL;
     protected String application;
     
@@ -73,6 +77,7 @@ public class TransactionDetectionQuery {
         StringBuilder bud = new StringBuilder();
         bud.append(baseURL).append(s.CONTROLLER_BT_URL).append(QueryEncoder.encode(application));
         bud.append(s.URL_POJO_CUSTOM).append(QueryEncoder.encode(entryPoint));
+        
         return bud.toString();
     }
     
@@ -81,6 +86,7 @@ public class TransactionDetectionQuery {
         StringBuilder bud = new StringBuilder();
         bud.append(baseURL).append(s.CONTROLLER_BT_URL).append(QueryEncoder.encode(application));
         bud.append(s.F).append(QueryEncoder.encode(tier)).append(s.URL_POJO_CUSTOM).append(QueryEncoder.encode(entryPoint));
+        //logger.log(Level.INFO,new StringBuilder().append(bud.toString()).toString());
         return bud.toString();
     }
     
@@ -98,6 +104,7 @@ public class TransactionDetectionQuery {
         StringBuilder bud = new StringBuilder();
         bud.append(queryTransactionDetectionExportPojo(baseURL,application,tier,entryPoint));
         bud.append(s.URL_OVERWRITE);
+        //logger.log(Level.INFO,new StringBuilder().append(bud.toString()).toString());
         return bud.toString();
     }
     

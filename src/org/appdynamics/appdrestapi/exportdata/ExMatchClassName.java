@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlAttribute;
  */
 /*
  * <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
- * 6
+ *  We should make the filter-type an enumeration but this will work as well.
+
  */
 public class ExMatchClassName {
     private String filterType;
@@ -98,6 +99,17 @@ public class ExMatchClassName {
         return true;
     }
     
-    
+    public String toXML(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.L3_1).append(AppExportS.XOpenAttr("uri"))
+                .append(AppExportS.XAttribute(AppExportS.FILTER_TYPE, filterType))
+                .append(AppExportS.XAttribute(AppExportS.FILTER_VALUE, filterValue))
+                .append(AppExportS.XCT);
+        return bud.toString();
+    }
     
 }
+
+/*
+<uri filter-type="[CONTAINS]" filter-value="[CHECK]"/>
+*/
