@@ -3156,7 +3156,7 @@ public class RESTAccess {
                 .append("\nPojo POST for application ").append(app).append(" for custom pojo ").append(objNode).toString());}
         
         query=TransactionDetectionQuery.queryTransactionDetectionImportPojo(baseURL.getControllerURL(), app, objNode); //tested
-        
+        logger.log(Level.INFO,new StringBuilder().append("The query is ").append(query).toString());
         
         try{
             //return R.executeTDPostQuery(auth, query, objNode,xml);

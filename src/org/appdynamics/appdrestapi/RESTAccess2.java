@@ -605,6 +605,114 @@ public class RESTAccess2 extends RESTAccess{
      *  This will import a custom pojo into the application and tier given.
      * </p>
      * 
+     * @param queryIndex The index for this query
+     * @param app The name of the application
+     * @param objNode The name of the custom pojo
+     * @param xml Xml File for the custom pojo
+     * @return {@link String}
+     * 
+     * 
+     * <p> 
+     * <br>Index 0: Import Java custom match rule binaryRemoting
+     * <br>Index 1: Import Java custom match rule servlet
+     * <br>Index 2: Import Java custom match rule strutsAction
+     * <br>Index 3: Import Java custom match rule springBean
+     * <br>Index 4: Import Java custom match rule ejb
+     * <br>Index 5: Import Java custom match rule pojo
+     * <br>Index 6: Import Java custom match rule jms
+     * <br>Index 7: Import Java custom match rule webService
+     * <br>Index 8: Import DotNet custom match rule aspDotNet
+     * <br>Index 9: Import DotNet custom match rule dotNetWebService
+     * <br>Index 10: Import DotNet custom match rule wcf
+     * <br>Index 11: Import DotNet custom match rule poco
+     * <br>Index 12: Import DotNet custom match rule dotNetJms
+     * <br>Index 13: Import DotNet custom match rule dotNetRemoting
+     * </p>
+     */
+    public String postRESTCustomMatch(int queryIndex, String app, String objNode, java.io.FileReader xml1){
+        
+        String query=null;
+        String xml=null;
+        
+        try{
+            java.io.BufferedReader br=new java.io.BufferedReader(xml1);
+            StringBuilder bud = new StringBuilder();
+            String s;
+            while((s= br.readLine()) != null){
+                bud.append(s);
+            }
+
+            xml=bud.toString();
+        }catch(Exception e){ logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred while attempting to open the file ").append(e.getMessage()).toString());return null;}
+        
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo POST for application ").append(app)
+                .append(" tier ").append(" for custom pojo ").append(objNode).toString());}
+        
+        switch(queryIndex){
+            case 0://"binaryRemoting",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[0],objNode);
+                break;
+            case 1://"servlet",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[1],objNode);
+                break;
+            case 2://"strutsAction"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[2],objNode);
+                break;
+            case 3://,"springBean",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[3],objNode);
+                break;
+            case 4://"ejb"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[4],objNode);
+                break;
+            case 5://"pojo"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[5],objNode);
+                break;
+            case 6://"jms"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[6],objNode);
+                break;
+            case 7://"webService"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.JAVA_CUSTOM_MATCHES[7],objNode);
+                break;
+            case 8://"aspDotNet",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.DOTNET_CUSTOM_MATCHES[0],objNode);
+                break;
+            case 9://"dotNetWebService",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.DOTNET_CUSTOM_MATCHES[1],objNode);
+                break;
+            case 10://"wcf",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.DOTNET_CUSTOM_MATCHES[2],objNode);
+                break;
+            case 11://"poco",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.DOTNET_CUSTOM_MATCHES[3],objNode);
+                break;
+            case 12://"dotNetJms",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.DOTNET_CUSTOM_MATCHES[4],objNode);
+                break;
+            case 13://"dotNetRemoting"}
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app,  s.DOTNET_CUSTOM_MATCHES[5],objNode);
+                break;
+
+        }
+        
+        
+        try{
+            //return R.executeTDPostQuery(auth, query, objNode,xml);
+            return R.executeAutoPostQuery(auth, query,objNode,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will import a custom pojo into the application and tier given.
+     * </p>
+     * 
      * @param queryIndex The index of the query
      * @param app The name of the application
      * @param tier The name of the tier
@@ -632,6 +740,113 @@ public class RESTAccess2 extends RESTAccess{
     public String postRESTCustomMatch(int queryIndex, String app, String tier, String objNode, String xml){
         
         String query=null;
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nPojo POST for application ").append(app)
+                .append(" tier ").append(tier).append(" for custom pojo ").append(objNode).toString());}
+        
+        switch(queryIndex){
+            case 0://"binaryRemoting",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[0],objNode);
+                break;
+            case 1://"servlet",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[1],objNode);
+                break;
+            case 2://"strutsAction"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[2],objNode);
+                break;
+            case 3://,"springBean",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[3],objNode);
+                break;
+            case 4://"ejb"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[4],objNode);
+                break;
+            case 5://"pojo"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[5],objNode);
+                break;
+            case 6://"jms"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[6],objNode);
+                break;
+            case 7://"webService"
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.JAVA_CUSTOM_MATCHES[7],objNode);
+                break;
+            case 8://"aspDotNet",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.DOTNET_CUSTOM_MATCHES[0],objNode);
+                break;
+            case 9://"dotNetWebService",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.DOTNET_CUSTOM_MATCHES[1],objNode);
+                break;
+            case 10://"wcf",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.DOTNET_CUSTOM_MATCHES[2],objNode);
+                break;
+            case 11://"poco",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.DOTNET_CUSTOM_MATCHES[3],objNode);
+                break;
+            case 12://"dotNetJms",
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.DOTNET_CUSTOM_MATCHES[4],objNode);
+                break;
+            case 13://"dotNetRemoting"}
+                query=TransactionDetectionQuery.queryGenericTransactionDetectionImport(baseURL.getControllerURL(), app, tier,  s.DOTNET_CUSTOM_MATCHES[5],objNode);
+                break;
+
+        }
+        
+        
+        try{
+           
+            return R.executeAutoPostQuery(auth, query,objNode,xml);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    /**
+     * <p>
+     *  This will import a custom pojo into the application and tier given.
+     * </p>
+     * 
+     * @param queryIndex The index of the query
+     * @param app The name of the application
+     * @param tier The name of the tier
+     * @param objNode The name of the custom pojo
+     * @param xml Xml FileReader for the custom pojo
+     * @return {@link String}
+     * 
+     * <p> 
+     * <br>Index 0: Import Java custom match rule binaryRemoting
+     * <br>Index 1: Import Java custom match rule servlet
+     * <br>Index 2: Import Java custom match rule strutsAction
+     * <br>Index 3: Import Java custom match rule springBean
+     * <br>Index 4: Import Java custom match rule ejb
+     * <br>Index 5: Import Java custom match rule pojo
+     * <br>Index 6: Import Java custom match rule jms
+     * <br>Index 7: Import Java custom match rule webService
+     * <br>Index 8: Import DotNet custom match rule aspDotNet
+     * <br>Index 9: Import DotNet custom match rule dotNetWebService
+     * <br>Index 10: Import DotNet custom match rule wcf
+     * <br>Index 11: Import DotNet custom match rule poco
+     * <br>Index 12: Import DotNet custom match rule dotNetJms
+     * <br>Index 13: Import DotNet custom match rule dotNetRemoting
+     * </p>
+     */
+    public String postRESTCustomMatch(int queryIndex, String app, String tier, String objNode, java.io.FileReader xml1){
+        
+        String query=null;
+        String xml=null;
+        
+        try{
+            java.io.BufferedReader br=new java.io.BufferedReader(xml1);
+            StringBuilder bud = new StringBuilder();
+            String s;
+            while((s= br.readLine()) != null){
+                bud.append(s);
+            }
+
+            xml=bud.toString();
+        }catch(Exception e){ logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred while attempting to open the file ").append(e.getMessage()).toString());return null;}
+        
         if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
                 .append("\nPojo POST for application ").append(app)
                 .append(" tier ").append(tier).append(" for custom pojo ").append(objNode).toString());}
