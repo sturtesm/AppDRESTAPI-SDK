@@ -62,7 +62,7 @@ public class MetricData {
     }
     
     public ArrayList<MetricValue> getSingleMetricValues(){
-        if(metricValues != null && !metricValues.isEmpty()) metricValues.get(0);
+        if(metricValues != null && !metricValues.isEmpty()) return metricValues.get(0).getValues();
         return null;
     }
     

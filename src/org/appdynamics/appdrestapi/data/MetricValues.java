@@ -50,7 +50,17 @@ public class MetricValues {
         if(metricValue != null && ! metricValue.isEmpty() ) return metricValue.get(0);
         return null;
     }
-    
+
+    /**
+     * <p>
+     * This is going to get all the values.
+     * </p>
+     * @return {@link MetricValue}
+     */
+    public ArrayList<MetricValue> getValues(){
+        if(metricValue != null && ! metricValue.isEmpty() ) return metricValue;
+        return null;
+    }
     public boolean hasNoValues(){
         boolean empty=true;
         if(metricValue != null && metricValue.size()>0) empty=false;
