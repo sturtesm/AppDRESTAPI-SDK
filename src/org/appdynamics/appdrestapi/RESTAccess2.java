@@ -608,7 +608,7 @@ public class RESTAccess2 extends RESTAccess{
      * @param queryIndex The index for this query
      * @param app The name of the application
      * @param objNode The name of the custom pojo
-     * @param xml Xml File for the custom pojo
+     * @param xml1 Xml File for the custom pojo
      * @return {@link String}
      * 
      * 
@@ -811,7 +811,7 @@ public class RESTAccess2 extends RESTAccess{
      * @param app The name of the application
      * @param tier The name of the tier
      * @param objNode The name of the custom pojo
-     * @param xml Xml FileReader for the custom pojo
+     * @param xml1 Xml FileReader for the custom pojo
      * @return {@link String}
      * 
      * <p> 
@@ -908,5 +908,7 @@ public class RESTAccess2 extends RESTAccess{
         
         return null;
     }
+    
+    
     
 }

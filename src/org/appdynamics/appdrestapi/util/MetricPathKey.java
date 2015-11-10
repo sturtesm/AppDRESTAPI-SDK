@@ -29,12 +29,44 @@ public class MetricPathKey {
     private String metricNode;
     private String metricFreq;
     
+    /**
+     * <p>
+     The MetricPathKey helps extract the different parts of the metric path of a metric,
+     * this can then be used to push the metrics into another data source.   
+     * </p>
+     * @param controller Name of the controller where the metric came from
+     * @param application Name of the application where the metric came from
+     * @param applicationId ID in string format where the metric came from
+     */
     public MetricPathKey(String controller, String application, String applicationId){
         this.controller=controller;
         this.application=application;
         this.applicationId=applicationId;
     }
     
+    /**
+     * <p>
+     * The method call shortMetricKey will parse the metric path and get the different components
+     * out of the metric path. The array returned can be used directly of just the main object.
+     * </p>
+     * @param metricType Integer the defines the type of metric query
+     * @param metricQuery Integer index for the query
+     * @param path Metric path string
+     * @param freq Metric aggregation level, One minute, 10 minute and 1 hour
+     * @return String[]
+     * 
+     * <p>
+     * <ul>
+                <li>Metric Type:</li>
+               *   <ul>   <li>0 - BT</li></ul>
+               *   <ul>   <li>1 - BE</li></ul>
+               *   <ul>   <li>2 - Tier Metric</li></ul>
+               *   <ul>   <li>3 - Node Metric</li></ul>
+               *   <ul>   <li>4 - EUM</li></ul>
+               *   <ul>   <li>5 - Custom</li></ul>
+     * </ul>
+     * </p>
+     */
     public String[] shortMetricKey(int metricType, int metricQuery, String path, String freq){
         String[] pPath = MetricNameUtil.parse(path);
         this.metricFreq=freq;
@@ -62,9 +94,18 @@ public class MetricPathKey {
         if(metricType == 2 || metricType == 3){ metricTier=null; metricTier=pPath[1];}
         if(metricType == 3){metricNode=null;metricNode=pPath[3];}
         if(metricType == 4) {metricSite=null;metricSite=pPath[2];}
+       if(metricType == 5){
+           // Application Infrastructure Performance|cas|Custom Metrics|Amazon Cloud Watch|eu-west-1|EC2|Instance|i-00f571e6|CPUUtilization
+           //Application Infrastructure Performance|2ndTier|Individual Nodes|2ndTierNode1|Custom Metrics|Uptime|myTier|Nodes Down
+           metricTier=null;metricTier=pPath[1]; // This is the tier, now lets check if the node is present
+           if(pPath[2].equals("Individual Nodes")){metricNode=null;metricNode=pPath[3];}
+       }
 
     }
     
+    /*
+      For 'Custom Metrics' this should be custom metrics
+    */
     public String getObjectType(int metricType, int metricQuery, String[] pPath, boolean shortVal){
         
         if(shortVal){
@@ -81,6 +122,7 @@ public class MetricPathKey {
                 return s.LONG_METRIC_TYPES[5];
             }
             if(metricType == 4)  return s.LONG_METRIC_TYPES[6];
+            if(metricType == 5) return s.LONG_METRIC_TYPES[7];
         }
         return "Type";
     }
@@ -95,15 +137,35 @@ public class MetricPathKey {
                 return s.SHORT_METRIC_TYPES[5];    
         }
         if(metricType == 4) return path[1];
+        if(metricType == 5){
+            // We need to find everything after Custom Metric but before metric name
+            // Application Infrastructure Performance|cas|Custom Metrics|Amazon Cloud Watch|eu-west-1|EC2|Instance|i-00f571e6|CPUUtilization
+            int nameIndex=2;
+            if(path.length==4) return "Custom Metric";
+            StringBuilder bud=new StringBuilder();
+            boolean fnd=false;
+            int count=0;
+            for(int i=1; i < (path.length - 1); i++){
+                if(!fnd){
+                    if(path[i].equals("Custom Metrics")) fnd=true;
+                }else{
+                    if(count > 0) bud.append("|");
+                    bud.append(path[i]);
+                    count++;
+                }
+            }
+            
+            return bud.toString();
+        }
         return application;
     }
     
+    // This is the metric name 
     public String getObjectName(int metricType, String[] path){
-        if(metricType == 0) return path[2];
+        if(metricType == 0) return path[path.length-1];
         if(metricType == 1) return path[1];
-        if(metricType == 2) return path[path.length-1];
-        if(metricType == 3) return path[path.length-1];      
-        if(metricType == 4) return path[path.length-1];
+        if(metricType >= 2) return path[path.length-1];
+
         return application;
     }
 

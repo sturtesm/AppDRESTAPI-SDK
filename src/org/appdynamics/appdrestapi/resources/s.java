@@ -17,10 +17,14 @@ public class s {
     public static double percentageThreshold=0.25;
     public static final int MAX_TRIES=3;
     
+    public static final int VERSION_MAJOR=2;
+    public static final int VERSION_MINOR=4;
+    
     public static final String HTTP_PROXYHOST="http.proxyHost";
     public static final String HTTP_PROXYPORT="http.proxyPort";
     public static final String HTTPS="https://";
     public static final String HTTP="http://";
+    public static final String CONTROLLER_ACCOUNTS="/controller/api/accounts/";
     public static final String CONTROLLER_APPS="/controller/rest/applications/";
     public static final String CONTROLLER_BT_URL="/controller/transactiondetection/";
     public static final String CONTROLLER_CONFIG="/controller/rest/configuration";
@@ -214,6 +218,7 @@ public class s {
     public static final String AGENT_NAME_NODEJS="NodeJS Agent";
     public static final String AGENT_NAME_DOTNET="DotNet Agent";
     public static final String AGENT_NAME_MACHINE_AGENT="Machine Agent";
+    public static final String AGENT_NAME_WEB_SERVER="Web Server";
     
     /*
      *  Overall performance
@@ -471,4 +476,8 @@ webService
     public static String SEVERITY_INFO="INFO";
     public static String SEVERITY_WARN="WARN";
     public static String SEVERITY_ERROR="ERROR";
+    
+    // Action Suppression
+    public static final String ACTION_SUPPRESSIONS="actionsuppressions";
+    public static final String MYACCOUNT="myaccount";
 }

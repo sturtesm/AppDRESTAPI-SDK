@@ -303,6 +303,10 @@ public class MetricNameUtil {
             if(queryIndex < 46){return new StringBuilder().append(s.SHORT_METRIC_TYPES[6]).append(s.D_).append(s.SHORT_METRIC_TYPES[9]).toString();} //BASE
             return new StringBuilder().append(s.SHORT_METRIC_TYPES[6]).append(s.D_).append(s.SHORT_METRIC_TYPES[10]).toString();
         }
+        
+        if(metricType == 5){
+            return  s.SHORT_METRIC_TYPES[7];
+        }
         return "Default Type";
     }
     
