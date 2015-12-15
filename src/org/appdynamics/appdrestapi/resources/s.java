@@ -212,6 +212,8 @@ public class s {
     public static final String AGENT_TYPE_CHK_PHP="PHP";
     public static final String AGENT_TYPE_CHK_IIS="IIS";
     public static final String AGENT_TYPE_CHK_NODEJS="nodejs";
+    public static final String AGENT_TYPE_WEB_SERVER="NATIVE_WEB_SERVER";
+    public static final String AGENT_TYPE_CHK_SDK="NATIVE_SDK";
     
     public static final String AGENT_NAME_JAVA="Java Agent";
     public static final String AGENT_NAME_PHP="PHP Agent";
@@ -219,6 +221,7 @@ public class s {
     public static final String AGENT_NAME_DOTNET="DotNet Agent";
     public static final String AGENT_NAME_MACHINE_AGENT="Machine Agent";
     public static final String AGENT_NAME_WEB_SERVER="Web Server";
+    public static final String AGENT_NAME_C_SDK="NATIVE SDK";
     
     /*
      *  Overall performance

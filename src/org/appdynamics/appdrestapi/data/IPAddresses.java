@@ -34,7 +34,7 @@ public class IPAddresses {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         bud.append("\tIPAddresses : \n");
-        for(IPAddress ip: ipaddresses) bud.append(ip.toString());
+        for(IPAddress ip: ipaddresses) bud.append(ip);
         return bud.toString();
     }
     

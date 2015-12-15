@@ -52,6 +52,8 @@ public class Node {
     private boolean appAgentPresent;
     private String appAgentVersion;
     private IPAddresses ipAddresses;
+    // Added for 4.2
+    private String agentType;
     
     public Node(){}
 
@@ -80,6 +82,15 @@ public class Node {
 
     public void setType(String type) {
         this.type = type;
+    }
+    
+    @XmlElement(name=s.AGENT_TYPE)
+    public String getAgentType() {
+        return agentType;
+    }
+
+    public void setAgentType(String agentType) {
+        this.agentType = agentType;
     }
 
     @XmlElement(name=s.TIER_ID)
@@ -191,7 +202,7 @@ public class Node {
         bud.append("\tMachine Agent Version: ").append(machineAgentVersion).append("\n");
         bud.append("\tApplication Agent Present: ").append(appAgentPresent).append("\n");
         bud.append("\tApplication Agent Version: ").append(appAgentVersion).append("\n");
-        //bud.append(ipAddresses.toString());
+        bud.append(ipAddresses);
         bud.append("\t ******************** End Node ***************************\n");        
         return bud.toString();
     
