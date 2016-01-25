@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class ExWarning {
     private long value;
     private boolean enabled=false;
-    private int level=0;
+    private int level=5;
 
     
     public ExWarning(){}
@@ -50,18 +50,12 @@ public class ExWarning {
         this.level = level;
     }
 
-    @XmlTransient
-    public String getIndent(){
-        if(level == 1) return AppExportS.L3;
-        if(level == 2) return AppExportS.L3_1;
-        return AppExportS.L2_1;
-    }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(getIndent()).append(AppExportS.WARNING).append(AppExportS.VE).append(value);
-        bud.append(getIndent()).append(AppExportS.S4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.WARNING).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.I[level]).append(AppExportS.S4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
 
         return bud.toString();
     }
@@ -71,19 +65,23 @@ public class ExWarning {
         
         if(this.equals(obj)) return AppExportS._U;
         
-        bud.append(getIndent()).append(AppExportS.WARNING);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.WARNING);level++;
         if(value != obj.getValue()){
-            bud.append(getIndent()).append(AppExportS.VALUE);
-            bud.append(getIndent()).append(AppExportS.SRC).append(AppExportS.VE).append(value);
-            bud.append(getIndent()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+            bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+            level++;
         }
         
         if(enabled != obj.isEnabled()){
-            bud.append(getIndent()).append(AppExportS.ENABLED);
-            bud.append(getIndent()).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(getIndent()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            level--;
         }
-        
+        level--;
         return bud.toString();
     }
 

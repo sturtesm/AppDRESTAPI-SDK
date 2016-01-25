@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -172,9 +173,21 @@ public class ExErrorConfiguration {
     private int maxFramesInRootCause;
     private int stackTraceLineLimit;
     private boolean markTransactionAsErrorOnErrorMessageLogTag;
+    private int level=3;
     
     public ExErrorConfiguration(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
+    
     @XmlAttribute(name=AppExportS.AGENT_TYPE)
     public String getAgentType() {
         return agentType;
@@ -373,58 +386,63 @@ public class ExErrorConfiguration {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1_1).append(AppExportS.ERROR_CONFIGURATION);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.ERROR_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
         
         if(agentType.equals(AppExportS.PHP_APP_AGENT)){
-            bud.append(AppExportS.L2).append(AppExportS.DETECT_PHP_ERRORS).append(AppExportS.VE).append(detectPhpErrors);
-            bud.append(AppExportS.L2).append(AppExportS.PHP_ERROR_LEVEL).append(AppExportS.VE).append(phpErrorLevel); 
+            bud.append(AppExportS.I[level]).append(AppExportS.DETECT_PHP_ERRORS).append(AppExportS.VE).append(detectPhpErrors);
+            bud.append(AppExportS.I[level]).append(AppExportS.PHP_ERROR_LEVEL).append(AppExportS.VE).append(phpErrorLevel); 
         }
         
         if(agentType.equals(AppExportS.JAVA_APP_AGENT)){
-            bud.append(AppExportS.L2).append(AppExportS.DISABLE_JAVA_LOGGING).append(AppExportS.VE).append(disableJavaLogging);
-            bud.append(AppExportS.L2).append(AppExportS.DISABLE_LOG4J_LOGGING).append(AppExportS.VE).append(disableLog4jLogging); 
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_JAVA_LOGGING).append(AppExportS.VE).append(disableJavaLogging);
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_LOG4J_LOGGING).append(AppExportS.VE).append(disableLog4jLogging); 
         }
         
         if(agentType.equals(AppExportS.DOTNET_APP_AGENT)){
-            bud.append(AppExportS.L2).append(AppExportS.DISABLE_SYSTEM_TRACE).append(AppExportS.VE).append(disableSystemTrace);
-            bud.append(AppExportS.L2).append(AppExportS.DISABLE_EVENT_LOG).append(AppExportS.VE).append(disableEventLog); 
-            bud.append(AppExportS.L2).append(AppExportS.DISABLE_N_LOG).append(AppExportS.VE).append(disableNLog);
-            bud.append(AppExportS.L2).append(AppExportS.DISABLE_LOG4NET_LOGGING).append(AppExportS.VE).append(disableLog4netLogging); 
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_SYSTEM_TRACE).append(AppExportS.VE).append(disableSystemTrace);
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_EVENT_LOG).append(AppExportS.VE).append(disableEventLog); 
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_N_LOG).append(AppExportS.VE).append(disableNLog);
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_LOG4NET_LOGGING).append(AppExportS.VE).append(disableLog4netLogging); 
         }
         
-        bud.append(AppExportS.L2).append(AppExportS.DISABLE_DEFAULT_HTTP_ERROR_CODE)
+        bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_DEFAULT_HTTP_ERROR_CODE)
                 .append(AppExportS.VE).append(disableDefaultHttpErrorCode);
         
-        bud.append(AppExportS.L2).append(AppExportS.IGNORE_EXCEPTIONS).append(AppExportS.VE).append(ignoreException);
+        bud.append(AppExportS.I[level]).append(AppExportS.IGNORE_EXCEPTIONS).append(AppExportS.VE).append(ignoreException);
         for(ExMatchPattern matchP:ignoreExceptionPattern){
-            bud.append(AppExportS.L2).append(AppExportS.IGNORE_EXCEPTION_MSG_PATTERNS);bud.append(matchP);
+            matchP.setLevel(level);
+            bud.append(AppExportS.I[level]).append(AppExportS.IGNORE_EXCEPTION_MSG_PATTERNS);bud.append(matchP);
         }
         
-        bud.append(AppExportS.L2).append(AppExportS.IGNORE_LOGGER_NAME).append(AppExportS.VE).append(ignoreLoggerNames);
+        bud.append(AppExportS.I[level]).append(AppExportS.IGNORE_LOGGER_NAME).append(AppExportS.VE).append(ignoreLoggerNames);
         for(ExMatchPattern matchP:ignoreLoggerPattern){
-            bud.append(AppExportS.L2).append(AppExportS.IGNORE_LOGGER_MSG_PATTERNS);bud.append(matchP);
+            matchP.setLevel(level);
+            bud.append(AppExportS.I[level]).append(AppExportS.IGNORE_LOGGER_MSG_PATTERNS);bud.append(matchP);
         }
         
-        for(ExCustomLoggerDefinition custom:customLoggerDefinitions){
+        for(ExCustomLoggerDefinition custom:customLoggerDefinitions){ 
+            custom.setLevel(level);
             bud.append(custom.toString());
         }
         
-        for(ExHttpErrorReturnCode error: httpErrorReturnCodes){ bud.append(error.toString());}
+        for(ExHttpErrorReturnCode error: httpErrorReturnCodes){ error.setLevel(level);bud.append(error);}
         
-        for(ExErrorRedirectPage error: errorRedirectPage){ bud.append(error.toString());}
+        for(ExErrorRedirectPage error: errorRedirectPage){ error.setLevel(level);bud.append(error);}
         
         if(!agentType.equals(AppExportS.NODEJS_APP_AGENT))
-            bud.append(AppExportS.L2).append(AppExportS.CAPTURE_LOGGER_ERROR_AND_FATAL_MESSAGE)
+            bud.append(AppExportS.I[level]).append(AppExportS.CAPTURE_LOGGER_ERROR_AND_FATAL_MESSAGE)
                     .append(AppExportS.VE).append(captureLoggerErrorAndFatalMessages);
         
-        bud.append(AppExportS.L2).append(AppExportS.MAX_FRAMES_IN_ROOT_CAUSE).append(AppExportS.VE).append(maxFramesInRootCause);
-        bud.append(AppExportS.L2).append(AppExportS.STACK_TRACE_LINE_LIMIT).append(AppExportS.VE).append(maxFramesInRootCause);
+        bud.append(AppExportS.I[level]).append(AppExportS.MAX_FRAMES_IN_ROOT_CAUSE).append(AppExportS.VE).append(maxFramesInRootCause);
+        bud.append(AppExportS.I[level]).append(AppExportS.STACK_TRACE_LINE_LIMIT).append(AppExportS.VE).append(maxFramesInRootCause);
         
         if(!agentType.equals(AppExportS.NODEJS_APP_AGENT))
-            bud.append(AppExportS.L2).append(AppExportS.MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE)
+            bud.append(AppExportS.I[level]).append(AppExportS.MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE)
                     .append(AppExportS.VE).append(markTransactionAsErrorOnErrorMessageLogTag);
         
+        level--;
         return bud.toString();
     }
     
@@ -437,74 +455,86 @@ public class ExErrorConfiguration {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1_1).append(AppExportS.ERROR_CONFIGURATION);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.ERROR_CONFIGURATION);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
         if(agentType.equals(AppExportS.PHP_APP_AGENT)){
             if(detectPhpErrors!=obj.isDetectPhpErrors()){ 
-                bud.append(AppExportS.L2).append(AppExportS.DETECT_PHP_ERRORS);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(detectPhpErrors);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDetectPhpErrors());
+                bud.append(AppExportS.I[level]).append(AppExportS.DETECT_PHP_ERRORS);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(detectPhpErrors);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDetectPhpErrors());
+                level--;
             }
             
             if(!phpErrorLevel.equals(obj.getPhpErrorLevel())){
-                bud.append(AppExportS.L2).append(AppExportS.PHP_ERROR_LEVEL);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(phpErrorLevel);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.getPhpErrorLevel());
+                bud.append(AppExportS.I[level]).append(AppExportS.PHP_ERROR_LEVEL);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(phpErrorLevel);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getPhpErrorLevel());
+                level--;
             }
         }
         
         if(agentType.equals(AppExportS.JAVA_APP_AGENT)){
             if(disableJavaLogging != obj.isDisableJavaLogging()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_JAVA_LOGGING);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableJavaLogging);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableJavaLogging());
-                
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_JAVA_LOGGING);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableJavaLogging);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableJavaLogging());
+                level--;
             }
             
             if(disableLog4jLogging != obj.isDisableLog4jLogging()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_LOG4J_LOGGING);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableLog4jLogging);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableLog4jLogging());
-                
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_LOG4J_LOGGING);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableLog4jLogging);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableLog4jLogging());
+                level--;
             }
                 
         }
         
         if(agentType.equals(AppExportS.DOTNET_APP_AGENT)){
             if(disableSystemTrace != obj.isDisableSystemTrace()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_SYSTEM_TRACE);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableSystemTrace);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableSystemTrace());
-                
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_SYSTEM_TRACE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableSystemTrace);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableSystemTrace());
+                level--;  
             }
             
             if(disableEventLog != obj.isDisableEventLog()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_EVENT_LOG);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableEventLog);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableEventLog());
-                
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_EVENT_LOG);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableEventLog);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableEventLog());
+                level--;
             }
             
             if(disableNLog != obj.isDisableNLog()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_N_LOG);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableNLog);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableNLog());
-                
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_N_LOG);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableNLog);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableNLog());
+                level--;
             }
             
             if(disableLog4netLogging != obj.isDisableLog4netLogging()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_LOG4NET_LOGGING);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableLog4netLogging);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableLog4netLogging());
-                
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_LOG4NET_LOGGING);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableLog4netLogging);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableLog4netLogging());
+                level--;
             }
             
         }
         
         if(disableDefaultHttpErrorCode != obj.isDisableDefaultHttpErrorCode()){
-                bud.append(AppExportS.L2).append(AppExportS.DISABLE_DEFAULT_HTTP_ERROR_CODE);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(disableDefaultHttpErrorCode);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isDisableDefaultHttpErrorCode());  
+                bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_DEFAULT_HTTP_ERROR_CODE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disableDefaultHttpErrorCode);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableDefaultHttpErrorCode());  
+                level--;
         }
         
         for(ExCustomLoggerDefinition custom: customLoggerDefinitions){
@@ -512,13 +542,16 @@ public class ExErrorConfiguration {
             for(ExCustomLoggerDefinition custom1:obj.getCustomLoggerDefinitions()){
                 if(custom.getName().equals(custom1.getName())){
                     fnd=true;
+                    custom.setLevel(level);
                     bud.append(custom.whatIsDifferent(custom1));
                 }
                 
             }
             if(!fnd){
-                    bud.append(AppExportS.L2).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
-                    bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(custom.getName());
+                    bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(custom.getName());
+                    level--;
                 }
         }
         for(ExCustomLoggerDefinition custom: obj.getCustomLoggerDefinitions()){
@@ -529,8 +562,10 @@ public class ExErrorConfiguration {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(custom.getName());
+                bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(custom.getName());
+                level--;
             }
         }
         
@@ -539,14 +574,17 @@ public class ExErrorConfiguration {
             for(ExHttpErrorReturnCode error1: obj.getHttpErrorReturnCodes()){
                 if(error.getName().equals(error1.getName())){
                     fnd=true;
+                    error.setLevel(level);
                     bud.append(error.whatIsDifferent(error1));
                 }
                 
             }
             
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.HTTP_ERROR_RETURN_CODE);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(error.getName());
+                bud.append(AppExportS.I[level]).append(AppExportS.HTTP_ERROR_RETURN_CODE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(error.getName());
+                level--;
             }
         }
         
@@ -555,44 +593,53 @@ public class ExErrorConfiguration {
             for(ExHttpErrorReturnCode error1: httpErrorReturnCodes){
                 if(error.getName().equals(error1.getName())){
                     fnd=true;
+                    error.setLevel(level);
                     bud.append(error.whatIsDifferent(error1));
                 }
                     
             }
             
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.HTTP_ERROR_RETURN_CODE);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(error.getName());
+                bud.append(AppExportS.I[level]).append(AppExportS.HTTP_ERROR_RETURN_CODE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(error.getName());
+                level--;
             }
         }
         
         for(ExErrorRedirectPage error: errorRedirectPage){ 
-            bud.append(error.toString());
+            error.setLevel(level);
+            bud.append(error);
         }
         
         if(!ignoreException.equals(obj.getIgnoreException())){
-                bud.append(AppExportS.L2).append(AppExportS.IGNORE_EXCEPTIONS);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(ignoreException);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.getIgnoreException()); 
-            
+                bud.append(AppExportS.I[level]).append(AppExportS.IGNORE_EXCEPTIONS);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(ignoreException);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getIgnoreException()); 
+                level--;
         }
         
         if(!ignoreLoggerNames.equals(obj.getIgnoreLoggerNames())){
-                bud.append(AppExportS.L2).append(AppExportS.IGNORE_LOGGER_NAME);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(ignoreLoggerNames);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.getIgnoreLoggerNames()); 
-            
+                bud.append(AppExportS.I[level]).append(AppExportS.IGNORE_LOGGER_NAME);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(ignoreLoggerNames);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getIgnoreLoggerNames()); 
+                level--;
         }
         
         
         if(!agentType.equals(AppExportS.NODEJS_APP_AGENT)){
             if(markTransactionAsErrorOnErrorMessageLogTag != obj.isMarkTransactionAsErrorOnErrorMessageLogTag()){
-                bud.append(AppExportS.L2).append(AppExportS.MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(markTransactionAsErrorOnErrorMessageLogTag);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(obj.isMarkTransactionAsErrorOnErrorMessageLogTag());
+                bud.append(AppExportS.I[level]).append(AppExportS.MARK_TRANACTION_AS_ERROR_ON_ERROR_MESSAGE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(markTransactionAsErrorOnErrorMessageLogTag);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isMarkTransactionAsErrorOnErrorMessageLogTag());
+                level--;
             }
         }
         
+        level--;
         return bud.toString();
     }
 

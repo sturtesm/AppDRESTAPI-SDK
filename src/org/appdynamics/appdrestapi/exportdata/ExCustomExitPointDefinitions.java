@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,106 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
+
+
+@XmlSeeAlso(ExCustomExitPointDefinition.class)
+public class ExCustomExitPointDefinitions {
+    private ArrayList<ExCustomExitPointDefinition> customExitPointDefinitions=new ArrayList<ExCustomExitPointDefinition>();
+    private int level=7;
+    
+    
+    public ExCustomExitPointDefinitions(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @XmlElement(name=AppExportS.CUSTOM_EXIT_POINT_DEFINITION)
+    public ArrayList<ExCustomExitPointDefinition> getCustomExitPointDefinitions() {
+        return customExitPointDefinitions;
+    }
+
+    public void setCustomExitPointDefinitions(ArrayList<ExCustomExitPointDefinition> customExitPointDefinitions) {
+        this.customExitPointDefinitions = customExitPointDefinitions;
+    }
+    
+    public String whatIsDifferent(ExCustomExitPointDefinitions obj){
+        
+        if(this.equals(obj) ) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITIONS);
+        level++;
+        for(ExCustomExitPointDefinition value:customExitPointDefinitions){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExCustomExitPointDefinition _value:obj.getCustomExitPointDefinitions()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        for(ExCustomExitPointDefinition value:obj.getCustomExitPointDefinitions()){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExCustomExitPointDefinition _value:customExitPointDefinitions){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            }
+        }
+        level--;
+        return bud.toString();
+    }
+    
+    @Override 
+    public String toString(){
+        StringBuilder bud =new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITIONS);
+        level++;
+        for(ExCustomExitPointDefinition value: customExitPointDefinitions){ value.setLevel(level);bud.append(value);}
+        level--;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 73 * hash + (this.customExitPointDefinitions != null ? this.customExitPointDefinitions.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExCustomExitPointDefinitions other = (ExCustomExitPointDefinitions) obj;
+        if (this.customExitPointDefinitions != other.customExitPointDefinitions && (this.customExitPointDefinitions == null || !this.customExitPointDefinitions.equals(other.customExitPointDefinitions))) {
+            return false;
+        }
+        return true;
+    }
+    
+
+    
+}
 /*
 <custom-exit-point-definition>
 <name>CB_Locked</name>
@@ -87,87 +188,3 @@ import java.util.ArrayList;
 </custom-exit-point-definition>
  * 
  */
-
-@XmlSeeAlso(ExCustomExitPointDefinition.class)
-public class ExCustomExitPointDefinitions {
-    private ArrayList<ExCustomExitPointDefinition> customExitPointDefinitions=new ArrayList<ExCustomExitPointDefinition>();
-    
-    public ExCustomExitPointDefinitions(){}
-
-    @XmlElement(name=AppExportS.CUSTOM_EXIT_POINT_DEFINITION)
-    public ArrayList<ExCustomExitPointDefinition> getCustomExitPointDefinitions() {
-        return customExitPointDefinitions;
-    }
-
-    public void setCustomExitPointDefinitions(ArrayList<ExCustomExitPointDefinition> customExitPointDefinitions) {
-        this.customExitPointDefinitions = customExitPointDefinitions;
-    }
-    
-    public String whatIsDifferent(ExCustomExitPointDefinitions obj){
-        
-        if(this.equals(obj) ) return AppExportS._U;
-        
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITIONS);
-        
-        for(ExCustomExitPointDefinition value:customExitPointDefinitions){
-            boolean fnd=false;
-            for(ExCustomExitPointDefinition _value:obj.getCustomExitPointDefinitions()){
-                if(value.getName().equals(_value.getName())){
-                    fnd=true;
-                    bud.append(value.whatIsDifferent(_value));
-                }
-            }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
-            }
-        }
-        
-        for(ExCustomExitPointDefinition value:obj.getCustomExitPointDefinitions()){
-            boolean fnd=false;
-            for(ExCustomExitPointDefinition _value:customExitPointDefinitions){
-                if(value.getName().equals(_value.getName())){
-                    fnd=true;
-                }
-            }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
-            }
-        }
-        
-        return bud.toString();
-    }
-    
-    @Override 
-    public String toString(){
-        StringBuilder bud =new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITIONS);
-        for(ExCustomExitPointDefinition value: customExitPointDefinitions) bud.append(value);
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 73 * hash + (this.customExitPointDefinitions != null ? this.customExitPointDefinitions.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExCustomExitPointDefinitions other = (ExCustomExitPointDefinitions) obj;
-        if (this.customExitPointDefinitions != other.customExitPointDefinitions && (this.customExitPointDefinitions == null || !this.customExitPointDefinitions.equals(other.customExitPointDefinitions))) {
-            return false;
-        }
-        return true;
-    }
-    
-
-    
-}

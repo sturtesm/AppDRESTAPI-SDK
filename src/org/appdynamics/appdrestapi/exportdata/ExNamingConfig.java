@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,12 +33,22 @@ import javax.xml.bind.annotation.XmlSeeAlso;
                     </naming-config>
  * 
  */
-@XmlSeeAlso({ExNameValues.class,ExNameValue.class})
+@XmlSeeAlso(ExNameValues.class)
 public class ExNamingConfig {
     private String scheme;
     private ExNameValues nameValues;
+    private int level=8;
     
     public ExNamingConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.SCHEME)
     public String getScheme() {
@@ -61,18 +72,24 @@ public class ExNamingConfig {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.NAMING_CONFIG);
-        bud.append(AppExportS.L3).append(AppExportS.SCHEME).append(AppExportS.VE).append(scheme);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAMING_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.SCHEME).append(AppExportS.VE).append(scheme);
+        nameValues.setLevel(level);
         bud.append(nameValues.whatIsDifferent(obj.getNameValues()));
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.NAMING_CONFIG);
-        bud.append(AppExportS.L3).append(AppExportS.SCHEME).append(AppExportS.VE).append(scheme);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAMING_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.SCHEME).append(AppExportS.VE).append(scheme);
+        nameValues.setLevel(level);
         bud.append(nameValues);
+        level--;
         return bud.toString();
     }
 

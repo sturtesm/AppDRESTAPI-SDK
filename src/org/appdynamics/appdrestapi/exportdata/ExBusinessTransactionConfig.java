@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -16,6 +16,98 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  * 
  */
+
+@XmlSeeAlso({ExSnapshotCollectionPolicy.class,ExBtRequestThresholds.class})
+public class ExBusinessTransactionConfig {
+    private ExSnapshotCollectionPolicy snapshotCollectionPolicy;
+    private ExBtRequestThresholds btRequestThreshold;
+    private int level=3;
+    
+    public ExBusinessTransactionConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    @XmlElement(name=AppExportS.SNAPSHOT_COLLECTION_POLICY)
+    public ExSnapshotCollectionPolicy getSnapshotCollectionPolicy() {
+        return snapshotCollectionPolicy;
+    }
+
+    public void setSnapshotCollectionPolicy(ExSnapshotCollectionPolicy snapshotCollectionPolicy) {
+        this.snapshotCollectionPolicy = snapshotCollectionPolicy;
+    }
+
+    @XmlElement(name=AppExportS.BT_REQUEST_THRESHOLDS)
+    public ExBtRequestThresholds getBtRequestThreshold() {
+        return btRequestThreshold;
+    }
+
+    public void setBtRequestThreshold(ExBtRequestThresholds btRequestThreshold) {
+        this.btRequestThreshold = btRequestThreshold;
+    }
+    
+    
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_CONFIG);
+        level++;
+        snapshotCollectionPolicy.setLevel(level);
+        bud.append(snapshotCollectionPolicy);
+        btRequestThreshold.setLevel(level);
+        bud.append(btRequestThreshold);
+        level--;
+        return bud.toString();
+    }
+    
+    public String whatIsDifferent(ExBusinessTransactionConfig obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND_BUSINESS_TRANSACTION_CONFIG);
+        level++;
+        bud.append(snapshotCollectionPolicy.whatIsDifferent(obj.getSnapshotCollectionPolicy()));
+        bud.append(btRequestThreshold.whatIsDifferent(obj.getBtRequestThreshold()));
+        level--;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + (this.snapshotCollectionPolicy != null ? this.snapshotCollectionPolicy.hashCode() : 0);
+        hash = 53 * hash + (this.btRequestThreshold != null ? this.btRequestThreshold.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBusinessTransactionConfig other = (ExBusinessTransactionConfig) obj;
+        if (this.snapshotCollectionPolicy != other.snapshotCollectionPolicy && (this.snapshotCollectionPolicy == null || !this.snapshotCollectionPolicy.equals(other.snapshotCollectionPolicy))) {
+            return false;
+        }
+        if (this.btRequestThreshold != other.btRequestThreshold && (this.btRequestThreshold == null || !this.btRequestThreshold.equals(other.btRequestThreshold))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+}
+
 /*
  *         <business-transaction-config>
             <snapshot-collection-policy>
@@ -57,76 +149,3 @@ import javax.xml.bind.annotation.XmlSeeAlso;
         </business-transaction-config>
  * 
  */
-@XmlSeeAlso({ExSnapshotCollectionPolicy.class,ExBtRequestThresholds.class})
-public class ExBusinessTransactionConfig {
-    private ExSnapshotCollectionPolicy snapshotCollectionPolicy;
-    private ExBtRequestThresholds btRequestThreshold;
-    
-    public ExBusinessTransactionConfig(){}
-
-    @XmlElement(name=AppExportS.SNAPSHOT_COLLECTION_POLICY)
-    public ExSnapshotCollectionPolicy getSnapshotCollectionPolicy() {
-        return snapshotCollectionPolicy;
-    }
-
-    public void setSnapshotCollectionPolicy(ExSnapshotCollectionPolicy snapshotCollectionPolicy) {
-        this.snapshotCollectionPolicy = snapshotCollectionPolicy;
-    }
-
-    @XmlElement(name=AppExportS.BT_REQUEST_THRESHOLDS)
-    public ExBtRequestThresholds getBtRequestThreshold() {
-        return btRequestThreshold;
-    }
-
-    public void setBtRequestThreshold(ExBtRequestThresholds btRequestThreshold) {
-        this.btRequestThreshold = btRequestThreshold;
-    }
-    
-    @Override
-    public String toString(){
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.BUSINESS_TRANSACTION_CONFIG);
-        bud.append(snapshotCollectionPolicy.toString());
-        bud.append(btRequestThreshold.toString());
-        return bud.toString();
-    }
-    
-    public String whatIsDifferent(ExBusinessTransactionConfig obj){
-        if(this.equals(obj)) return AppExportS._U;
-        
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.BACKGROUND_BUSINESS_TRANSACTION_CONFIG);
-        
-        bud.append(snapshotCollectionPolicy.whatIsDifferent(obj.getSnapshotCollectionPolicy()));
-        bud.append(btRequestThreshold.whatIsDifferent(obj.getBtRequestThreshold()));
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + (this.snapshotCollectionPolicy != null ? this.snapshotCollectionPolicy.hashCode() : 0);
-        hash = 53 * hash + (this.btRequestThreshold != null ? this.btRequestThreshold.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExBusinessTransactionConfig other = (ExBusinessTransactionConfig) obj;
-        if (this.snapshotCollectionPolicy != other.snapshotCollectionPolicy && (this.snapshotCollectionPolicy == null || !this.snapshotCollectionPolicy.equals(other.snapshotCollectionPolicy))) {
-            return false;
-        }
-        if (this.btRequestThreshold != other.btRequestThreshold && (this.btRequestThreshold == null || !this.btRequestThreshold.equals(other.btRequestThreshold))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-}

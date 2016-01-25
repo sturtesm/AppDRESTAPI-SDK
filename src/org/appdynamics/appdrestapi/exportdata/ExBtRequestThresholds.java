@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 /**
@@ -16,44 +17,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  * 
  */
-/*
- * <bt-request-thresholds>
-                <starting-node-slow-threshold>
-                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
-                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
-                </starting-node-slow-threshold>
-                <continuing-segment-slow-threshold>
-                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
-                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
-                </continuing-segment-slow-threshold>
-                <exit-call-slow-threshold>
-                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
-                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
-                </exit-call-slow-threshold>
-                <starting-node-extremely-slow-threshold>
-                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
-                    <standard-deviation-threshold>4.0</standard-deviation-threshold>
-                </starting-node-extremely-slow-threshold>
-                <stall-configuration>
-                    <absolute>true</absolute>
-                    <absolute-time-in-secs>45</absolute-time-in-secs>
-                    <bt-sla-violation-multiplier>0</bt-sla-violation-multiplier>
-                </stall-configuration>
-                <percentile-config>
-                    <enabled>true</enabled>
-                    <percentile-values>
-                        <percentile-value>
-                            <value>95.0</value>
-                        </percentile-value>
-                    </percentile-values>
-                </percentile-config>
-            </bt-request-thresholds>
- * 
- */
+
 @XmlSeeAlso({ExSlowThreshold.class,ExStallConfiguration.class,ExPercentiles.class})
 public class ExBtRequestThresholds {
    private ExSlowThreshold startingNodeSlowThreshold;
@@ -62,6 +26,7 @@ public class ExBtRequestThresholds {
    private ExSlowThreshold extremelySlowThreshold;
    private ExStallConfiguration stallConfiguration;
    private ExPercentiles percentiles;
+   private int level=4;
    
    public ExBtRequestThresholds(){}
 
@@ -118,23 +83,48 @@ public class ExBtRequestThresholds {
     public void setPercentiles(ExPercentiles percentiles) {
         this.percentiles = percentiles;
     }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
    
    
    
    @Override
    public String toString(){
        StringBuilder bud = new StringBuilder();
-       bud.append(AppExportS.L2).append(AppExportS.BT_REQUEST_THRESHOLDS);
-       bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
-       bud.append(startingNodeSlowThreshold.toString());
-       bud.append(AppExportS.L2_1).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
-       bud.append(continuingSegmentSlowThreshold.toString());
-       bud.append(AppExportS.L2_1).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
-       bud.append(exitCallSlowThreshold.toString());
-       bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
-       bud.append(extremelySlowThreshold.toString());
-       bud.append(stallConfiguration.toString());
+       bud.append(AppExportS.I[level]).append(AppExportS.BT_REQUEST_THRESHOLDS);
+       level++;
+       bud.append(AppExportS.I[level]).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
+       level++;
+       startingNodeSlowThreshold.setLevel(level);
+       bud.append(startingNodeSlowThreshold);
+       level--;
+       bud.append(AppExportS.I[level]).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
+       level++;
+       continuingSegmentSlowThreshold.setLevel(level);
+       bud.append(continuingSegmentSlowThreshold);
+       level--;
+       bud.append(AppExportS.I[level]).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
+       level++;
+       exitCallSlowThreshold.setLevel(level);
+       bud.append(exitCallSlowThreshold);
+       level--;
+       bud.append(AppExportS.I[level]).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
+       level++;
+       if(extremelySlowThreshold != null) extremelySlowThreshold.setLevel(level);
+       bud.append(extremelySlowThreshold);
+       level--;
+       if(stallConfiguration != null) stallConfiguration.setLevel(level);
+       bud.append(stallConfiguration);
+       if(percentiles != null) percentiles.setLevel(level);
        bud.append(percentiles);
+       level--;
        return bud.toString();
    }
    
@@ -142,36 +132,44 @@ public class ExBtRequestThresholds {
        if(this.equals(obj)) return AppExportS._U;
        
        StringBuilder bud = new StringBuilder();
-       bud.append(AppExportS.L2).append(AppExportS.BT_REQUEST_THRESHOLDS);
-       
+       bud.append(AppExportS.I[level]).append(AppExportS.BT_REQUEST_THRESHOLDS);
+       level++;
+       startingNodeSlowThreshold.setLevel(level);
        String val=startingNodeSlowThreshold.whatIsDifferent(obj.startingNodeSlowThreshold);
        
        if(val.length() > 8){
-           bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
+           bud.append(AppExportS.I[level]).append(AppExportS.STARTING_NODE_SLOW_THRESHOLD);
            bud.append(val);
        }
        
+       continuingSegmentSlowThreshold.setLevel(level);
        val=continuingSegmentSlowThreshold.whatIsDifferent(obj.getContinuingSegmentSlowThreshold());
        if(val.length() > 8){
-           bud.append(AppExportS.L2_1).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
+           bud.append(AppExportS.I[level]).append(AppExportS.CONTINUING_SEGMENT_SLOW_THRESHOLD);
            bud.append(val);
        }
        
        //Here is where I die
+       exitCallSlowThreshold.setLevel(level);
        val=exitCallSlowThreshold.whatIsDifferent(obj.getExitCallSlowThreshold());
        if(val.length() > 8){
-           bud.append(AppExportS.L2_1).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
+           bud.append(AppExportS.I[level]).append(AppExportS.EXIT_CALL_SLOW_THRESHOLD);
            bud.append(val);
        }
        
+       extremelySlowThreshold.setLevel(level);
        val=extremelySlowThreshold.whatIsDifferent(obj.getExtremelySlowThreshold());
        if(val.length() > 8){
-           bud.append(AppExportS.L2_1).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
+           bud.append(AppExportS.I[level]).append(AppExportS.STARTING_NODE_EXTREMELY_SLOW_THRESHOLD);
            bud.append(val);
        }
-       
+       stallConfiguration.setLevel(level);
        bud.append(stallConfiguration.whatIsDifferent(obj.getStallConfiguration()));
+       
+       percentiles.setLevel(level);
        bud.append(percentiles.whatIsDifferent(obj.getPercentiles()));
+       
+       level--;
        return bud.toString();
        
    }
@@ -221,3 +219,41 @@ public class ExBtRequestThresholds {
    
    
 }
+/*
+ * <bt-request-thresholds>
+                <starting-node-slow-threshold>
+                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
+                    <evaluation-mins>120</evaluation-mins>
+                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
+                </starting-node-slow-threshold>
+                <continuing-segment-slow-threshold>
+                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
+                    <evaluation-mins>120</evaluation-mins>
+                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
+                </continuing-segment-slow-threshold>
+                <exit-call-slow-threshold>
+                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
+                    <evaluation-mins>120</evaluation-mins>
+                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
+                </exit-call-slow-threshold>
+                <starting-node-extremely-slow-threshold>
+                    <evaluation-type>STANDARD_DEVIATION</evaluation-type>
+                    <evaluation-mins>120</evaluation-mins>
+                    <standard-deviation-threshold>4.0</standard-deviation-threshold>
+                </starting-node-extremely-slow-threshold>
+                <stall-configuration>
+                    <absolute>true</absolute>
+                    <absolute-time-in-secs>45</absolute-time-in-secs>
+                    <bt-sla-violation-multiplier>0</bt-sla-violation-multiplier>
+                </stall-configuration>
+                <percentile-config>
+                    <enabled>true</enabled>
+                    <percentile-values>
+                        <percentile-value>
+                            <value>95.0</value>
+                        </percentile-value>
+                    </percentile-values>
+                </percentile-config>
+            </bt-request-thresholds>
+ * 
+ */

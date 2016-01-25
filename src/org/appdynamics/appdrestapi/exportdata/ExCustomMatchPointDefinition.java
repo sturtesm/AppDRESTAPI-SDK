@@ -10,40 +10,15 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author gilbert.solorzano
  * 
  */
-/*
-            <custom-match-point-definitions>
-                <custom-match-point-definition transaction-entry-point-type="POJO">
-                    <name>Cron4J</name>
-                    <custom-business-transaction-name>Cron4J</custom-business-transaction-name>
-                    <background>false</background>
-                    <enabled>false</enabled>
-                    <match-rule>
-                        <pojo-rule>
-                            <enabled>false</enabled>
-                            <priority>0</priority>
-                            <display-name>Cron4J</display-name>
-                            <background>true</background>
-                            <match-class type="inherits-from-class">
-                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
-                            </match-class>
-                            <split-config type="4"/>
-                            <match-method>
-                                <name filter-type="EQUALS" filter-value="execute"/>
-                            </match-method>
-                        </pojo-rule>
-                    </match-rule>
-                </custom-match-point-definition>
-                * 
-                * 2
- * 
- */
-@XmlSeeAlso({ExMatchRule.class,ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
+
+@XmlSeeAlso(ExMatchRule.class)
 public class ExCustomMatchPointDefinition {
     private String name;
     private String transactionEntryPointType;
@@ -51,8 +26,18 @@ public class ExCustomMatchPointDefinition {
     private boolean background;
     private boolean enabled;
     private ExMatchRule matchRule;
+    private int level=6;
     
     public ExCustomMatchPointDefinition(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
@@ -112,34 +97,45 @@ public class ExCustomMatchPointDefinition {
         if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!transactionEntryPointType.equals(obj.getTransactionEntryPointType())){
-            bud.append(AppExportS.L2_1).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(transactionEntryPointType);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getTransactionEntryPointType()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(transactionEntryPointType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getTransactionEntryPointType()); 
+            level--;
         }
         
         if(!customBusinessTransactionName.equals(obj.getCustomBusinessTransactionName())){
-            bud.append(AppExportS.L2_1).append(AppExportS.CUSTOM_BUSINESS_TRANSACTION_NAME);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(customBusinessTransactionName);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCustomBusinessTransactionName());
+            bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_BUSINESS_TRANSACTION_NAME);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(customBusinessTransactionName);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCustomBusinessTransactionName());
+            level--;
         }
         
         if(background != obj.isBackground()){
-            bud.append(AppExportS.L2_1).append(AppExportS.BACKGROUND);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(background);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isBackground());
+            bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(background);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isBackground());
+            level--;
         }
         
         if(enabled != obj.isEnabled()){
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            level--;
         }
         
+        if(matchRule != null) matchRule.setLevel(level);
         bud.append(matchRule.whatIsDifferent(obj.getMatchRule()));
+        level--;
         return bud.toString();
     }
     
@@ -147,13 +143,16 @@ public class ExCustomMatchPointDefinition {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
-        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(customBusinessTransactionName);
-        bud.append(AppExportS.L2).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
-        bud.append(AppExportS.L2).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_BUSINESS_TRANSACTION_NAME).append(AppExportS.VE).append(customBusinessTransactionName);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        if(matchRule != null) matchRule.setLevel(level);
         bud.append(matchRule);
+        level--;
         return bud.toString();
     }
 
@@ -201,3 +200,32 @@ public class ExCustomMatchPointDefinition {
     
     
 }
+
+
+/*
+            <custom-match-point-definitions>
+                <custom-match-point-definition transaction-entry-point-type="POJO">
+                    <name>Cron4J</name>
+                    <custom-business-transaction-name>Cron4J</custom-business-transaction-name>
+                    <background>false</background>
+                    <enabled>false</enabled>
+                    <match-rule>
+                        <pojo-rule>
+                            <enabled>false</enabled>
+                            <priority>0</priority>
+                            <display-name>Cron4J</display-name>
+                            <background>true</background>
+                            <match-class type="inherits-from-class">
+                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+                            </match-class>
+                            <split-config type="4"/>
+                            <match-method>
+                                <name filter-type="EQUALS" filter-value="execute"/>
+                            </match-method>
+                        </pojo-rule>
+                    </match-rule>
+                </custom-match-point-definition>
+                * 
+                * 2
+ * 
+ */

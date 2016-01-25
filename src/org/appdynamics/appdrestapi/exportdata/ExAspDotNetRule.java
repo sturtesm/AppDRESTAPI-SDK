@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +40,20 @@ public class ExAspDotNetRule {
     private boolean enabled;
     private int priority;
     private ExClassName className;
+    private int level=9;
+    
+    public ExAspDotNetRule(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
 
     @XmlElement(name=AppExportS.ENABLED)
     public boolean isEnabled() {
@@ -71,24 +86,27 @@ public class ExAspDotNetRule {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.ASP_DOTNET_RULE);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.ASP_DOTNET_RULE);
+        level++;
         if(enabled != obj.isEnabled()){
-            bud.append(AppExportS.L3).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            level--;
         }
         
         if(priority != obj.getPriority()){
-            bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+            level--;
         }
         
+        className.setLevel(level);
         bud.append(className.whatIsDifferent(obj.getClassName()));
-        
+        level--;
         return bud.toString();
     }
     
@@ -96,10 +114,13 @@ public class ExAspDotNetRule {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.ASP_DOTNET_RULE);
-        bud.append(AppExportS.L4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L4).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
-        bud.append(className.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.ASP_DOTNET_RULE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
+        className.setLevel(level);
+        bud.append(className);
+        level--;
         return bud.toString();
     }
 

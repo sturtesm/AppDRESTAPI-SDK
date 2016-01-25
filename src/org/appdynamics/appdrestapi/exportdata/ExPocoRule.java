@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,8 +41,18 @@ public class ExPocoRule {
     private ExMatchClass matchClass;
     private ExSplitConfig splitConfig;
     private ExMatchMethod matchMethod;
+    private int level=8;
     
     public ExPocoRule(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
 
     @XmlElement(name=AppExportS.ENABLED)
@@ -111,27 +122,30 @@ public class ExPocoRule {
         if(this.equals(obj) || !displayName.equals(obj.getDisplayName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.POCO_RULE);
-        bud.append(AppExportS.L3).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        bud.append(AppExportS.I[level]).append(AppExportS.POCO_RULE);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
         
         if(enabled!=obj.isEnabled()){
-                bud.append(AppExportS.L3).append(AppExportS.ENABLED);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+                bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
         }
         
         if(priority != obj.getPriority()){
-                bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+                bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
         }
         
         if(background != obj.isBackground()){
-                bud.append(AppExportS.L3).append(AppExportS.BACKGROUND);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(background);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isBackground());
+                bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(background);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isBackground());
         }
         
+        if(matchMethod != null) matchMethod.setLevel(level);
+        if(splitConfig != null) splitConfig.setLevel(level);
+        if(matchClass!=null)matchClass.setLevel(level);
         bud.append(matchClass.whatIsDifferent(obj.getMatchClass()));
         bud.append(splitConfig.whatIsDifferent(obj.getSplitConfig()));
         bud.append(matchMethod.whatIsDifferent(obj.getMatchMethod()));
@@ -142,14 +156,19 @@ public class ExPocoRule {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.POCO_RULE);
-        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L3).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
-        bud.append(AppExportS.L3).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
-        bud.append(AppExportS.L3).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
-        bud.append(AppExportS.L3).append(AppExportS.MATCH_CLASS).append(matchClass);
-        bud.append(AppExportS.L3).append(AppExportS.SPLIT_CONFIG).append(splitConfig);
-        bud.append(AppExportS.L3).append(AppExportS.MATCH_METHOD).append(matchMethod);
+        bud.append(AppExportS.I[level]).append(AppExportS.POCO_RULE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND).append(AppExportS.VE).append(background);
+        if(matchMethod != null) matchMethod.setLevel(level);
+        if(splitConfig != null) splitConfig.setLevel(level);
+        if(matchClass!=null)matchClass.setLevel(level);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_CLASS).append(matchClass);
+        bud.append(AppExportS.I[level]).append(AppExportS.SPLIT_CONFIG).append(splitConfig);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_METHOD).append(matchMethod);
+        level--;
         
         return bud.toString();
     }

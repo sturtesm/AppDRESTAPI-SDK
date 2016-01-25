@@ -8,6 +8,8 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,57 +17,51 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  * 
  */
-/*
- * <data-gatherer-configs>
-        <http-data-gatherer-config attach-to-new-bts="true">
-            <parameters/>
-            <gather-url>true</gather-url>
-            <gather-session-id>true</gather-session-id>
-            <gather-user-principal>true</gather-user-principal>
-            <name>Default HTTP Request Data Collector</name>
-        </http-data-gatherer-config>
-        <sql-data-gatherer-config attach-to-new-bts="true">
-            <match-type>NOT_EMPTY</match-type>
-            <match-pattern/>
-            <inverse>false</inverse>
-            <name>Default SQL Data Collector</name>
-        </sql-data-gatherer-config>
-    </data-gatherer-configs>
- * 
- */
+
 
 @XmlSeeAlso({ExHttpDataGathererConfig.class,ExSqlDataGathererConfig.class,ExPojoDataGathererConfig.class})
 public class ExDataGathererConfigs {
-    private ExHttpDataGathererConfig httpDataGathererConfig;
-    private ExPojoDataGathererConfig pojoDataGathererConfig;
-    private ExSqlDataGathererConfig sqlDataGathererConfig;
+    private ArrayList<ExHttpDataGathererConfig> httpDataGathererConfig=new ArrayList<ExHttpDataGathererConfig>();
+    private ArrayList<ExPojoDataGathererConfig> pojoDataGathererConfig=new ArrayList<ExPojoDataGathererConfig>();
+    private ArrayList<ExSqlDataGathererConfig> sqlDataGathererConfig= new ArrayList<ExSqlDataGathererConfig>();
+    private int level=2;
     
     public ExDataGathererConfigs(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+
     @XmlElement(name=AppExportS.HTTP_DATA_GATHERER_CONFIG)
-    public ExHttpDataGathererConfig getHttpDataGathererConfig() {
+    public ArrayList<ExHttpDataGathererConfig> getHttpDataGathererConfig() {
         return httpDataGathererConfig;
     }
 
-    public void setHttpDataGathererConfig(ExHttpDataGathererConfig httpDataGathererConfig) {
+    public void setHttpDataGathererConfig(ArrayList<ExHttpDataGathererConfig> httpDataGathererConfig) {
         this.httpDataGathererConfig = httpDataGathererConfig;
     }
 
     @XmlElement(name=AppExportS.SQL_DATA_GATHERER_CONFIG)
-    public ExSqlDataGathererConfig getSqlDataGathererConfig() {
+    public ArrayList<ExSqlDataGathererConfig> getSqlDataGathererConfig() {
         return sqlDataGathererConfig;
     }
 
-    public void setSqlDataGathererConfig(ExSqlDataGathererConfig sqlDataGathererConfig) {
+    public void setSqlDataGathererConfig(ArrayList<ExSqlDataGathererConfig> sqlDataGathererConfig) {
         this.sqlDataGathererConfig = sqlDataGathererConfig;
     }
 
     @XmlElement(name=AppExportS.POJO_DATA_GATHERER_CONFIG)
-    public ExPojoDataGathererConfig getPojoDataGathererConfig() {
+    public ArrayList<ExPojoDataGathererConfig> getPojoDataGathererConfig() {
         return pojoDataGathererConfig;
     }
 
-    public void setPojoDataGathererConfig(ExPojoDataGathererConfig pojoDataGathererConfig) {
+    public void setPojoDataGathererConfig(ArrayList<ExPojoDataGathererConfig> pojoDataGathererConfig) {
         this.pojoDataGathererConfig = pojoDataGathererConfig;
     }
     
@@ -76,48 +72,94 @@ public class ExDataGathererConfigs {
         StringBuilder bud = new StringBuilder();
         
         
-        bud.append(AppExportS.L1).append(AppExportS.DATA_GATHERER_CONFIGS);
+        bud.append(AppExportS.I[level]).append(AppExportS.DATA_GATHERER_CONFIGS);
+        level++;
         
-        
-        if(httpDataGathererConfig != null){ 
-            if(obj.getHttpDataGathererConfig() != null && httpDataGathererConfig.getName().equals(obj.getHttpDataGathererConfig().getName())){
-                bud.append(httpDataGathererConfig.whatIsDifferent(obj.getHttpDataGathererConfig()));
-            }else{
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(httpDataGathererConfig);
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getHttpDataGathererConfig());
+        //http
+        for(ExHttpDataGathererConfig value:httpDataGathererConfig){
+            boolean fnd=false;
+            for(ExHttpDataGathererConfig _value:obj.getHttpDataGathererConfig()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    value.setLevel(level);
+                    bud.append(value.whatIsDifferent(_value));
+                }
             }
-        }else{ 
-            if(obj.getHttpDataGathererConfig()!= null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getHttpDataGathererConfig());
+            if(!fnd){
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
             }
         }
         
-        if(sqlDataGathererConfig != null){ 
-            if(obj.getSqlDataGathererConfig() != null && sqlDataGathererConfig.getName().equals(obj.getSqlDataGathererConfig().getName())){
-                bud.append(sqlDataGathererConfig.whatIsDifferent(obj.getSqlDataGathererConfig()));
-            }else{
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(sqlDataGathererConfig);
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSqlDataGathererConfig());
+        for(ExHttpDataGathererConfig value:obj.getHttpDataGathererConfig()){
+            boolean fnd=false;
+            for(ExHttpDataGathererConfig _value:httpDataGathererConfig){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
             }
-        }else{ 
-            if(obj.getSqlDataGathererConfig()!= null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSqlDataGathererConfig());
-            }
-        }
-        
-        if(pojoDataGathererConfig != null){ 
-            if(obj.getPojoDataGathererConfig()!= null && pojoDataGathererConfig.getName().equals(obj.getPojoDataGathererConfig().getName())){
-                bud.append(pojoDataGathererConfig.whatIsDifferent(obj.getPojoDataGathererConfig()));
-            }else{
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(pojoDataGathererConfig);
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPojoDataGathererConfig());
-            }
-        }else{ 
-            if(obj.getPojoDataGathererConfig()!= null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPojoDataGathererConfig());
+            if(!fnd){
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
         
+        //sql
+        
+         for(ExSqlDataGathererConfig value:sqlDataGathererConfig){
+            boolean fnd=false;
+            for(ExSqlDataGathererConfig _value:obj.getSqlDataGathererConfig()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    value.setLevel(level);
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
+            }
+        }
+        
+        for(ExSqlDataGathererConfig value:obj.getSqlDataGathererConfig()){
+            boolean fnd=false;
+            for(ExSqlDataGathererConfig _value:sqlDataGathererConfig){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
+            }
+        }
+        //pojo
+        for(ExPojoDataGathererConfig value:pojoDataGathererConfig){
+            boolean fnd=false;
+            for(ExPojoDataGathererConfig _value:obj.getPojoDataGathererConfig()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    value.setLevel(level);
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
+            }
+        }
+        
+        for(ExPojoDataGathererConfig value:obj.getPojoDataGathererConfig()){
+            boolean fnd=false;
+            for(ExPojoDataGathererConfig _value:pojoDataGathererConfig){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
+            }
+        }
+        
+        level--;
         return bud.toString();
     }
     
@@ -125,10 +167,10 @@ public class ExDataGathererConfigs {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1).append(AppExportS.DATA_GATHERER_CONFIGS);
-        if(httpDataGathererConfig != null) bud.append(httpDataGathererConfig.toString());
-        if(sqlDataGathererConfig != null) bud.append(sqlDataGathererConfig.toString());
-        if(pojoDataGathererConfig != null) bud.append(pojoDataGathererConfig.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.DATA_GATHERER_CONFIGS);
+        for(ExHttpDataGathererConfig http_:httpDataGathererConfig){http_.setLevel(level);bud.append(http_);}
+        for(ExSqlDataGathererConfig sql_:sqlDataGathererConfig){ sql_.setLevel(level); bud.append(sql_);}
+        for(ExPojoDataGathererConfig pojo_:pojoDataGathererConfig ){ pojo_.setLevel(level); bud.append(pojo_);}
         return bud.toString();
     }
 
@@ -165,3 +207,22 @@ public class ExDataGathererConfigs {
     
     
 }
+
+/*
+ * <data-gatherer-configs>
+        <http-data-gatherer-config attach-to-new-bts="true">
+            <parameters/>
+            <gather-url>true</gather-url>
+            <gather-session-id>true</gather-session-id>
+            <gather-user-principal>true</gather-user-principal>
+            <name>Default HTTP Request Data Collector</name>
+        </http-data-gatherer-config>
+        <sql-data-gatherer-config attach-to-new-bts="true">
+            <match-type>NOT_EMPTY</match-type>
+            <match-pattern/>
+            <inverse>false</inverse>
+            <name>Default SQL Data Collector</name>
+        </sql-data-gatherer-config>
+    </data-gatherer-configs>
+ * 
+ */

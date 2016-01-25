@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,22 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  */
-@XmlSeeAlso({ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,
-    ExMatchMethod.class,ExMatchClassName.class})
+@XmlSeeAlso(ExCustomMatchPointDefinition.class)
 
 public class ExCustomMatchPointDefinitions {
     private ArrayList<ExCustomMatchPointDefinition> customMatchPointDefinitions=new ArrayList<ExCustomMatchPointDefinition>();
+    private int level=5;
     
     public ExCustomMatchPointDefinitions(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.CUSTOM_MATCH_POINT_DEFINITION)
     public ArrayList<ExCustomMatchPointDefinition> getCustomMatchPointDefinitions() {
@@ -38,18 +48,21 @@ public class ExCustomMatchPointDefinitions {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.COOKIES);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITIONS);
+        level++;
         
         for(ExCustomMatchPointDefinition value:customMatchPointDefinitions){
             boolean fnd=false;
             for(ExCustomMatchPointDefinition _value:obj.getCustomMatchPointDefinitions()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
             }
         }
         
@@ -61,18 +74,22 @@ public class ExCustomMatchPointDefinitions {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
     
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITIONS);
-        for(ExCustomMatchPointDefinition cm:customMatchPointDefinitions) bud.append(cm.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_MATCH_POINT_DEFINITIONS);
+        level++;
+        for(ExCustomMatchPointDefinition cm:customMatchPointDefinitions){ cm.setLevel(level);bud.append(cm);}
+        level--;
         return bud.toString();
     }
 

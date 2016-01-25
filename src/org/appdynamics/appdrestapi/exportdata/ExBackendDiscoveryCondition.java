@@ -1,43 +1,34 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package org.appdynamics.appdrestapi.exportdata;
 
+import java.util.Objects;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 /**
  *
  * @author gilbert.solorzano
- * 
- *
  */
-/*
-            <error-redirect-page disable="false">
-                <name>Page1</name>
-                <match-type>CONTAINS</match-type>
-                <match-pattern>index1</match-pattern>
-                <inverse>false</inverse>
-            </error-redirect-page>
- * 
- */
-public class ExErrorRedirectPage {
-    private String name,matchType,matchPattern;
+public class ExBackendDiscoveryCondition {
+    private String identiyName,matchType,matchPattern;
     private boolean inverse;
-    private int level=4;
-    public ExErrorRedirectPage(){}
+    private int level = 6;
+    
+    public ExBackendDiscoveryCondition(){}
 
-    @XmlElement(name=AppExportS.NAME)
-    public String getName() {
-        return name;
+    @XmlElement(name=AppExportS.IDENTITY_NAME)
+    public String getIdentiyName() {
+        return identiyName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIdentiyName(String identiyName) {
+        this.identiyName = identiyName;
     }
 
     @XmlElement(name=AppExportS.MATCH_TYPE)
@@ -76,14 +67,12 @@ public class ExErrorRedirectPage {
         this.level = level;
     }
     
-    
-    
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.I[level]).append(AppExportS.ERROR_REDIRECT_PAGE);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONDITION);
         level++;
-        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.IDENTITY_NAME).append(AppExportS.VE).append(identiyName);
         bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
         bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
         bud.append(AppExportS.I[level]).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
@@ -91,37 +80,36 @@ public class ExErrorRedirectPage {
         return bud.toString();
     }
     
-    public String whatIsDifferent(ExErrorRedirectPage obj){
-        if(!name.equals(obj.getName())) return AppExportS._U;
+    public String whatIsDifferent(ExBackendDiscoveryCondition obj){
         
+        if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        
-        bud.append(AppExportS.I[level]).append(AppExportS.ERROR_REDIRECT_PAGE);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONDITION);
         level++;
-        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.IDENTITY_NAME).append(AppExportS.VE).append(identiyName);
         
         if(!matchType.equals(obj.getMatchType())){
             bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
             level++;
-            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(matchType);
-            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getMatchType());
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());   
             level--;
         }
         
         if(!matchPattern.equals(obj.getMatchPattern())){
             bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN);
             level++;
-            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(matchPattern);
-            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getMatchPattern());
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern());   
             level--;
         }
         
         if(inverse != obj.isInverse()){
             bud.append(AppExportS.I[level]).append(AppExportS.INVERSE);
             level++;
-            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(inverse);
-            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isInverse());
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());   
             level--;
         }
         
@@ -132,10 +120,10 @@ public class ExErrorRedirectPage {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + (this.name != null ? this.name.hashCode() : 0);
-        hash = 89 * hash + (this.matchType != null ? this.matchType.hashCode() : 0);
-        hash = 89 * hash + (this.matchPattern != null ? this.matchPattern.hashCode() : 0);
-        hash = 89 * hash + (this.inverse ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.identiyName);
+        hash = 97 * hash + Objects.hashCode(this.matchType);
+        hash = 97 * hash + Objects.hashCode(this.matchPattern);
+        hash = 97 * hash + (this.inverse ? 1 : 0);
         return hash;
     }
 
@@ -147,14 +135,14 @@ public class ExErrorRedirectPage {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ExErrorRedirectPage other = (ExErrorRedirectPage) obj;
-        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+        final ExBackendDiscoveryCondition other = (ExBackendDiscoveryCondition) obj;
+        if (!Objects.equals(this.identiyName, other.identiyName)) {
             return false;
         }
-        if ((this.matchType == null) ? (other.matchType != null) : !this.matchType.equals(other.matchType)) {
+        if (!Objects.equals(this.matchType, other.matchType)) {
             return false;
         }
-        if ((this.matchPattern == null) ? (other.matchPattern != null) : !this.matchPattern.equals(other.matchPattern)) {
+        if (!Objects.equals(this.matchPattern, other.matchPattern)) {
             return false;
         }
         if (this.inverse != other.inverse) {
@@ -164,4 +152,15 @@ public class ExErrorRedirectPage {
     }
     
     
+    
 }
+
+
+/*
+                                <backend-discovery-condition>
+                                    <identity-name>Service</identity-name>
+                                    <match-type>REGEX</match-type>
+                                    <match-pattern>.*</match-pattern>
+                                    <inverse>false</inverse>
+                                </backend-discovery-condition>
+*/

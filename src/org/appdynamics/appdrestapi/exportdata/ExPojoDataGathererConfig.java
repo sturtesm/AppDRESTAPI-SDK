@@ -9,6 +9,9 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -34,16 +37,26 @@ import javax.xml.bind.annotation.XmlAttribute;
             <name>DataCol1</name>
         </pojo-data-gatherer-config>
         * 
-        * L1_1 (s)
+        * I[level] (s)
  */
 @XmlSeeAlso({ExPojoMethodDefinition.class,ExMethodInvocationDataGathererConfig.class})
 public class ExPojoDataGathererConfig {
     private boolean attachToNewBTS;
     private String name;
     private ExPojoMethodDefinition pojoMethodDef;
-    private ExMethodInvocationDataGathererConfig methodInvocation;
+    private ArrayList<ExMethodInvocationDataGathererConfig> methodInvocation=new ArrayList<ExMethodInvocationDataGathererConfig>();
+    private int level=3;
     
     public ExPojoDataGathererConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.ATTACH_TO_NEW_BTS)
     public boolean isAttachToNewBTS() {
@@ -73,11 +86,11 @@ public class ExPojoDataGathererConfig {
     }
 
     @XmlElement(name=AppExportS.METHOD_INVOCATION_DATA_GATHERER_CONFIG)
-    public ExMethodInvocationDataGathererConfig getMethodInvocation() {
+    public ArrayList<ExMethodInvocationDataGathererConfig> getMethodInvocation() {
         return methodInvocation;
     }
 
-    public void setMethodInvocation(ExMethodInvocationDataGathererConfig methodInvocation) {
+    public void setMethodInvocation(ArrayList<ExMethodInvocationDataGathererConfig> methodInvocation) {
         this.methodInvocation = methodInvocation;
     }
     
@@ -87,40 +100,68 @@ public class ExPojoDataGathererConfig {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1_1).append(AppExportS.POJO_DATA_GATHERER_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.POJO_DATA_GATHERER_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(attachToNewBTS != obj.isAttachToNewBTS()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ATTACH_TO_NEW_BTS);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(attachToNewBTS);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAttachToNewBTS());    
+            bud.append(AppExportS.I[level]).append(AppExportS.ATTACH_TO_NEW_BTS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(attachToNewBTS);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAttachToNewBTS());    
+            level--;
         }
         
         if(pojoMethodDef != null){ bud.append(pojoMethodDef.whatIsDifferent(obj.getPojoMethodDef()));}
         else{ 
             if(obj.getPojoMethodDef() != null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPojoMethodDef());
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPojoMethodDef());
+                level--;
             }
         }
         
-        if(methodInvocation != null){ bud.append(methodInvocation.whatIsDifferent(obj.getMethodInvocation()));}
-        else{
-            if(obj.getMethodInvocation()!= null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMethodInvocation()); 
+        
+        for(ExMethodInvocationDataGathererConfig value:methodInvocation){
+            boolean fnd=false;
+            for(ExMethodInvocationDataGathererConfig _value:obj.getMethodInvocation()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    value.setLevel(level);
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
             }
         }
         
+        for(ExMethodInvocationDataGathererConfig value:obj.getMethodInvocation()){
+            boolean fnd=false;
+            for(ExMethodInvocationDataGathererConfig _value:methodInvocation){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
+            }
+        }
+        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.POJO_DATA_GATHERER_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.ATTACH_TO_NEW_BTS).append(AppExportS.VE).append(attachToNewBTS);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        if(pojoMethodDef != null) bud.append(pojoMethodDef);
-        if(methodInvocation != null) bud.append(methodInvocation);
+        bud.append(AppExportS.I[level]).append(AppExportS.POJO_DATA_GATHERER_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ATTACH_TO_NEW_BTS).append(AppExportS.VE).append(attachToNewBTS);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        if(pojoMethodDef != null){ pojoMethodDef.setLevel(level);bud.append(pojoMethodDef);}
+        for(ExMethodInvocationDataGathererConfig method_:methodInvocation ){ method_.setLevel(level);bud.append(method_);}
         
         return bud.toString();
     }

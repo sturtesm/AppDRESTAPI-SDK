@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ExConfiguration {
     private int snapshotQuietTimePostSLAFailure;
     private boolean policyEngineEnabled;
     private boolean asyncActivitySupported;
+    private int level=2;
     
     private ArrayList<ExCallGraph> callGraphs=new ArrayList<ExCallGraph>();
     private ExSla sla;
@@ -36,6 +38,15 @@ public class ExConfiguration {
     private ArrayList<ExProperties> properties=new ArrayList<ExProperties>();
     
     public ExConfiguration(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
     
 
@@ -156,21 +167,27 @@ public class ExConfiguration {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.CONFIGURATION);
-        bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL).append(AppExportS.VE).append(applicationInstrumentationLevel);
-        bud.append(AppExportS.L1_1).append(AppExportS.SNAPSHOT_EVALUATION_INTERVAL).append(AppExportS.VE).append(snapshotEvaluationInternal);
-        bud.append(AppExportS.L1_1).append(AppExportS.SNAPSHOT_QUIET_TIME_POST_SLA_FAILURE).append(AppExportS.VE).append(snapshotQuietTimePostSLAFailure);
-        bud.append(AppExportS.L1_1).append(AppExportS.POLICY_ENGINE_ENABLED).append(AppExportS.VE).append(policyEngineEnabled);
-        bud.append(AppExportS.L1_1).append(AppExportS.ASYNC_ACTIVITY_SUPPORTED).append(AppExportS.VE).append(asyncActivitySupported);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL).append(AppExportS.VE).append(applicationInstrumentationLevel);
+        bud.append(AppExportS.I[level]).append(AppExportS.SNAPSHOT_EVALUATION_INTERVAL).append(AppExportS.VE).append(snapshotEvaluationInternal);
+        bud.append(AppExportS.I[level]).append(AppExportS.SNAPSHOT_QUIET_TIME_POST_SLA_FAILURE).append(AppExportS.VE).append(snapshotQuietTimePostSLAFailure);
+        bud.append(AppExportS.I[level]).append(AppExportS.POLICY_ENGINE_ENABLED).append(AppExportS.VE).append(policyEngineEnabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.ASYNC_ACTIVITY_SUPPORTED).append(AppExportS.VE).append(asyncActivitySupported);
         
-        for(ExCallGraph graph: callGraphs) bud.append(graph.toString());//done
-        bud.append(sla.toString());
-        for(ExErrorConfiguration error: errorConfiguration) bud.append(error.toString());//done
+        if(sla != null) sla.setLevel(level);
+        if(businessTransactionConfig != null) businessTransactionConfig.setLevel(level);
+        if(backgroundBusinessTransactionConfig != null) backgroundBusinessTransactionConfig.setLevel(level);
+        if(eumConfiguration != null) eumConfiguration.setLevel(level);
+        
+        for(ExCallGraph graph: callGraphs){graph.setLevel(level); bud.append(graph);}//done
+        bud.append(sla);
+        for(ExErrorConfiguration error: errorConfiguration){error.setLevel(level); bud.append(error);}//done
         
         bud.append(backgroundBusinessTransactionConfig);
         bud.append(businessTransactionConfig);
         
         bud.append(eumConfiguration);//done
+        level--;
         return bud.toString();
     }
 
@@ -179,42 +196,54 @@ public class ExConfiguration {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1).append(AppExportS.CONFIGURATION);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION); 
+        level++;
         if(!applicationInstrumentationLevel.equals(obj.getApplicationInstrumentationLevel())){     
-            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
-            bud.append(AppExportS.L1_1).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(applicationInstrumentationLevel);
-            bud.append(AppExportS.L1_1).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getApplicationInstrumentationLevel());    
+            bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(applicationInstrumentationLevel);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getApplicationInstrumentationLevel());    
+            level--;
         }
         
         if(snapshotEvaluationInternal != obj.getSnapshotEvaluationInternal()){
-            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
-            bud.append(AppExportS.L1_1).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(snapshotEvaluationInternal);
-            bud.append(AppExportS.L1_1).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getSnapshotEvaluationInternal()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(snapshotEvaluationInternal);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getSnapshotEvaluationInternal()); 
+            level--;
             
         }
         
         if(snapshotQuietTimePostSLAFailure != obj.getSnapshotQuietTimePostSLAFailure()){
-            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
-            bud.append(AppExportS.L1_1).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(snapshotQuietTimePostSLAFailure);
-            bud.append(AppExportS.L1_1).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getSnapshotQuietTimePostSLAFailure()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(snapshotQuietTimePostSLAFailure);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getSnapshotQuietTimePostSLAFailure()); 
+            level--;
             
         }
         
         if(policyEngineEnabled != obj.isPolicyEngineEnabled()){
-            bud.append(AppExportS.L1_1).append(AppExportS.POLICY_ENGINE_ENABLED);
-            bud.append(AppExportS.L1_1).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(policyEngineEnabled);
-            bud.append(AppExportS.L1_1).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.isPolicyEngineEnabled()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.POLICY_ENGINE_ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(policyEngineEnabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.isPolicyEngineEnabled()); 
+            level--;
             
         }
         
         if(asyncActivitySupported != obj.isAsyncActivitySupported()){
-            bud.append(AppExportS.L1_1).append(AppExportS.ASYNC_ACTIVITY_SUPPORTED);
-            bud.append(AppExportS.L1_1).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(asyncActivitySupported);
-            bud.append(AppExportS.L1_1).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.isAsyncActivitySupported()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.ASYNC_ACTIVITY_SUPPORTED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(asyncActivitySupported);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.isAsyncActivitySupported()); 
+            level--;
             
         }
         
         for(ExCallGraph val:callGraphs){
+            val.setLevel(level);
             for(ExCallGraph val1:obj.getCallGraphs()){
                 if(val.getAgentType().equals(val1.getAgentType())){
                     bud.append(val.whatIsDifferent(val1));
@@ -222,9 +251,15 @@ public class ExConfiguration {
             }
         }
         
+        if(sla != null) sla.setLevel(level);
+        if(businessTransactionConfig != null) businessTransactionConfig.setLevel(level);
+        if(backgroundBusinessTransactionConfig != null) backgroundBusinessTransactionConfig.setLevel(level);
+        if(eumConfiguration != null) eumConfiguration.setLevel(level);
+        
         bud.append(sla.whatIsDifferent(obj.getSla()));
         
         for(ExErrorConfiguration val: errorConfiguration){
+            val.setLevel(level);
             for(ExErrorConfiguration val1: obj.getErrorConfiguration()){
                 if(val.getAgentType().equals(val1.getAgentType())){
                     bud.append(val.whatIsDifferent(val1));
@@ -232,8 +267,11 @@ public class ExConfiguration {
             }
         }
         
+        
         bud.append(businessTransactionConfig.whatIsDifferent(obj.getBusinessTransactionConfig()));
         bud.append(backgroundBusinessTransactionConfig.whatIsDifferent(obj.getBackgroundBusinessTransactionConfig()));
+        bud.append(eumConfiguration.whatIsDifferent(obj.getEumConfiguration()));
+        level--;
         return bud.toString();
     }
 

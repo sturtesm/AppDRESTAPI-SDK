@@ -8,7 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
-
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,6 +29,7 @@ public class ExHttpErrorReturnCode {
     private String name;
     private Integer lowerBound,upperBound;
     private boolean disable;
+    private int level=4;
     
     public ExHttpErrorReturnCode(){}
 
@@ -37,7 +38,6 @@ public class ExHttpErrorReturnCode {
         return name;
     }
 
-    
     public void setName(String name) {
         this.name = name;
     }
@@ -69,16 +69,27 @@ public class ExHttpErrorReturnCode {
         this.disable = disable;
     }
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.HTTP_ERROR_RETURN_CODE);
-        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2_1).append(AppExportS.DISABLE).append(AppExportS.VE).append(disable);
-        bud.append(AppExportS.L2_1).append(AppExportS.LOWER_BOUND).append(AppExportS.VE).append(lowerBound);
-        bud.append(AppExportS.L2_1).append(AppExportS.UPPER_BOUND).append(AppExportS.VE).append(upperBound);
+        bud.append(AppExportS.I[level]).append(AppExportS.HTTP_ERROR_RETURN_CODE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISABLE).append(AppExportS.VE).append(disable);
+        bud.append(AppExportS.I[level]).append(AppExportS.LOWER_BOUND).append(AppExportS.VE).append(lowerBound);
+        bud.append(AppExportS.I[level]).append(AppExportS.UPPER_BOUND).append(AppExportS.VE).append(upperBound);
+        level--;
         return bud.toString();
     }
     
@@ -88,29 +99,35 @@ public class ExHttpErrorReturnCode {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L2).append(AppExportS.HTTP_ERROR_RETURN_CODE);
-        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.HTTP_ERROR_RETURN_CODE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(disable != obj.isDisable()){
-            bud.append(AppExportS.L2_1).append(AppExportS.DISABLE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(disable);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(obj.isDisable());
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(disable);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisable());
+            level--;
         }
         
         if(lowerBound != obj.getLowerBound()){
-            bud.append(AppExportS.L2_1).append(AppExportS.LOWER_BOUND);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(lowerBound);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(obj.getLowerBound());
+            bud.append(AppExportS.I[level]).append(AppExportS.LOWER_BOUND);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(lowerBound);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getLowerBound());
+            level--;
         }
         
         if(upperBound != obj.getUpperBound()){
-            bud.append(AppExportS.L2_1).append(AppExportS.MATCH_PATTERN);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(upperBound);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(obj.getUpperBound());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(upperBound);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getUpperBound());
+            level--;
         }
         
-        
+        level--;
         return bud.toString();
     }
     

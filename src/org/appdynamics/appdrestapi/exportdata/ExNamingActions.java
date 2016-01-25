@@ -24,8 +24,18 @@ import java.util.ArrayList;
  */
 public class ExNamingActions {
     private String name;
+    private int level=9;
     
     public ExNamingActions(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlTransient
     public String getName() {
@@ -52,7 +62,7 @@ public class ExNamingActions {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.NAMING_ACTIONS);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAMING_ACTIONS);
         return bud.toString();
     }
 

@@ -9,6 +9,8 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
@@ -28,13 +30,23 @@ import javax.xml.bind.annotation.XmlSeeAlso;
     </configuration>
  * 
  */
-@XmlSeeAlso({ExDiscoveryConfig.class,ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExclude.class,ExServletRule.class,ExClassName.class})
+@XmlSeeAlso(ExDiscoveryConfig.class)
 public class ExEEPointConfiguration {
     private String transactionEntryPointType;
     private boolean enable;
     private ExDiscoveryConfig discoveryConfig;
+    private int level=6;
     
     public ExEEPointConfiguration(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.TRANSACTION_ENTRY_POINT_TYPE)
     public String getTransactionEntryPointType() {
@@ -68,27 +80,33 @@ public class ExEEPointConfiguration {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.CONFIGURATION);
-        bud.append(AppExportS.L3_1).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
         
         if(enable != obj.isEnable()){
-            bud.append(AppExportS.L3_1).append(AppExportS.ENABLE);
-            bud.append(AppExportS.L4).append(AppExportS.SRC).append(enable);
-            bud.append(AppExportS.L4).append(AppExportS.DEST).append(obj.isEnable());
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(enable);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isEnable());
         }
         
+        discoveryConfig.setLevel(level);
         bud.append(discoveryConfig.whatIsDifferent(obj.getDiscoveryConfig()));
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.CONFIGURATION);
-        bud.append(AppExportS.L3_1).append(AppExportS.ENABLE).append(AppExportS.VE).append(enable);
-        bud.append(AppExportS.L3_1).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLE).append(AppExportS.VE).append(enable);
+        bud.append(AppExportS.I[level]).append(AppExportS.TRANSACTION_ENTRY_POINT_TYPE).append(AppExportS.VE).append(transactionEntryPointType);
+        discoveryConfig.setLevel(level);
         bud.append(discoveryConfig);
+        level--;
         return bud.toString();
     }
 

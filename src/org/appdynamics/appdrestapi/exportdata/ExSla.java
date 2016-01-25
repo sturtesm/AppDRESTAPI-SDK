@@ -27,11 +27,11 @@ import javax.xml.bind.annotation.XmlTransient;
         </sla>
         * 
  */
-@XmlSeeAlso({ExArt.class,ExEpm.class,ExWarning.class,ExCritical.class})
+@XmlSeeAlso({ExArt.class,ExEpm.class})
 public class ExSla {
     private ExArt art;
     private ExEpm epm;
-    private int level=0;
+    private int level=3;
     
     public ExSla(){}
 
@@ -53,12 +53,6 @@ public class ExSla {
         this.epm = epm;
     }
     
-    @XmlTransient
-    public String getIndent(){
-        if(level == 1) return AppExportS.L2;
-        if(level == 2) return AppExportS.L2_1;
-        return AppExportS.L1_1;
-    }
 
     @XmlTransient
     public int getLevel() {
@@ -73,15 +67,16 @@ public class ExSla {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.I[level]).append(AppExportS.SLA);
+        level++;
         art.setLevel(level);
         epm.setLevel(level);
-        
-        bud.append(getIndent()).append(AppExportS.SLA);
-        level++;
-        bud.append(getIndent()).append(AppExportS.ART);
-        bud.append(art.toString());
-        bud.append(getIndent()).append(AppExportS.EPM);
-        bud.append(epm.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.ART);
+        bud.append(art);
+        bud.append(AppExportS.I[level]).append(AppExportS.EPM);
+        bud.append(epm);
+        level--;
         return bud.toString();
     }
     
@@ -91,14 +86,14 @@ public class ExSla {
         StringBuilder bud=new StringBuilder();
         art.setLevel(level);
         epm.setLevel(level);
-        bud.append(getIndent()).append(AppExportS.SLA);
+        bud.append(AppExportS.I[level]).append(AppExportS.SLA);
         level++;
         if(!art.equals(obj.getArt())){
-            bud.append(getIndent()).append(AppExportS.ART);
+            bud.append(AppExportS.I[level]).append(AppExportS.ART);
             bud.append(art.whatIsDifferent(obj.getArt()));
         }
         if(!epm.equals(obj.getEpm())){
-            bud.append(getIndent()).append(AppExportS.EPM);
+            bud.append(AppExportS.I[level]).append(AppExportS.EPM);
             bud.append(epm.whatIsDifferent(obj.getEpm()));
         }
         

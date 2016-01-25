@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -19,8 +20,18 @@ import javax.xml.bind.annotation.XmlElement;
 public class ExClassName {
     private String filterType;
     private String filterValue;
+    private int level=9;
     
     public ExClassName(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.FILTER_TYPE)
     public String getFilterType() {
@@ -44,30 +55,36 @@ public class ExClassName {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.CLASS_NAME);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME);
+        level++;
         if(!filterType.equals(obj.getFilterType())){
-            bud.append(AppExportS.L3).append(AppExportS.FILTER_TYPE);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(filterType);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFilterType());
+            bud.append(AppExportS.I[level]).append(AppExportS.FILTER_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(filterType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFilterType());
+            level--;
         }
         
         if(!filterValue.equals(obj.getFilterValue())){
-            bud.append(AppExportS.L3).append(AppExportS.FILTER_VALUE);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(filterValue);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFilterValue());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.FILTER_VALUE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(filterValue);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFilterValue());
+            level--;
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.CLASS_NAME);
-        bud.append(AppExportS.L3_1).append(AppExportS.FILTER_TYPE).append(AppExportS.VE).append(filterType);
-        bud.append(AppExportS.L3_1).append(AppExportS.FILTER_VALUE).append(AppExportS.VE).append(filterValue);
+        bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.FILTER_TYPE).append(AppExportS.VE).append(filterType);
+        bud.append(AppExportS.I[level]).append(AppExportS.FILTER_VALUE).append(AppExportS.VE).append(filterValue);
+        level--;
         return bud.toString();
     }
 

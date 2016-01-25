@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,105 @@ import java.util.ArrayList;
  * 
  * 
  */
+
+@XmlSeeAlso(ExBackendDiscoveryConfiguration.class)
+public class ExBackendDiscoveryConfigurations {
+    private ArrayList<ExBackendDiscoveryConfiguration> backendDiscoveryConfigurations = new ArrayList<ExBackendDiscoveryConfiguration>();
+    private int level=5;
+    
+    public ExBackendDiscoveryConfigurations(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
+    @XmlElement(name=AppExportS.BACKEND_DISCOVERY_CONFIGURATION)
+    public ArrayList<ExBackendDiscoveryConfiguration> getBackendDiscoveryConfigurations() {
+        return backendDiscoveryConfigurations;
+    }
+
+    public void setBackendDiscoveryConfigurations(ArrayList<ExBackendDiscoveryConfiguration> backendDiscoveryConfigurations) {
+        this.backendDiscoveryConfigurations = backendDiscoveryConfigurations;
+    }
+    
+    public String whatIsDifferent(ExBackendDiscoveryConfigurations obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS);
+        level++;
+        for(ExBackendDiscoveryConfiguration value:backendDiscoveryConfigurations){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExBackendDiscoveryConfiguration _value:obj.getBackendDiscoveryConfigurations()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        for(ExBackendDiscoveryConfiguration value:obj.getBackendDiscoveryConfigurations()){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExBackendDiscoveryConfiguration _value:backendDiscoveryConfigurations){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            }
+        }
+        level--;
+        return bud.toString();
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS);
+        level++;
+        for(ExBackendDiscoveryConfiguration bdc: backendDiscoveryConfigurations){ bdc.setLevel(level);bud.append(bdc);}
+        level--;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 11 * hash + (this.backendDiscoveryConfigurations != null ? this.backendDiscoveryConfigurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBackendDiscoveryConfigurations other = (ExBackendDiscoveryConfigurations) obj;
+        if (this.backendDiscoveryConfigurations != other.backendDiscoveryConfigurations && (this.backendDiscoveryConfigurations == null || !this.backendDiscoveryConfigurations.equals(other.backendDiscoveryConfigurations))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+}
+
 /*
  * <backend-discovery-configurations>
                 <backend-discovery-configuration>
@@ -69,86 +169,3 @@ import java.util.ArrayList;
                     </backend-identity-options>
                     <backend-discovery-conditions/>
  */
-@XmlSeeAlso({ExBackendDiscoveryConfiguration.class,ExBackendDiscoveryConditions.class,ExBackendIdentityOptions.class,ExBackendIdentityOption.class,ExNamingOptions.class,ExNamingActions.class,ExNameValue.class})
-public class ExBackendDiscoveryConfigurations {
-    private ArrayList<ExBackendDiscoveryConfiguration> backendDiscoveryConfigurations = new ArrayList<ExBackendDiscoveryConfiguration>();
-    
-    
-    public ExBackendDiscoveryConfigurations(){}
-
-    @XmlElement(name=AppExportS.BACKEND_DISCOVERY_CONFIGURATION)
-    public ArrayList<ExBackendDiscoveryConfiguration> getBackendDiscoveryConfigurations() {
-        return backendDiscoveryConfigurations;
-    }
-
-    public void setBackendDiscoveryConfigurations(ArrayList<ExBackendDiscoveryConfiguration> backendDiscoveryConfigurations) {
-        this.backendDiscoveryConfigurations = backendDiscoveryConfigurations;
-    }
-    
-    public String whatIsDifferent(ExBackendDiscoveryConfigurations obj){
-        if(this.equals(obj)) return AppExportS._U;
-        
-        
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS);
-        
-        for(ExBackendDiscoveryConfiguration value:backendDiscoveryConfigurations){
-            boolean fnd=false;
-            for(ExBackendDiscoveryConfiguration _value:obj.getBackendDiscoveryConfigurations()){
-                if(value.getName().equals(_value.getName())){
-                    fnd=true;
-                    bud.append(value.whatIsDifferent(_value));
-                }
-            }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
-            }
-        }
-        
-        for(ExBackendDiscoveryConfiguration value:obj.getBackendDiscoveryConfigurations()){
-            boolean fnd=false;
-            for(ExBackendDiscoveryConfiguration _value:backendDiscoveryConfigurations){
-                if(value.getName().equals(_value.getName())){
-                    fnd=true;
-                }
-            }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
-            }
-        }
-        
-        return bud.toString();
-    }
-    
-    @Override
-    public String toString(){
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS);
-        for(ExBackendDiscoveryConfiguration bdc: backendDiscoveryConfigurations) bud.append(bdc.toString());
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + (this.backendDiscoveryConfigurations != null ? this.backendDiscoveryConfigurations.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExBackendDiscoveryConfigurations other = (ExBackendDiscoveryConfigurations) obj;
-        if (this.backendDiscoveryConfigurations != other.backendDiscoveryConfigurations && (this.backendDiscoveryConfigurations == null || !this.backendDiscoveryConfigurations.equals(other.backendDiscoveryConfigurations))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-}

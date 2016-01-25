@@ -14,31 +14,14 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  *
  */
-/*
- * <starting-node-slow-threshold>
-                <evaluation-type>STANDARD_DEVIATION</evaluation-type>
-                    <evaluation-mins>120</evaluation-mins>
-                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
-                </starting-node-slow-threshold>
-                * 
-                * <starting-node-slow-threshold>
-                    <evaluation-type>STATIC</evaluation-type>
-                    <static-threshold-in-millis>10</static-threshold-in-millis>
-                </starting-node-slow-threshold>
 
-                <exit-call-slow-threshold>
-                    <evaluation-type>PERCENTAGE_DEVIATION</evaluation-type>
-                    <percentage-threshold>20</percentage-threshold>
-                    <evaluation-mins>120</evaluation-mins>
-                </exit-call-slow-threshold>
- * 
- */
 public class ExSlowThreshold {
     private String evaluationType;
     private int evaluationMins=-1;
     private double standardDeviationThreshold=-1;
     private int staticThresholdInMillis=-1;
     private int percentageThreshold=-1;
+    private int level=5;
     
     public ExSlowThreshold(){}
 
@@ -87,6 +70,16 @@ public class ExSlowThreshold {
         this.percentageThreshold = percentageThreshold;
     }
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
 
     @XmlTransient
     public int getType(){
@@ -101,9 +94,9 @@ public class ExSlowThreshold {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.EVALUATION_TYPE).append(AppExportS.VE).append(evaluationType);
-        if(evaluationMins > -1) bud.append(AppExportS.L3).append(AppExportS.EVALUATION_MINS).append(AppExportS.VE).append(evaluationMins);
-        if(standardDeviationThreshold > -1)bud.append(AppExportS.L3).append(AppExportS.STANDARD_DEVIATION_THRESHOLD).append(AppExportS.VE).append(standardDeviationThreshold);
+        bud.append(AppExportS.I[level]).append(AppExportS.EVALUATION_TYPE).append(AppExportS.VE).append(evaluationType);
+        if(evaluationMins > -1) bud.append(AppExportS.I[level]).append(AppExportS.EVALUATION_MINS).append(AppExportS.VE).append(evaluationMins);
+        if(standardDeviationThreshold > -1)bud.append(AppExportS.I[level]).append(AppExportS.STANDARD_DEVIATION_THRESHOLD).append(AppExportS.VE).append(standardDeviationThreshold);
         return bud.toString();
     }
 
@@ -113,48 +106,56 @@ public class ExSlowThreshold {
         StringBuilder bud = new StringBuilder();
         
         if(getType() != obj.getType()){
-                bud.append(AppExportS.L3).append(AppExportS.EVALUATION_TYPE).append(" is different.");
-                bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(evaluationType);
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEvaluationType());
+                bud.append(AppExportS.I[level]).append(AppExportS.EVALUATION_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(evaluationType);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEvaluationType());
+                level--;
         }else{
             
             if(getType()==0){
                if(evaluationMins != obj.getEvaluationMins()){
-                    bud.append(AppExportS.L3).append(AppExportS.EVALUATION_MINS);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(evaluationMins);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEvaluationMins());
-
+                    bud.append(AppExportS.I[level]).append(AppExportS.EVALUATION_MINS);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(evaluationMins);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEvaluationMins());
+                    level--;
                 }
 
                 if(standardDeviationThreshold != obj.getStandardDeviationThreshold()){
-                    bud.append(AppExportS.L3).append(AppExportS.STANDARD_DEVIATION_THRESHOLD);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(standardDeviationThreshold);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getStandardDeviationThreshold());
-
+                    bud.append(AppExportS.I[level]).append(AppExportS.STANDARD_DEVIATION_THRESHOLD);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(standardDeviationThreshold);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getStandardDeviationThreshold());
+                    level--;
                 }
             }
             
             if(getType() == 1){
                 if(staticThresholdInMillis != obj.staticThresholdInMillis){
-                    bud.append(AppExportS.L3).append(AppExportS.STATIC_THRESHOLD_IN_MILLIS);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(staticThresholdInMillis);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getStaticThresholdInMillis()); 
+                    bud.append(AppExportS.I[level]).append(AppExportS.STATIC_THRESHOLD_IN_MILLIS);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(staticThresholdInMillis);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getStaticThresholdInMillis()); 
+                    level--;
                 }
             }
             
             if(getType() == 2){
                 if(evaluationMins != obj.getEvaluationMins()){
-                    bud.append(AppExportS.L3).append(AppExportS.EVALUATION_MINS);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(evaluationMins);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEvaluationMins());
-
+                    bud.append(AppExportS.I[level]).append(AppExportS.EVALUATION_MINS);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(evaluationMins);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getEvaluationMins());
+                    level--;
                 }
                 
                 if(percentageThreshold != obj.getPercentageThreshold()){
-                    bud.append(AppExportS.L3).append(AppExportS.PERCENTAGE_THRESHOLD);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(percentageThreshold);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPercentageThreshold());
-
+                    bud.append(AppExportS.I[level]).append(AppExportS.PERCENTAGE_THRESHOLD);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(percentageThreshold);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPercentageThreshold());
+                    level--;
                 }
             }
         }
@@ -202,3 +203,23 @@ public class ExSlowThreshold {
     
     
 }
+
+/*
+ * <starting-node-slow-threshold>
+                <evaluation-type>STANDARD_DEVIATION</evaluation-type>
+                    <evaluation-mins>120</evaluation-mins>
+                    <standard-deviation-threshold>3.0</standard-deviation-threshold>
+                </starting-node-slow-threshold>
+                * 
+                * <starting-node-slow-threshold>
+                    <evaluation-type>STATIC</evaluation-type>
+                    <static-threshold-in-millis>10</static-threshold-in-millis>
+                </starting-node-slow-threshold>
+
+                <exit-call-slow-threshold>
+                    <evaluation-type>PERCENTAGE_DEVIATION</evaluation-type>
+                    <percentage-threshold>20</percentage-threshold>
+                    <evaluation-mins>120</evaluation-mins>
+                </exit-call-slow-threshold>
+ * 
+ */

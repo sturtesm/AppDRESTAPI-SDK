@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,9 +30,20 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExGenericMethodConfig {
     private String className;
     private ExMethodConfig methodConfig;
+    private int level=7;
     
     public ExGenericMethodConfig(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.CLASS_NAME)
     public String getClassName() {
         return className;
@@ -55,20 +67,24 @@ public class ExGenericMethodConfig {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3_1).append(AppExportS.METHOD_CONFIG);
-
-        bud.append(AppExportS.L4).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className); 
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className); 
+        if(methodConfig != null) methodConfig.setLevel(level);
         bud.append(methodConfig.whatIsDifferent(obj.getMethodConfig()));
-        
+        level--;
         return bud.toString();
     } 
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.GENERIC_METHOD_CONFIG);
-        bud.append(AppExportS.L3_1).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className);
+        bud.append(AppExportS.I[level]).append(AppExportS.GENERIC_METHOD_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className);
+        if(methodConfig != null) methodConfig.setLevel(level);
         bud.append(methodConfig);
+        level--;
         return bud.toString();
     }
 

@@ -8,7 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -17,36 +17,30 @@ import java.util.ArrayList;
  * 
  * 
  */
-/*
- * <backend-match-point-configuration>
-            <override>true</override>
-            <agent-type>APP_AGENT</agent-type>
-            <custom-exit-point-definitions/>
-            <backend-discovery-configurations>
-                <backend-discovery-configuration>
-                    <name>Default Cassandra configuration</name>
-                    <backend-identity-options/>
-                    <backend-discovery-conditions/>
-                    <discovery-enabled>true</discovery-enabled>
-                    <correlation-enabled>true</correlation-enabled>
-                    <supports-correlation>true</supports-correlation>
-                    <priority>0</priority>
-                    <exit-point-type>CASSANDRA</exit-point-type>
-                </backend-discovery-configuration>
- */
 
-@XmlSeeAlso({ExBackendIdentityOptions.class,ExBackendIdentityOption.class,ExNamingOptions.class,ExNamingActions.class,ExNameValue.class})
+
+@XmlSeeAlso({ExBackendIdentityOptions.class,ExBackendDiscoveryConditions.class})
 public class ExBackendDiscoveryConfiguration {
     private String name;
     private ExBackendIdentityOptions backendIdentityOptions;
-    private Object backendDiscoveryConditions; //I don't have an example
+    private ExBackendDiscoveryConditions backendDiscoveryConditions; //I don't have an example
     private boolean discoveryEnabled;
     private boolean correlationEnabled;
     private boolean supportsCorrelation;
     private int priority;
     private String exitPointType;
+    private int level=6;
     
     public ExBackendDiscoveryConfiguration(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
@@ -66,12 +60,12 @@ public class ExBackendDiscoveryConfiguration {
         this.backendIdentityOptions = backendIdentityOptions;
     }
 
-    @XmlElement(name=AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS)
-    public Object getBackendDiscoveryConditions() {
+    @XmlElement(name=AppExportS.BACKEND_DISCOVERY_CONDITIONS)
+    public ExBackendDiscoveryConditions getBackendDiscoveryConditions() {
         return backendDiscoveryConditions;
     }
 
-    public void setBackendDiscoveryConditions(Object backendDiscoveryConditions) {
+    public void setBackendDiscoveryConditions(ExBackendDiscoveryConditions backendDiscoveryConditions) {
         this.backendDiscoveryConditions = backendDiscoveryConditions;
     }
 
@@ -135,60 +129,68 @@ public class ExBackendDiscoveryConfiguration {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATION);
-        bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATION);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!exitPointType.equals(obj.getExitPointType())){
-            bud.append(AppExportS.L3).append(AppExportS.EXIT_POINT_TYPE);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(exitPointType);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getExitPointType()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.EXIT_POINT_TYPE);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(exitPointType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getExitPointType()); 
             
         }
         if(discoveryEnabled != obj.isDiscoveryEnabled()){
-            bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_ENABLED);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryEnabled);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryEnabled()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_ENABLED);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryEnabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryEnabled()); 
             
         }
         
         if(correlationEnabled != obj.isCorrelationEnabled()){
-            bud.append(AppExportS.L3).append(AppExportS.CORRELATION_ENABLED);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(correlationEnabled);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isCorrelationEnabled()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.CORRELATION_ENABLED);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(correlationEnabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isCorrelationEnabled()); 
             
         }
         
         if(supportsCorrelation != obj.isSupportsCorrelation()){
-            bud.append(AppExportS.L3).append(AppExportS.SUPPORTS_CORRELATION);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(supportsCorrelation);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isSupportsCorrelation()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.SUPPORTS_CORRELATION);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(supportsCorrelation);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isSupportsCorrelation()); 
             
         }
         
         if(priority != obj.getPriority()){
-            bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority()); 
             
         }
-        
+        if(backendIdentityOptions != null) backendIdentityOptions.setLevel(level);
         bud.append(backendIdentityOptions.whatIsDifferent(obj.getBackendIdentityOptions()));
-        //bud.append(backendDiscoveryConditions.whatIsDifferent(obj.getBackendDiscoveryConditions()));
+        if(backendDiscoveryConditions != null) backendDiscoveryConditions.setLevel(level);
+        bud.append(backendDiscoveryConditions.whatIsDifferent(obj.getBackendDiscoveryConditions()));
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATION);
-        bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_ENABLED).append(AppExportS.VE).append(discoveryEnabled);
-        bud.append(AppExportS.L3).append(AppExportS.CORRELATION_ENABLED).append(AppExportS.VE).append(correlationEnabled);
-        bud.append(AppExportS.L3).append(AppExportS.SUPPORTS_CORRELATION).append(AppExportS.VE).append(supportsCorrelation);
-        bud.append(AppExportS.L3).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
-        bud.append(AppExportS.L3).append(AppExportS.EXIT_POINT_TYPE).append(AppExportS.VE).append(exitPointType);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_ENABLED).append(AppExportS.VE).append(discoveryEnabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.CORRELATION_ENABLED).append(AppExportS.VE).append(correlationEnabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.SUPPORTS_CORRELATION).append(AppExportS.VE).append(supportsCorrelation);
+        bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
+        bud.append(AppExportS.I[level]).append(AppExportS.EXIT_POINT_TYPE).append(AppExportS.VE).append(exitPointType);
+        
+        if(backendIdentityOptions != null) backendIdentityOptions.setLevel(level);
         bud.append(backendIdentityOptions);
-        if(backendDiscoveryConditions != null) bud.append(backendDiscoveryConditions);
+        
+        if(backendDiscoveryConditions != null) backendDiscoveryConditions.setLevel(level);
+        bud.append(backendDiscoveryConditions);
+        
+        level--;
         return bud.toString();
     }
 
@@ -245,3 +247,111 @@ public class ExBackendDiscoveryConfiguration {
     
     
 }
+
+/*
+ * <backend-match-point-configuration>
+            <override>true</override>
+            <agent-type>APP_AGENT</agent-type>
+            <custom-exit-point-definitions/>
+            <backend-discovery-configurations>
+                <backend-discovery-configuration>
+                    <name>Default Cassandra configuration</name>
+                    <backend-identity-options/>
+                    <backend-discovery-conditions/>
+                    <discovery-enabled>true</discovery-enabled>
+                    <correlation-enabled>true</correlation-enabled>
+                    <supports-correlation>true</supports-correlation>
+                    <priority>0</priority>
+                    <exit-point-type>CASSANDRA</exit-point-type>
+                </backend-discovery-configuration>
+
+
+                   <backend-discovery-configurations>
+                        <backend-discovery-configuration>
+                            <name>api-int.stubprod.com</name>
+                            <backend-identity-options>
+                                <backend-identity-option>
+                                    <name>Service</name>
+                                    <naming-options>
+                                    <name-value>
+                                    <name>use-entire-string</name>
+                                    <value>true</value>
+                                    </name-value>
+                                    </naming-options>
+                                    <naming-actions/>
+                                    <enabled>false</enabled>
+                                </backend-identity-option>
+                                <backend-identity-option>
+                                    <name>URL</name>
+                                    <naming-options>
+                                    <name-value>
+                                    <name>use-regexp</name>
+                                    <value>true</value>
+                                    </name-value>
+                                    </naming-options>
+                                    <naming-actions>
+                                    <name-value>
+                                    <name>regexp</name>
+                                    <value>\w*:\/\/api-int.stubprod.com:*\d*(\/\w*\/\w*\/\w*).*</value>
+                                    </name-value>
+                                    <name-value>
+                                    <name>regexp-groups</name>
+                                    <value>1</value>
+                                    </name-value>
+                                    <name-value>
+                                    <name>merge-delimiter</name>
+                                    <value>.</value>
+                                    </name-value>
+                                    </naming-actions>
+                                    <enabled>true</enabled>
+                                </backend-identity-option>
+                                <backend-identity-option>
+                                    <name>Vendor</name>
+                                    <naming-options>
+                                    <name-value>
+                                    <name>use-entire-string</name>
+                                    <value>true</value>
+                                    </name-value>
+                                    </naming-options>
+                                    <naming-actions/>
+                                    <enabled>false</enabled>
+                                </backend-identity-option>
+                                <backend-identity-option>
+                                    <name>Operation</name>
+                                    <naming-options>
+                                    <name-value>
+                                    <name>use-entire-string</name>
+                                    <value>true</value>
+                                    </name-value>
+                                    </naming-options>
+                                    <naming-actions/>
+                                    <enabled>false</enabled>
+                                </backend-identity-option>
+                                <backend-identity-option>
+                                    <name>Soap Action</name>
+                                    <naming-options>
+                                    <name-value>
+                                    <name>use-entire-string</name>
+                                    <value>true</value>
+                                    </name-value>
+                                    </naming-options>
+                                    <naming-actions/>
+                                    <enabled>false</enabled>
+                                </backend-identity-option>
+                            </backend-identity-options>
+                            <backend-discovery-conditions>
+                                <backend-discovery-condition>
+                                    <identity-name>URL</identity-name>
+                                    <match-type>REGEX</match-type>
+                                    <match-pattern>\w*:\/\/api-int.stubprod.com:*\d*\/\w*\/\w*\/\w*.*</match-pattern>
+                                    <inverse>false</inverse>
+                                </backend-discovery-condition>
+                            </backend-discovery-conditions>
+                            <discovery-enabled>true</discovery-enabled>
+                            <correlation-enabled>true</correlation-enabled>
+                            <supports-correlation>true</supports-correlation>
+                            <priority>10</priority>
+                            <exit-point-type>WEB_SERVICE</exit-point-type>
+                        </backend-discovery-configuration>
+
+ */

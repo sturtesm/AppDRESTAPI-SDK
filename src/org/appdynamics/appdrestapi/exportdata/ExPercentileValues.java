@@ -8,11 +8,12 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author gilbert.solorzano
- * L3
+ * I[level]
  * 
  * 
  */
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso(ExPercentileValue.class)
 public class ExPercentileValues {
     private ArrayList<ExPercentileValue> percentileValues=new ArrayList<ExPercentileValue>();
+    private int level=6;
     
     public ExPercentileValues(){}
 
@@ -37,12 +39,25 @@ public class ExPercentileValues {
     public void setPercentileValues(ArrayList<ExPercentileValue> percentileValues) {
         this.percentileValues = percentileValues;
     }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.PERCENTILE_VALUES);
-        for(ExPercentileValue per: percentileValues) bud.append(per.toString());        
+        bud.append(AppExportS.I[level]).append(AppExportS.PERCENTILE_VALUES);
+        level++;
+        for(ExPercentileValue per: percentileValues) {per.setLevel(level);bud.append(per); }
+        level--;
         return bud.toString();
     }
     
@@ -50,8 +65,8 @@ public class ExPercentileValues {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.PERCENTILE_VALUES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.PERCENTILE_VALUES);
+        level++;
         for(ExPercentileValue value: percentileValues){
             boolean fnd=false;
             for(ExPercentileValue value1: obj.getPercentileValues()){
@@ -60,8 +75,10 @@ public class ExPercentileValues {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L4).append(AppExportS.PERCENTILE_VALUE);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(value.getValue());
+                bud.append(AppExportS.I[level]).append(AppExportS.PERCENTILE_VALUE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value.getValue());
+                level--;
             }
         }
         
@@ -73,11 +90,13 @@ public class ExPercentileValues {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L4).append(AppExportS.PERCENTILE_VALUE);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(value.getValue());
+                bud.append(AppExportS.I[level]).append(AppExportS.PERCENTILE_VALUE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value.getValue());
+                level--;
             }
         }
-        
+        level--;
         return bud.toString();
     }
 

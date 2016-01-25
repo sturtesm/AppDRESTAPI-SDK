@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -16,17 +17,24 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  * 
  */
-/*
- *                          <match-method>
-                                <name filter-type="EQUALS" filter-value="execute"/>
-                            </match-method>
- */
+
 @XmlSeeAlso(ExMatchClassName.class)
 public class ExMatchMethod {
     private ExMatchClassName matchClassName;
+    private int level=9;
     
     public ExMatchMethod(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.NAME)
     public ExMatchClassName getMatchClassName() {
         return matchClassName;
@@ -40,8 +48,12 @@ public class ExMatchMethod {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.NAME);
+        
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME);
+        level++;
+        if(matchClassName != null) matchClassName.setLevel(level);
         bud.append(matchClassName.whatIsDifferent(obj.getMatchClassName()));
+        level--;
         return bud.toString();
     }
     
@@ -49,8 +61,11 @@ public class ExMatchMethod {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.NAME);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME);
+        level++;
+        if(matchClassName != null) matchClassName.setLevel(level);
         bud.append(matchClassName);
+        level--;
         return bud.toString();
     }
 
@@ -78,3 +93,9 @@ public class ExMatchMethod {
     
     
 }
+
+/*
+ *                          <match-method>
+                                <name filter-type="EQUALS" filter-value="execute"/>
+                            </match-method>
+ */

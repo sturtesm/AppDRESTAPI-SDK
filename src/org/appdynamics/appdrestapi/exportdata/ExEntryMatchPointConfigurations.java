@@ -8,21 +8,30 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 /**
  *
  * @author gilbert.solorzano
  */
-@XmlSeeAlso({ExEntryMatchPointConfiguration.class,ExEEPointConfiguration.class,ExDiscoveryConfig.class,
-    ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExclude.class,ExServletRule.class,ExClassName.class,
-    ExCustomMatchPointDefinitions.class,ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,
-    ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
+@XmlSeeAlso(ExEntryMatchPointConfiguration.class)
 public class ExEntryMatchPointConfigurations {
     private ArrayList<ExEntryMatchPointConfiguration> entryMatchPointConfiguration=new ArrayList<ExEntryMatchPointConfiguration>();
+    private int level=2;
+    
     
     public ExEntryMatchPointConfigurations(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.ENTRY_MATCH_POINT_CONFIGURATION)
     public ArrayList<ExEntryMatchPointConfiguration> getEntryMatchPointConfiguration() {
         return entryMatchPointConfiguration;
@@ -36,17 +45,18 @@ public class ExEntryMatchPointConfigurations {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS);
+        level++;
         for(ExEntryMatchPointConfiguration value:entryMatchPointConfiguration){
             boolean fnd=false;
             for(ExEntryMatchPointConfiguration _value:obj.getEntryMatchPointConfiguration()){
                 if(value.getAgentType().equals(_value.getAgentType())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
-            if(!fnd) bud.append(AppExportS.L2).append(AppExportS.SRC).append(value);
+            if(!fnd){value.setLevel(level); bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);}
         }
         
         for(ExEntryMatchPointConfiguration value:obj.getEntryMatchPointConfiguration()){
@@ -57,17 +67,20 @@ public class ExEntryMatchPointConfigurations {
                 }
                 
             }
-            if(!fnd) bud.append(AppExportS.L2).append(AppExportS.DEST).append(value);
+            if(!fnd){value.setLevel(level); bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);}
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS);
-        for(ExEntryMatchPointConfiguration emp : entryMatchPointConfiguration) bud.append(emp.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS);
+        level++;
+        for(ExEntryMatchPointConfiguration emp : entryMatchPointConfiguration){ emp.setLevel(level);bud.append(emp);}
+        level--;
         return bud.toString();
     }
 

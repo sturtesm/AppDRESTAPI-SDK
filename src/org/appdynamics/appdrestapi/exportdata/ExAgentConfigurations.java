@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -23,9 +24,20 @@ import java.util.ArrayList;
 @XmlSeeAlso(ExAgentConfiguration.class)
 public class ExAgentConfigurations {
     private ArrayList<ExAgentConfiguration> agentConfiguration=new ArrayList<ExAgentConfiguration>();
+    private int level=2;
     
     public ExAgentConfigurations(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.AGENT_CONFIGURATION)
     public ArrayList<ExAgentConfiguration> getAgentConfiguration() {
         return agentConfiguration;
@@ -39,8 +51,10 @@ public class ExAgentConfigurations {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.AGENT_CONFIGURATIONS).append(" size ").append(agentConfiguration.size());
-        for(ExAgentConfiguration agent:agentConfiguration) bud.append(agent);
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_CONFIGURATIONS).append(" size ").append(agentConfiguration.size());
+        level++;
+        for(ExAgentConfiguration agent:agentConfiguration){agent.setLevel(level);bud.append(agent);}
+        level--;
         return bud.toString();
     }
     
@@ -48,9 +62,11 @@ public class ExAgentConfigurations {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_CONFIGURATIONS).append(" size ").append(agentConfiguration.size());
+        level++;
         for(ExAgentConfiguration val: agentConfiguration){
             boolean fnd=false;
+            val.setLevel(level);
             for(ExAgentConfiguration val1: obj.getAgentConfiguration()){
                 if(val.getAgentType().equals(val1.getAgentType())){
                     fnd=true;
@@ -58,25 +74,27 @@ public class ExAgentConfigurations {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.AGENT_CONFIGURATION);
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(val.getAgentType());
+                bud.append(AppExportS.I[level]).append(AppExportS.AGENT_CONFIGURATION);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(val.getAgentType());
             }
         }
         
         for(ExAgentConfiguration val: obj.getAgentConfiguration()){
             boolean fnd=false;
+            val.setLevel(level);
             for(ExAgentConfiguration val1: agentConfiguration){
                 if(val.getAgentType().equals(val1.getAgentType())){
                     fnd=true;
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.AGENT_CONFIGURATION);
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(val.getAgentType());
+                bud.append(AppExportS.I[level]).append(AppExportS.AGENT_CONFIGURATION);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(val.getAgentType());
                 
             }
         }
         
+        level--;
         return bud.toString();
     }
 

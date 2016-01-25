@@ -18,6 +18,7 @@ public class ExArt {
     
     private ExCritical critical;
     private ExWarning warning;
+    private int level=4;
     
     public ExArt(){}
 

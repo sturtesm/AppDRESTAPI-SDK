@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,8 +25,18 @@ public class ExMemoryConfiguration {
     private int sizePollingInterval;
     private boolean enableCacheFrameworkSizeMonitoring;
     private boolean enableMemoryMonitoring;
+    private int level=5;
     
     public ExMemoryConfiguration(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.SIZE_POLLING_INTERVAL)
     public int getSizePollingInterval() {
@@ -60,37 +71,45 @@ public class ExMemoryConfiguration {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.MEMORY_CONFIGURATION);
+        bud.append(AppExportS.I[level]).append(AppExportS.MEMORY_CONFIGURATION);
+        level++;
         
         if(sizePollingInterval != obj.getSizePollingInterval()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.SIZE_POLLING_INTERVAL);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(sizePollingInterval);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSizePollingInterval());    
+            bud.append(AppExportS.I[level]).append(AppExportS.SIZE_POLLING_INTERVAL);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(sizePollingInterval);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSizePollingInterval());    
+            level--;
         }
         
         if(enableCacheFrameworkSizeMonitoring != obj.isEnableCacheFrameworkSizeMonitoring()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enableCacheFrameworkSizeMonitoring);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableCacheFrameworkSizeMonitoring());    
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enableCacheFrameworkSizeMonitoring);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableCacheFrameworkSizeMonitoring());   
+            level--;
         }
         
         if(enableMemoryMonitoring != obj.isEnableMemoryMonitoring()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_MEMORY_MONITORING);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enableMemoryMonitoring);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableMemoryMonitoring());    
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_MEMORY_MONITORING);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enableMemoryMonitoring);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableMemoryMonitoring());   
+            level--;
         }
-        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud =new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.MEMORY_CONFIGURATION);
-        bud.append(AppExportS.L4).append(AppExportS.SIZE_POLLING_INTERVAL).append(AppExportS.VE).append(sizePollingInterval);
-        bud.append(AppExportS.L4).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING).append(AppExportS.VE).append(enableCacheFrameworkSizeMonitoring);
-        bud.append(AppExportS.L4).append(AppExportS.ENABLE_MEMORY_MONITORING).append(AppExportS.VE).append(enableMemoryMonitoring);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.MEMORY_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.SIZE_POLLING_INTERVAL).append(AppExportS.VE).append(sizePollingInterval);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING).append(AppExportS.VE).append(enableCacheFrameworkSizeMonitoring);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_MEMORY_MONITORING).append(AppExportS.VE).append(enableMemoryMonitoring);
+        level--;
         return bud.toString();
         
     }

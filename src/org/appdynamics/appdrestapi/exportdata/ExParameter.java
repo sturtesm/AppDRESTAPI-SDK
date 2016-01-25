@@ -7,11 +7,11 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
-
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
- * L3_1
+ * I[level]
  */
 /*
  * 
@@ -26,9 +26,20 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExParameter {
     private String matchType;
     private ExMatchClassName name,value;
+    private int level;
     
     public ExParameter(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlAttribute(name=AppExportS.MATCH_TYPE)
     public String getMatchType() {
         return matchType;
@@ -61,34 +72,43 @@ public class ExParameter {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3_1).append(AppExportS.PARAMETER);
-
+        bud.append(AppExportS.I[level]).append(AppExportS.PARAMETER);
+        level++;
         if(matchType != null){
-                bud.append(AppExportS.L4).append(AppExportS.MATCH_TYPE);
-                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                level--;
         }else{
             if(obj.getMatchType()!= null){
-                bud.append(AppExportS.L4).append(AppExportS.MATCH_TYPE);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                level--;
             }
         }
-       
+        if(name != null) name.setLevel(level);
         bud.append(name.whatIsDifferent(obj.getName()));
+        if(name != null) value.setLevel(level);
         bud.append(value.whatIsDifferent(obj.getValue()));
-        
+        level--;
         return bud.toString();
     } 
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.PARAMETER);
-        bud.append(AppExportS.L4).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-        bud.append(AppExportS.L4).append(AppExportS.NAME);
+        bud.append(AppExportS.I[level]).append(AppExportS.PARAMETER);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME);
+        if(name != null) name.setLevel(level);
         bud.append(name);
-        bud.append(AppExportS.L4).append(AppExportS.VALUE);
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
+        if(value != null) value.setLevel(level);
         bud.append(value);
+        level--;
         return bud.toString();
     }
 

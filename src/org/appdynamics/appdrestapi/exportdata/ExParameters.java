@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
@@ -19,9 +20,19 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso(ExParameter.class)
 public class ExParameters {
     private ArrayList<ExParameter> parameters = new ArrayList<ExParameter>();
+    private int level=5;
     
     public ExParameters(){}
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.PARAMETER)
     public ArrayList<ExParameter> getParameters() {
         return parameters;
@@ -36,7 +47,7 @@ public class ExParameters {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.COOKIES);
+        bud.append(AppExportS.I[level]).append(AppExportS.COOKIES);
         
         for(ExParameter value:parameters){
             boolean fnd=false;
@@ -47,7 +58,7 @@ public class ExParameters {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
             }
         }
         
@@ -59,7 +70,7 @@ public class ExParameters {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
     
@@ -69,8 +80,11 @@ public class ExParameters {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.PARAMETERS);
-        for(ExParameter para:parameters) bud.append(para);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.PARAMETERS);
+        level++;
+        for(ExParameter para:parameters){ para.setLevel(level);bud.append(para);}
+        level--;
         return bud.toString();
     }
 

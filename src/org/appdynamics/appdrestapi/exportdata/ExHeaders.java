@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -17,9 +18,20 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso(ExHeader.class)
 public class ExHeaders {
     private ArrayList<ExHeader> headers=new ArrayList<ExHeader>();
+    private int level=4;
     
     public ExHeaders(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.HEADER)
     public ArrayList<ExHeader> getHeaders() {
         return headers;
@@ -34,18 +46,21 @@ public class ExHeaders {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.COOKIES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.COOKIES);
+        level++;
         for(ExHeader value:headers){
             boolean fnd=false;
             for(ExHeader _value:obj.getHeaders()){
                 if(value.getMatchType().equals(_value.getMatchType())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
+                level--;
             }
         }
         
@@ -57,18 +72,22 @@ public class ExHeaders {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+                level++;value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
+                level--;
             }
         }
-    
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.HEADERS);
-        for(ExHeader head:headers) bud.append(head);
+        bud.append(AppExportS.I[level]).append(AppExportS.HEADERS);
+        level++;
+        for(ExHeader head:headers){ bud.append(head);}
+        level--;
         return bud.toString();
     }
 

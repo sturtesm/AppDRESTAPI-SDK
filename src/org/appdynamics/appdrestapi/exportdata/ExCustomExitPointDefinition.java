@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,20 @@ public class ExCustomExitPointDefinition {
     private ExInstrumentationPoint instrumentationPoint;
     private ArrayList<ExMethodInvocationDataGathererConfig> methodInvocationGathererConfigs=new ArrayList<ExMethodInvocationDataGathererConfig>();
     private String name,type;
+    private int level=8;
     
     public ExCustomExitPointDefinition(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.INSTRUMENTATION_POINT)
     public ExInstrumentationPoint getInstrumentationPoint() {
         return instrumentationPoint;
@@ -64,19 +76,22 @@ public class ExCustomExitPointDefinition {
         if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITION);
-        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!type.equals(obj.getType())){
-            bud.append(AppExportS.L2_1).append(AppExportS.TYPE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType()); 
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType()); 
+            level--;
         }
         
         bud.append(instrumentationPoint.whatIsDifferent(obj.getInstrumentationPoint()));
         
          for(ExMethodInvocationDataGathererConfig value:methodInvocationGathererConfigs){
+             value.setLevel(level);
             boolean fnd=false;
             for(ExMethodInvocationDataGathererConfig _value:obj.getMethodInvocationGathererConfigs()){
                 if(value.getName().equals(_value.getName())){
@@ -85,19 +100,20 @@ public class ExCustomExitPointDefinition {
                 }
             }
             if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
             }
         }
         
         for(ExMethodInvocationDataGathererConfig value:obj.getMethodInvocationGathererConfigs()){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExMethodInvocationDataGathererConfig _value:methodInvocationGathererConfigs){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
                 }
             }
             if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
             }
         }
       
@@ -108,11 +124,14 @@ public class ExCustomExitPointDefinition {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITION);
-        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_EXIT_POINT_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        instrumentationPoint.setLevel(level);
         bud.append(instrumentationPoint);
-        for(ExMethodInvocationDataGathererConfig value: methodInvocationGathererConfigs) bud.append(value);
+        for(ExMethodInvocationDataGathererConfig value: methodInvocationGathererConfigs){value.setLevel(level); bud.append(value);}
+        level--;
         return bud.toString();
     }
 

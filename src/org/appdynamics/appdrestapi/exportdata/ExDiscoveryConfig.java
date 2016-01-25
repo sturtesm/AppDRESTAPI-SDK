@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,14 +32,24 @@ import javax.xml.bind.annotation.XmlSeeAlso;
     </naming-config>
 </discovery-config>
  */
-@XmlSeeAlso({ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExcludes.class,ExExclude.class,ExServletRule.class,ExClassName.class})
+@XmlSeeAlso({ExNamingConfig.class,ExExcludes.class})
 public class ExDiscoveryConfig {
     private String discoveryResolution;
     private boolean discoveryConfigEnabled;
     private ExExcludes excludes;
     private ExNamingConfig namingConfig;
+    private int level=7;
     
     public ExDiscoveryConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.EXCLUDES)
     public ExExcludes getExcludes() {
@@ -81,21 +92,23 @@ public class ExDiscoveryConfig {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_CONFIG);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_CONFIG);
         
         if(!discoveryResolution.equals(obj.discoveryResolution)){
-            bud.append(AppExportS.L3_1).append(AppExportS.DISCOVERY_RESOLUTION);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryResolution);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDiscoveryResolution());
+            bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_RESOLUTION);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryResolution);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDiscoveryResolution());
         }
         
         if(discoveryConfigEnabled != obj.isDiscoveryConfigEnabled()){
-            bud.append(AppExportS.L3_1).append(AppExportS.DISCOVERY_CONFIG_ENABLED);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryConfigEnabled);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryConfigEnabled());
+            bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_CONFIG_ENABLED);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryConfigEnabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryConfigEnabled());
         }
         
+        excludes.setLevel(level);
         bud.append(excludes.whatIsDifferent(obj.getExcludes()));
+        namingConfig.setLevel(level);
         bud.append(namingConfig.whatIsDifferent(obj.getNamingConfig()));
         
         return bud.toString();
@@ -104,12 +117,16 @@ public class ExDiscoveryConfig {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.DISCOVERY_CONFIG);
-        bud.append(AppExportS.L4).append(AppExportS.DISCOVERY_RESOLUTION).append(AppExportS.VE).append(discoveryResolution);
-        bud.append(AppExportS.L4).append(AppExportS.DISCOVERY_CONFIG_ENABLED).append(AppExportS.VE).append(discoveryConfigEnabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_RESOLUTION).append(AppExportS.VE).append(discoveryResolution);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_CONFIG_ENABLED).append(AppExportS.VE).append(discoveryConfigEnabled);
         
-        bud.append(excludes.toString());
+        excludes.setLevel(level);
+        bud.append(excludes);
+        namingConfig.setLevel(level);
         bud.append(namingConfig);
+        level--;
         return bud.toString();
     }
 

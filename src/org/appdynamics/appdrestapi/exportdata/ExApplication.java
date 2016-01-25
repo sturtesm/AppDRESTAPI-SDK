@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlRootElement(name=AppExportS.APPLICATION)
 @XmlSeeAlso({ExConfiguration.class,ExDataGathererConfigs.class,ExApplicationComponents.class,
-    ExBusinessTransactionGroup.class,ExEntryMatchPointConfigurations.class,
+    ExBusinessTransactionGroups.class,ExEntryMatchPointConfigurations.class,
     ExBackendMatchPointConfigurations.class,ExMetricBaselines.class,
     ExInfoPointGathererConfigs.class,ExTasks.class,ExWorkflows.class,ExAgentConfigurations.class,
     ExEumCloudConfig.class,ExHealthRules.class})
@@ -35,12 +36,13 @@ public class ExApplication {
     private String description;
     private String envProperties;
     private String controllerVersion;
+    private int level=1;
     
     
     private ExConfiguration configuration;
     private ExDataGathererConfigs dataGathererConfigs;
     private ExApplicationComponents applicationComponents;
-    private ExBusinessTransactionGroup businessTransactionGroups;
+    private ExBusinessTransactionGroups businessTransactionGroups;
     private ExEntryMatchPointConfigurations entryPointMatchConfigurations;
     private ExBackendMatchPointConfigurations backendMatchPointConfigurations;
 
@@ -55,6 +57,17 @@ public class ExApplication {
     
     public ExApplication(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
+    
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
         return name;
@@ -120,11 +133,11 @@ public class ExApplication {
     }
 
     @XmlElement(name=AppExportS.BUSINESS_TRANSACTION_GROUPS)
-    public ExBusinessTransactionGroup getBusinessTransactionGroups() {
+    public ExBusinessTransactionGroups getBusinessTransactionGroups() {
         return businessTransactionGroups;
     }
 
-    public void setBusinessTransactionGroups(ExBusinessTransactionGroup businessTransactionGroups) {
+    public void setBusinessTransactionGroups(ExBusinessTransactionGroups businessTransactionGroups) {
         this.businessTransactionGroups = businessTransactionGroups;
     }
 
@@ -217,24 +230,32 @@ public class ExApplication {
         
         bud.append(AppExportS.APPLICATION);
         
-        bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
             
         if(!name.equals(obj.getName())){     
-            bud.append(AppExportS.L1_1).append(AppExportS.NAME);
-            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(name);
-            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName());    
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.NAME);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(name);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName());    
+            level--;level--;
         }
         
         if(!description.equals(obj.getDescription())){
-            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
-            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
-            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(description);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
+            level--;level--;
         }
         
         if(!controllerVersion.equals(obj.getControllerVersion())){
-            bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
-            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
-            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(description);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
+            level--;level--;
         }
         
         bud.append(configuration.whatIsDifferent(obj.getConfiguration())); //done
@@ -260,9 +281,9 @@ public class ExApplication {
         StringBuilder bud = new StringBuilder();
         try{
             bud.append(AppExportS.APPLICATION);
-            bud.append(AppExportS.L1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-            bud.append(AppExportS.L1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
-            bud.append(AppExportS.L1).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
+            bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+            bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
+            bud.append(AppExportS.I[level]).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
             bud.append(configuration); //done
             bud.append(dataGathererConfigs); //done 10/25
             bud.append(applicationComponents); //done 10/25

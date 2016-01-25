@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExMatchPattern {
     private String matchType,matchPattern;
     private boolean inverse;
+    private int level=4;
     
     public ExMatchPattern(){}
 
@@ -55,15 +56,26 @@ public class ExMatchPattern {
     public void setInverse(boolean inverse) {
         this.inverse = inverse;
     }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
     
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-        bud.append(AppExportS.L2_1).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
-        bud.append(AppExportS.L2_1).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
+        bud.append(AppExportS.I[level]).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
+        level--;
         return bud.toString();
     }
 
@@ -72,27 +84,31 @@ public class ExMatchPattern {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud =new StringBuilder();
-        
+        level++;
         if(!matchType.equals(obj.getMatchType())){
             bud.append(AppExportS.L3).append(AppExportS.MATCH_TYPE);
+            level++;
             bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
             bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+            level--;
         }
         
         if(!matchPattern.equals(obj.getMatchPattern())){
             bud.append(AppExportS.L3).append(AppExportS.MATCH_PATTERN);
+            level++;
             bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
             bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern());
-            
+            level--;
         }
         
         if(inverse != obj.isInverse()){
             bud.append(AppExportS.L3).append(AppExportS.INVERSE);
+            level++;
             bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
             bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());
-            
+            level--;
         }
-        
+        level--;
         return bud.toString();
     }
     

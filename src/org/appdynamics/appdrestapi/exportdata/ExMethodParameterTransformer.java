@@ -8,6 +8,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
@@ -17,8 +18,18 @@ public class ExMethodParameterTransformer {
     private int position;
     private String gathererType;
     private String transformerType;
+    private int level=9;
     
     public ExMethodParameterTransformer(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
@@ -63,44 +74,54 @@ public class ExMethodParameterTransformer {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.METHOD_PARAMETER_TRANSFORMER);
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_PARAMETER_TRANSFORMER);
+        level++;
         if(name != null && !name.equals(obj.getName())){
-            bud.append(AppExportS.L4_1).append(AppExportS.NAME);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(name);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.NAME);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(name);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName()); 
+            level--;
         }
         
         if(position != obj.getPosition()){
-            bud.append(AppExportS.L4_1).append(AppExportS.POSITION);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(position);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPosition()); 
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.POSITION);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(position);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPosition()); 
+            level--;
         }
         
         if(!gathererType.equals(obj.getGathererType())){
-            bud.append(AppExportS.L4_1).append(AppExportS.GATHERER_TYPE);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(gathererType);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getGathererType()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.GATHERER_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(gathererType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getGathererType()); 
+            level--;
         }
         
         if(!transformerType.equals(obj.getTransformerType())){
-            bud.append(AppExportS.L4_1).append(AppExportS.TRANSFORMER_TYPE);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(transformerType);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getTransformerType()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.TRANSFORMER_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(transformerType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getTransformerType()); 
+            level--;
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.METHOD_PARAMETER_TRANSFORMER);
-        bud.append(AppExportS.L4_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L4_1).append(AppExportS.POSITION).append(AppExportS.VE).append(position);
-        bud.append(AppExportS.L4_1).append(AppExportS.GATHERER_TYPE).append(AppExportS.VE).append(gathererType);
-        bud.append(AppExportS.L4_1).append(AppExportS.TRANSFORMER_TYPE).append(AppExportS.VE).append(transformerType);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_PARAMETER_TRANSFORMER);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.POSITION).append(AppExportS.VE).append(position);
+        bud.append(AppExportS.I[level]).append(AppExportS.GATHERER_TYPE).append(AppExportS.VE).append(gathererType);
+        bud.append(AppExportS.I[level]).append(AppExportS.TRANSFORMER_TYPE).append(AppExportS.VE).append(transformerType);
+        level--;
         return bud.toString();
     }
     

@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,13 +36,23 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  */
 
-@XmlSeeAlso({ExServletRule.class,ExClassName.class,ExAspDotNetRule.class})
+@XmlSeeAlso({ExServletRule.class,ExAspDotNetRule.class})
 public class ExExclude {
     private String name;
     private ExServletRule servletRule;
     private ExAspDotNetRule aspDotNetRule;
+    private int level=9;
     
     public ExExclude(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.NAME)
     public String getName() {
@@ -74,30 +85,35 @@ public class ExExclude {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.EXCLUDE);
-        bud.append(AppExportS.L3_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
-        if(servletRule != null){ bud.append(servletRule.whatIsDifferent(obj.getServletRule()));}
+        if(servletRule != null){ servletRule.setLevel(level);bud.append(servletRule.whatIsDifferent(obj.getServletRule()));}
         else{
             if(obj.getServletRule() != null){
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(obj.getServletRule());
+                obj.getServletRule().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getServletRule());
             }
         }
-        if(aspDotNetRule != null){ bud.append(aspDotNetRule.whatIsDifferent(obj.getAspDotNetRule()));}
+        if(aspDotNetRule != null){aspDotNetRule.setLevel(level); bud.append(aspDotNetRule.whatIsDifferent(obj.getAspDotNetRule()));}
         else{
-            if(obj.getAspDotNetRule() != null) bud.append(AppExportS.L4).append(AppExportS.DEST).append(obj.getAspDotNetRule());
+            if(obj.getAspDotNetRule() != null){ obj.getAspDotNetRule().setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.getAspDotNetRule());}
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.EXCLUDE);
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        if(servletRule != null) bud.append(servletRule);
-        if(aspDotNetRule != null) bud.append(aspDotNetRule);
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        if(servletRule != null){servletRule.setLevel(level); bud.append(servletRule);}
+        if(aspDotNetRule != null){aspDotNetRule.setLevel(level); bud.append(aspDotNetRule);}
+        level--;
         return bud.toString();
     }
 

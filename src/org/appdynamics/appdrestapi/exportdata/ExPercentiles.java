@@ -8,40 +8,33 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  *
  * @author gilbert.solorzano
- * L2_1
+ * I[level]
  *     
  */
-/*
-                    <percentile-values>
-                        <percentile-value>
-                            <value>50.0</value>
-                        </percentile-value>
-                        <percentile-value>
-                            <value>65.0</value>
-                        </percentile-value>
-                        <percentile-value>
-                            <value>75.0</value>
-                        </percentile-value>
-                        <percentile-value>
-                            <value>90.0</value>
-                        </percentile-value>
-                        <percentile-value>
-                            <value>95.0</value>
-                        </percentile-value>
-                    </percentile-values>
-                * 
-                * 
- */
+
 @XmlSeeAlso({ExPercentileValues.class,ExPercentileValue.class})
 public class ExPercentiles {
     private boolean enabled;
     private ExPercentileValues percentileValues;
+    private int level=5;
     
     public ExPercentiles(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.ENABLED)
     public boolean isEnabled() {
         return enabled;
@@ -65,9 +58,13 @@ public class ExPercentiles {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.PERCENTILE_CONFIG);
-        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(percentileValues);
+        bud.append(AppExportS.I[level]).append(AppExportS.PERCENTILE_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        if(percentileValues != null){
+            percentileValues.setLevel(level);
+            bud.append(percentileValues);
+        }
         return bud.toString();
     }
 
@@ -75,17 +72,21 @@ public class ExPercentiles {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.PERCENTILE_CONFIG);
+        bud.append(AppExportS.I[level]).append(AppExportS.PERCENTILE_CONFIG);
+        level++;
         if(enabled != obj.isEnabled()){
-            bud.append(AppExportS.L3).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            level--;
+        }
+        if(percentileValues != null){
+            percentileValues.setLevel(level);
+            bud.append(percentileValues.whatIsDifferent(obj.getPercentileValues()));
         }
         
-        bud.append(percentileValues.whatIsDifferent(obj.getPercentileValues()));
-        
-        
+        level--;
         return bud.toString();
     }
     
@@ -119,3 +120,24 @@ public class ExPercentiles {
     
     
 }
+/*
+                    <percentile-values>
+                        <percentile-value>
+                            <value>50.0</value>
+                        </percentile-value>
+                        <percentile-value>
+                            <value>65.0</value>
+                        </percentile-value>
+                        <percentile-value>
+                            <value>75.0</value>
+                        </percentile-value>
+                        <percentile-value>
+                            <value>90.0</value>
+                        </percentile-value>
+                        <percentile-value>
+                            <value>95.0</value>
+                        </percentile-value>
+                    </percentile-values>
+                * 
+                * 
+ */

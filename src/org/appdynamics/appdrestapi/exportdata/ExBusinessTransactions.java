@@ -7,8 +7,9 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
+
 
 import java.util.ArrayList;
 
@@ -19,8 +20,19 @@ import java.util.ArrayList;
 @XmlSeeAlso(ExBusinessTransaction.class)
 public class ExBusinessTransactions {
     private ArrayList<ExBusinessTransaction> businessTransactions=new ArrayList<ExBusinessTransaction>();
+    private int level=4;
+    
     
     public ExBusinessTransactions(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.BUSINESS_TRANSACTION)
     public ArrayList<ExBusinessTransaction> getBusinessTransactions() {
@@ -36,21 +48,24 @@ public class ExBusinessTransactions {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTIONS);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTIONS);
+        level++;
         for(ExBusinessTransaction value:businessTransactions){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExBusinessTransaction _value:obj.getBusinessTransactions()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
             
-            if(!fnd) bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(value);
+            if(!fnd){bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);}
         }
         
         for(ExBusinessTransaction value:obj.getBusinessTransactions()){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExBusinessTransaction _value:businessTransactions){
                 if(value.getName().equals(_value.getName())){
@@ -58,8 +73,10 @@ public class ExBusinessTransactions {
                 }
             }
             
-            if(!fnd) bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(value);
+            if(!fnd){ bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);}
         }
+        
+        level--;
         return bud.toString();
     }
     
@@ -67,8 +84,10 @@ public class ExBusinessTransactions {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTIONS);
-        for(ExBusinessTransaction bt:businessTransactions) bud.append(bt.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTIONS);
+        level++;
+        for(ExBusinessTransaction bt:businessTransactions){ bt.setLevel(level);bud.append(bt);}
+        level--;
         return bud.toString();
     }
 

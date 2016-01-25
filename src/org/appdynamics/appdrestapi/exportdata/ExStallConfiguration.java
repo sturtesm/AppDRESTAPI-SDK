@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,9 +26,20 @@ public class ExStallConfiguration {
     private boolean absolute;
     private int absoluteTimeInSecs;
     private int btSlaViolationMultiplier;
+    private int level=5;
     
     public ExStallConfiguration(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.ABSOLUTE)
     public boolean isAbsolute() {
         return absolute;
@@ -61,39 +72,45 @@ public class ExStallConfiguration {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.STALL_CONFIGURATION);
-        bud.append(AppExportS.L3).append(AppExportS.ABSOLUTE).append(AppExportS.VE).append(absolute);
-        bud.append(AppExportS.L3).append(AppExportS.ABSOLUTE_TIME_IN_SECS).append(AppExportS.VE).append(absoluteTimeInSecs);
-        bud.append(AppExportS.L3).append(AppExportS.BT_SLA_VIOLATION_MULTIPLIER).append(AppExportS.VE).append(btSlaViolationMultiplier);
+        bud.append(AppExportS.I[level]).append(AppExportS.STALL_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ABSOLUTE).append(AppExportS.VE).append(absolute);
+        bud.append(AppExportS.I[level]).append(AppExportS.ABSOLUTE_TIME_IN_SECS).append(AppExportS.VE).append(absoluteTimeInSecs);
+        bud.append(AppExportS.I[level]).append(AppExportS.BT_SLA_VIOLATION_MULTIPLIER).append(AppExportS.VE).append(btSlaViolationMultiplier);
+        level--;
         return bud.toString();
     }
 
     public String whatIsDifferent(ExStallConfiguration obj){
         if(this.equals(obj)) return AppExportS._U;
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.STALL_CONFIGURATION);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.STALL_CONFIGURATION);
+        level++;
         if(absolute != obj.isAbsolute()){
-            bud.append(AppExportS.L3).append(AppExportS.ABSOLUTE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(absolute);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAbsolute());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.ABSOLUTE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(absolute);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAbsolute());
+            level--;
         }
         
         if(absoluteTimeInSecs != obj.getAbsoluteTimeInSecs()){
-            bud.append(AppExportS.L3).append(AppExportS.ABSOLUTE_TIME_IN_SECS);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(absoluteTimeInSecs);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getAbsoluteTimeInSecs());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.ABSOLUTE_TIME_IN_SECS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(absoluteTimeInSecs);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getAbsoluteTimeInSecs());
+            level--;
         }
         
         if(btSlaViolationMultiplier != obj.getBtSlaViolationMultiplier()){
-            bud.append(AppExportS.L3).append(AppExportS.BT_SLA_VIOLATION_MULTIPLIER);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(btSlaViolationMultiplier);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBtSlaViolationMultiplier());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.BT_SLA_VIOLATION_MULTIPLIER);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(btSlaViolationMultiplier);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBtSlaViolationMultiplier());
+            level--;
         }
         
+        level--;
         return bud.toString();
     }
     

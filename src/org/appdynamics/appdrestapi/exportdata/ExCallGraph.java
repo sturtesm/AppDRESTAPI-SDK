@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,15 +22,24 @@ public class ExCallGraph {
     private String includePackages;
     private int minDurationForDBCalls;
     private boolean hotSpotsEnabled;
+    private int level=3;
 
-    public ExCallGraph() {
+    public ExCallGraph() {}
+   
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     @XmlAttribute(name=AppExportS.AGENT_TYPE)
     public String getAgentType() {
         return agentType;
     }
-
+    
     public void setAgentType(String agentType) {
         this.agentType = agentType;
     }
@@ -91,14 +101,15 @@ public class ExCallGraph {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.CALL_GRAPH);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        bud.append(AppExportS.L2).append(AppExportS.SAMPLING_RATE).append(AppExportS.VE).append(samplingRate);
-        bud.append(AppExportS.L2).append(AppExportS.RAW_SQL).append(AppExportS.VE).append(rawSQL);
-        bud.append(AppExportS.L2).append(AppExportS.EXCLUDE_PACKAGES).append(AppExportS.VE).append(excludePackages);
-        bud.append(AppExportS.L2).append(AppExportS.INCLUDE_PACKAGES).append(AppExportS.VE).append(includePackages);
-        bud.append(AppExportS.L2).append(AppExportS.MIN_DURATION_FOR_DB_CALLS).append(AppExportS.VE).append(minDurationForDBCalls);
-        bud.append(AppExportS.L2).append(AppExportS.HOTSPOTS_ENABLED).append(AppExportS.VE).append(hotSpotsEnabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.CALL_GRAPH);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.SAMPLING_RATE).append(AppExportS.VE).append(samplingRate);
+        bud.append(AppExportS.I[level]).append(AppExportS.RAW_SQL).append(AppExportS.VE).append(rawSQL);
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDE_PACKAGES).append(AppExportS.VE).append(excludePackages);
+        bud.append(AppExportS.I[level]).append(AppExportS.INCLUDE_PACKAGES).append(AppExportS.VE).append(includePackages);
+        bud.append(AppExportS.I[level]).append(AppExportS.MIN_DURATION_FOR_DB_CALLS).append(AppExportS.VE).append(minDurationForDBCalls);
+        bud.append(AppExportS.I[level]).append(AppExportS.HOTSPOTS_ENABLED).append(AppExportS.VE).append(hotSpotsEnabled);
+        level--;
         return bud.toString();
     }
 
@@ -108,27 +119,30 @@ public class ExCallGraph {
         if(!agentType.equals(obj.getAgentType())) return AppExportS._U;
         
         StringBuilder bud=new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.CALL_GRAPH);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.CALL_GRAPH);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
         
         if(samplingRate != obj.getSamplingRate()){    
-            bud.append(AppExportS.L2).append(AppExportS.SAMPLING_RATE);
-            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(samplingRate);
-            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSamplingRate());
+            bud.append(AppExportS.I[level]).append(AppExportS.SAMPLING_RATE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(samplingRate);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSamplingRate());
+            level++;
         }
         
         if(rawSQL != obj.getRawSQL()){
-            bud.append(AppExportS.L2).append(AppExportS.RAW_SQL);
-            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(rawSQL);
-            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getRawSQL());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.RAW_SQL);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(rawSQL);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getRawSQL());
+            level--;  
         }
         
         if(!excludePackages.equals(obj.getExcludePackages())){
             String[] srcEx=excludePackages.split("\\|");
             String[] destEx=obj.getExcludePackages().split("\\|");
             
-            bud.append(AppExportS.L2).append(AppExportS.EXCLUDE_PACKAGES);
+            bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDE_PACKAGES);
             
             for(String val: srcEx){
                 boolean fnd=false;
@@ -137,8 +151,9 @@ public class ExCallGraph {
                        fnd=true;
                 }
                 if(!fnd){
-                    bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(val);
-                    
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(val);
+                    level--;
                 }
             }
             
@@ -149,8 +164,9 @@ public class ExCallGraph {
                     fnd=true;
                 }
                 if(!fnd){
-                    bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(val);
-                    
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(val);
+                    level--;
                 }
             }
             
@@ -162,7 +178,7 @@ public class ExCallGraph {
             String[] srcEx=includePackages.split("\\|");
             String[] destEx=obj.getIncludePackages().split("\\|");
             
-            bud.append(AppExportS.L2).append(AppExportS.INCLUDE_PACKAGES);
+            bud.append(AppExportS.I[level]).append(AppExportS.INCLUDE_PACKAGES);
             
             for(String val: srcEx){
                 boolean fnd=false;
@@ -170,7 +186,9 @@ public class ExCallGraph {
                     fnd=true;
                 }
                 if(!fnd){
-                    bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(val);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(val);
+                    level--;
                     
                 }
             }
@@ -181,23 +199,28 @@ public class ExCallGraph {
                     fnd=true;
                 }
                 if(!fnd){
-                    bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(val);
-                    
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(val);
+                    level--;
                 }
             }
             
         }
         
         if(minDurationForDBCalls != obj.getMinDurationForDBCalls()){    
-            bud.append(AppExportS.L2).append(AppExportS.MIN_DURATION_FOR_DB_CALLS);
-            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(minDurationForDBCalls);
-            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMinDurationForDBCalls());
+            bud.append(AppExportS.I[level]).append(AppExportS.MIN_DURATION_FOR_DB_CALLS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(minDurationForDBCalls);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMinDurationForDBCalls());
+            level--;
         }
         
         if(hotSpotsEnabled != obj.isHotSpotsEnabled()){    
-            bud.append(AppExportS.L2).append(AppExportS.HOTSPOTS_ENABLED);
-            bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(hotSpotsEnabled);
-            bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isHotSpotsEnabled());
+            bud.append(AppExportS.I[level]).append(AppExportS.HOTSPOTS_ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(hotSpotsEnabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isHotSpotsEnabled());
+            level--;
         }
         return bud.toString();
     }

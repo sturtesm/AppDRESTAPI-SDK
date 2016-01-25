@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,8 +25,18 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExMatchClass {
     private String type;
     private ExMatchClassName matchClassName;
+    private int level=9;
     
     public ExMatchClass(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.TYPE)
     public String getType() {
@@ -49,11 +60,12 @@ public class ExMatchClass {
         if(this.equals(obj) || !type.equals(obj.getType())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        
-        bud.append(AppExportS.L4).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-    
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_CLASS);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        if(matchClassName != null) matchClassName.setLevel(level);
         bud.append(matchClassName.whatIsDifferent(obj.getMatchClassName()));
-        
+        level--;
         return bud.toString();
     }
     
@@ -61,9 +73,12 @@ public class ExMatchClass {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.MATCH_CLASS);
-        bud.append(AppExportS.L4).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_CLASS);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        if(matchClassName != null) matchClassName.setLevel(level);
         bud.append(matchClassName);
+        level--;
         return bud.toString();
     }
 

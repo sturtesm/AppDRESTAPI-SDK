@@ -6,10 +6,11 @@ package org.appdynamics.appdrestapi.exportdata;
 
 import java.util.Objects;
 import org.appdynamics.appdrestapi.resources.AppExportS;
+import org.appdynamics.appdrestapi.resources.s;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import org.appdynamics.appdrestapi.resources.s;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,15 +35,26 @@ import org.appdynamics.appdrestapi.resources.s;
                     </match-rule>
  * 3
  */
-@XmlSeeAlso({ExPojoRule.class,ExPocoRule.class,ExWebRule.class,ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
+@XmlSeeAlso({ExPojoRule.class,ExPocoRule.class,ExServletRule.class,ExWebRule.class})
 public class ExMatchRule {
     private ExPojoRule pojoRule;
     private ExPocoRule pocoRule;
     private ExServletRule servletRule;
     private ExWebRule webRule;
+    private int level=7;
     
     public ExMatchRule(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.WEB_RULE)
     public ExWebRule getWebRule() {
         return webRule;
@@ -84,34 +96,41 @@ public class ExMatchRule {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.MATCH_RULE);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_RULE);
+        level++;
         if(pojoRule != null && obj.getPojoRule() != null){
+            pojoRule.setLevel(level);
             pojoRule.whatIsDifferent(obj.getPojoRule());
         }
         
         if(servletRule != null && obj.getServletRule()!= null){
+            servletRule.setLevel(level);
             servletRule.whatIsDifferent(obj.getServletRule());
         }
         
         if(pocoRule != null && obj.getPocoRule() != null){
+            pocoRule.setLevel(level);
             pocoRule.whatIsDifferent(obj.getPocoRule());
         }
         
         if(webRule != null && obj.getWebRule() != null){
+            webRule.setLevel(level);
             webRule.whatIsDifferent(obj.getWebRule());
         }
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.MATCH_RULE);
-        if(pojoRule != null) bud.append(pojoRule);
-        if(pocoRule != null) bud.append(pocoRule);
-        if(servletRule != null) bud.append(servletRule);
-        if(webRule != null) bud.append(webRule);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_RULE);
+        level++;
+        if(pojoRule != null) {pojoRule.setLevel(level);bud.append(pojoRule);}
+        if(pocoRule != null) {pocoRule.setLevel(level);bud.append(pocoRule);}
+        if(servletRule != null){servletRule.setLevel(level); bud.append(servletRule);}
+        if(webRule != null){ webRule.setLevel(level);bud.append(webRule);}
+        level--;
         return bud.toString();
     }
 
@@ -152,9 +171,9 @@ public class ExMatchRule {
     
     public String toXML(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.XOpen(s.MATCH_RULE));
+        bud.append(AppExportS.I[level]).append(AppExportS.XOpen(s.MATCH_RULE));
         bud.append(servletRule.toXML());
-        bud.append(AppExportS.L2).append(AppExportS.XClose(s.MATCH_RULE));
+        bud.append(AppExportS.I[level]).append(AppExportS.XClose(s.MATCH_RULE));
         return bud.toString();
     }
     

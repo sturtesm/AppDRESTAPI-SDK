@@ -6,7 +6,7 @@ package org.appdynamics.appdrestapi.exportdata;
 
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.XmlAttribute;
 
@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExMinuteFrequency {
     private long value;
     private boolean enabled;
+    private int level=5;
     
     public ExMinuteFrequency(){}
 
@@ -42,14 +43,25 @@ public class ExMinuteFrequency {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
     
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.MINUTE_FREQUENCY).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.MINUTE_FREQUENCY).append(AppExportS.VE).append(value);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        level --;
         return bud.toString();
     }
     
@@ -58,20 +70,24 @@ public class ExMinuteFrequency {
         
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.MINUTE_FREQUENCY);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.MINUTE_FREQUENCY);
+        level++;
         if(value != obj.getValue()){
-            bud.append(AppExportS.L3).append(AppExportS.VALUE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(value);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+            bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+            level--;
         }
         
         if(enabled != obj.isEnabled()){
-            bud.append(AppExportS.L3).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+            level--;
         }
-        
+        level--;
         return bud.toString();
     }
 

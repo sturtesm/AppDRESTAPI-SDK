@@ -7,6 +7,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -17,8 +18,18 @@ import java.util.ArrayList;
 @XmlSeeAlso({ExBackendIdentityOption.class,ExNamingOptions.class,ExNamingActions.class,ExNameValue.class})
 public class ExBackendIdentityOptions {
     private ArrayList<ExBackendIdentityOption> backendIdentityOption=new ArrayList<ExBackendIdentityOption>();
+    private int level=7;
     
     public ExBackendIdentityOptions(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.BACKEND_IDENTITY_OPTION)
     public ArrayList<ExBackendIdentityOption> getBackendIdentityOption() {
@@ -34,9 +45,10 @@ public class ExBackendIdentityOptions {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.BACKEND_IDENTITY_OPTIONS);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_IDENTITY_OPTIONS);
+        level++;
         for(ExBackendIdentityOption value: backendIdentityOption){
+            value.setLevel(level);
             boolean fnd=false;
              for(ExBackendIdentityOption _value: obj.getBackendIdentityOption()){
                  if(value.getName().equals(_value)){
@@ -44,25 +56,29 @@ public class ExBackendIdentityOptions {
                      bud.append(value.whatIsDifferent(_value));
                  }
              }
-             if(!fnd)bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+             if(!fnd)bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
         }
         
         for(ExBackendIdentityOption value: obj.getBackendIdentityOption()){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExBackendIdentityOption _value: backendIdentityOption){
                 if(value.getName().equals(_value.getName())) fnd=true;
             }
-            if(!fnd)bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+            if(!fnd)bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
         }
-
+        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.BACKEND_IDENTITY_OPTIONS);
-        for(ExBackendIdentityOption ops: backendIdentityOption) bud.append(ops.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_IDENTITY_OPTIONS);
+        level++;
+        for(ExBackendIdentityOption ops: backendIdentityOption){ ops.setLevel(level);bud.append(ops);}
+        level--;
         return bud.toString();
     }
 

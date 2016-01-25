@@ -27,6 +27,19 @@ public class AppExportS {
     public static final String L5_1="\n\t\t\t\t\t   ";
     public static final String L6="\n\t\t\t\t\t\t";
     public static final String L6_1="\n\t\t\t\t\t\t   ";
+    public static final String L7="\n\t\t\t\t\t\t\t ";
+    public static final String L7_1="\n\t\t\t\t\t\t\t   ";
+    public static final String L8="\n\t\t\t\t\t\t\t\t ";
+    public static final String L8_1="\n\t\t\t\t\t\t\t\t   ";
+    public static final String L9="\n\t\t\t\t\t\t\t\t\t ";
+    public static final String L9_1="\n\t\t\t\t\t\t\t\t\t   ";
+    public static final String L10="\n\t\t\t\t\t\t\t\t\t\t ";
+    public static final String L10_1="\n\t\t\t\t\t\t\t\t\t\t   ";
+    public static final String L11="\n\t\t\t\t\t\t\t\t\t\t\t ";
+    public static final String L11_1="\n\t\t\t\t\t\t\t\t\t\t\t   ";
+    public static final String L12="\n\t\t\t\t\t\t\t\t\t\t\t\t ";
+    public static final String L12_1="\n\t\t\t\t\t\t\t\t\t\t\t\t   ";
+    public static final String[] I={L0,L1,L1_1,L2,L2_1,L3,L3_1,L4,L4_1,L5,L5_1,L6,L6_1,L7,L7_1,L8,L8_1,L9,L9_1,L10,L10_1,L11,L11_1,L12,L12_1};
     public static final String S4="    ";
     public static final String TRUE="true";
     public static final String FALSE="false";
@@ -140,6 +153,8 @@ public class AppExportS {
     public static final String EUM_BEACON_URL="eum-beacon-url";
     public static final String EUM_JS_URL="eum-js-url";
     public static final String EUM_TARGET_TIERS="eum-target-tiers";
+    public static final String ENABLE_FOR_ANALYTICS="enabled-for-analytics";
+    public static final String ENABLE_FOR_APM="enabled-for-apm";
     
     
     public static final String DATA_GATHERER_CONFIGS="data-gatherer-configs";
@@ -159,6 +174,8 @@ public class AppExportS {
     
     /* Businnes transaction group */
     public static final String BUSINESS_TRANSACTION_GROUPS="business-transaction-groups";
+    public static final String BUSINESS_TRANSACTION_GROUP="business-transaction-group";
+    public static final String MEMBERS="members";
     /* Need application component */
     public static final String APPLICATION_COMPONENTS="application-components";
     
@@ -173,10 +190,15 @@ public class AppExportS {
     public static final String DISCOVERY_CONFIG="discovery-config";
     public static final String DISCOVERY_CONFIG_ENABLED="discovery-config-enabled";
     public static final String DISCOVERY_RESOLUTION="discovery-resolution";
+    public static final String IDENTITY_NAME="identity-name";
+    public static final String BACKEND_DISCOVERY_CONDITIONS="backend-discovery-conditions";
+    public static final String BACKEND_DISCOVERY_CONDITION="backend-discovery-condition";
+    public static final String APPLICATION_COMPONENT_NODE="application-component-node";
+    public static final String APPLICATION_COMPONENT_NODES="application-component-nodes";
     
     
     
-    public static final String BACKEND_MATCH_POINT_CONFIGURATIONS="backend-match-point-configurations";
+    public static final String BACKEND_MATCH_POINT_CONFIGURATIONS="backend-match-point-configurations"; 
     public static final String BACKEND_MATCH_POINT_CONFIGURATION="backend-match-point-configuration";
     public static final String CUSTOM_EXIT_POINT_DEFINITION="custom-exit-point-definition";
     public static final String BACKEND_DISCOVERY_CONFIGURATIONS="backend-discovery-configurations";
@@ -203,6 +225,7 @@ public class AppExportS {
     
     /* Need to create info points  */
     public static final String INFO_POINT_GATHERER_CONFIGS="info-point-gatherer-configs";
+    public static final String INFO_POINT_GATHERER_CONFIG="info-point-gatherer-config";
     
     /* Need to create tasks */
     public static final String TASKS="tasks";
@@ -307,6 +330,8 @@ public class AppExportS {
     public static final String ROLLUP_TYPE="rollup-type";
     public static final String INSTRUMENTATION_POINT="instrumentation-point";
     public static final String APPLY_TO_ALL_BTS="apply-to-all-bts";
+    public static final String MATCH_CONDITION="match-condition";
+    public static final String TRANSFORMER_VALUE="transformer-value";
    
     
     
@@ -400,10 +425,10 @@ public class AppExportS {
     public static final String NODE_TYPES="node-types";
     public static final String NODE_TYPE="node-type";
     public static final String COMPONENTS="components";
-    public static final String APPLICATION_COMPONENT_NODE="application-component-node";
     public static final String NODES="nodes";
     public static final String ADD_TYPES="add-types";
     public static final String ADD_TYPE="add-type";
+    public static final String NODE_UNIQUE_LOCAL_ID="node-unique-local-id";
    
     /*
      *  Object Import Export

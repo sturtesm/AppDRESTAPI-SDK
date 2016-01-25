@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -16,38 +17,9 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
-/*
-        <application-component>
-            <name>2ndTier</name>
-            <description/>
-            <component-type>Application Server</component-type>
-            <dynamic-scaling-enabled>false</dynamic-scaling-enabled>
-            <entry-match-point-configurations/>
-            <business-transactions/>
-            <memory-configuration>
-                <size-polling-interval>10</size-polling-interval>
-                <enable-cache-framework-size-monitoring>true</enable-cache-framework-size-monitoring>
-                <enable-memory-monitoring>true</enable-memory-monitoring>
-            </memory-configuration>
-            <instance-tracker-configurations/>
-            <cache-configuration>
-                <disable-cache-monitoring>false</disable-cache-monitoring>
-                <disable-standard-cache-frameworks>false</disable-standard-cache-frameworks>
-            </cache-configuration>
-            <custom-cache-configurations/>
-            <backend-match-point-configurations/>
-            <agent-configurations/>
-            <application-component-nodes>
-                <application-component-node>
-                    <name>2ndTierNode1</name>
-                    <node-unique-local-id>2ndTierNode1</node-unique-local-id>
-                    <node-type>Other</node-type>
-                </application-component-node>
-            </application-component-nodes>
-        </application-component>
- * 
- */
-@XmlSeeAlso({ExEntryMatchPointConfigurations.class,ExBusinessTransactions.class,ExMemoryConfiguration.class,ExCacheConfiguration.class,ExBackendMatchPointConfigurations.class})
+
+@XmlSeeAlso({ExEntryMatchPointConfigurations.class,ExBusinessTransactions.class,ExMemoryConfiguration.class,
+    ExCacheConfiguration.class,ExBackendMatchPointConfigurations.class,ExAgentConfigurations.class, ExApplicationComponentNodes.class})
 
 public class ExApplicationComponent {
     private String name;
@@ -60,11 +32,41 @@ public class ExApplicationComponent {
     private Object instanceTrackerConfiguration;
     private ExCacheConfiguration cacheConfiguration;
     private Object customCacheConfigurations;
-    private ExBackendMatchPointConfigurations backendMatchPointConfiguration;
-    private Object agentConfigurations;
+    private ExBackendMatchPointConfigurations backendMatchPointConfigurations;
+    private ExAgentConfigurations agentConfigurations;
+    private ExApplicationComponentNodes nodes;
+    private int level=3;
     
     public ExApplicationComponent(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @XmlElement(name=AppExportS.BACKEND_MATCH_POINT_CONFIGURATIONS)
+    public ExBackendMatchPointConfigurations getBackendMatchPointConfigurations() {
+        return backendMatchPointConfigurations;
+    }
+
+    public void setBackendMatchPointConfigurations(ExBackendMatchPointConfigurations backendMatchPointConfigurations) {
+        this.backendMatchPointConfigurations = backendMatchPointConfigurations;
+    }
+
+    @XmlElement(name=AppExportS.APPLICATION_COMPONENT_NODES)
+    public ExApplicationComponentNodes getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(ExApplicationComponentNodes nodes) {
+        this.nodes = nodes;
+    }
+
+    
     @XmlElement(name=AppExportS.DYNAMIC_SCALING_ENABLED)
     public String getDynamicScalingEnabled() {
         return dynamicScalingEnabled;
@@ -158,19 +160,19 @@ public class ExApplicationComponent {
 
     @XmlElement(name=AppExportS.BACKEND_MATCH_POINT_CONFIGURATIONS)
     public ExBackendMatchPointConfigurations getBackendMatchPointConfiguration() {
-        return backendMatchPointConfiguration;
+        return backendMatchPointConfigurations;
     }
 
     public void setBackendMatchPointConfiguration(ExBackendMatchPointConfigurations backendMatchPointConfiguration) {
-        this.backendMatchPointConfiguration = backendMatchPointConfiguration;
+        this.backendMatchPointConfigurations = backendMatchPointConfiguration;
     }
 
     @XmlElement(name=AppExportS.AGENT_CONFIGURATIONS)
-    public Object getAgentConfigurations() {
+    public ExAgentConfigurations getAgentConfigurations() {
         return agentConfigurations;
     }
 
-    public void setAgentConfigurations(Object agentConfigurations) {
+    public void setAgentConfigurations(ExAgentConfigurations agentConfigurations) {
         this.agentConfigurations = agentConfigurations;
     }
     
@@ -182,7 +184,7 @@ public class ExApplicationComponent {
     private Object instanceTrackerConfiguration;
     private ExCacheConfiguration cacheConfiguration;
     private Object customCacheConfigurations;
-    private ExBackendMatchPointConfigurations backendMatchPointConfiguration;
+    private ExBackendMatchPointConfigurations backendMatchPointConfigurations;
     private Object agentConfigurations;
     */
     public String whatIsDifferent(ExApplicationComponent obj){
@@ -190,26 +192,26 @@ public class ExApplicationComponent {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_COMPONENT);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(description != null && !description.equals(obj.getDescription())){
-                bud.append(AppExportS.L2).append(AppExportS.DESCRIPTION);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(description);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());
+                bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(description);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());
         }
         
         if(componentType != null && !componentType.equals(obj.getComponentType()) ){
-                bud.append(AppExportS.L2).append(AppExportS.COMPONENT_TYPE);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(componentType);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getComponentType());
+                bud.append(AppExportS.I[level]).append(AppExportS.COMPONENT_TYPE);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(componentType);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getComponentType());
             
         }
         
         if(dynamicScalingEnabled != null && !dynamicScalingEnabled.equals(obj.getDynamicScalingEnabled()) ){
-                bud.append(AppExportS.L2).append(AppExportS.DYNAMIC_SCALING_ENABLED);
-                bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(dynamicScalingEnabled);
-                bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDynamicScalingEnabled());
+                bud.append(AppExportS.I[level]).append(AppExportS.DYNAMIC_SCALING_ENABLED);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(dynamicScalingEnabled);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDynamicScalingEnabled());
             
         }
         
@@ -219,7 +221,7 @@ public class ExApplicationComponent {
         //bud.append(instanceTrackerConfiguration
         bud.append(cacheConfiguration.whatIsDifferent(obj.getCacheConfiguration()));
         // customCacheConfigurations
-        // backendMatchPointConfiguration
+        // backendMatchPointConfigurations
         // agentConfigurations
         
         return bud.toString();
@@ -228,25 +230,39 @@ public class ExApplicationComponent {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.APPLICATION_COMPONENT);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
-        bud.append(AppExportS.L2).append(AppExportS.COMPONENT_TYPE).append(AppExportS.VE).append(componentType);
-        bud.append(AppExportS.L2).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS).append(AppExportS.VE).append(entryMatchPointConfigurations);
-        bud.append(businessTransactions);
-        bud.append(memoryConfiguration);
+        
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
+        bud.append(AppExportS.I[level]).append(AppExportS.COMPONENT_TYPE).append(AppExportS.VE).append(componentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS).append(AppExportS.VE).append(entryMatchPointConfigurations);
+        
+        
+        if(businessTransactions != null){businessTransactions.setLevel(level); bud.append(businessTransactions);}
+        
+        if(memoryConfiguration != null) {memoryConfiguration.setLevel(level);bud.append(memoryConfiguration);}
+        
           //Didn't have entries
-        bud.append(AppExportS.L2).append(AppExportS.INSTANCE_TRACKER_CONFIGURATIONS).append(AppExportS.VE).append(instanceTrackerConfiguration);
-        bud.append(cacheConfiguration);
+        bud.append(AppExportS.I[level]).append(AppExportS.INSTANCE_TRACKER_CONFIGURATIONS).append(AppExportS.VE).append(instanceTrackerConfiguration);
+        if(cacheConfiguration != null) {cacheConfiguration.setLevel(level);bud.append(cacheConfiguration);}
           //Didn't have entries
-        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_CACHE_CONFIGURATIONS).append(AppExportS.VE).append(customCacheConfigurations);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_CACHE_CONFIGURATIONS).append(AppExportS.VE).append(customCacheConfigurations);
           //Didn't have entries
-        bud.append(backendMatchPointConfiguration);
+        if(backendMatchPointConfigurations != null) {backendMatchPointConfigurations.setLevel(level); bud.append(backendMatchPointConfigurations);}
+        
          //Didn't have entries
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_CONFIGURATIONS).append(AppExportS.VE).append(agentConfigurations);
+        if(agentConfigurations != null){
+            agentConfigurations.setLevel(level);
+            bud.append(agentConfigurations);
+        }
         
+        if(nodes != null){
+            nodes.setLevel(level);
+            bud.append(nodes);
+        }
         
-        
+        level--;
         return bud.toString();
     }
 
@@ -263,7 +279,7 @@ public class ExApplicationComponent {
         hash = 79 * hash + (this.instanceTrackerConfiguration != null ? this.instanceTrackerConfiguration.hashCode() : 0);
         hash = 79 * hash + (this.cacheConfiguration != null ? this.cacheConfiguration.hashCode() : 0);
         hash = 79 * hash + (this.customCacheConfigurations != null ? this.customCacheConfigurations.hashCode() : 0);
-        hash = 79 * hash + (this.backendMatchPointConfiguration != null ? this.backendMatchPointConfiguration.hashCode() : 0);
+        hash = 79 * hash + (this.backendMatchPointConfigurations != null ? this.backendMatchPointConfigurations.hashCode() : 0);
         hash = 79 * hash + (this.agentConfigurations != null ? this.agentConfigurations.hashCode() : 0);
         return hash;
     }
@@ -307,7 +323,7 @@ public class ExApplicationComponent {
         if (this.customCacheConfigurations != other.customCacheConfigurations && (this.customCacheConfigurations == null || !this.customCacheConfigurations.equals(other.customCacheConfigurations))) {
             return false;
         }
-        if (this.backendMatchPointConfiguration != other.backendMatchPointConfiguration && (this.backendMatchPointConfiguration == null || !this.backendMatchPointConfiguration.equals(other.backendMatchPointConfiguration))) {
+        if (this.backendMatchPointConfigurations != other.backendMatchPointConfigurations && (this.backendMatchPointConfigurations == null || !this.backendMatchPointConfigurations.equals(other.backendMatchPointConfigurations))) {
             return false;
         }
         if (this.agentConfigurations != other.agentConfigurations && (this.agentConfigurations == null || !this.agentConfigurations.equals(other.agentConfigurations))) {
@@ -320,3 +336,36 @@ public class ExApplicationComponent {
     
     
 }
+
+
+/*
+        <application-component>
+            <name>2ndTier</name>
+            <description/>
+            <component-type>Application Server</component-type>
+            <dynamic-scaling-enabled>false</dynamic-scaling-enabled>
+            <entry-match-point-configurations/>
+            <business-transactions/>
+            <memory-configuration>
+                <size-polling-interval>10</size-polling-interval>
+                <enable-cache-framework-size-monitoring>true</enable-cache-framework-size-monitoring>
+                <enable-memory-monitoring>true</enable-memory-monitoring>
+            </memory-configuration>
+            <instance-tracker-configurations/>
+            <cache-configuration>
+                <disable-cache-monitoring>false</disable-cache-monitoring>
+                <disable-standard-cache-frameworks>false</disable-standard-cache-frameworks>
+            </cache-configuration>
+            <custom-cache-configurations/>
+            <backend-match-point-configurations/>
+            <agent-configurations/>
+            <application-component-nodes>
+                <application-component-node>
+                    <name>2ndTierNode1</name>
+                    <node-unique-local-id>2ndTierNode1</node-unique-local-id>
+                    <node-type>Other</node-type>
+                </application-component-node>
+            </application-component-nodes>
+        </application-component>
+ * 
+ */

@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,9 +28,21 @@ public class ExSqlDataGathererConfig {
     private String matchPattern;
     private String matchType;
     private boolean inverse;
+    private boolean enableForAnalytics;
+    private boolean enableForAPM;
     private String name;
+    private int level=3;
     
     public ExSqlDataGathererConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.ATTACH_TO_NEW_BTS)
     public boolean isAttachToNewBTS() {
@@ -75,6 +88,26 @@ public class ExSqlDataGathererConfig {
     public void setMatchType(String matchType) {
         this.matchType = matchType;
     }
+
+    @XmlElement(name=AppExportS.ENABLE_FOR_ANALYTICS)
+    public boolean isEnableForAnalytics() {
+        return enableForAnalytics;
+    }
+
+    public void setEnableForAnalytics(boolean enableForAnalytics) {
+        this.enableForAnalytics = enableForAnalytics;
+    }
+
+    @XmlElement(name=AppExportS.ENABLE_FOR_APM)
+    public boolean isEnableForAPM() {
+        return enableForAPM;
+    }
+
+    public void setEnableForAPM(boolean enableForAPM) {
+        this.enableForAPM = enableForAPM;
+    }
+    
+    
     
      public String whatIsDifferent(ExSqlDataGathererConfig obj){
         if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
@@ -82,46 +115,75 @@ public class ExSqlDataGathererConfig {
         StringBuilder bud = new StringBuilder();
         
         
-        bud.append(AppExportS.L1_1).append(AppExportS.SQL_DATA_GATHERER_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.SQL_DATA_GATHERER_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
             
         if(attachToNewBTS != obj.isAttachToNewBTS()){     
-            bud.append(AppExportS.L2).append(AppExportS.ATTACH_TO_NEW_BTS);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(attachToNewBTS);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAttachToNewBTS());    
+            bud.append(AppExportS.I[level]).append(AppExportS.ATTACH_TO_NEW_BTS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(attachToNewBTS);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAttachToNewBTS());    
+            level--;
         }
         
         if(!matchPattern.equals(obj.getMatchPattern())){
-            bud.append(AppExportS.L1_1).append(AppExportS.MATCH_PATTERN);
-            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
-            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern());    
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern());    
+            level--;
         }
         
         if(!matchType.equals(obj.getMatchType())){
-            bud.append(AppExportS.L1_1).append(AppExportS.MATCH_TYPE);
-            bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
-            bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());    
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());    
+            level--;
         }
         
         if(inverse != obj.isInverse()){     
-            bud.append(AppExportS.L2).append(AppExportS.INVERSE);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());    
+            bud.append(AppExportS.I[level]).append(AppExportS.INVERSE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());    
+            level--;
         }
         
+        if(enableForAPM != obj.isEnableForAPM()){     
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_FOR_APM);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enableForAPM);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableForAPM());    
+            level--;
+        }
+        
+        if(enableForAnalytics != obj.isEnableForAnalytics()){     
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_FOR_ANALYTICS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enableForAnalytics);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnableForAnalytics());    
+            level--;
+        }
+        
+        level--;
         return bud.toString();
      }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.SQL_DATA_GATHERER_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2).append(AppExportS.ATTACH_TO_NEW_BTS).append(AppExportS.VE).append(attachToNewBTS);
-        bud.append(AppExportS.L2).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-        bud.append(AppExportS.L2).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
-        bud.append(AppExportS.L2).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.SQL_DATA_GATHERER_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.ATTACH_TO_NEW_BTS).append(AppExportS.VE).append(attachToNewBTS);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
+        bud.append(AppExportS.I[level]).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_FOR_APM).append(AppExportS.VE).append(enableForAPM);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_FOR_ANALYTICS).append(AppExportS.VE).append(enableForAnalytics);
+        level--;
         return bud.toString();
     }
 

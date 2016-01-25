@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExEpm {
     private ExCritical critical;
     private ExWarning warning;
+    private int level=4;
 
     
     public ExEpm(){}

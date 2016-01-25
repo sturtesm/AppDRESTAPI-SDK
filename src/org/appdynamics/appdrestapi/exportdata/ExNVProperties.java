@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,9 +26,20 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso(ExNVProperty.class)
 public class ExNVProperties {
     private ArrayList<ExNVProperty> properties=new ArrayList<ExNVProperty>();
+    private int level=5;
     
     public ExNVProperties(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.PROPERTY)
     public ArrayList<ExNVProperty> getProperties() {
         return properties;
@@ -42,9 +54,10 @@ public class ExNVProperties {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3_1).append(AppExportS.PROPERTIES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTIES);
+        level++;
         for(ExNVProperty value:properties){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExNVProperty _value:obj.getProperties()){
                 if(value.getName().equals(_value.getName())){
@@ -53,11 +66,12 @@ public class ExNVProperties {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
             }
         }
         
         for(ExNVProperty value:obj.getProperties()){
+                value.setLevel(level);
             boolean fnd=false;
             for(ExNVProperty _value:properties){
                 if(value.getName().equals(_value.getName())){
@@ -65,18 +79,20 @@ public class ExNVProperties {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
-    
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.PROPERTIES);
-        for(ExNVProperty prop:properties)bud.append(prop);
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTIES);
+        level++;
+        for(ExNVProperty prop:properties){prop.setLevel(level);bud.append(prop);}
+        level--;
         return bud.toString();
     }
 

@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -65,9 +65,19 @@ public class ExCustomLoggerDefinition {
     private String name;
     private boolean disable;
     private ExPojoMethodDefinition pojoMethod;
+    private int level=4;
     
     public ExCustomLoggerDefinition(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
         return name;
@@ -99,13 +109,15 @@ public class ExCustomLoggerDefinition {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
-        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2_1).append(AppExportS.DISABLE).append(AppExportS.VE).append(disable);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISABLE).append(AppExportS.VE).append(disable);
         if(pojoMethod != null){
-            pojoMethod.setLevel(2);
+            pojoMethod.setLevel(level);
             bud.append(pojoMethod);
         }
+        level--;
         return bud.toString();
     }
     
@@ -114,20 +126,22 @@ public class ExCustomLoggerDefinition {
         
         if(this.equals(obj)) return AppExportS._U;
         
-        bud.append(AppExportS.L2_1).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
-        bud.append(AppExportS.L3).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.CUSTOM_LOGGER_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!name.equals(obj.getName())) return "";
         
         if(disable != obj.isDisable()){
-            bud.append(AppExportS.L3).append(AppExportS.DISABLE);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(disable);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisable());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.DISABLE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(disable);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisable());
+            level--;
         }
-        
+        pojoMethod.setLevel(level);
         bud.append(pojoMethod.whatIsDifferent(obj.getPojoMethod()));
-        
+        level--;
         return bud.toString();
     }
     

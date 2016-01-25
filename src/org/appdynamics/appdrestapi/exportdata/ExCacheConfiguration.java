@@ -7,6 +7,8 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  *
  * @author gilbert.solorzano
@@ -22,9 +24,18 @@ import javax.xml.bind.annotation.XmlElement;
 public class ExCacheConfiguration {
     private boolean disableCacheMonitoring;
     private boolean disableStandardCacheFrameworks;
-    
+    private int level=4;
     
     public ExCacheConfiguration(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.DISABLE_CACHE_MONITORING)
     public boolean isDisableCacheMonitoring() {
@@ -50,31 +61,37 @@ public class ExCacheConfiguration {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.CACHE_CONFIGURATION);
-
+        bud.append(AppExportS.I[level]).append(AppExportS.CACHE_CONFIGURATION);
+        level++;
         
         if(disableCacheMonitoring != obj.isDisableCacheMonitoring()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(disableCacheMonitoring);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisableCacheMonitoring());    
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_CACHE_FRAMEWORK_SIZE_MONITORING);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(disableCacheMonitoring);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisableCacheMonitoring());  
+            level--;
         }
         
         if(disableStandardCacheFrameworks != obj.isDisableStandardCacheFrameworks()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLE_MEMORY_MONITORING);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(disableStandardCacheFrameworks);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisableStandardCacheFrameworks());    
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLE_MEMORY_MONITORING);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(disableStandardCacheFrameworks);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDisableStandardCacheFrameworks());    
+            level--;
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.CACHE_CONFIGURATION);
-        bud.append(AppExportS.L4).append(AppExportS.DISABLE_CACHE_MONITORING).append(AppExportS.VE).append(disableCacheMonitoring);
-        bud.append(AppExportS.L4).append(AppExportS.DISABLE_STANDARD_CACHE_FRAMEWORKS).append(AppExportS.VE).append(disableStandardCacheFrameworks);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.CACHE_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_CACHE_MONITORING).append(AppExportS.VE).append(disableCacheMonitoring);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISABLE_STANDARD_CACHE_FRAMEWORKS).append(AppExportS.VE).append(disableStandardCacheFrameworks);
+        level--;
         return bud.toString();
     }
 

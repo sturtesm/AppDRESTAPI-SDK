@@ -8,7 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -19,8 +19,18 @@ import java.util.ArrayList;
 @XmlSeeAlso(ExNameValue.class)
 public class ExNameValues {
     private ArrayList<ExNameValue> nameValues=new ArrayList<ExNameValue>();
+    private int level=8;
     
     public ExNameValues(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.NAME_VALUE)
     public ArrayList<ExNameValue> getNameValues() {
@@ -36,18 +46,19 @@ public class ExNameValues {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.NAME_VALUES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME_VALUES);
+        level++;
         for(ExNameValue value:nameValues){
             boolean fnd=false;
             for(ExNameValue _value:obj.getNameValues()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
             
-            if(!fnd) bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+            if(!fnd){ value.setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);}
         }
         
         for(ExNameValue value:obj.getNameValues()){
@@ -58,16 +69,19 @@ public class ExNameValues {
                 }
             }
             
-            if(!fnd) bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+            if(!fnd){ value.setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);}
         }
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.NAME_VALUES);
-        for(ExNameValue nv:nameValues) bud.append(nv.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME_VALUES);
+        level++;
+        for(ExNameValue nv:nameValues){nv.setLevel(level); bud.append(nv);}
+        level--;
         return bud.toString();
     }
 

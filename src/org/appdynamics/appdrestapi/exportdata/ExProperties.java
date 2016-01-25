@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -28,8 +29,20 @@ import java.util.ArrayList;
 @XmlSeeAlso(ExProperty.class)
 public class ExProperties {
     private ArrayList<ExProperty> properties=new ArrayList<ExProperty>();
+    private int level=3;
     
     public ExProperties(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
 
     @XmlElement(name=AppExportS.PROPERTY)
     public ArrayList<ExProperty> getProperties() {
@@ -44,8 +57,10 @@ public class ExProperties {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.PROPERTIES);
-        for(ExProperty prop:properties) bud.append(prop.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTIES);
+        level++;
+        for(ExProperty prop:properties){ prop.setLevel(level);bud.append(prop);}
+        level--;
         return bud.toString();
     }
     
@@ -53,7 +68,7 @@ public class ExProperties {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.PROPERTIES);
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTIES);
         
         for(ExProperty prop:properties){
             boolean fnd=false;
@@ -61,16 +76,20 @@ public class ExProperties {
                 if(prop.getPropertyDefinition().equals(prop1.getPropertyDefinition())){
                     fnd=true;
                     if(!prop.getStringValue().equals(prop1.getStringValue())){  
-                        bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
-                        bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(prop.getStringValue());
-                        bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(prop1.getStringValue());
+                        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
+                        level++;
+                        bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(prop.getStringValue());
+                        bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(prop1.getStringValue());
+                        level--;
                     }
                 }
             }
             
             if(!fnd){
-                        bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
-                        bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(prop.getStringValue());
+                        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
+                        level++;
+                        bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(prop.getStringValue());
+                        level--;
             }
             
         }
@@ -84,10 +103,13 @@ public class ExProperties {
             }
             
             if(!fnd){
-                        bud.append(AppExportS.L3).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
-                        bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(prop.getStringValue()); 
+                        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(prop.getPropertyDefinition());
+                        level++;
+                        bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(prop.getStringValue()); 
+                        level--;
             }
         }
+        level--;
         return bud.toString();
     }
 

@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -22,9 +23,20 @@ import javax.xml.bind.annotation.XmlElement;
 public class ExProperty {
     private String propertyDefinition;
     private String stringValue;
+    private int level=4;
     
     public ExProperty(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.PROPERTY_DEFINITION)
     public String getPropertyDefinition() {
         return propertyDefinition;
@@ -47,29 +59,35 @@ public class ExProperty {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.PROPERTY);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY);
+        level++;
         if(!propertyDefinition.equals(obj.getPropertyDefinition())){
-            bud.append(AppExportS.L3_1).append(AppExportS.PROPERTY_DEFINITION);
-            bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(propertyDefinition);
-            bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPropertyDefinition());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY_DEFINITION);
+        level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(propertyDefinition);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPropertyDefinition());
+            level--;
         }
         if(!stringValue.equals(obj.getStringValue())){
-            bud.append(AppExportS.L3_1).append(AppExportS.STRING_VALUE);
-            bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(stringValue);
-            bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getStringValue());
+            bud.append(AppExportS.I[level]).append(AppExportS.STRING_VALUE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(stringValue);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getStringValue());
+            level--;
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.PROPERTY);
-        bud.append(AppExportS.L3_1).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(propertyDefinition);
-        bud.append(AppExportS.L3_1).append(AppExportS.STRING_VALUE).append(AppExportS.VE).append(stringValue);
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTY_DEFINITION).append(AppExportS.VE).append(propertyDefinition);
+        bud.append(AppExportS.I[level]).append(AppExportS.STRING_VALUE).append(AppExportS.VE).append(stringValue);
+        level--;
         return bud.toString();
     }
 

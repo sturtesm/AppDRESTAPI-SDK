@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,104 @@ import java.util.ArrayList;
  * 
  * 
  */
+
+
+@XmlSeeAlso(ExApplicationComponent.class)
+public class ExApplicationComponents {
+    private ArrayList<ExApplicationComponent> applicationComponents=new ArrayList<ExApplicationComponent>();
+    private int level=2;
+    
+    public ExApplicationComponents(){}
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
+    @XmlElement(name=AppExportS.APPLICATION_COMPONENT)
+    public ArrayList<ExApplicationComponent> getApplicationComponents() {
+        return applicationComponents;
+    }
+
+    public void setApplicationComponents(ArrayList<ExApplicationComponent> applicationComponents) {
+        this.applicationComponents = applicationComponents;
+    }
+    
+    public String whatIsDifferent(ExApplicationComponents obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENTS);
+        level++;
+        for(ExApplicationComponent value:applicationComponents){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExApplicationComponent _value:obj.getApplicationComponents()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            
+            if(!fnd) bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
+        }
+        
+        for(ExApplicationComponent value:obj.getApplicationComponents()){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExApplicationComponent _value:applicationComponents){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            
+            if(!fnd) bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
+        }
+        
+        level--;
+        return bud.toString();
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENTS);
+        level++;
+        for(ExApplicationComponent ap:applicationComponents){ap.setLevel(level); bud.append(ap);}
+        level++;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + (this.applicationComponents != null ? this.applicationComponents.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExApplicationComponents other = (ExApplicationComponents) obj;
+        if (this.applicationComponents != other.applicationComponents && (this.applicationComponents == null || !this.applicationComponents.equals(other.applicationComponents))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+}
+
 /*
  *     <application-components>
         <application-component>
@@ -257,83 +356,3 @@ import java.util.ArrayList;
  * 
  * 
  */
-
-@XmlSeeAlso(ExApplicationComponent.class)
-public class ExApplicationComponents {
-    private ArrayList<ExApplicationComponent> applicationComponents=new ArrayList<ExApplicationComponent>();
-    
-    public ExApplicationComponents(){}
-
-    @XmlElement(name=AppExportS.APPLICATION_COMPONENT)
-    public ArrayList<ExApplicationComponent> getApplicationComponents() {
-        return applicationComponents;
-    }
-
-    public void setApplicationComponents(ArrayList<ExApplicationComponent> applicationComponents) {
-        this.applicationComponents = applicationComponents;
-    }
-    
-    public String whatIsDifferent(ExApplicationComponents obj){
-        if(this.equals(obj)) return AppExportS._U;
-        
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.APPLICATION_COMPONENTS);
-        
-        for(ExApplicationComponent value:applicationComponents){
-            boolean fnd=false;
-            for(ExApplicationComponent _value:obj.getApplicationComponents()){
-                if(value.getName().equals(_value.getName())){
-                    fnd=true;
-                    bud.append(value.whatIsDifferent(_value));
-                }
-            }
-            
-            if(!fnd) bud.append(AppExportS.L2).append(AppExportS.SRC).append(value);
-        }
-        
-        for(ExApplicationComponent value:obj.getApplicationComponents()){
-            boolean fnd=false;
-            for(ExApplicationComponent _value:applicationComponents){
-                if(value.getName().equals(_value.getName())){
-                    fnd=true;
-                }
-            }
-            
-            if(!fnd) bud.append(AppExportS.L2).append(AppExportS.DEST).append(value);
-        }
-        return bud.toString();
-    }
-    
-    @Override
-    public String toString(){
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.APPLICATION_COMPONENTS);
-        for(ExApplicationComponent ap:applicationComponents) bud.append(ap.toString());
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + (this.applicationComponents != null ? this.applicationComponents.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExApplicationComponents other = (ExApplicationComponents) obj;
-        if (this.applicationComponents != other.applicationComponents && (this.applicationComponents == null || !this.applicationComponents.equals(other.applicationComponents))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-}

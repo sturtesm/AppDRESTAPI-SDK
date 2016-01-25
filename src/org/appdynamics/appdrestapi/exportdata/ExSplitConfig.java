@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
@@ -19,8 +20,18 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExSplitConfig {
     private String type;
     private String operation;
+    private int level=9;
     
     public ExSplitConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.TYPE)
     public String getType() {
@@ -45,26 +56,34 @@ public class ExSplitConfig {
         
         StringBuilder bud = new StringBuilder();
         if(operation != null){
-                bud.append(AppExportS.L3_1).append(AppExportS.OPERATION);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(operation);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperation());
+                bud.append(AppExportS.I[level]).append(AppExportS.OPERATION);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(operation);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperation());
+                level--;
         }else{
             if(obj.getOperation() != null){
-                bud.append(AppExportS.L3_1).append(AppExportS.OPERATION);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperation());
+                bud.append(AppExportS.I[level]).append(AppExportS.OPERATION);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperation());
+                level--;
             }
         }
         
         if(type != null){
             if(!type.equals(obj.getType())){
-                bud.append(AppExportS.L3_1).append(AppExportS.TYPE);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());
+                bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());
+                level--;
             }
         }else{
             if(obj.getType()!=null){
-                bud.append(AppExportS.L3_1).append(AppExportS.TYPE);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());
+                bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());
+                level--;
             }
         }
         
@@ -74,8 +93,8 @@ public class ExSplitConfig {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        if(operation != null) bud.append(AppExportS.L3_1).append(AppExportS.OPERATION).append(AppExportS.VE).append(operation);
-        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        if(operation != null) bud.append(AppExportS.I[level]).append(AppExportS.OPERATION).append(AppExportS.VE).append(operation);
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         return bud.toString();
     }
 

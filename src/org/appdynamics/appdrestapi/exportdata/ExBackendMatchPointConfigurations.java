@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -16,6 +17,103 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * 
  * 
  */
+
+@XmlSeeAlso(ExBackendMatchPointConfiguration.class)
+public class ExBackendMatchPointConfigurations {
+    private ArrayList<ExBackendMatchPointConfiguration> backendMatchPointConfiguration=new ArrayList<ExBackendMatchPointConfiguration>();
+    private int level=4;
+    
+    public ExBackendMatchPointConfigurations(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @XmlElement(name=AppExportS.BACKEND_MATCH_POINT_CONFIGURATION)
+    public ArrayList<ExBackendMatchPointConfiguration> getBackendMatchPointConfiguration() {
+        return backendMatchPointConfiguration;
+    }
+
+    public void setBackendMatchPointConfiguration(ArrayList<ExBackendMatchPointConfiguration> backendMatchPointConfiguration) {
+        this.backendMatchPointConfiguration = backendMatchPointConfiguration;
+    }
+    
+    public String whatIsDifferent(ExBackendMatchPointConfigurations obj){
+        if(this.equals(obj)) return AppExportS._U;
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATIONS);
+        
+        for(ExBackendMatchPointConfiguration value:backendMatchPointConfiguration){
+            boolean fnd=false;
+            for(ExBackendMatchPointConfiguration _value:obj.getBackendMatchPointConfiguration()){
+                if(value.getAgentType().equals(_value.getAgentType())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        for(ExBackendMatchPointConfiguration value:obj.getBackendMatchPointConfiguration()){
+            boolean fnd=false;
+            for(ExBackendMatchPointConfiguration _value:backendMatchPointConfiguration){
+                if(value.getAgentType().equals(_value.getAgentType())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        return bud.toString();
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATIONS);
+        System.out.println("We have " + backendMatchPointConfiguration.size() + "  " + AppExportS.BACKEND_MATCH_POINT_CONFIGURATION);
+        level++;
+        for(ExBackendMatchPointConfiguration cfg: backendMatchPointConfiguration) {cfg.setLevel(level);bud.append(cfg);}
+        level--;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (this.backendMatchPointConfiguration != null ? this.backendMatchPointConfiguration.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExBackendMatchPointConfigurations other = (ExBackendMatchPointConfigurations) obj;
+        if (this.backendMatchPointConfiguration != other.backendMatchPointConfiguration && (this.backendMatchPointConfiguration == null || !this.backendMatchPointConfiguration.equals(other.backendMatchPointConfiguration))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+}
+
+
 /*
  * <backend-match-point-configurations>
         <backend-match-point-configuration>
@@ -152,84 +250,3 @@ import javax.xml.bind.annotation.XmlSeeAlso;
                 </backend-discovery-configuration>
  * 
  */
-@XmlSeeAlso(ExBackendMatchPointConfiguration.class)
-public class ExBackendMatchPointConfigurations {
-    private ArrayList<ExBackendMatchPointConfiguration> backendMatchPointConfiguration=new ArrayList<ExBackendMatchPointConfiguration>();
-    
-    public ExBackendMatchPointConfigurations(){}
-
-    @XmlElement(name=AppExportS.BACKEND_MATCH_POINT_CONFIGURATION)
-    public ArrayList<ExBackendMatchPointConfiguration> getBackendMatchPointConfiguration() {
-        return backendMatchPointConfiguration;
-    }
-
-    public void setBackendMatchPointConfiguration(ArrayList<ExBackendMatchPointConfiguration> backendMatchPointConfiguration) {
-        this.backendMatchPointConfiguration = backendMatchPointConfiguration;
-    }
-    
-    public String whatIsDifferent(ExBackendMatchPointConfigurations obj){
-        if(this.equals(obj)) return AppExportS._U;
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATIONS);
-        
-        for(ExBackendMatchPointConfiguration value:backendMatchPointConfiguration){
-            boolean fnd=false;
-            for(ExBackendMatchPointConfiguration _value:obj.getBackendMatchPointConfiguration()){
-                if(value.getAgentType().equals(_value.getAgentType())){
-                    fnd=true;
-                    bud.append(value.whatIsDifferent(_value));
-                }
-            }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
-            }
-        }
-        
-        for(ExBackendMatchPointConfiguration value:obj.getBackendMatchPointConfiguration()){
-            boolean fnd=false;
-            for(ExBackendMatchPointConfiguration _value:backendMatchPointConfiguration){
-                if(value.getAgentType().equals(_value.getAgentType())){
-                    fnd=true;
-                }
-            }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
-            }
-        }
-        
-        return bud.toString();
-    }
-    
-    @Override
-    public String toString(){
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATIONS);
-        for(ExBackendMatchPointConfiguration cfg: backendMatchPointConfiguration) bud.append(cfg.toString());
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.backendMatchPointConfiguration != null ? this.backendMatchPointConfiguration.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExBackendMatchPointConfigurations other = (ExBackendMatchPointConfigurations) obj;
-        if (this.backendMatchPointConfiguration != other.backendMatchPointConfiguration && (this.backendMatchPointConfiguration == null || !this.backendMatchPointConfiguration.equals(other.backendMatchPointConfiguration))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-}

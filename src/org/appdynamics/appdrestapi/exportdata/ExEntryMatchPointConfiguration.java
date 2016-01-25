@@ -7,12 +7,152 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author gilbert.solorzano
  * 
  */
+
+@XmlSeeAlso({ExCustomMatchPointDefinitions.class,ExTransactionConfigurations.class})
+public class ExEntryMatchPointConfiguration {
+    private boolean override;
+    private String agentType;
+    private ExCustomMatchPointDefinitions customMatchPointDefinitions;
+    private ExTransactionConfigurations transactionConfigurations;
+    private int level=5;
+    
+    public ExEntryMatchPointConfiguration(){}
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    @XmlElement(name=AppExportS.OVERRIDE)
+    public boolean isOverride() {
+        return override;
+    }
+
+    public void setOverride(boolean override) {
+        this.override = override;
+    }
+
+    @XmlElement(name=AppExportS.AGENT_TYPE)
+    public String getAgentType() {
+        return agentType;
+    }
+
+    public void setAgentType(String agentType) {
+        this.agentType = agentType;
+    }
+
+    @XmlElement(name=AppExportS.CUSTOM_MATCH_POINT_DEFINITIONS)
+    public ExCustomMatchPointDefinitions getCustomMatchPointDefinitions() {
+        return customMatchPointDefinitions;
+    }
+
+    public void setCustomMatchPointDefinitions(ExCustomMatchPointDefinitions customMatchPointDefinitions) {
+        this.customMatchPointDefinitions = customMatchPointDefinitions;
+    }
+
+    @XmlElement(name=AppExportS.TRANSACTION_CONFIGURATIONS)
+    public ExTransactionConfigurations getTransactionConfigurations() {
+        return transactionConfigurations;
+    }
+
+    public void setTransactionConfigurations(ExTransactionConfigurations transactionConfigurations) {
+        this.transactionConfigurations = transactionConfigurations;
+    }
+    
+    public String whatIsDifferent(ExEntryMatchPointConfiguration obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        
+        if(override != obj.isOverride()){
+            bud.append(AppExportS.I[level]).append(AppExportS.OVERRIDE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(override);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isOverride());
+            level--;
+        }
+        
+        if(transactionConfigurations != null) {
+            transactionConfigurations.setLevel(level);
+            bud.append(transactionConfigurations.whatIsDifferent(obj.getTransactionConfigurations()));
+        }
+        
+        if(customMatchPointDefinitions != null){
+            customMatchPointDefinitions.setLevel(level);
+            bud.append(customMatchPointDefinitions.whatIsDifferent(obj.getCustomMatchPointDefinitions()));            
+        }
+        
+        level--;
+        return bud.toString();
+    }
+    
+    @Override
+    public String toString(){
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+       if(transactionConfigurations != null) {  transactionConfigurations.setLevel(level); }
+        bud.append(transactionConfigurations);
+        if(customMatchPointDefinitions != null){customMatchPointDefinitions.setLevel(level);}
+        bud.append(customMatchPointDefinitions);
+        level--;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + (this.override ? 1 : 0);
+        hash = 31 * hash + (this.agentType != null ? this.agentType.hashCode() : 0);
+        hash = 31 * hash + (this.customMatchPointDefinitions != null ? this.customMatchPointDefinitions.hashCode() : 0);
+        hash = 31 * hash + (this.transactionConfigurations != null ? this.transactionConfigurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExEntryMatchPointConfiguration other = (ExEntryMatchPointConfiguration) obj;
+        if (this.override != other.override) {
+            return false;
+        }
+        if ((this.agentType == null) ? (other.agentType != null) : !this.agentType.equals(other.agentType)) {
+            return false;
+        }
+        if (this.customMatchPointDefinitions != other.customMatchPointDefinitions && (this.customMatchPointDefinitions == null || !this.customMatchPointDefinitions.equals(other.customMatchPointDefinitions))) {
+            return false;
+        }
+        if (this.transactionConfigurations != other.transactionConfigurations && (this.transactionConfigurations == null || !this.transactionConfigurations.equals(other.transactionConfigurations))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+}
+
+
 /*
  * 
  * <entry-match-point-configuration>
@@ -310,116 +450,3 @@ import javax.xml.bind.annotation.XmlElement;
             </custom-match-point-definitions>
         </entry-match-point-configuration>
  */
-@XmlSeeAlso({ExEEPointConfiguration.class,ExDiscoveryConfig.class,ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExclude.class,ExServletRule.class,ExClassName.class,ExCustomMatchPointDefinitions.class,ExCustomMatchPointDefinition.class,ExMatchRule.class,ExPojoRule.class,ExMatchClass.class,ExSplitConfig.class,
-    ExMatchMethod.class,ExMatchClassName.class})
-public class ExEntryMatchPointConfiguration {
-    private boolean override;
-    private String agentType;
-    private ExCustomMatchPointDefinitions customMatchPointDefinitions;
-    private ExTransactionConfigurations transactionConfigurations;
-    
-    public ExEntryMatchPointConfiguration(){}
-
-    @XmlElement(name=AppExportS.OVERRIDE)
-    public boolean isOverride() {
-        return override;
-    }
-
-    public void setOverride(boolean override) {
-        this.override = override;
-    }
-
-    @XmlElement(name=AppExportS.AGENT_TYPE)
-    public String getAgentType() {
-        return agentType;
-    }
-
-    public void setAgentType(String agentType) {
-        this.agentType = agentType;
-    }
-
-    @XmlElement(name=AppExportS.CUSTOM_MATCH_POINT_DEFINITIONS)
-    public ExCustomMatchPointDefinitions getCustomMatchPointDefinitions() {
-        return customMatchPointDefinitions;
-    }
-
-    public void setCustomMatchPointDefinitions(ExCustomMatchPointDefinitions customMatchPointDefinitions) {
-        this.customMatchPointDefinitions = customMatchPointDefinitions;
-    }
-
-    @XmlElement(name=AppExportS.TRANSACTION_CONFIGURATIONS)
-    public ExTransactionConfigurations getTransactionConfigurations() {
-        return transactionConfigurations;
-    }
-
-    public void setTransactionConfigurations(ExTransactionConfigurations transactionConfigurations) {
-        this.transactionConfigurations = transactionConfigurations;
-    }
-    
-    public String whatIsDifferent(ExEntryMatchPointConfiguration obj){
-        if(this.equals(obj)) return AppExportS._U;
-        
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        
-        if(override != obj.isOverride()){
-            bud.append(AppExportS.L2).append(AppExportS.OVERRIDE);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(override);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isOverride());
-        }
-        
-        bud.append(transactionConfigurations.whatIsDifferent(obj.getTransactionConfigurations()));
-        bud.append(customMatchPointDefinitions.whatIsDifferent(obj.getCustomMatchPointDefinitions()));
-        
-        return bud.toString();
-    }
-    
-    @Override
-    public String toString(){
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATION);
-        bud.append(AppExportS.L2).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        bud.append(transactionConfigurations);
-        bud.append(customMatchPointDefinitions);
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + (this.override ? 1 : 0);
-        hash = 31 * hash + (this.agentType != null ? this.agentType.hashCode() : 0);
-        hash = 31 * hash + (this.customMatchPointDefinitions != null ? this.customMatchPointDefinitions.hashCode() : 0);
-        hash = 31 * hash + (this.transactionConfigurations != null ? this.transactionConfigurations.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExEntryMatchPointConfiguration other = (ExEntryMatchPointConfiguration) obj;
-        if (this.override != other.override) {
-            return false;
-        }
-        if ((this.agentType == null) ? (other.agentType != null) : !this.agentType.equals(other.agentType)) {
-            return false;
-        }
-        if (this.customMatchPointDefinitions != other.customMatchPointDefinitions && (this.customMatchPointDefinitions == null || !this.customMatchPointDefinitions.equals(other.customMatchPointDefinitions))) {
-            return false;
-        }
-        if (this.transactionConfigurations != other.transactionConfigurations && (this.transactionConfigurations == null || !this.transactionConfigurations.equals(other.transactionConfigurations))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-}

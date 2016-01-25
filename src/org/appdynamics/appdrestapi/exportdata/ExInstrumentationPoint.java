@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,19 @@ public class ExInstrumentationPoint {
     private ArrayList<ExMethodInvocationDataGathererConfig> methodInvocationDataGathererConfigs=new ArrayList<ExMethodInvocationDataGathererConfig>();
     private Object businessTransactions;
     private boolean applyToAllBTS;
+    private int level=9;
+    
     
     public ExInstrumentationPoint(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.POJO_METHOD_DEFINITION)
     public ExPojoMethodDefinition getPojoMethodDefinition() {
@@ -78,18 +90,22 @@ public class ExInstrumentationPoint {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.INSTRUMENTATION_POINT);
+        bud.append(AppExportS.I[level]).append(AppExportS.INSTRUMENTATION_POINT);
+        level++;
         if(applyToAllBTS != obj.isApplyToAllBTS()){
-            bud.append(AppExportS.L3).append(AppExportS.APPLY_TO_ALL_BTS);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(applyToAllBTS);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isApplyToAllBTS()); 
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.APPLY_TO_ALL_BTS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(applyToAllBTS);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isApplyToAllBTS()); 
+            level--;
         }
         
         if(businessTransactions != null &&  businessTransactions != obj.getBusinessTransactions()){
-            bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTIONS);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(businessTransactions);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBusinessTransactions()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTIONS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(businessTransactions);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBusinessTransactions()); 
+            level--;
         }
         
 
@@ -99,11 +115,13 @@ public class ExInstrumentationPoint {
             for(ExInfoPointMetricDefinition _value:obj.getInfoPointMetricDefinitions()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            if(!fnd){              
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
             }
         }
         
@@ -114,8 +132,9 @@ public class ExInstrumentationPoint {
                     fnd=true;
                 }
             }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            if(!fnd){       
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
             }
         }
         
@@ -124,11 +143,13 @@ public class ExInstrumentationPoint {
             for(ExMethodInvocationDataGathererConfig _value:obj.getMethodInvocationDataGathererConfigs()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            if(!fnd){     
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
             }
         }
         
@@ -139,8 +160,9 @@ public class ExInstrumentationPoint {
                     fnd=true;
                 }
             }
-            if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            if(!fnd){          
+                value.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
             }
         }
         
@@ -150,18 +172,22 @@ public class ExInstrumentationPoint {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.INSTRUMENTATION_POINT);
-        bud.append(AppExportS.L3).append(AppExportS.APPLY_TO_ALL_BTS).append(AppExportS.VE).append(applyToAllBTS);
-        bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTIONS).append(AppExportS.VE).append(businessTransactions);
+        bud.append(AppExportS.I[level]).append(AppExportS.INSTRUMENTATION_POINT);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLY_TO_ALL_BTS).append(AppExportS.VE).append(applyToAllBTS);
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTIONS).append(AppExportS.VE).append(businessTransactions);
+        pojoMethodDefinition.setLevel(level);
         bud.append(pojoMethodDefinition);
         for(ExMethodInvocationDataGathererConfig value: methodInvocationDataGathererConfigs){
+            value.setLevel(level);
             bud.append(value);
         }
         
         for(ExInfoPointMetricDefinition value:infoPointMetricDefinitions){
+            value.setLevel(level);
             bud.append(value);
         }
-        
+        level--;
         return bud.toString();
     }
 

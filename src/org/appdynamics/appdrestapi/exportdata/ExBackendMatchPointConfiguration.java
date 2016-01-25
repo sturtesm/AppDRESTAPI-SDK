@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -25,15 +26,26 @@ import java.util.ArrayList;
             <backend-discovery-configurations>
                 
  */
-@XmlSeeAlso({ExBackendDiscoveryConfigurations.class,ExCustomExitPointDefinitions.class})
+@XmlSeeAlso({ExBackendDiscoveryConfigurations.class,ExCustomExitPointDefinitions.class,ExBackendDiscoveryConfigurations.class})
 public class ExBackendMatchPointConfiguration {
     private boolean override;
     private String agentType;
-    private ExCustomExitPointDefinitions customExitPointDefinitions;
-    private ExBackendDiscoveryConfigurations backendDiscoveryConfiguration;
+    private ExCustomExitPointDefinitions customExitPointDefinitions; //This needs to be worked on
+    private ExBackendDiscoveryConfigurations backendDiscoveryConfigurations;
+    private int level=6;
     
     public ExBackendMatchPointConfiguration(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.OVERRIDE)
     public boolean isOverride() {
         return override;
@@ -63,40 +75,52 @@ public class ExBackendMatchPointConfiguration {
 
     @XmlElement(name=AppExportS.BACKEND_DISCOVERY_CONFIGURATIONS)
     public ExBackendDiscoveryConfigurations getBackendDiscoveryConfiguration() {
-        return backendDiscoveryConfiguration;
+        return backendDiscoveryConfigurations;
     }
 
     public void setBackendDiscoveryConfiguration(ExBackendDiscoveryConfigurations backendDiscoveryConfiguration) {
-        this.backendDiscoveryConfiguration = backendDiscoveryConfiguration;
+        this.backendDiscoveryConfigurations = backendDiscoveryConfiguration;
     }
     
     public String whatIsDifferent(ExBackendMatchPointConfiguration obj){
         if(this.equals(obj) || !agentType.equals(obj.getAgentType()) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATION);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
         
         if(override != obj.isOverride()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.TYPE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(override);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isOverride());   
+            bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(override);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isOverride());   
+            level--;
         }
         
+        customExitPointDefinitions.setLevel(level);
         bud.append(customExitPointDefinitions.whatIsDifferent(obj.getCustomExitPointDefinitions()));
-        bud.append(backendDiscoveryConfiguration.whatIsDifferent(obj.getBackendDiscoveryConfiguration()));
         
+        backendDiscoveryConfigurations.setLevel(level);
+        bud.append(backendDiscoveryConfigurations.whatIsDifferent(obj.getBackendDiscoveryConfiguration()));
+        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATION);
-        bud.append(AppExportS.L2).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_MATCH_POINT_CONFIGURATION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.OVERRIDE).append(AppExportS.VE).append(override);
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        customExitPointDefinitions.setLevel(level);
         bud.append(customExitPointDefinitions);
-        bud.append(backendDiscoveryConfiguration);
+        backendDiscoveryConfigurations.setLevel(level);
+        bud.append(backendDiscoveryConfigurations);
+        
+        level--;
         return bud.toString();
     }
 
@@ -106,7 +130,7 @@ public class ExBackendMatchPointConfiguration {
         hash = 37 * hash + (this.override ? 1 : 0);
         hash = 37 * hash + (this.agentType != null ? this.agentType.hashCode() : 0);
         hash = 37 * hash + (this.customExitPointDefinitions != null ? this.customExitPointDefinitions.hashCode() : 0);
-        hash = 37 * hash + (this.backendDiscoveryConfiguration != null ? this.backendDiscoveryConfiguration.hashCode() : 0);
+        hash = 37 * hash + (this.backendDiscoveryConfigurations != null ? this.backendDiscoveryConfigurations.hashCode() : 0);
         return hash;
     }
 
@@ -128,7 +152,7 @@ public class ExBackendMatchPointConfiguration {
         if (this.customExitPointDefinitions != other.customExitPointDefinitions && (this.customExitPointDefinitions == null || !this.customExitPointDefinitions.equals(other.customExitPointDefinitions))) {
             return false;
         }
-        if (this.backendDiscoveryConfiguration != other.backendDiscoveryConfiguration && (this.backendDiscoveryConfiguration == null || !this.backendDiscoveryConfiguration.equals(other.backendDiscoveryConfiguration))) {
+        if (this.backendDiscoveryConfigurations != other.backendDiscoveryConfigurations && (this.backendDiscoveryConfigurations == null || !this.backendDiscoveryConfigurations.equals(other.backendDiscoveryConfigurations))) {
             return false;
         }
         return true;

@@ -4,10 +4,12 @@
  */
 package org.appdynamics.appdrestapi.exportdata;
 
+import org.appdynamics.appdrestapi.resources.AppExportS;
+
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import org.appdynamics.appdrestapi.resources.AppExportS;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -16,9 +18,20 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 @XmlSeeAlso(ExCookie.class)
 public class ExCookies {
     private ArrayList<ExCookie> cookies=new ArrayList<ExCookie>();
+    private int level=4;
     
     public ExCookies(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.COOKIE)
     public ArrayList<ExCookie> getCookies() {
         return cookies;
@@ -33,9 +46,10 @@ public class ExCookies {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.COOKIES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.COOKIES);
+        level++;
         for(ExCookie value:cookies){
+             value.setLevel(level);
             boolean fnd=false;
             for(ExCookie _value:obj.getCookies()){
                 if(value.getMatchType().equals(_value.getMatchType())){
@@ -44,11 +58,12 @@ public class ExCookies {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
             }
         }
         
         for(ExCookie value:obj.getCookies()){
+                value.setLevel(level);
             boolean fnd=false;
             for(ExCookie _value:cookies){
                 if(value.getMatchType().equals(_value.getMatchType())){
@@ -56,18 +71,20 @@ public class ExCookies {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
-    
+        level++;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.COOKIES);
-        for(ExCookie cookie:cookies) bud.append(cookie);
+        bud.append(AppExportS.I[level]).append(AppExportS.COOKIES);
+        level++;
+        for(ExCookie cookie:cookies){cookie.setLevel(level); bud.append(cookie);}
+        level--;
         return bud.toString();
     }
 

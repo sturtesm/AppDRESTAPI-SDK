@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExInfoPointMetricDefinition {
     private ExMethodParameterTransformer methodParameterTransformer;
     private String name,rollupType;
+    private int level=9;
     
     public ExInfoPointMetricDefinition(){}
 
@@ -48,33 +50,50 @@ public class ExInfoPointMetricDefinition {
         this.rollupType = rollupType;
     }
     
-    public String whatIsDifferent(ExInfoPointMetricDefinition obj){
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
+    public String whatIsDifferent(ExInfoPointMetricDefinition obj){ // 3 or 1 is the seeting.
         
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.INFO_POINT_METRIC_DEFINITION);
-        bud.append(AppExportS.L3_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.INFO_POINT_METRIC_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!rollupType.equals(obj.getRollupType())){         
-            bud.append(AppExportS.L4_1).append(AppExportS.ROLLUP_TYPE);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(rollupType);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getRollupType()); 
+            bud.append(AppExportS.I[level]).append(AppExportS.ROLLUP_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(rollupType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getRollupType()); 
+            level--;
         }
         
+        methodParameterTransformer.setLevel(level);
         bud.append(methodParameterTransformer.whatIsDifferent(obj.getMethodParameterTransformer()));
         
-        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.INFO_POINT_METRIC_DEFINITION);
-        bud.append(AppExportS.L3_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L3_1).append(AppExportS.ROLLUP_TYPE).append(AppExportS.VE).append(rollupType);
+        bud.append(AppExportS.I[level]).append(AppExportS.INFO_POINT_METRIC_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.ROLLUP_TYPE).append(AppExportS.VE).append(rollupType);
+        methodParameterTransformer.setLevel(level);
         bud.append(methodParameterTransformer);
+        level--;
         return bud.toString();
     }
 

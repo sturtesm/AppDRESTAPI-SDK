@@ -8,13 +8,108 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  *
  * @author gilbert.solorzano
  */
+
+
+@XmlSeeAlso(ExEEPointConfiguration.class)
+public class ExTransactionConfigurations {
+    private ArrayList<ExEEPointConfiguration> configurations=new ArrayList<ExEEPointConfiguration>();
+    private int level=6;
+    
+    public ExTransactionConfigurations(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
+    @XmlElement(name=AppExportS.CONFIGURATION)
+    public ArrayList<ExEEPointConfiguration> getConfigurations() {
+        return configurations;
+    }
+
+    public void setConfigurations(ArrayList<ExEEPointConfiguration> configurations) {
+        this.configurations = configurations;
+    }
+
+    public String whatIsDifferent(ExTransactionConfigurations obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.TRANSACTION_CONFIGURATIONS);
+        level++;
+        for(ExEEPointConfiguration value:configurations){
+            boolean fnd=false;
+            for(ExEEPointConfiguration _value: obj.getConfigurations()){
+                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
+                    fnd=true;
+                    value.setLevel(level);
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            
+            if(!fnd){value.setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);}
+        }
+        
+        for(ExEEPointConfiguration value:obj.getConfigurations()){
+            boolean fnd=false;
+            for(ExEEPointConfiguration _value: configurations){
+                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
+                    fnd=true;     
+                }
+            }
+            if(!fnd){value.setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);}
+        }
+        
+        return bud.toString();
+    }
+    @Override
+    public String toString() {
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.TRANSACTION_CONFIGURATIONS);
+        level++;
+        for(ExEEPointConfiguration eep: configurations){eep.setLevel(level); bud.append(eep);}
+        level--;
+        return bud.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.configurations != null ? this.configurations.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ExTransactionConfigurations other = (ExTransactionConfigurations) obj;
+        if (this.configurations != other.configurations && (this.configurations == null || !this.configurations.equals(other.configurations))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
+    
+}
 
  /* <transaction-configurations>
                 <configuration transaction-entry-point-type="BINARY_REMOTING">
@@ -191,82 +286,3 @@ import javax.xml.bind.annotation.XmlSeeAlso;
                 </configuration>
  * 
  */
-@XmlSeeAlso({ExEEPointConfiguration.class,ExDiscoveryConfig.class,ExNamingConfig.class,ExNameValues.class,ExNameValue.class,ExExclude.class,ExServletRule.class,ExClassName.class})
-public class ExTransactionConfigurations {
-    private ArrayList<ExEEPointConfiguration> configurations=new ArrayList<ExEEPointConfiguration>();
-    
-    public ExTransactionConfigurations(){}
-
-    @XmlElement(name=AppExportS.CONFIGURATION)
-    public ArrayList<ExEEPointConfiguration> getConfigurations() {
-        return configurations;
-    }
-
-    public void setConfigurations(ArrayList<ExEEPointConfiguration> configurations) {
-        this.configurations = configurations;
-    }
-
-    public String whatIsDifferent(ExTransactionConfigurations obj){
-        if(this.equals(obj)) return AppExportS._U;
-        
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.TRANSACTION_CONFIGURATIONS);
-        
-        for(ExEEPointConfiguration value:configurations){
-            boolean fnd=false;
-            for(ExEEPointConfiguration _value: obj.getConfigurations()){
-                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
-                    fnd=true;
-                    bud.append(value.whatIsDifferent(_value));
-                }
-            }
-            
-            if(!fnd)bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(value);
-        }
-        
-        for(ExEEPointConfiguration value:obj.getConfigurations()){
-            boolean fnd=false;
-            for(ExEEPointConfiguration _value: configurations){
-                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
-                    fnd=true;     
-                }
-            }
-            if(!fnd)bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(value);
-        }
-        
-        return bud.toString();
-    }
-    @Override
-    public String toString() {
-        StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.TRANSACTION_CONFIGURATIONS);
-        for(ExEEPointConfiguration eep: configurations) bud.append(eep.toString());
-        return bud.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + (this.configurations != null ? this.configurations.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ExTransactionConfigurations other = (ExTransactionConfigurations) obj;
-        if (this.configurations != other.configurations && (this.configurations == null || !this.configurations.equals(other.configurations))) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-    
-}

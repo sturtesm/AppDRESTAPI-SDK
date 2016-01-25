@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -16,18 +17,23 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
-/*
- * 
-                            <naming-options>
-                                <name-value>
-                                    <name>use-entire-string</name>
-                                    <value>true</value>
-                                </name-value>
-                            </naming-options>
- */
+
 @XmlSeeAlso(ExNameValue.class)
 public class ExNamingOptions {
     private ArrayList<ExNameValue> nameValue=new ArrayList<ExNameValue>();
+    private int level=9;
+    
+    public ExNamingOptions(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
 
     @XmlElement(name=AppExportS.NAME_VALUE)
     public ArrayList<ExNameValue> getNameValue() {
@@ -44,8 +50,10 @@ public class ExNamingOptions {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L4).append(AppExportS.NAMING_OPTIONS);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAMING_OPTIONS);
+        level++;
         for(ExNameValue value: nameValue){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExNameValue _value:obj.getNameValue()){
                 if(value.getName().equals(_value.getName())){
@@ -54,10 +62,11 @@ public class ExNamingOptions {
                 }
             }
             
-            if(!fnd)bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(value);
+            if(!fnd)bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
         }
         
         for(ExNameValue value: obj.getNameValue()){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExNameValue _value:nameValue){
                 if(value.getName().equals(_value.getName())){
@@ -65,17 +74,19 @@ public class ExNamingOptions {
                 }
             }
             
-            if(!fnd)bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(value);
+            if(!fnd)bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
         }
-
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.NAMING_OPTIONS);
-        for(ExNameValue nv: nameValue) bud.append(nv.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.NAMING_OPTIONS);
+        level++;
+        for(ExNameValue nv: nameValue){nv.setLevel(level); bud.append(nv);}
+        level--;
         return bud.toString();
     }
 
@@ -103,3 +114,13 @@ public class ExNamingOptions {
     
     
 }
+
+/*
+ * 
+                            <naming-options>
+                                <name-value>
+                                    <name>use-entire-string</name>
+                                    <value>true</value>
+                                </name-value>
+                            </naming-options>
+ */

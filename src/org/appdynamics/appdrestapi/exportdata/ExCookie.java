@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,8 +26,19 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExCookie {
     private String matchType;
     private ExMatchClassName name;
+    private int level=6;
 
     public ExCookie(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
     
     @XmlAttribute(name=AppExportS.MATCH_TYPE)
     public String getMatchType() {
@@ -52,31 +64,38 @@ public class ExCookie {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3_1).append(AppExportS.COOKIE);
-
+        bud.append(AppExportS.I[level]).append(AppExportS.COOKIE);
+        level++;
         if(matchType != null){
-                bud.append(AppExportS.L4).append(AppExportS.MATCH_TYPE);
-                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                level--;
         }else{
             if(obj.getMatchType()!= null){
-                bud.append(AppExportS.L4).append(AppExportS.MATCH_TYPE);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType());
+                level--;
             }
         }
-       
+        if(name != null) name.setLevel(level);
         bud.append(name.whatIsDifferent(obj.getName()));
-        
+        level--;
         return bud.toString();
     } 
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.COOKIE);
-        bud.append(AppExportS.L4).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-        bud.append(AppExportS.L4).append(AppExportS.NAME);
+        bud.append(AppExportS.I[level]).append(AppExportS.COOKIE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME);
+        if(name != null) name.setLevel(level);
         bud.append(name);
+        level--;
         return bud.toString();
     }
 

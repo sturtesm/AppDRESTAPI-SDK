@@ -7,6 +7,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,18 @@ import java.util.ArrayList;
 @XmlSeeAlso({ExExclude.class,ExServletRule.class,ExClassName.class})
 public class ExExcludes {
     private ArrayList<ExExclude> excludes=new ArrayList<ExExclude>();
+    private int level=8;
     
     public ExExcludes(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.EXCLUDE)
     public ArrayList<ExExclude> getExcludes() {
@@ -34,17 +45,19 @@ public class ExExcludes {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud =new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.EXCLUDES);
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDES);
+        level++;
         
         for(ExExclude value: excludes){
             boolean fnd=false;
             for(ExExclude _value:obj.getExcludes()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
+                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
-            if(!fnd)bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(value);
+            if(!fnd){value.setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);}
         }
         
         for(ExExclude value: getExcludes()){
@@ -54,17 +67,20 @@ public class ExExcludes {
                     fnd=true;
                 }
             }
-            if(!fnd)bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(value);
+            if(!fnd){value.setLevel(level);bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);}
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.EXCLUDES);
-        for(ExExclude ex: excludes) bud.append(ex.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDES);
+        level++;
+        for(ExExclude ex: excludes){ex.setLevel(level); bud.append(ex);}
+        level--;
         return bud.toString();
     }
 

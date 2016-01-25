@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,9 +33,19 @@ public class ExWebRule {
     private int priority;
     private ExNVProperties properties;
     private ExMatchClassName uri;
+    private int level=5;
 
     
     public ExWebRule(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
 
     @XmlElement(name=AppExportS.ENABLED)
@@ -79,44 +90,56 @@ public class ExWebRule {
         if(this.equals(obj) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.WEB_RULE);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.WEB_RULE);
+        level++;
         if(enabled!=obj.isEnabled()){
-                bud.append(AppExportS.L3).append(AppExportS.ENABLED);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+                bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+                level--;
         }
         
         if(priority != obj.getPriority()){
-                bud.append(AppExportS.L3).append(AppExportS.PRIORITY);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+                bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority());
+                level--;
         }
         
         if(uri != obj.getUri()){
-                bud.append(AppExportS.L3).append(AppExportS.URI);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(uri);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getUri());
+                bud.append(AppExportS.I[level]).append(AppExportS.URI);
+                uri.setLevel(level);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(uri);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getUri());
+                level--;
         }
         
         if(properties != obj.getProperties()){
-                bud.append(AppExportS.L3).append(AppExportS.BACKGROUND);
-                bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(properties);
-                bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getProperties());
+                properties.setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(properties);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getProperties());
+                level--;
         }
 
-        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.WEB_RULE);
-        bud.append(AppExportS.L3).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L3).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
-        bud.append(AppExportS.L3).append(AppExportS.URI).append(AppExportS.VE).append(uri);
-        bud.append(AppExportS.L3).append(AppExportS.PROPERTIES).append(AppExportS.VE).append(properties);
+        bud.append(AppExportS.I[level]).append(AppExportS.WEB_RULE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY).append(AppExportS.VE).append(priority);
+        bud.append(AppExportS.I[level]).append(AppExportS.URI).append(AppExportS.VE).append(uri);
+        bud.append(AppExportS.I[level]).append(AppExportS.PROPERTIES).append(AppExportS.VE).append(properties);
+        level--;
 
         
         return bud.toString();

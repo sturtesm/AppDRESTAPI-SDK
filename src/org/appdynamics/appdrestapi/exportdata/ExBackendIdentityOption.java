@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -17,30 +18,27 @@ import java.util.ArrayList;
  * 
  * 
  */
-/*
- * 
-                        <backend-identity-option>
-                            <name>Host</name>
-                            <naming-options>
-                                <name-value>
-                                    <name>use-entire-string</name>
-                                    <value>true</value>
-                                </name-value>
-                            </naming-options>
-                            <naming-actions/>
-                            <enabled>true</enabled>
-                        </backend-identity-option>
- * 
- */
+
 @XmlSeeAlso({ExNamingOptions.class,ExNamingActions.class,ExNameValue.class})
 public class ExBackendIdentityOption {
     private String name;
     private ExNamingOptions namingOptions;
     private ExNamingActions namingActions;
     private boolean enabled;
+    private int level=8;
     
     public ExBackendIdentityOption(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
         return name;
@@ -85,18 +83,23 @@ public class ExBackendIdentityOption {
         StringBuilder bud = new StringBuilder();
         
         
-        bud.append(AppExportS.L3_1).append(AppExportS.BACKEND_IDENTITY_OPTION);
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_IDENTITY_OPTION);
+        level--;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
        if(enabled != obj.isEnabled()){
-            bud.append(AppExportS.L4_1).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());
+            level--;
        }
        
+       namingOptions.setLevel(level);
        bud.append(namingOptions.whatIsDifferent(obj.getNamingOptions()));
+       namingActions.setLevel(level);
        bud.append(namingActions.whatIsDifferent(obj.getNamingActions()));
-
+       level--;
         return bud.toString();
     }
     
@@ -104,11 +107,13 @@ public class ExBackendIdentityOption {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.BACKEND_IDENTITY_OPTION);
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        if(namingOptions != null) bud.append(namingOptions);
-        if(namingActions != null) bud.append(namingActions);
-        bud.append(AppExportS.L4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_IDENTITY_OPTION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        if(namingOptions != null){namingOptions.setLevel(level); bud.append(namingOptions);}
+        if(namingActions != null) {namingActions.setLevel(level);bud.append(namingActions);}
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        level--;
         return bud.toString();
     }
 
@@ -149,3 +154,19 @@ public class ExBackendIdentityOption {
     
     
 }
+
+/*
+ * 
+                        <backend-identity-option>
+                            <name>Host</name>
+                            <naming-options>
+                                <name-value>
+                                    <name>use-entire-string</name>
+                                    <value>true</value>
+                                </name-value>
+                            </naming-options>
+                            <naming-actions/>
+                            <enabled>true</enabled>
+                        </backend-identity-option>
+ * 
+ */

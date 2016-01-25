@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 /**
@@ -34,21 +35,78 @@ public class ExAffectedAddMatchCriteria {
     private ExHRAddTypes addTypes;
     private String matchType,matchPattern;
     private boolean inverse;
+    private int level=5;
     
     public ExAffectedAddMatchCriteria(){}
+
+    @XmlElement(name=AppExportS.TYPE)
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @XmlElement(name=AppExportS.ADD_TYPES)
+    public ExHRAddTypes getAddTypes() {
+        return addTypes;
+    }
+
+    public void setAddTypes(ExHRAddTypes addTypes) {
+        this.addTypes = addTypes;
+    }
+
+    @XmlElement(name=AppExportS.MATCH_TYPE)
+    public String getMatchType() {
+        return matchType;
+    }
+
+    public void setMatchType(String matchType) {
+        this.matchType = matchType;
+    }
+
+    @XmlElement(name=AppExportS.MATCH_PATTERN)
+    public String getMatchPattern() {
+        return matchPattern;
+    }
+
+    public void setMatchPattern(String matchPattern) {
+        this.matchPattern = matchPattern;
+    }
+
+    @XmlElement(name=AppExportS.INVERSE)
+    public boolean isInverse() {
+        return inverse;
+    }
+
+    public void setInverse(boolean inverse) {
+        this.inverse = inverse;
+    }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ADD_MATCH_CRITERIA);
-        bud.append(AppExportS.L3).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_ADD_MATCH_CRITERIA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         if(matchType != null){
-            bud.append(AppExportS.L3).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-            bud.append(AppExportS.L3).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
-            bud.append(AppExportS.L3).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
+            bud.append(AppExportS.I[level]).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
         }
-        bud.append(addTypes);
+        if(addTypes != null) {addTypes.setLevel(level);bud.append(addTypes);}
+        level--;
         return bud.toString();
     }
 

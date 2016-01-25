@@ -8,7 +8,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 
@@ -25,9 +25,20 @@ import java.util.ArrayList;
  */
 public class ExHRAddTypes {
     private ArrayList<String> addTypes;
+    private int level=6;
     
     public ExHRAddTypes(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.ADD_TYPE)
     public ArrayList<String> getAddTypes() {
         return addTypes;
@@ -40,8 +51,10 @@ public class ExHRAddTypes {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.ADD_TYPES);
-        for(String type:addTypes) bud.append(AppExportS.L3_1).append(AppExportS.ADD_TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.ADD_TYPES);
+        level++;
+        for(String type:addTypes) bud.append(AppExportS.I[level]).append(AppExportS.ADD_TYPE).append(AppExportS.VE).append(type);
+        level--;
         return bud.toString();
     }
 

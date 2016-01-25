@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  *
@@ -15,21 +16,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-            <pojo-method-definition>
-                <class-name>com.appdynamics.testappserver.spring.SpringBean3</class-name>
-                <method-name>businessMethod</method-name>
-                <match-type>MATCHES_CLASS</match-type>
-                <method-parameter-types/>
-            </pojo-method-definition>
-            * L2 (s)
- */
+
+@XmlSeeAlso(ExMatchCondition.class)
 public class ExPojoMethodDefinition {
     private String className;
     private String methodName;
     private String matchType;
     private String methodParameterTypes;
-    private int level=0;
+    private ExMatchCondition matchCondition;
+    
+    private int level=5;
     
     public ExPojoMethodDefinition(){}
 
@@ -69,6 +65,17 @@ public class ExPojoMethodDefinition {
         this.methodParameterTypes = methodParameterTypes;
     }
 
+    @XmlElement(name=AppExportS.MATCH_CONDITION)
+    public ExMatchCondition getMatchCondition() {
+        return matchCondition;
+    }
+
+    public void setMatchCondition(ExMatchCondition matchCondition) {
+        this.matchCondition = matchCondition;
+    }
+    
+    
+
     @XmlTransient
     public int getLevel() {
         return level;
@@ -77,25 +84,19 @@ public class ExPojoMethodDefinition {
     public void setLevel(int level) {
         this.level = level;
     }
-    
-    @XmlTransient
-    public String getIndent(){
-        if(level == 1) return AppExportS.L2;
-        if(level == 2) return AppExportS.L2_1;
-        if(level == 3) return AppExportS.L3;
-        if(level == 4) return AppExportS.L3_1;
-        if(level == 5) return AppExportS.L4;
-        return AppExportS.L2_1;
-    }
+
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(getIndent()).append(AppExportS.POJO_METHOD_DEFINITION);level++;
-        bud.append(getIndent()).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className);
-        bud.append(getIndent()).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(methodName);
-        bud.append(getIndent()).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-        bud.append(getIndent()).append(AppExportS.METHOD_PARAMETER_TYPES).append(AppExportS.VE).append(methodParameterTypes);
+        bud.append(AppExportS.I[level]).append(AppExportS.POJO_METHOD_DEFINITION);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className);
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(methodName);
+        bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_PARAMETER_TYPES).append(AppExportS.VE).append(methodParameterTypes);
+        
+        if(matchCondition != null){matchCondition.setLevel(level); bud.append(matchCondition);}
+        level--;
         return bud.toString();
     }
     
@@ -107,28 +108,33 @@ public class ExPojoMethodDefinition {
         
         //If we don't have the same name and method why check ?
         if(!className.equals(obj.getClassName()) || !methodName.equals(obj.getMethodName())) return "";
-            level=2;
-            bud.append(getIndent()).append(AppExportS.POJO_METHOD_DEFINITION);level++;
-            bud.append(getIndent()).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className);
-            bud.append(getIndent()).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(methodName);
+            
+            bud.append(AppExportS.I[level]).append(AppExportS.POJO_METHOD_DEFINITION);level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(className);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(methodName);
 
         
         if(!matchType.equals(obj.getMatchType())){
-            level=3;
-            bud.append(getIndent()).append(AppExportS.METHOD_PARAMETER_TYPES);level++;
-            bud.append(getIndent()).append(AppExportS.SRC).append(AppExportS.VE).append(methodParameterTypes);
-            bud.append(getIndent()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMethodParameterTypes());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_PARAMETER_TYPES);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(methodParameterTypes);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMethodParameterTypes());
+            level--;
         }
         
         if(!methodParameterTypes.equals(obj.getMethodParameterTypes())){
-            level=3;
-            bud.append(getIndent()).append(AppExportS.METHOD_PARAMETER_TYPES);level++;
-            bud.append(getIndent()).append(AppExportS.SRC).append(AppExportS.VE).append(methodParameterTypes);
-            bud.append(getIndent()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMethodParameterTypes());
-            
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_PARAMETER_TYPES);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(methodParameterTypes);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMethodParameterTypes());
+            level--;
         }
         
+        if(matchCondition != null){
+            matchCondition.setLevel(level);
+            bud.append(matchCondition.whatIsDifferent(obj.getMatchCondition()));
+        }
+        level--;
         return bud.toString();
     }
 
@@ -168,3 +174,33 @@ public class ExPojoMethodDefinition {
     
     
 }
+
+
+/*
+            <pojo-method-definition>
+                <class-name>com.appdynamics.testappserver.spring.SpringBean3</class-name>
+                <method-name>businessMethod</method-name>
+                <match-type>MATCHES_CLASS</match-type>
+                <method-parameter-types/>
+            </pojo-method-definition>
+            * L2 (s)
+
+            <pojo-method-definition>
+                <class-name>com.stubhub.common.cache.manager.EntityCacheManager</class-name>
+                <method-name>putCrossModuleValue</method-name>
+                <match-type>IMPLEMENTS_INTERFACE</match-type>
+                <method-parameter-types/>
+                <match-condition>
+                    <match-type>EQUALS</match-type>
+                    <match-pattern>com.stubhub.catalog.business.entity.Venue.class.getName()</match-pattern>
+                    <inverse>false</inverse>
+                    <method-invocation-data-gatherer-config>
+                        <name/>
+                        <position>1</position>
+                        <gatherer-type>POSITION_GATHERER_TYPE</gatherer-type>
+                        <transformer-type>GETTER_METHODS_OBJECT_DATA_TRANSFORMER_TYPE</transformer-type>
+                        <transformer-value>class|getName</transformer-value>
+                    </method-invocation-data-gatherer-config>
+                </match-condition>
+            </pojo-method-definition>
+ */

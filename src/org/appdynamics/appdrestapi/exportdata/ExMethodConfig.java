@@ -8,7 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
-
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,9 +25,20 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExMethodConfig {
     private String returnType;
     private String name;
+    private int level=8;
     
     public ExMethodConfig(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlAttribute(name=AppExportS.RETURN_TYPE)
     public String getReturnType() {
         return returnType;
@@ -51,31 +62,37 @@ public class ExMethodConfig {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3_1).append(AppExportS.METHOD_CONFIG);
-
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(returnType != null){
-                bud.append(AppExportS.L4).append(AppExportS.RETURN_TYPE);
-                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(returnType);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
+                bud.append(AppExportS.I[level]).append(AppExportS.RETURN_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(returnType);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
+                level--;
         }else{
             if(obj.getReturnType()!= null){
-                bud.append(AppExportS.L4_1).append(AppExportS.RETURN_TYPE);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
+                bud.append(AppExportS.I[level]).append(AppExportS.RETURN_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getReturnType());
+                level--;
             }
         }
        
-        
+        level--;
         return bud.toString();
     } 
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.METHOD_CONFIG);
-        bud.append(AppExportS.L4).append(AppExportS.RETURN_TYPE).append(AppExportS.VE).append(returnType);
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.METHOD_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.RETURN_TYPE).append(AppExportS.VE).append(returnType);
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        level--;
         return bud.toString();
     }
 
