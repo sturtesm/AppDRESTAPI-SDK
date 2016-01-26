@@ -10,7 +10,7 @@
     <property name="RESTAPI.basename"   value="RESTAPI"/>
     <property name="RESTAPI.version"     value="2.4.2"/>
     <property name="RESTAPI.basename.dev"   value="RESTAPI_dev"/>
-    <property name="RESTAPI.version.dev"     value="1.0.14"/>
+    <property name="RESTAPI.version.dev"     value="2.0.3"/>
     
     
     <path id="compile.classpath">
