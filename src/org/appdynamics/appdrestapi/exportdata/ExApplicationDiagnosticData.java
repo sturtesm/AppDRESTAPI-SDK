@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 /**
@@ -20,8 +21,20 @@ public class ExApplicationDiagnosticData {
     private String summary;
     private String diagnosticType;
     private String key;
+    private int level=6;
     
     public ExApplicationDiagnosticData(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
 
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
@@ -64,38 +77,48 @@ public class ExApplicationDiagnosticData {
         if(this.equals(obj) || !name.equals(obj.getName())) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);
-        bud.append(AppExportS.L3_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!summary.equals(obj.getSummary())){     
-            bud.append(AppExportS.L3_1).append(AppExportS.SUMMARY);
-            bud.append(AppExportS.L4).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(summary);
-            bud.append(AppExportS.L4).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getSummary());    
+            bud.append(AppExportS.I[level]).append(AppExportS.SUMMARY);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(summary);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getSummary());   
+            level--;
         }
         
         if(!diagnosticType.equals(obj.getDiagnostic())){     
-            bud.append(AppExportS.L3_1).append(AppExportS.PAGE_CONFIG);
-            bud.append(AppExportS.L4).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(diagnosticType);
-            bud.append(AppExportS.L4).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getDiagnostic());    
+            bud.append(AppExportS.I[level]).append(AppExportS.PAGE_CONFIG);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(diagnosticType);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getDiagnostic());    
+            level--;
         }
         
          if(!key.equals(obj.getKey())){     
-            bud.append(AppExportS.L3_1).append(AppExportS.KEY);
-            bud.append(AppExportS.L4).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(key);
-            bud.append(AppExportS.L4).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getKey());    
+            bud.append(AppExportS.I[level]).append(AppExportS.KEY);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.CLASS_NAME).append(AppExportS.VE).append(key);
+            bud.append(AppExportS.I[level]).append(AppExportS.METHOD_NAME).append(AppExportS.VE).append(obj.getKey());    
+            level--;
         }
         
+         level--;
         return bud.toString();
     }
      
     @Override
     public String toString(){
         StringBuilder bud=new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);
-        bud.append(AppExportS.L4).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L4).append(AppExportS.SUMMARY).append(AppExportS.VE).append(summary);
-        bud.append(AppExportS.L4).append(AppExportS.DIAGNOSTIC_TYPE).append(AppExportS.VE).append(diagnosticType);
-        bud.append(AppExportS.L4).append(AppExportS.KEY).append(AppExportS.VE).append(key);
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.SUMMARY).append(AppExportS.VE).append(summary);
+        bud.append(AppExportS.I[level]).append(AppExportS.DIAGNOSTIC_TYPE).append(AppExportS.VE).append(diagnosticType);
+        bud.append(AppExportS.I[level]).append(AppExportS.KEY).append(AppExportS.VE).append(key);
+        level--;
         return bud.toString();
     }
     

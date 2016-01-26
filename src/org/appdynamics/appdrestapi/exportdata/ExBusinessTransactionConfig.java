@@ -59,10 +59,12 @@ public class ExBusinessTransactionConfig {
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_CONFIG);
         level++;
-        snapshotCollectionPolicy.setLevel(level);
+        if(snapshotCollectionPolicy != null) snapshotCollectionPolicy.setLevel(level);
         bud.append(snapshotCollectionPolicy);
-        btRequestThreshold.setLevel(level);
+        
+        if(btRequestThreshold != null) btRequestThreshold.setLevel(level);
         bud.append(btRequestThreshold);
+        
         level--;
         return bud.toString();
     }
@@ -71,9 +73,12 @@ public class ExBusinessTransactionConfig {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.I[level]).append(AppExportS.BACKGROUND_BUSINESS_TRANSACTION_CONFIG);
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_CONFIG);
         level++;
+        if(snapshotCollectionPolicy != null) snapshotCollectionPolicy.setLevel(level);
         bud.append(snapshotCollectionPolicy.whatIsDifferent(obj.getSnapshotCollectionPolicy()));
+        
+        if(btRequestThreshold != null) btRequestThreshold.setLevel(level);
         bud.append(btRequestThreshold.whatIsDifferent(obj.getBtRequestThreshold()));
         level--;
         return bud.toString();

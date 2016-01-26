@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
@@ -16,8 +17,20 @@ import java.util.ArrayList;
 @XmlSeeAlso(ExHealthRule.class)
 public class ExHealthRules {
     private ArrayList<ExHealthRule> healthRules=new ArrayList<ExHealthRule>();
+    private int level=2;
+    
     
     public ExHealthRules(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
     
     
     @XmlElement(name=AppExportS.HEALTH_RULE)
@@ -34,10 +47,11 @@ public class ExHealthRules {
         
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.HEALTH_RULES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.HEALTH_RULES);
+        level++;
         for(ExHealthRule value:healthRules){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExHealthRule _value:obj.getHealthRules()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
@@ -45,22 +59,24 @@ public class ExHealthRules {
                 }
             }
             if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
             }
         }
         
         for(ExHealthRule value:obj.getHealthRules()){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExHealthRule _value:healthRules){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
                 }
             }
             if(!fnd){                
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
             }
         }
         
+        level--;
         return bud.toString();
     }
     
@@ -68,8 +84,10 @@ public class ExHealthRules {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.HEALTH_RULES);
-        for(ExHealthRule rule: healthRules)bud.append(rule);
+        bud.append(AppExportS.I[level]).append(AppExportS.HEALTH_RULES);
+        level++;
+        for(ExHealthRule rule: healthRules){rule.setLevel(level);bud.append(rule);}
+        level--;
         return bud.toString();
     }
 

@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -193,6 +192,7 @@ public class ExApplicationComponent {
         StringBuilder bud = new StringBuilder();
         
         bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+        level++;
         bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(description != null && !description.equals(obj.getDescription())){
@@ -216,14 +216,15 @@ public class ExApplicationComponent {
         }
         
         bud.append(entryMatchPointConfigurations.whatIsDifferent(obj.getEntryMatchPointConfigurations()));
-        bud.append(businessTransactions.whatIsDifferent(obj.getBusinessTransactions()));
-        bud.append(memoryConfiguration.whatIsDifferent(obj.getMemoryConfiguration()));
+        if(businessTransactions != null){businessTransactions.setLevel(level);bud.append(businessTransactions.whatIsDifferent(obj.getBusinessTransactions()));}
+        if(memoryConfiguration != null) {memoryConfiguration.setLevel(level);bud.append(memoryConfiguration.whatIsDifferent(obj.getMemoryConfiguration()));}
         //bud.append(instanceTrackerConfiguration
         bud.append(cacheConfiguration.whatIsDifferent(obj.getCacheConfiguration()));
-        // customCacheConfigurations
+        //if(cacheConfiguration != null) {cacheConfiguration.setLevel(level);customCacheConfigurations.
         // backendMatchPointConfigurations
         // agentConfigurations
         
+        level--;
         return bud.toString();
     }
     
@@ -236,7 +237,7 @@ public class ExApplicationComponent {
         bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
         bud.append(AppExportS.I[level]).append(AppExportS.COMPONENT_TYPE).append(AppExportS.VE).append(componentType);
-        bud.append(AppExportS.I[level]).append(AppExportS.ENTRY_MATCH_POINT_CONFIGURATIONS).append(AppExportS.VE).append(entryMatchPointConfigurations);
+        if(entryMatchPointConfigurations != null){entryMatchPointConfigurations.setLevel(level);bud.append(entryMatchPointConfigurations);}
         
         
         if(businessTransactions != null){businessTransactions.setLevel(level); bud.append(businessTransactions);}

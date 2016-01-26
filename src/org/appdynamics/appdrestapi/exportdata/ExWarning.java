@@ -54,18 +54,22 @@ public class ExWarning {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.I[level]).append(AppExportS.WARNING).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.I[level]).append(AppExportS.S4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-
+        bud.append(AppExportS.I[level]).append(AppExportS.WARNING);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE).append(AppExportS.VE).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        level--;
         return bud.toString();
     }
     
     public String whatIsDifferent(ExWarning obj){
-        StringBuilder bud = new StringBuilder();
         
         if(this.equals(obj)) return AppExportS._U;
         
-        bud.append(AppExportS.I[level]).append(AppExportS.WARNING);level++;
+        StringBuilder bud = new StringBuilder();
+        
+        bud.append(AppExportS.I[level]).append(AppExportS.WARNING);
+        level++;
         if(value != obj.getValue()){
             bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
             level++;

@@ -61,9 +61,11 @@ public class ExCritical {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.I[level]).append(AppExportS.CRITICAL).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.I[level]).append(AppExportS.S4).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-
+        bud.append(AppExportS.I[level]).append(AppExportS.CRITICAL);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        level--;
         return bud.toString();
     }
     
@@ -73,7 +75,8 @@ public class ExCritical {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.I[level]).append(AppExportS.CRITICAL);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.CRITICAL);
+        level++;
         if(value != obj.getValue()){      
             bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
             level++;

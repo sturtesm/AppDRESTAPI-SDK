@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,14 +25,25 @@ import javax.xml.bind.annotation.XmlSeeAlso;
             </affected-entities-match-criteria>
             * 
  */
-@XmlSeeAlso({ExAffectedBTMatchCriteria.class,ExAffectedInfraMatchCriteria.class})
+@XmlSeeAlso({ExAffectedBTMatchCriteria.class,ExAffectedInfraMatchCriteria.class,ExAffectedOverallCriteria.class})
 public class ExAffectedEntitiesMatchCriteria {
     private ExAffectedBTMatchCriteria btCriteria;
     private ExAffectedInfraMatchCriteria infraCriteria;
     private ExAffectedOverallCriteria overallCriteria;
+    private int level=6;
     
     public ExAffectedEntitiesMatchCriteria(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.AFFECTED_BT_MATCH_CRITERIA)
     public ExAffectedBTMatchCriteria getBtCriteria() {
         return btCriteria;
@@ -64,22 +76,25 @@ public class ExAffectedEntitiesMatchCriteria {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
-        if(btCriteria != null) bud.append(btCriteria);
-        if(infraCriteria != null) bud.append(infraCriteria);
-        if(overallCriteria != null) bud.append(overallCriteria);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
+        level++;
+        if(btCriteria != null){btCriteria.setLevel(level);bud.append(btCriteria);}
+        if(infraCriteria != null){ infraCriteria.setLevel(level);bud.append(infraCriteria);}
+        if(overallCriteria != null){ overallCriteria.setLevel(level);bud.append(overallCriteria);}
+        level--;
         return bud.toString();
     }
     
     public String toXML(){
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
-        if(btCriteria != null) bud.append(btCriteria);
-        if(infraCriteria != null) bud.append(infraCriteria);
-        if(overallCriteria != null) bud.append(overallCriteria);
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
+        level++;
+        if(btCriteria != null){btCriteria.setLevel(level);bud.append(btCriteria);}
+        if(infraCriteria != null){ infraCriteria.setLevel(level);bud.append(infraCriteria);}
+        if(overallCriteria != null){ overallCriteria.setLevel(level);bud.append(overallCriteria);}
         
+        level--;
         return bud.toString();
     }
 
@@ -87,31 +102,39 @@ public class ExAffectedEntitiesMatchCriteria {
         if(this.equals(obj)) return AppExportS._U;
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_ENTITIES_MATCH_CRITERIA);
+        level++;
+        
         if(btCriteria != null){
+            btCriteria.setLevel(level);
             bud.append(btCriteria.whatIsDifferent(obj.getBtCriteria()));
         }else{
             if(obj.getBtCriteria() != null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBtCriteria());
+                obj.getBtCriteria().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getBtCriteria());
             }
         }
         if(infraCriteria != null){
+            infraCriteria.setLevel(level);
             bud.append(infraCriteria.whatIsDifferent(obj.getInfraCriteria()));
         }else{
             if(obj.getInfraCriteria() != null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getInfraCriteria());
+                obj.getInfraCriteria().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getInfraCriteria());
             }
         }
         
         if(overallCriteria != null){
+            overallCriteria.setLevel(level);
             bud.append(overallCriteria.whatIsDifferent(obj.getOverallCriteria()));
         }else{
             if(obj.getOverallCriteria()!= null){
-                bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOverallCriteria());
+                obj.getOverallCriteria().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOverallCriteria());
             }
         }
         
-        
+        level--;
         return bud.toString();
     }
     

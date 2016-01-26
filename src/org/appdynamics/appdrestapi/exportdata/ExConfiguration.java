@@ -167,7 +167,8 @@ public class ExConfiguration {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION);level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION);
+        level++;
         bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL).append(AppExportS.VE).append(applicationInstrumentationLevel);
         bud.append(AppExportS.I[level]).append(AppExportS.SNAPSHOT_EVALUATION_INTERVAL).append(AppExportS.VE).append(snapshotEvaluationInternal);
         bud.append(AppExportS.I[level]).append(AppExportS.SNAPSHOT_QUIET_TIME_POST_SLA_FAILURE).append(AppExportS.VE).append(snapshotQuietTimePostSLAFailure);
@@ -181,10 +182,10 @@ public class ExConfiguration {
         
         for(ExCallGraph graph: callGraphs){graph.setLevel(level); bud.append(graph);}//done
         bud.append(sla);
-        for(ExErrorConfiguration error: errorConfiguration){error.setLevel(level); bud.append(error);}//done
-        
         bud.append(backgroundBusinessTransactionConfig);
         bud.append(businessTransactionConfig);
+        
+        for(ExErrorConfiguration error: errorConfiguration){error.setLevel(level); bud.append(error);}//done
         
         bud.append(eumConfiguration);//done
         level--;
@@ -198,6 +199,7 @@ public class ExConfiguration {
         
         bud.append(AppExportS.I[level]).append(AppExportS.CONFIGURATION); 
         level++;
+        
         if(!applicationInstrumentationLevel.equals(obj.getApplicationInstrumentationLevel())){     
             bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
             level++;
@@ -271,6 +273,7 @@ public class ExConfiguration {
         bud.append(businessTransactionConfig.whatIsDifferent(obj.getBusinessTransactionConfig()));
         bud.append(backgroundBusinessTransactionConfig.whatIsDifferent(obj.getBackgroundBusinessTransactionConfig()));
         bud.append(eumConfiguration.whatIsDifferent(obj.getEumConfiguration()));
+        
         level--;
         return bud.toString();
     }

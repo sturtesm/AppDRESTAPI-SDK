@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import java.util.ArrayList;
@@ -31,8 +31,19 @@ import java.util.ArrayList;
 @XmlSeeAlso(ExMetricBaseline.class)
 public class ExMetricBaselines {
     private ArrayList<ExMetricBaseline> metricBaselines=new ArrayList<ExMetricBaseline>();
+    private int level=2;
     
     public ExMetricBaselines(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
 
     @XmlElement(name=AppExportS.METRIC_BASELINE)
     public ArrayList<ExMetricBaseline> getMetricBaselines() {
@@ -48,10 +59,12 @@ public class ExMetricBaselines {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L1).append(AppExportS.METRIC_BASELINES);
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_BASELINES);
+        level++;
         
         for(ExMetricBaseline value: metricBaselines){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExMetricBaseline _value:obj.getMetricBaselines()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
@@ -59,30 +72,34 @@ public class ExMetricBaselines {
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L1_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
             }
         }
         
         for(ExMetricBaseline value: obj.getMetricBaselines()){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExMetricBaseline _value:metricBaselines){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L1_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
             }
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.METRIC_BASELINES);
-        for(ExMetricBaseline base: metricBaselines) bud.append(base.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_BASELINES);
+        level++;
+        for(ExMetricBaseline base: metricBaselines){ base.setLevel(level);bud.append(base);}
+        level--;
         return bud.toString();
     }
 

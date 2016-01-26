@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,8 +34,18 @@ public class ExAffectedInfraMatchCriteria {
     private String type;
     private ExNodeMatchCriteria nodeMatchCriteria;
     private ExHRNodeComponents nodeComp;
+    private int level=7;
     
     public ExAffectedInfraMatchCriteria(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -68,39 +79,48 @@ public class ExAffectedInfraMatchCriteria {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.AFFECTED_INFRA_MATCH_CRITERIA);
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_INFRA_MATCH_CRITERIA);
+        level++;
         if(!type.equals(obj.getType())){     
-            bud.append(AppExportS.L3_1).append(AppExportS.TYPE);
-            bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-            bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+            bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+            level--;
         }
         
         if(nodeMatchCriteria != null){
+            nodeMatchCriteria.setLevel(level);
             bud.append(nodeMatchCriteria.whatIsDifferent(obj.getNodeMatchCriteria()));
         }else{
             if(obj.getNodeMatchCriteria() != null){
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeMatchCriteria());
+                obj.getNodeMatchCriteria().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeMatchCriteria());
             }
         }
         
         if(nodeComp != null){
+            nodeComp.setLevel(level);
             bud.append(nodeComp.whatIsDifferent(obj.getNodeComp()));
         }else{
             if(obj.getNodeComp() != null){
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeComp());
+                obj.getNodeComp().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNodeComp());
             }
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.AFFECTED_INFRA_MATCH_CRITERIA);
-        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        if(nodeMatchCriteria != null) bud.append(nodeMatchCriteria);
-        if(nodeComp != null) bud.append(nodeComp);
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_INFRA_MATCH_CRITERIA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        if(nodeMatchCriteria != null){ nodeMatchCriteria.setLevel(level);bud.append(nodeMatchCriteria);}
+        if(nodeComp != null){ nodeComp.setLevel(level);bud.append(nodeComp);}
         return bud.toString();
     }
 

@@ -8,7 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,8 +26,18 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExEntityAggregationScope {
     private String type;
     private Integer value;
+    private int level=8;
     
     public ExEntityAggregationScope(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -51,29 +61,37 @@ public class ExEntityAggregationScope {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.ENTITY_AGGREGATION_SCOPE);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTITY_AGGREGATION_SCOPE);
+        level++;
         
         if(!type.equals(obj.getType())){     
-             bud.append(AppExportS.L4_1).append(AppExportS.TYPE);
-             bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-             bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+             level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             level--;
          }
         
         if(!value.equals(obj.getValue())){     
-             bud.append(AppExportS.L4_1).append(AppExportS.VALUE);
-             bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
-             bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());   
+             bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
+             level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());   
+             level--;
          }
         
+        level++;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.ENTITY_AGGREGATION_SCOPE);
-        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        bud.append(AppExportS.L3_1).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENTITY_AGGREGATION_SCOPE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
+        level--;
         return bud.toString();
     }
 

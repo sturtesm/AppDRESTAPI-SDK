@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -24,9 +24,21 @@ import java.util.ArrayList;
  */
 public class ExHRNodeTypes {
     private ArrayList<String> nodeTypes=new ArrayList<String>();
+    private int level=5;
+    
     
     public ExHRNodeTypes(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.NODE_TYPE)
     public ArrayList<String> getNodeTypes() {
         return nodeTypes;
@@ -40,30 +52,38 @@ public class ExHRNodeTypes {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.NODES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.NODE_TYPES);
+        level++;
         for(String value: nodeTypes){
             if(!obj.getNodeTypes().contains(value)){
-                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
-                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                level--;
             }
         }
         
         for(String value: obj.getNodeTypes()){
             if(!nodeTypes.contains(value)){
-                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                level--;
             }
         }
         
+        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.NODE_TYPES);
-        for(String node:nodeTypes)bud.append(AppExportS.L4_1).append(AppExportS.NODE_TYPE).append(AppExportS.VE).append(node);
+        bud.append(AppExportS.I[level]).append(AppExportS.NODE_TYPES);
+        level++;
+        for(String node:nodeTypes)bud.append(AppExportS.I[level]).append(AppExportS.NODE_TYPE).append(AppExportS.VE).append(node);
+        level--;
         return bud.toString();
     }
 

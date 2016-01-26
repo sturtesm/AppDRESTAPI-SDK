@@ -14,29 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * L3
  */
-/*
- * <condition1>
-                        <type>leaf</type>
-                        <display-name>Average Response Time (ms) Baseline Condition</display-name>
-                        <condition-value-type>BASELINE_STANDARD_DEVIATION</condition-value-type>
-                        <condition-value>3</condition-value>
-                        <operator>GREATER_THAN</operator>
-                        <condition-expression/>
-                        <use-active-baseline>true</use-active-baseline>
-                        <metric-expression>
-                            <type>leaf</type>
-                            <function-type>VALUE</function-type>
-                            <value>0</value>
-                            <is-literal-expression>false</is-literal-expression>
-                            <display-name>null</display-name>
-                            <metric-definition>
-                                <type>LOGICAL_METRIC</type>
-                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
-                            </metric-definition>
-                        </metric-expression>
-                    </condition1>
-                    * 
- */
+
 @XmlSeeAlso({ExHRMetricExpression.class,ExHRConditionSub.class,ExHRMetricBaseline.class})
 public class ExHRCondition {
     private String type;
@@ -153,14 +131,9 @@ public class ExHRCondition {
         this.metricBaseline = metricBaseline;
     }
 
-    
-    
     @XmlTransient
-    public String getLevel() {
-        if(level == 1) return AppExportS.L4;
-        if(level == 2) return AppExportS.L4_1;
-        if(level == 3) return AppExportS.L5;
-        return AppExportS.L3_1;
+    public int getLevel() {
+        return level;
     }
 
     public void setLevel(int level) {
@@ -175,115 +148,131 @@ public class ExHRCondition {
         //System.out.println(toString());
         //System.out.println("--------------------\n");
         //System.out.println(obj.toString());
-        bud.append(getLevel()).append(AppExportS.CONDITION_1);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_1);
         level++;
-        int b=level;
+      
         
         if(!type.equals(obj.getType())){     
-             bud.append(getLevel()).append(AppExportS.TYPE);level++;
-             bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-             bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+             level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());  
+             level--;
          }
-        level=b;
+ 
         //if(displayName == null) System.out.println("My displany name is null!");
         
         if(displayName != null ){
             if(!displayName.equals(obj.getDisplayName())){     
-             bud.append(getLevel()).append(AppExportS.DISPLAY_NAME);level++;
-             bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(displayName);
-             bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDisplayName());   
+             bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME);level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(displayName);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDisplayName());   
+             level--;
          }
         }
-        level=b;
+
         if(conditionValueType != null)
         if(!conditionValueType.equals(obj.getConditionValueType())){     
-             bud.append(getLevel()).append(AppExportS.CONDITION_VALUE_TYPE);level++;
-             bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(conditionValueType);
-             bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getConditionValueType());   
+             bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_VALUE_TYPE);level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(conditionValueType);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getConditionValueType());   
+             level--;
          }
-        level=b;
+
         
         if(conditionValue != null)
         if(!conditionValue.equals(obj.getConditionValue())){     
-             bud.append(getLevel()).append(AppExportS.CONDITION_VALUE);level++;
-             bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(conditionValue);
-             bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getConditionValue());   
+             bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_VALUE);level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(conditionValue);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getConditionValue());   
+             level--;
          }
-        level=b;
+
         if(operator != null)
         if(!operator.equals(obj.getOperator())){     
-             bud.append(getLevel()).append(AppExportS.OPERATOR);level++;
-             bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(operator);
-             bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperator());   
+             bud.append(AppExportS.I[level]).append(AppExportS.OPERATOR);level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(operator);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getOperator());  
+             level--;
          }
-        level=b;
         
         
         if(useActiveBaseline != obj.isUseActiveBaseline()){     
-             bud.append(getLevel()).append(AppExportS.USE_ACTIVE_BASELINE);level++;
-             bud.append(getLevel()).append(AppExportS.SRC).append(AppExportS.VE).append(useActiveBaseline);
-             bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isUseActiveBaseline());   
+             bud.append(AppExportS.I[level]).append(AppExportS.USE_ACTIVE_BASELINE);level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(useActiveBaseline);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isUseActiveBaseline());  
+             level--;
          }
-        level=b;
         
-        if(metricExpression != null){ bud.append(metricExpression.whatIsDifferent(obj.getMetricExpression()));}
+        if(metricExpression != null){ metricExpression.setLevel(level);bud.append(metricExpression.whatIsDifferent(obj.getMetricExpression()));}
         else{
             if(obj.getMetricExpression() != null){
-                bud.append(getLevel()).append(AppExportS.METRIC_EXPRESSION);level++;
-                bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMetricExpression());
+                obj.getMetricExpression().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.METRIC_EXPRESSION);level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMetricExpression());
+                level--;
             }
             }
-        level=b;
+ 
         
-        if(metricBaseline != null){ bud.append(metricBaseline.whatIsDifferent(obj.getMetricBaseline()));}
+        if(metricBaseline != null){ metricBaseline.setLevel(level);bud.append(metricBaseline.whatIsDifferent(obj.getMetricBaseline()));}
         else{
             if(obj.getMetricBaseline() != null){
-                bud.append(getLevel()).append(AppExportS.METRIC_BASELINE);level++;
-                bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMetricBaseline());
+                obj.getMetricBaseline().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.METRIC_BASELINE);level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMetricBaseline());
+                level--;
             }
         }
-        level=b;
+
     
-        if(condition1 != null){bud.append(condition1.whatIsDifferent(obj.getCondition1()));}
+        if(condition1 != null){condition1.setLevel(level);bud.append(condition1.whatIsDifferent(obj.getCondition1()));}
         else{
             if(obj.getCondition1() != null){
-                bud.append(getLevel()).append(AppExportS.CONDITION_1);level++;
-                bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCondition1());
+                obj.getCondition1().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_1);level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCondition1());
+                level--;
             }
         }
-        level=b;
         
-        if(condition2 != null){bud.append(condition2.whatIsDifferent(obj.getCondition2()));}
+        if(condition2 != null){condition2.setLevel(level);bud.append(condition2.whatIsDifferent(obj.getCondition2()));}
         else{
             if(obj.getCondition2() != null){
-                bud.append(getLevel()).append(AppExportS.CONDITION_2);level++;
-                bud.append(getLevel()).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCondition2());
+                obj.getCondition2().setLevel(level);
+                bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_2);level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCondition2());
+                level--;
             }
         }
-        level=b;
-        
+
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(getLevel()).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.POLICY_CONDITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
         if(condition1 != null){
-            bud.append(getLevel()).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
-            if(condition1 != null){ level++;bud.append(getLevel()).append(AppExportS.CONDITION_1);condition1.setLevel((level++));bud.append(condition1);}
-            if(condition2 != null){ bud.append(getLevel()).append(AppExportS.CONDITION_2);condition2.setLevel((level));bud.append(condition2);}
+            bud.append(AppExportS.I[level]).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
+            level++;
+            if(condition1 != null){ bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_1);level++;condition1.setLevel((level));bud.append(condition1);level--;}
+            if(condition2 != null){ bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_2);level++;condition2.setLevel((level));bud.append(condition2);level--;}
+            level--;
         }else{
-            bud.append(getLevel()).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
-            bud.append(getLevel()).append(AppExportS.CONDITION_VALUE_TYPE).append(AppExportS.VE).append(conditionValueType);
-            bud.append(getLevel()).append(AppExportS.CONDITION_VALUE).append(AppExportS.VE).append(conditionValue);
-            bud.append(getLevel()).append(AppExportS.CONDITION_EXPRESSION).append(AppExportS.VE).append(conditionExpression);
-            bud.append(getLevel()).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
-            bud.append(getLevel()).append(AppExportS.USE_ACTIVE_BASELINE).append(AppExportS.VE).append(useActiveBaseline);
-            if(metricBaseline != null) bud.append(metricBaseline);
-            bud.append(metricExpression);
+            bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+            bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_VALUE_TYPE).append(AppExportS.VE).append(conditionValueType);
+            bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_VALUE).append(AppExportS.VE).append(conditionValue);
+            bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_EXPRESSION).append(AppExportS.VE).append(conditionExpression);
+            bud.append(AppExportS.I[level]).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
+            bud.append(AppExportS.I[level]).append(AppExportS.USE_ACTIVE_BASELINE).append(AppExportS.VE).append(useActiveBaseline);
+            if(metricBaseline != null){ metricBaseline.setLevel(level);bud.append(metricBaseline);}
+            if(metricExpression != null){metricExpression.setLevel(level);bud.append(metricExpression);}
         }
-        
+        level--;
         return bud.toString();
         
     }
@@ -349,3 +338,28 @@ public class ExHRCondition {
     
     
 }
+
+
+/*
+ * <condition1>
+                        <type>leaf</type>
+                        <display-name>Average Response Time (ms) Baseline Condition</display-name>
+                        <condition-value-type>BASELINE_STANDARD_DEVIATION</condition-value-type>
+                        <condition-value>3</condition-value>
+                        <operator>GREATER_THAN</operator>
+                        <condition-expression/>
+                        <use-active-baseline>true</use-active-baseline>
+                        <metric-expression>
+                            <type>leaf</type>
+                            <function-type>VALUE</function-type>
+                            <value>0</value>
+                            <is-literal-expression>false</is-literal-expression>
+                            <display-name>null</display-name>
+                            <metric-definition>
+                                <type>LOGICAL_METRIC</type>
+                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
+                            </metric-definition>
+                        </metric-expression>
+                    </condition1>
+                    * 
+ */

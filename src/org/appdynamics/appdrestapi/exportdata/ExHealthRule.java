@@ -7,6 +7,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -14,16 +15,26 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * L1_1
  * 
  */
-@XmlSeeAlso({ExAffectedEntitiesMatchCriteria.class,ExHRExecutionCriteria.class})
+//@XmlSeeAlso({ExAffectedEntitiesMatchCriteria.class,ExHRExecutionCriteria.class})
 public class ExHealthRule {
     private String name,type,descr,schedule;
     private boolean enabled,isDefault,alwaysEnabled;
     private Integer durationMin,waitTime;
     private ExAffectedEntitiesMatchCriteria affectedEntitiesMC;
     private ExHRExecutionCriteria critical,warning;
+    private int level=2;
     
     
     public ExHealthRule(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
@@ -113,6 +124,7 @@ public class ExHealthRule {
 
     public void setCritical(ExHRExecutionCriteria critical) {
         this.critical = critical;
+        this.critical.setName(AppExportS.CRITICAL_EXECUTION_CRITERIA);
     }
 
     @XmlElement(name=AppExportS.WARNING_EXECUTION_CRITERIA)
@@ -122,6 +134,7 @@ public class ExHealthRule {
 
     public void setWarning(ExHRExecutionCriteria warning) {
         this.warning = warning;
+        this.warning.setName(AppExportS.WARNING_EXECUTION_CRITERIA);
     }
 
     @XmlElement(name=AppExportS.SCHEDULE)
@@ -138,19 +151,25 @@ public class ExHealthRule {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.HEALTH_RULE);
-        bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        bud.append(AppExportS.L2_1).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(descr);
-        bud.append(AppExportS.L2_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
-        bud.append(AppExportS.L2_1).append(AppExportS.IS_DEFAULT).append(AppExportS.VE).append(isDefault);
-        bud.append(AppExportS.L2_1).append(AppExportS.ALWAYS_ENABLED).append(AppExportS.VE).append(alwaysEnabled);
-        bud.append(AppExportS.L2_1).append(AppExportS.DURATION_MIN).append(AppExportS.VE).append(durationMin);
-        bud.append(AppExportS.L2_1).append(AppExportS.WAIT_TIME_MIN).append(AppExportS.VE).append(waitTime);
-        if(schedule != null) bud.append(AppExportS.L2_1).append(AppExportS.SCHEDULE).append(AppExportS.VE).append(schedule);
+        bud.append(AppExportS.I[level]).append(AppExportS.HEALTH_RULE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(descr);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.IS_DEFAULT).append(AppExportS.VE).append(isDefault);
+        bud.append(AppExportS.I[level]).append(AppExportS.ALWAYS_ENABLED).append(AppExportS.VE).append(alwaysEnabled);
+        bud.append(AppExportS.I[level]).append(AppExportS.DURATION_MIN).append(AppExportS.VE).append(durationMin);
+        bud.append(AppExportS.I[level]).append(AppExportS.WAIT_TIME_MIN).append(AppExportS.VE).append(waitTime);
+        
+        if(schedule != null){ bud.append(AppExportS.I[level]).append(AppExportS.SCHEDULE).append(AppExportS.VE).append(schedule);}
+        
+        if(affectedEntitiesMC != null) affectedEntitiesMC.setLevel(level);
         bud.append(affectedEntitiesMC);
-        if(critical != null){bud.append(AppExportS.L2_1).append(AppExportS.CRITICAL_EXECUTION_CRITERIA);bud.append(critical);}
-        if(warning != null){bud.append(AppExportS.L2_1).append(AppExportS.WARNING_EXECUTION_CRITERIA);bud.append(warning);}
+        
+        if(critical != null){critical.setLevel(level);bud.append(critical);}
+        if(warning != null){warning.setLevel(level);bud.append(warning);}
+        level--;
         return bud.toString();
     }
 
@@ -160,94 +179,122 @@ public class ExHealthRule {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L2).append(AppExportS.HEALTH_RULE);
-         bud.append(AppExportS.L2_1).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.HEALTH_RULE);
+        level++;
+         bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
          if(!type.equals(obj.getType())){     
-            bud.append(AppExportS.L2_1).append(AppExportS.TYPE);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+            bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+            level--;
         }
          
          if(!descr.equals(obj.getDescr())){     
-            bud.append(AppExportS.L2_1).append(AppExportS.DESCRIPTION);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(descr);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescr());   
+            bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(descr);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescr());   
+            level--;
         }
          
          if(enabled != obj.isEnabled()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+            level--;
         }
          // -- here
          if(isDefault != obj.isIsDefault()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.IS_DEFAULT);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(isDefault);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsDefault());   
+            bud.append(AppExportS.I[level]).append(AppExportS.IS_DEFAULT);
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(isDefault);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsDefault());   
         }
          if(enabled != obj.isEnabled()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(enabled);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isEnabled());   
+            level--;
         }
          
          if(durationMin != obj.getDurationMin()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.DURATION_MIN);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(durationMin);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDurationMin());   
+            bud.append(AppExportS.I[level]).append(AppExportS.DURATION_MIN);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(durationMin);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDurationMin());  
+            level--;
         }
          
          if(waitTime != obj.getWaitTime()){     
-            bud.append(AppExportS.L2_1).append(AppExportS.WAIT_TIME_MIN);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(waitTime);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getWaitTime());   
+            bud.append(AppExportS.I[level]).append(AppExportS.WAIT_TIME_MIN);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(waitTime);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getWaitTime());   
+            level--;
         }
         
          if(schedule != null ){
               if(!schedule.equals(obj.getSchedule())){     
-                    bud.append(AppExportS.L2_1).append(AppExportS.SCHEDULE);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(schedule);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSchedule());   
+                    bud.append(AppExportS.I[level]).append(AppExportS.SCHEDULE);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(schedule);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSchedule());   
+                    level--;
              }
          }else{
              if(obj.getSchedule()!= null){
-                    bud.append(AppExportS.L2_1).append(AppExportS.SCHEDULE);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(schedule);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSchedule());
+                    bud.append(AppExportS.I[level]).append(AppExportS.SCHEDULE);
+                    level++;
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(schedule);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSchedule());
+                    level++;
              }
          }
          
          // affectedEntitiesMC
          //critical,warning
          if(affectedEntitiesMC != null){
+             affectedEntitiesMC.setLevel(level);
             bud.append(affectedEntitiesMC.whatIsDifferent(obj.getAffectedEntitiesMC()));
          }else{
              if(obj.getAffectedEntitiesMC()!= null){
-                    bud.append(AppExportS.L2_1).append(AppExportS.AFFECTED_ENTITIES);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(schedule);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getAffectedEntitiesMC().toString());
+                 obj.getAffectedEntitiesMC().setLevel(level);
+                    bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_ENTITIES);
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(schedule);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getAffectedEntitiesMC().toString());
              }
          }
          
          if(critical != null){
+             critical.setName(AppExportS.CRITICAL_EXECUTION_CRITERIA);
+             critical.setLevel(level);
              bud.append(critical.whatIsDifferent(obj.getCritical()));
          }else{
              if(obj.getCritical()!=null){
-                    bud.append(AppExportS.L2_1).append(AppExportS.CRITICAL);
-                    bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(critical);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCritical());
+                    obj.getCritical().setName(AppExportS.CRITICAL_EXECUTION_CRITERIA);
+                    obj.setLevel(level);
+                    bud.append(AppExportS.I[level]).append(AppExportS.CRITICAL);
+                    bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(critical);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getCritical());
              }
          }
          
          if(warning != null){
+             warning.setLevel(level);
+             warning.setName(AppExportS.WARNING_EXECUTION_CRITERIA);
              bud.append(warning.whatIsDifferent(obj.getWarning()));
          }else{
              if(obj.getWarning()!=null){
-                    bud.append(AppExportS.L2_1).append(AppExportS.WARNING);
-                    bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getWarning());
+                    obj.getWarning().setLevel(level);
+                    obj.getWarning().setName(AppExportS.WARNING_EXECUTION_CRITERIA);
+                    bud.append(AppExportS.I[level]).append(AppExportS.WARNING);
+                    bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getWarning());
              }
          }
          
+         level--;
         return bud.toString();
     }
     

@@ -7,6 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,8 +22,18 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class ExAffectedOverallCriteria {
     private String type;
+    private int level=6;
     
     public ExAffectedOverallCriteria(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -37,19 +48,25 @@ public class ExAffectedOverallCriteria {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
-        bud.append(AppExportS.L3).append(AppExportS.TYPE);
-        bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-        bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType()); 
-                
+        bud.append(AppExportS.I[level]).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType()); 
+        level--;
+        
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
-        bud.append(AppExportS.L3).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.OVERALL_AFFECTED_ENTITIES_MATCH_CRITERIA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        level--;
         return bud.toString();
     }
 

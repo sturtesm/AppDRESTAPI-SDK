@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -26,8 +26,18 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExEumCloudConfig {
     private ExExcludeConfig excludeConfig;
     private ExPageConfig pageConfig;
+    private int level=3;
     
     public ExEumCloudConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
     @XmlElement(name=AppExportS.PAGE_CONFIG)
     public ExPageConfig getPageConfig() {
@@ -51,18 +61,27 @@ public class ExEumCloudConfig {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-          bud.append(AppExportS.L1).append(AppExportS.EUM_CLOUD_CONFIG);
+          bud.append(AppExportS.I[level]).append(AppExportS.EUM_CLOUD_CONFIG);
+          level++;
+          if(excludeConfig != null)excludeConfig.setLevel(level);
+          if(pageConfig != null) pageConfig.setLevel(level);
+          
           bud.append(excludeConfig.whatIsDifferent(obj.getExcludeConfig()));
           bud.append(pageConfig.whatIsDifferent(obj.getPageConfig()));
+          level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.EUM_CLOUD_CONFIG);
+        bud.append(AppExportS.I[level]).append(AppExportS.EUM_CLOUD_CONFIG);
+        level++;
+          if(excludeConfig != null)excludeConfig.setLevel(level);
+          if(pageConfig != null) pageConfig.setLevel(level);
         bud.append(excludeConfig);
         bud.append(pageConfig);
+        level--;
         return bud.toString();
     }
 

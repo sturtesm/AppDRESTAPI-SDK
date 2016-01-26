@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,16 +41,20 @@ public class ExEpm {
         this.warning = warning;
     }
     
-    public void setLevel(int val){
-        critical.setLevel(val);
-        warning.setLevel(val);
+    public void setLevel(int level){
+        this.level=level;
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.EPM);
+        level++;
+        if(critical != null) critical.setLevel(level);
+        if(warning != null) warning.setLevel(level);
         bud.append(critical);
         bud.append(warning);
+        level--;
         return bud.toString();
     }
     
@@ -57,9 +62,13 @@ public class ExEpm {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud=new StringBuilder();
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.EPM);
+        level++;
+        if(critical != null) critical.setLevel(level);
+        if(warning != null) warning.setLevel(level);
         bud.append(critical.whatIsDifferent(obj.getCritical()));
         bud.append(warning.whatIsDifferent(obj.getWarning()));
+        level--;
         
         return bud.toString();
     }

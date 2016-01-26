@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,8 +33,18 @@ public class ExMetricBaseline {
     private boolean isDefault;
     private boolean allDate;
     private int numberOfDays;
+    private int level=4;
     
     public ExMetricBaseline(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlAttribute(name=AppExportS.SEASONALITY)
     public String getSeasonality() {
@@ -93,52 +104,66 @@ public class ExMetricBaseline {
         if(this.equals(obj) ) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.METRIC_BASELINE);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_BASELINE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!seasonality.equals(obj.getSeasonality())){     
-             bud.append(AppExportS.L2).append(AppExportS.SEASONALITY);
-             bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(seasonality);
-             bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSeasonality());   
+             bud.append(AppExportS.I[level]).append(AppExportS.SEASONALITY);
+             level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(seasonality);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getSeasonality());  
+             level--;
          }
         
         if(fixed != obj.isFixed()){     
-            bud.append(AppExportS.L2).append(AppExportS.FIXED);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(fixed);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isFixed());   
+            bud.append(AppExportS.I[level]).append(AppExportS.FIXED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(fixed);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isFixed());   
+            level--;
         }
 
         if(isDefault != obj.isIsDefault()){     
-            bud.append(AppExportS.L2).append(AppExportS.IS_DEFAULT);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(isDefault);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsDefault());   
+            bud.append(AppExportS.I[level]).append(AppExportS.IS_DEFAULT);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(isDefault);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsDefault());   
+            level--;
         }
         
         if(allDate != obj.isAllDate()){     
-            bud.append(AppExportS.L2).append(AppExportS.ALL_DATE);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(allDate);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAllDate());   
+            bud.append(AppExportS.I[level]).append(AppExportS.ALL_DATE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(allDate);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isAllDate());  
+            level--;
         }
         
         if(numberOfDays != obj.getNumberOfDays()){     
-            bud.append(AppExportS.L2).append(AppExportS.NUMBER_OF_DAYS);
-            bud.append(AppExportS.L2_1).append(AppExportS.SRC).append(AppExportS.VE).append(numberOfDays);
-            bud.append(AppExportS.L2_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNumberOfDays());   
+            bud.append(AppExportS.I[level]).append(AppExportS.NUMBER_OF_DAYS);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(numberOfDays);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getNumberOfDays());   
+            level--;
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.METRIC_BASELINE);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2).append(AppExportS.SEASONALITY).append(AppExportS.VE).append(seasonality);
-        bud.append(AppExportS.L2).append(AppExportS.FIXED).append(AppExportS.VE).append(fixed);
-        bud.append(AppExportS.L2).append(AppExportS.IS_DEFAULT).append(AppExportS.VE).append(isDefault);
-        bud.append(AppExportS.L2).append(AppExportS.ALL_DATE).append(AppExportS.VE).append(allDate);
-        bud.append(AppExportS.L2).append(AppExportS.NUMBER_OF_DAYS).append(AppExportS.VE).append(numberOfDays);
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_BASELINE);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.SEASONALITY).append(AppExportS.VE).append(seasonality);
+        bud.append(AppExportS.I[level]).append(AppExportS.FIXED).append(AppExportS.VE).append(fixed);
+        bud.append(AppExportS.I[level]).append(AppExportS.IS_DEFAULT).append(AppExportS.VE).append(isDefault);
+        bud.append(AppExportS.I[level]).append(AppExportS.ALL_DATE).append(AppExportS.VE).append(allDate);
+        bud.append(AppExportS.I[level]).append(AppExportS.NUMBER_OF_DAYS).append(AppExportS.VE).append(numberOfDays);
+        level--;
         return bud.toString();
     }
 

@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -31,8 +32,18 @@ public class ExAffectedBTMatchCriteria {
     private ArrayList<ExHRBusinessTransaction> bts=new ArrayList<ExHRBusinessTransaction>();
     private String matchType,matchPattern;
     private boolean inverse;
+    private int level=7;
     
     public ExAffectedBTMatchCriteria(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -92,59 +103,71 @@ public class ExAffectedBTMatchCriteria {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);
         
         if(!type.equals(obj.getType())){     
             bud.append(AppExportS.L2_1).append(AppExportS.DESCRIPTION);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
         }
         
         if(appComponents != null){
+            appComponents.setLevel(level);
             bud.append(appComponents.whatIsDifferent(obj.getAppComponents()));
         }else{
             if(obj.getAppComponents()!=null){
-                        bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
+                        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+                        level++;
                     for(String value: obj.getAppComponents().getAppComponent()){
-                        bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                        bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
                     }
+                    level--;
             }
         }
         
         for(ExHRBusinessTransaction value: bts){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExHRBusinessTransaction _value:obj.getBts()){
                   if(value.equals(_value))fnd=true;
             }
-            if(!fnd) bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            if(!fnd) bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
         }
         
         for(ExHRBusinessTransaction value: obj.getBts()){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExHRBusinessTransaction _value:bts){
                   if(value.equals(_value))fnd=true;
             }
-            if(!fnd) bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+            if(!fnd) bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
         }
         
         if(matchType != null ){
             if(!matchType.equals(obj.getMatchType())){
-                bud.append(AppExportS.L3_1).append(AppExportS.MATCH_TYPE);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType()); 
+                bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchType);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchType()); 
+                level--;
             }
             if(!matchPattern.equals(obj.getMatchPattern())){
-                bud.append(AppExportS.L3_1).append(AppExportS.MATCH_PATTERN);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern()); 
+                bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(matchPattern);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getMatchPattern()); 
+                level--;
             }
             if(inverse != obj.isInverse()){
-                bud.append(AppExportS.L3_1).append(AppExportS.INVERSE);
-                bud.append(AppExportS.L4).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
-                bud.append(AppExportS.L4).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());  
+                bud.append(AppExportS.I[level]).append(AppExportS.INVERSE);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(inverse);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isInverse());  
+                level--;
             }
         }
         
+        level--;
         return bud.toString();
      }
     
@@ -152,20 +175,23 @@ public class ExAffectedBTMatchCriteria {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);
-        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        if(appComponents != null){bud.append(AppExportS.L3_1).append(AppExportS.APPLICATION_COMPONENTS);bud.append(appComponents);}
+        bud.append(AppExportS.I[level]).append(AppExportS.AFFECTED_BT_MATCH_CRITERIA);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        if(appComponents != null){bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENTS);appComponents.setLevel(level);bud.append(appComponents);}
         if(!bts.isEmpty()){
-            for(ExHRBusinessTransaction bt:bts) bud.append(bt);
+            for(ExHRBusinessTransaction bt:bts){bt.setLevel(level); bud.append(bt);}
         }
         if(matchType != null){
-            bud.append(AppExportS.L3_1).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
-            bud.append(AppExportS.L3_1).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
-            bud.append(AppExportS.L3_1).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_TYPE).append(AppExportS.VE).append(matchType);
+            bud.append(AppExportS.I[level]).append(AppExportS.MATCH_PATTERN).append(AppExportS.VE).append(matchPattern);
+            bud.append(AppExportS.I[level]).append(AppExportS.INVERSE).append(AppExportS.VE).append(inverse);
         }
         
         //private String matchType,matchPattern;
         //private boolean inverse;
+        
+        level--;
         return bud.toString();
     }
     
@@ -173,12 +199,12 @@ public class ExAffectedBTMatchCriteria {
     public String toXML(){
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.XOpen(AppExportS.AFFECTED_BT_MATCH_CRITERIA));
+        bud.append(AppExportS.I[level]).append(AppExportS.XOpen(AppExportS.AFFECTED_BT_MATCH_CRITERIA));
         bud.append(AppExportS.XElement(6, AppExportS.TYPE, type));
         if(appComponents != null){
-            bud.append(AppExportS.L3_1).append(AppExportS.XOpen(AppExportS.APPLICATION_COMPONENTS));
+            bud.append(AppExportS.I[level]).append(AppExportS.XOpen(AppExportS.APPLICATION_COMPONENTS));
             bud.append(appComponents);
-            bud.append(AppExportS.L3_1).append(AppExportS.XClose(AppExportS.APPLICATION_COMPONENTS));
+            bud.append(AppExportS.I[level]).append(AppExportS.XClose(AppExportS.APPLICATION_COMPONENTS));
         }
         if(bts.size() > 0){
             for(ExHRBusinessTransaction bt:bts) bud.append(bt);
@@ -188,7 +214,7 @@ public class ExAffectedBTMatchCriteria {
             bud.append(AppExportS.XElement(6, AppExportS.MATCH_PATTERN, matchPattern));
             bud.append(AppExportS.XElement(6, AppExportS.INVERSE, inverse));
         }
-        bud.append(AppExportS.L3).append(AppExportS.XClose(AppExportS.AFFECTED_BT_MATCH_CRITERIA));
+        bud.append(AppExportS.I[level]).append(AppExportS.XClose(AppExportS.AFFECTED_BT_MATCH_CRITERIA));
         return bud.toString();
     }
 

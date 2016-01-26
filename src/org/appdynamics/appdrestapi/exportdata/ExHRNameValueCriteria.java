@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -29,9 +29,30 @@ import java.util.ArrayList;
  * 
  */
 public class ExHRNameValueCriteria {
+    private String name;
     private ArrayList<ExNameValue> nameValues=new ArrayList<ExNameValue>();
+    private int level=7;
     
     public ExHRNameValueCriteria(){}
+
+    @XmlTransient
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.NAME_VALUE)
     public ArrayList<ExNameValue> getNameValues() {
@@ -46,36 +67,38 @@ public class ExHRNameValueCriteria {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.NODE_META_INFO_MATCH_CRITERIA);
-        
+        bud.append(AppExportS.I[level]).append(name);
+        level++;
         for(ExNameValue value:nameValues){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExNameValue _value:obj.getNameValues()){
                 if(value.getName().equals(_value.getName())){
                     bud.append(value.whatIsDifferent(_value));fnd=true;
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L4).append(AppExportS.NAME_VALUE);
-                bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.NAME_VALUE);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
             }
         }
         
         for(ExNameValue value:obj.getNameValues()){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExNameValue _value:nameValues){
                 if(value.getName().equals(_value.getName())){
                     bud.append(value.whatIsDifferent(_value));fnd=true;
                 }
             }
             if(!fnd){
-                bud.append(AppExportS.L4).append(AppExportS.NAME_VALUE);
-                bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.NAME_VALUE);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
             }
         }
         
         
-        
+        level--;
         return bud.toString();
      }
     
@@ -83,8 +106,10 @@ public class ExHRNameValueCriteria {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        
-        for(ExNameValue val: nameValues)bud.append(val);
+        bud.append(AppExportS.I[level]).append(name);
+        level++;
+        for(ExNameValue val: nameValues){val.setLevel(level);bud.append(val);}
+        level--;
         return bud.toString();
     }
 

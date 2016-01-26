@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,8 +27,18 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 public class ExHRMetricDefinition {
     private String type;
     private String logicalMetricName;
+    private int level=9;
     
     public ExHRMetricDefinition(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -52,29 +62,36 @@ public class ExHRMetricDefinition {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.METRIC_DEFINITION);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_DEFINITION);
+        level++;
         if(!type.equals(obj.getType())){     
-             bud.append(AppExportS.L4_1).append(AppExportS.TYPE);
-             bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-             bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+             level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             level--;
          }
         
         if(!logicalMetricName.equals(obj.getLogicalMetricName())){     
-            bud.append(AppExportS.L4_1).append(AppExportS.LOGICAL_METRIC_NAME);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(logicalMetricName);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getLogicalMetricName());   
+            bud.append(AppExportS.I[level]).append(AppExportS.LOGICAL_METRIC_NAME);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(logicalMetricName);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getLogicalMetricName());   
+            level--;
         }
 
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.METRIC_DEFINITION);
-        bud.append(AppExportS.L4_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        bud.append(AppExportS.L4_1).append(AppExportS.LOGICAL_METRIC_NAME).append(AppExportS.VE).append(logicalMetricName);
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_DEFINITION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.LOGICAL_METRIC_NAME).append(AppExportS.VE).append(logicalMetricName);
+        level--;
         return bud.toString();
     }
 

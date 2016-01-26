@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,25 +40,41 @@ public class ExArt {
     public void setWarning(ExWarning warning) {
         this.warning = warning;
     }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
     
-    public void setLevel(int val){
-        critical.setLevel(val);
-        warning.setLevel(val);
+    
+    public void setLevel(int level){
+        this.level=level;
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        //bud.append(AppExportS.L3).append(AppExportS.ART);
+        bud.append(AppExportS.I[level]).append(AppExportS.ART);
+        level++;
+        if(critical != null) critical.setLevel(level);
+        if(warning != null) warning.setLevel(level);
         bud.append(critical);
         bud.append(warning);
+        level--;
         return bud.toString();
     }
 
     public String whatIsDifferent(ExArt obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
         StringBuilder bud=new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.ART);
+        level++;
+        if(critical != null) critical.setLevel(level);
+        if(warning != null) warning.setLevel(level);
         bud.append(critical.whatIsDifferent(obj.getCritical()));
         bud.append(warning.whatIsDifferent(obj.getWarning()));
+        level--;
         return bud.toString();
     }
     

@@ -99,8 +99,9 @@ public class ExSlaViolation {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.I[level]).append(AppExportS.SLA_VIOLATION).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.I[level]).append(AppExportS.SLA_VIOLATION);
         level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
         bud.append(AppExportS.I[level]).append(AppExportS.COLLECT_OUTLIERS_ONLY).append(AppExportS.VE).append(collectOutliersOnly);
         bud.append(AppExportS.I[level]).append(AppExportS.DURATION).append(AppExportS.VE).append(duration);
         bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);

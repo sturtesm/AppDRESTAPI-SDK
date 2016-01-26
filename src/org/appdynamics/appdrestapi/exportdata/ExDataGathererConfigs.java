@@ -77,11 +77,11 @@ public class ExDataGathererConfigs {
         
         //http
         for(ExHttpDataGathererConfig value:httpDataGathererConfig){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExHttpDataGathererConfig _value:obj.getHttpDataGathererConfig()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
-                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
@@ -91,6 +91,7 @@ public class ExDataGathererConfigs {
         }
         
         for(ExHttpDataGathererConfig value:obj.getHttpDataGathererConfig()){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExHttpDataGathererConfig _value:httpDataGathererConfig){
                 if(value.getName().equals(_value.getName())){
@@ -98,7 +99,6 @@ public class ExDataGathererConfigs {
                 }
             }
             if(!fnd){
-                value.setLevel(level);
                 bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
@@ -106,11 +106,11 @@ public class ExDataGathererConfigs {
         //sql
         
          for(ExSqlDataGathererConfig value:sqlDataGathererConfig){
+                    value.setLevel(level);
             boolean fnd=false;
             for(ExSqlDataGathererConfig _value:obj.getSqlDataGathererConfig()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
-                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
@@ -120,6 +120,7 @@ public class ExDataGathererConfigs {
         }
         
         for(ExSqlDataGathererConfig value:obj.getSqlDataGathererConfig()){
+                    value.setLevel(level);
             boolean fnd=false;
             for(ExSqlDataGathererConfig _value:sqlDataGathererConfig){
                 if(value.getName().equals(_value.getName())){
@@ -127,17 +128,16 @@ public class ExDataGathererConfigs {
                 }
             }
             if(!fnd){
-                value.setLevel(level);
                 bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
         //pojo
         for(ExPojoDataGathererConfig value:pojoDataGathererConfig){
+            value.setLevel(level);
             boolean fnd=false;
             for(ExPojoDataGathererConfig _value:obj.getPojoDataGathererConfig()){
                 if(value.getName().equals(_value.getName())){
                     fnd=true;
-                    value.setLevel(level);
                     bud.append(value.whatIsDifferent(_value));
                 }
             }
@@ -147,6 +147,7 @@ public class ExDataGathererConfigs {
         }
         
         for(ExPojoDataGathererConfig value:obj.getPojoDataGathererConfig()){
+                    value.setLevel(level);
             boolean fnd=false;
             for(ExPojoDataGathererConfig _value:pojoDataGathererConfig){
                 if(value.getName().equals(_value.getName())){
@@ -154,7 +155,6 @@ public class ExDataGathererConfigs {
                 }
             }
             if(!fnd){
-                value.setLevel(level);
                 bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(value);
             }
         }
@@ -168,9 +168,11 @@ public class ExDataGathererConfigs {
         StringBuilder bud = new StringBuilder();
         
         bud.append(AppExportS.I[level]).append(AppExportS.DATA_GATHERER_CONFIGS);
+        level++;
         for(ExHttpDataGathererConfig http_:httpDataGathererConfig){http_.setLevel(level);bud.append(http_);}
         for(ExSqlDataGathererConfig sql_:sqlDataGathererConfig){ sql_.setLevel(level); bud.append(sql_);}
         for(ExPojoDataGathererConfig pojo_:pojoDataGathererConfig ){ pojo_.setLevel(level); bud.append(pojo_);}
+        level--;
         return bud.toString();
     }
 

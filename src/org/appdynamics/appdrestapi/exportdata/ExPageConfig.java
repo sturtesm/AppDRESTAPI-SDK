@@ -6,7 +6,7 @@ package org.appdynamics.appdrestapi.exportdata;
 
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.XmlAttribute;
 
@@ -22,10 +22,21 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class ExPageConfig {
     private String pageConfig;
     private String pageConfigVersion;
+    private int level=3;
     
     public ExPageConfig(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
     
-    //@XmlElement(name=AppExportS.PAGE_CONFIG)
+    
+    
     @XmlValue
     public String getPageConfig() {
         return pageConfig;
@@ -50,24 +61,29 @@ public class ExPageConfig {
         StringBuilder bud = new StringBuilder();
         
         if(!pageConfig.equals(obj.getPageConfig())){     
-            bud.append(AppExportS.L2_1).append(AppExportS.PAGE_CONFIG);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(pageConfig);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPageConfig());    
+            bud.append(AppExportS.I[level]).append(AppExportS.PAGE_CONFIG);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(pageConfig);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPageConfig());    
+            level--;
         }
         
         if(!pageConfigVersion.equals(obj.getPageConfigVersion())){     
-            bud.append(AppExportS.L2_1).append(AppExportS.PAGE_CONFIG_VERSION);
-            bud.append(AppExportS.L3).append(AppExportS.SRC).append(AppExportS.VE).append(pageConfigVersion);
-            bud.append(AppExportS.L3).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPageConfigVersion());    
+            bud.append(AppExportS.I[level]).append(AppExportS.PAGE_CONFIG_VERSION);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(pageConfigVersion);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPageConfigVersion());    
+            level--;
         }
+        
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud=new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.PAGE_CONFIG).append(AppExportS.VE).append(pageConfig);
-        bud.append(AppExportS.L2_1).append(AppExportS.PAGE_CONFIG_VERSION).append(AppExportS.VE).append(pageConfigVersion);
+        bud.append(AppExportS.I[level]).append(AppExportS.PAGE_CONFIG).append(AppExportS.VE).append(pageConfig);
+        bud.append(AppExportS.I[level]).append(AppExportS.PAGE_CONFIG_VERSION).append(AppExportS.VE).append(pageConfigVersion);
         return bud.toString();
     }
 

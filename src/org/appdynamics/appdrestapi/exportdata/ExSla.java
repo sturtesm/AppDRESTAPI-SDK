@@ -70,11 +70,9 @@ public class ExSla {
         
         bud.append(AppExportS.I[level]).append(AppExportS.SLA);
         level++;
-        art.setLevel(level);
-        epm.setLevel(level);
-        bud.append(AppExportS.I[level]).append(AppExportS.ART);
+        if(art != null) art.setLevel(level);
+        if(art != null) epm.setLevel(level);
         bud.append(art);
-        bud.append(AppExportS.I[level]).append(AppExportS.EPM);
         bud.append(epm);
         level--;
         return bud.toString();
@@ -84,19 +82,13 @@ public class ExSla {
         if(this.equals(obj)) return AppExportS._U;
 
         StringBuilder bud=new StringBuilder();
-        art.setLevel(level);
-        epm.setLevel(level);
         bud.append(AppExportS.I[level]).append(AppExportS.SLA);
         level++;
-        if(!art.equals(obj.getArt())){
-            bud.append(AppExportS.I[level]).append(AppExportS.ART);
-            bud.append(art.whatIsDifferent(obj.getArt()));
-        }
-        if(!epm.equals(obj.getEpm())){
-            bud.append(AppExportS.I[level]).append(AppExportS.EPM);
-            bud.append(epm.whatIsDifferent(obj.getEpm()));
-        }
         
+        if(art != null){ art.setLevel(level);bud.append(art.whatIsDifferent(obj.getArt()));}
+        if(art != null) {epm.setLevel(level);bud.append(epm.whatIsDifferent(obj.getEpm()));}
+        
+        level--;
         return bud.toString();
     }
     

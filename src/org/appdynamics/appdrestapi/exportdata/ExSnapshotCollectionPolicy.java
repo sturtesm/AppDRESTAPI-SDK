@@ -13,18 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author gilbert.solorzano
  */
-/*
- * <snapshot-collection-policy>
-                <minute-frequency enabled="true">10</minute-frequency>
-                <nth-occurance enabled="false">100</nth-occurance>
-                <sla-violation collect-outliers-only="true" duration="5"
-                    enabled="true" max-attempts-for-outliers="20" warning-violation="true">5</sla-violation>
-                <automatic-collection-enabled>true</automatic-collection-enabled>
-                <automatic-slow-volume-percentage-threshold>10</automatic-slow-volume-percentage-threshold>
-                <automatic-error-volume-percentage-threshold>10</automatic-error-volume-percentage-threshold>
-            </snapshot-collection-policy>
- * 
- */
+
 @XmlSeeAlso({ExSlaViolation.class,ExMinuteFrequency.class,ExNthOccurance.class})
 public class ExSnapshotCollectionPolicy {
     private ExMinuteFrequency minuteFrequency;
@@ -123,7 +112,7 @@ public class ExSnapshotCollectionPolicy {
             minuteFrequency.setLevel(level);
             bud.append(minuteFrequency);
         }
-        //bud.append(AppExportS.I[level]_1).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        
         if(nthOccurance != null){
             nthOccurance.setLevel(level);
             bud.append(nthOccurance);
@@ -145,6 +134,7 @@ public class ExSnapshotCollectionPolicy {
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.I[level]).append(AppExportS.SNAPSHOT_COLLECTION_POLICY);
         level++;
+        
         if(minuteFrequency != null){minuteFrequency.setLevel(level); bud.append(minuteFrequency.whatIsDifferent(obj.getMinuteFrequency()));}
         if(nthOccurance != null){ nthOccurance.setLevel(level);bud.append(nthOccurance.whatIsDifferent(obj.getNthOccurance())); }
         if(slaViolation != null){ slaViolation.setLevel(level);bud.append(slaViolation.whatIsDifferent(obj.getSlaViolation())); }
@@ -224,3 +214,16 @@ public class ExSnapshotCollectionPolicy {
     
     
 }
+
+/*
+ * <snapshot-collection-policy>
+                <minute-frequency enabled="true">10</minute-frequency>
+                <nth-occurance enabled="false">100</nth-occurance>
+                <sla-violation collect-outliers-only="true" duration="5"
+                    enabled="true" max-attempts-for-outliers="20" warning-violation="true">5</sla-violation>
+                <automatic-collection-enabled>true</automatic-collection-enabled>
+                <automatic-slow-volume-percentage-threshold>10</automatic-slow-volume-percentage-threshold>
+                <automatic-error-volume-percentage-threshold>10</automatic-error-volume-percentage-threshold>
+            </snapshot-collection-policy>
+ * 
+ */

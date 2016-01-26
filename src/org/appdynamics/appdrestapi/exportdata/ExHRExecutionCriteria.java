@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -15,10 +16,30 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  */
 @XmlSeeAlso({ExHRCondition.class,ExEntityAggregationScope.class})
 public class ExHRExecutionCriteria {
+    private String name;
     private ExHRCondition policyCondition;
     private ExEntityAggregationScope aggScope;
+    private int level=4;
     
     public ExHRExecutionCriteria(){}
+
+    @XmlTransient
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.POLICY_CONDITION)
     public ExHRCondition getPolicyCondition() {
@@ -43,18 +64,30 @@ public class ExHRExecutionCriteria {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append("Execution Criteria");
+        bud.append(AppExportS.I[level]).append(name);
+        level++;
+        if(aggScope != null) aggScope.setLevel(level);
+        if(policyCondition != null) policyCondition.setLevel(level);
+        
         bud.append(aggScope.whatIsDifferent(obj.getAggScope()));
         bud.append(policyCondition.whatIsDifferent(obj.getPolicyCondition()));
+        level++;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(name);
+        level++;
+        if(aggScope != null) aggScope.setLevel(level);
+        if(policyCondition != null) policyCondition.setLevel(level);
+        
         bud.append(aggScope);
-        bud.append(AppExportS.L3).append(AppExportS.POLICY_CONDITION);
+        
         bud.append(policyCondition);
+        
+        level--;
         return bud.toString();
     }
 

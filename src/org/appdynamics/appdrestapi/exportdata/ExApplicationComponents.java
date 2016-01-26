@@ -27,6 +27,7 @@ public class ExApplicationComponents {
     
     public ExApplicationComponents(){}
 
+    @XmlTransient
     public int getLevel() {
         return level;
     }

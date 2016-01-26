@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 /**
@@ -23,8 +23,19 @@ import java.util.ArrayList;
  */
 public class ExHRNodes {
     private ArrayList<String> nodes=new ArrayList<String>();
+    private int level=8;
+    
     
     public ExHRNodes(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.APPLICATION_COMPONENT_NODE)
     public ArrayList<String> getNodes() {
@@ -39,30 +50,37 @@ public class ExHRNodes {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.NODES);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.NODES);
+        level++;
         for(String value: nodes){
             if(!obj.getNodes().contains(value)){
-                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
-                bud.append(AppExportS.L4_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                level--;
             }
         }
         
         for(String value: obj.getNodes()){
             if(!nodes.contains(value)){
-                bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT);
-                bud.append(AppExportS.L4_1).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT);
+                level++;
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                level--;
             }
         }
         
+        level--;
         return bud.toString();
     }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.NODES);
-        for(String node:nodes)bud.append(AppExportS.L4).append(AppExportS.APPLICATION_COMPONENT_NODE).append(AppExportS.VE).append(node);
+        bud.append(AppExportS.I[level]).append(AppExportS.NODES);
+        level++;
+        for(String node:nodes)bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT_NODE).append(AppExportS.VE).append(node);
+        level--;
         return bud.toString();
     }
 

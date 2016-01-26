@@ -42,7 +42,7 @@ public String whatIsDifferent(ExExcludeConfig obj){
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.EXCLUDE_CONFIG);
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDE_CONFIG);
         
         for(ExApplicationDiagnosticData value:getApplicationDiagnosticDatas()){
             boolean fnd=false;
@@ -54,7 +54,7 @@ public String whatIsDifferent(ExExcludeConfig obj){
             }
             
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
             }
         }
         
@@ -66,7 +66,7 @@ public String whatIsDifferent(ExExcludeConfig obj){
                     }
             }
             if(!fnd){
-                bud.append(AppExportS.L2).append(AppExportS.DEST).append(AppExportS.VE).append(value);
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);
             }
         }
         return bud.toString();
@@ -75,9 +75,11 @@ public String whatIsDifferent(ExExcludeConfig obj){
     @Override
     public String toString(){
         StringBuilder bud=new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.EXCLUDE_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);
-        for(ExApplicationDiagnosticData data:getApplicationDiagnosticDatas()) bud.append(data.toString());
+        bud.append(AppExportS.I[level]).append(AppExportS.EXCLUDE_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_DIAGNOSTIC_DATA);
+        for(ExApplicationDiagnosticData data:getApplicationDiagnosticDatas()){data.setLevel(level); bud.append(data);}
+        level--;
         return bud.toString();
     }
 

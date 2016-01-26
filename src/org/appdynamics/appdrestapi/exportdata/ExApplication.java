@@ -229,25 +229,35 @@ public class ExApplication {
         StringBuilder bud = new StringBuilder();
         
         bud.append(AppExportS.APPLICATION);
+        level++;
+        
+        if(configuration != null) configuration.setLevel(level);
+        if(dataGathererConfigs != null) dataGathererConfigs.setLevel(level);
+        if(applicationComponents != null) applicationComponents.setLevel(level);
+        if(healthRules != null) healthRules.setLevel(level);
+        if(entryPointMatchConfigurations != null) entryPointMatchConfigurations.setLevel(level);
+        if(backendMatchPointConfigurations != null) backendMatchPointConfigurations.setLevel(level);
+        if(metricBaselines != null) metricBaselines.setLevel(level);
+        if(agentConfigurations != null) agentConfigurations.setLevel(level);
+        if(eumCloudConfig != null) eumCloudConfig.setLevel(level);
+        
         
         bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-            
+        
         if(!name.equals(obj.getName())){     
-            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.NAME);
             level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(name);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getName());    
-            level--;level--;
+            level--;
         }
         
         if(!description.equals(obj.getDescription())){
-            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
             level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(description);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
-            level--;level--;
+            level--;
         }
         
         if(!controllerVersion.equals(obj.getControllerVersion())){
@@ -255,7 +265,7 @@ public class ExApplication {
             bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_INSTRUMENTATION_LEVEL);
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(description);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDescription());    
-            level--;level--;
+            level--;
         }
         
         bud.append(configuration.whatIsDifferent(obj.getConfiguration())); //done
@@ -271,7 +281,7 @@ public class ExApplication {
         bud.append(agentConfigurations.whatIsDifferent(obj.getAgentConfigurations())); //done 12/31, need testing
         bud.append(eumCloudConfig.whatIsDifferent(obj.getEumCloudConfig())); //done 12/30
         
-        
+        level--;
         return bud.toString();
     }
     
@@ -281,9 +291,21 @@ public class ExApplication {
         StringBuilder bud = new StringBuilder();
         try{
             bud.append(AppExportS.APPLICATION);
+            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
             bud.append(AppExportS.I[level]).append(AppExportS.DESCRIPTION).append(AppExportS.VE).append(description);
             bud.append(AppExportS.I[level]).append(AppExportS.CONTROLLER_VERSION).append(AppExportS.VE).append(controllerVersion);
+            
+            if(configuration != null) configuration.setLevel(level);
+            if(dataGathererConfigs != null) dataGathererConfigs.setLevel(level);
+            if(applicationComponents != null) applicationComponents.setLevel(level);
+            if(healthRules != null) healthRules.setLevel(level);
+            if(entryPointMatchConfigurations != null) entryPointMatchConfigurations.setLevel(level);
+            if(backendMatchPointConfigurations != null) backendMatchPointConfigurations.setLevel(level);
+            if(metricBaselines != null) metricBaselines.setLevel(level);
+            if(agentConfigurations != null) agentConfigurations.setLevel(level);
+            if(eumCloudConfig != null) eumCloudConfig.setLevel(level);
+            
             bud.append(configuration); //done
             bud.append(dataGathererConfigs); //done 10/25
             bud.append(applicationComponents); //done 10/25
@@ -298,6 +320,7 @@ public class ExApplication {
             bud.append(eumCloudConfig); //done 12/30
         
         }catch(Exception e){e.printStackTrace();}
+        level--;
         return bud.toString();
     }
 

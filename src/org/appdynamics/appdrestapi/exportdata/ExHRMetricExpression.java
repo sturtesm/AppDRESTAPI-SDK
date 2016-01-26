@@ -8,6 +8,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,9 +41,20 @@ public class ExHRMetricExpression {
     private boolean isLiteralExpression;
     private String displayName;
     private ExHRMetricDefinition metricDef;
+    private int level=9;
     
     public ExHRMetricExpression(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
         return type;
@@ -101,40 +113,52 @@ public class ExHRMetricExpression {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L4).append(AppExportS.METRIC_EXPRESSION);
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_EXPRESSION);
+        level++;
         
         if(!type.equals(obj.getType())){     
-             bud.append(AppExportS.L4_1).append(AppExportS.TYPE);
-             bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(type);
-             bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             bud.append(AppExportS.I[level]).append(AppExportS.TYPE);
+             level++;
+             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(type);
+             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getType());   
+             level--;
          }
         
         if(!functionType.equals(obj.getFunctionType())){     
-            bud.append(AppExportS.L4_1).append(AppExportS.FUNCTION_TYPE);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(functionType);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFunctionType());   
+            bud.append(AppExportS.I[level]).append(AppExportS.FUNCTION_TYPE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(functionType);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getFunctionType());   
+            level--;
         }
 
         if(!value.equals(obj.getValue())){     
-            bud.append(AppExportS.L4_1).append(AppExportS.VALUE);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(value);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());   
+            bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());   
+            level--;
         }
         
         
         if(isLiteralExpression != obj.isIsLiteralExpression() ){     
-            bud.append(AppExportS.L4_1).append(AppExportS.IS_LITERAL_EXPRESSION);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(isLiteralExpression);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsLiteralExpression());   
+            bud.append(AppExportS.I[level]).append(AppExportS.IS_LITERAL_EXPRESSION);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(isLiteralExpression);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isIsLiteralExpression());   
+            level--;
         }
         
         
         if(!displayName.equals(obj.getDisplayName())){     
-            bud.append(AppExportS.L4_1).append(AppExportS.DISPLAY_NAME);
-            bud.append(AppExportS.L5).append(AppExportS.SRC).append(AppExportS.VE).append(displayName);
-            bud.append(AppExportS.L5).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDisplayName());   
+            bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(displayName);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getDisplayName());  
+            level--;
         }
         
+        if(metricDef != null) metricDef.setLevel(level);
         bud.append(metricDef.whatIsDifferent(obj.getMetricDef()));
         
         return bud.toString();
@@ -143,13 +167,16 @@ public class ExHRMetricExpression {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.METRIC_EXPRESSION);
-        bud.append(AppExportS.L4).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        bud.append(AppExportS.L4).append(AppExportS.FUNCTION_TYPE).append(AppExportS.VE).append(functionType);
-        bud.append(AppExportS.L4).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
-        bud.append(AppExportS.L4).append(AppExportS.IS_LITERAL_EXPRESSION).append(AppExportS.VE).append(isLiteralExpression);
-        bud.append(AppExportS.L4).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        bud.append(AppExportS.I[level]).append(AppExportS.METRIC_EXPRESSION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        bud.append(AppExportS.I[level]).append(AppExportS.FUNCTION_TYPE).append(AppExportS.VE).append(functionType);
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
+        bud.append(AppExportS.I[level]).append(AppExportS.IS_LITERAL_EXPRESSION).append(AppExportS.VE).append(isLiteralExpression);
+        bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        if(metricDef != null) metricDef.setLevel(level);
         bud.append(metricDef);
+        level--;
         
         return bud.toString();
     }
