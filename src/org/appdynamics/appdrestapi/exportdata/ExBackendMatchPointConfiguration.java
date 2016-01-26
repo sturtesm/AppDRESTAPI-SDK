@@ -98,11 +98,10 @@ public class ExBackendMatchPointConfiguration {
             level--;
         }
         
-        customExitPointDefinitions.setLevel(level);
-        bud.append(customExitPointDefinitions.whatIsDifferent(obj.getCustomExitPointDefinitions()));
+        if(customExitPointDefinitions != null){customExitPointDefinitions.setLevel(level); bud.append(customExitPointDefinitions.whatIsDifferent(obj.getCustomExitPointDefinitions()));}
         
-        backendDiscoveryConfigurations.setLevel(level);
-        bud.append(backendDiscoveryConfigurations.whatIsDifferent(obj.getBackendDiscoveryConfiguration()));
+        if(backendDiscoveryConfigurations != null) {backendDiscoveryConfigurations.setLevel(level);bud.append(backendDiscoveryConfigurations.whatIsDifferent(obj.getBackendDiscoveryConfiguration()));}
+        
         
         level--;
         return bud.toString();

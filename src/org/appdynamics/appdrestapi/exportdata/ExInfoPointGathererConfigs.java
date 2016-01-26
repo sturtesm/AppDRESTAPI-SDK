@@ -8,7 +8,7 @@ package org.appdynamics.appdrestapi.exportdata;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import java.util.ArrayList;
@@ -20,8 +20,18 @@ import java.util.Objects;
 @XmlSeeAlso(ExInfoPointGathererConfig.class)
 public class ExInfoPointGathererConfigs {
     private ArrayList<ExInfoPointGathererConfig> infoPoints=new ArrayList<ExInfoPointGathererConfig>();
+    private int level=2;
     
     public ExInfoPointGathererConfigs(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.INFO_POINT_GATHERER_CONFIG)
     public ArrayList<ExInfoPointGathererConfig> getInfoPoints() {
@@ -35,10 +45,52 @@ public class ExInfoPointGathererConfigs {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1).append(AppExportS.INFO_POINT_GATHERER_CONFIGS);
-        for(ExInfoPointGathererConfig cfg: infoPoints) bud.append(cfg);
+        bud.append(AppExportS.I[level]).append(AppExportS.INFO_POINT_GATHERER_CONFIGS);
+        level++;
+        for(ExInfoPointGathererConfig cfg: infoPoints){ cfg.setLevel(level);bud.append(cfg);}
+        level--;
         return bud.toString();
     }
+    
+    public String whatIsDifferent(ExInfoPointGathererConfigs obj){
+        if(this.equals(obj)) return AppExportS._U;
+        
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.INFO_POINT_GATHERER_CONFIGS);
+        level++;
+        
+        for(ExInfoPointGathererConfig value:infoPoints){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExInfoPointGathererConfig _value:obj.getInfoPoints()){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                    bud.append(value.whatIsDifferent(_value));
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        for(ExInfoPointGathererConfig value:obj.getInfoPoints()){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExInfoPointGathererConfig _value:infoPoints){
+                if(value.getName().equals(_value.getName())){
+                    fnd=true;
+                }
+            }
+            if(!fnd){                
+                bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(value);   
+            }
+        }
+        
+        level--;
+        return bud.toString();
+    }
+    
 
     @Override
     public int hashCode() {

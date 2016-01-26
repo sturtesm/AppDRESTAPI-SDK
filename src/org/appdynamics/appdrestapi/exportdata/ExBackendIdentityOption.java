@@ -110,9 +110,11 @@ public class ExBackendIdentityOption {
         bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_IDENTITY_OPTION);
         level++;
         bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        
         if(namingOptions != null){namingOptions.setLevel(level); bud.append(namingOptions);}
         if(namingActions != null) {namingActions.setLevel(level);bud.append(namingActions);}
-        bud.append(AppExportS.I[level]).append(AppExportS.ENABLED).append(AppExportS.VE).append(enabled);
+        
         level--;
         return bud.toString();
     }

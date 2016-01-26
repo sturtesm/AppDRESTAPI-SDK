@@ -305,6 +305,7 @@ public class ExApplication {
             if(metricBaselines != null) metricBaselines.setLevel(level);
             if(agentConfigurations != null) agentConfigurations.setLevel(level);
             if(eumCloudConfig != null) eumCloudConfig.setLevel(level);
+            if(infoPointGathereConfigs != null) infoPointGathereConfigs.setLevel(level);
             
             bud.append(configuration); //done
             bud.append(dataGathererConfigs); //done 10/25
@@ -316,6 +317,7 @@ public class ExApplication {
         
             bud.append(metricBaselines); //done 12/31
             
+            bud.append(infoPointGathereConfigs);
             bud.append(agentConfigurations); //done 12/31, need testing
             bud.append(eumCloudConfig); //done 12/30
         

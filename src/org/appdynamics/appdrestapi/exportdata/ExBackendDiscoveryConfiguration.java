@@ -130,40 +130,47 @@ public class ExBackendDiscoveryConfiguration {
         
         StringBuilder bud = new StringBuilder();
         bud.append(AppExportS.I[level]).append(AppExportS.BACKEND_DISCOVERY_CONFIGURATION);
+        level++;
         bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
         
         if(!exitPointType.equals(obj.getExitPointType())){
             bud.append(AppExportS.I[level]).append(AppExportS.EXIT_POINT_TYPE);
+            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(exitPointType);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getExitPointType()); 
+            level--;
             
         }
         if(discoveryEnabled != obj.isDiscoveryEnabled()){
             bud.append(AppExportS.I[level]).append(AppExportS.DISCOVERY_ENABLED);
+            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(discoveryEnabled);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isDiscoveryEnabled()); 
-            
+            level--;
         }
         
         if(correlationEnabled != obj.isCorrelationEnabled()){
             bud.append(AppExportS.I[level]).append(AppExportS.CORRELATION_ENABLED);
+            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(correlationEnabled);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isCorrelationEnabled()); 
-            
+            level--;
         }
         
         if(supportsCorrelation != obj.isSupportsCorrelation()){
             bud.append(AppExportS.I[level]).append(AppExportS.SUPPORTS_CORRELATION);
+            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(supportsCorrelation);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.isSupportsCorrelation()); 
-            
+            level--;
         }
         
         if(priority != obj.getPriority()){
             bud.append(AppExportS.I[level]).append(AppExportS.PRIORITY);
+            level++;
             bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(priority);
             bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getPriority()); 
-            
+            level--;
         }
         if(backendIdentityOptions != null) backendIdentityOptions.setLevel(level);
         bud.append(backendIdentityOptions.whatIsDifferent(obj.getBackendIdentityOptions()));

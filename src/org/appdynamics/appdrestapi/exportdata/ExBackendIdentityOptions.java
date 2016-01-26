@@ -51,7 +51,7 @@ public class ExBackendIdentityOptions {
             value.setLevel(level);
             boolean fnd=false;
              for(ExBackendIdentityOption _value: obj.getBackendIdentityOption()){
-                 if(value.getName().equals(_value)){
+                 if(value.getName().equals(_value.getName())){
                      fnd=true;
                      bud.append(value.whatIsDifferent(_value));
                  }

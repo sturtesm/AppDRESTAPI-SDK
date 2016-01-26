@@ -8,7 +8,7 @@ import java.util.Objects;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
@@ -21,10 +21,21 @@ public class ExInfoPointGathererConfig {
     private String agentType;
     private ExInfoPointMetricDefinition infoPoint;
     private ExPojoMethodDefinition pojoPoint;
+    private int level=4;
     
     
     public ExInfoPointGathererConfig(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
         return name;
@@ -65,13 +76,16 @@ public class ExInfoPointGathererConfig {
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.INFO_POINT_GATHERER_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
-        if(infoPoint != null) infoPoint.setLevel(1);
-        bud.append(infoPoint);
-        bud.append(pojoPoint);
+        bud.append(AppExportS.I[level]).append(AppExportS.INFO_POINT_GATHERER_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        if(infoPoint != null){ infoPoint.setLevel(level);bud.append(infoPoint);}
+        if(pojoPoint != null){pojoPoint.setLevel(level);bud.append(pojoPoint);}
         
+        
+        
+        level--;
         return bud.toString();
     }
     
@@ -80,13 +94,15 @@ public class ExInfoPointGathererConfig {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.INFO_POINT_GATHERER_CONFIG);
-        bud.append(AppExportS.L2).append(AppExportS.NAME).append(AppExportS.VE).append(name);
-        bud.append(AppExportS.L2).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
+        bud.append(AppExportS.I[level]).append(AppExportS.INFO_POINT_GATHERER_CONFIG);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.NAME).append(AppExportS.VE).append(name);
+        bud.append(AppExportS.I[level]).append(AppExportS.AGENT_TYPE).append(AppExportS.VE).append(agentType);
         
-        bud.append(infoPoint.whatIsDifferent(obj.getInfoPoint()));
-        bud.append(pojoPoint.whatIsDifferent(pojoPoint));
+        if(infoPoint != null){ infoPoint.setLevel(level);bud.append(infoPoint.whatIsDifferent(obj.getInfoPoint()));}
+        if(pojoPoint != null){ pojoPoint.setLevel(level);bud.append(pojoPoint.whatIsDifferent(pojoPoint));}
         
+        level--;
         return bud.toString();
       }
     
