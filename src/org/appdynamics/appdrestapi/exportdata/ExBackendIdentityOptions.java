@@ -98,9 +98,25 @@ public class ExBackendIdentityOptions {
             return false;
         }
         final ExBackendIdentityOptions other = (ExBackendIdentityOptions) obj;
-        if (this.backendIdentityOption != other.backendIdentityOption && (this.backendIdentityOption == null || !this.backendIdentityOption.equals(other.backendIdentityOption))) {
-            return false;
+        
+        // start new code
+        if(this.backendIdentityOption.size() != other.getBackendIdentityOption().size()) return false;
+        
+        for(ExBackendIdentityOption value: backendIdentityOption){
+            value.setLevel(level);
+            boolean fnd=false;
+             for(ExBackendIdentityOption _value: other.getBackendIdentityOption()){
+                 if(value.getName().equals(_value.getName())){
+                     fnd=true;
+                     if(!value.equals(_value)) return false;
+                 }
+             }
+             if(!fnd) return false;
         }
+         // end new code
+      //   if (this.backendIdentityOption != other.backendIdentityOption && (this.backendIdentityOption == null || !this.backendIdentityOption.equals(other.backendIdentityOption))) {
+          //   return false;
+       //  }
         return true;
     }
     

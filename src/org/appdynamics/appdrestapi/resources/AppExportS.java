@@ -50,8 +50,8 @@ public class AppExportS {
     public static final String NAME="name";
     public static final String DESCRIPTION="description";
     public static final String ENV_PROPERTIES="env-properties";
-    public static final String SRC=" SRC ";
-    public static final String DEST=" DEST ";
+    public static final String SRC=" ====SRC ";
+    public static final String DEST=" ===DEST ";
     
     public static final String CUSTOM_DASHBOARD_VERSION="custom-dashboard-version";
     public static final String CUSTOM_DASHBOARD="custom-dashboard";

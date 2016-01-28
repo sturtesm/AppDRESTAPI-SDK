@@ -165,6 +165,7 @@ public class s {
     public static final String FREQUENCY="frequency";
     public static final String METRIC_ITEM="metric-item";
     public static final String METRIC_ITEMS="metric-items";
+    public static final String METRIC_ID="metricId";
     public static final String URL_METRIC_PATH_LIST="?metric-path=";
     
     
