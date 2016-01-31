@@ -104,9 +104,22 @@ public class ExCookies {
             return false;
         }
         final ExCookies other = (ExCookies) obj;
-        if (this.cookies != other.cookies && (this.cookies == null || !this.cookies.equals(other.cookies))) {
-            return false;
+        
+        if(cookies.size() != other.getCookies().size()) return false;
+        
+        for(ExCookie value:cookies){
+             value.setLevel(level);
+            boolean fnd=false;
+            for(ExCookie _value:other.getCookies()){
+                if(value.getMatchType().equals(_value.getMatchType())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
+        
         return true;
     }
     

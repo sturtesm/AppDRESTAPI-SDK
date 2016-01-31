@@ -8,35 +8,14 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 /**
  *
  * @author gilbert.solorzano
  * L3
  * 
  */
-/*
- * <condition1>
-                        <type>leaf</type>
-                        <display-name>Average Response Time (ms) Baseline Condition</display-name>
-                        <condition-value-type>BASELINE_STANDARD_DEVIATION</condition-value-type>
-                        <condition-value>3</condition-value>
-                        <operator>GREATER_THAN</operator>
-                        <condition-expression/>
-                        <use-active-baseline>true</use-active-baseline>
-                        <metric-expression>
-                            <type>leaf</type>
-                            <function-type>VALUE</function-type>
-                            <value>0</value>
-                            <is-literal-expression>false</is-literal-expression>
-                            <display-name>null</display-name>
-                            <metric-definition>
-                                <type>LOGICAL_METRIC</type>
-                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
-                            </metric-definition>
-                        </metric-expression>
-                    </condition1>
-                    * 
- */
+
 @XmlSeeAlso(ExHRMetricExpression.class)
 public class ExHRConditionSub {
     private String type;
@@ -46,9 +25,19 @@ public class ExHRConditionSub {
     private String operator;
     private boolean useActiveBaseline;
     private ExHRMetricExpression metricExpression;
+    private int level=5;
     
     
     public ExHRConditionSub(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.TYPE)
     public String getType() {
@@ -113,19 +102,20 @@ public class ExHRConditionSub {
         this.metricExpression = metricExpression;
     }
     
-    
+    //NEES WORK
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
-        bud.append(AppExportS.L3_1).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
-        bud.append(AppExportS.L3_1).append(AppExportS.CONDITION_VALUE_TYPE).append(AppExportS.VE).append(conditionValueType);
-        bud.append(AppExportS.L3_1).append(AppExportS.CONDITION_VALUE).append(AppExportS.VE).append(conditionValue);
-        bud.append(AppExportS.L3_1).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
-        bud.append(AppExportS.L3_1).append(AppExportS.USE_ACTIVE_BASELINE).append(AppExportS.VE).append(useActiveBaseline);
-        bud.append(metricExpression);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.TYPE).append(AppExportS.VE).append(type);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.DISPLAY_NAME).append(AppExportS.VE).append(displayName);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_VALUE_TYPE).append(AppExportS.VE).append(conditionValueType);
+        bud.append(AppExportS.I[level]).append(AppExportS.CONDITION_VALUE).append(AppExportS.VE).append(conditionValue);
+        bud.append(AppExportS.I[level]).append(AppExportS.OPERATOR).append(AppExportS.VE).append(operator);
+        bud.append(AppExportS.I[level]).append(AppExportS.USE_ACTIVE_BASELINE).append(AppExportS.VE).append(useActiveBaseline);
+        if(metricExpression != null) {metricExpression.setLevel(level);bud.append(metricExpression);}
+        level--;
         return bud.toString();
         
     }
@@ -177,3 +167,27 @@ public class ExHRConditionSub {
     
     
 }
+
+/*
+ * <condition1>
+                        <type>leaf</type>
+                        <display-name>Average Response Time (ms) Baseline Condition</display-name>
+                        <condition-value-type>BASELINE_STANDARD_DEVIATION</condition-value-type>
+                        <condition-value>3</condition-value>
+                        <operator>GREATER_THAN</operator>
+                        <condition-expression/>
+                        <use-active-baseline>true</use-active-baseline>
+                        <metric-expression>
+                            <type>leaf</type>
+                            <function-type>VALUE</function-type>
+                            <value>0</value>
+                            <is-literal-expression>false</is-literal-expression>
+                            <display-name>null</display-name>
+                            <metric-definition>
+                                <type>LOGICAL_METRIC</type>
+                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
+                            </metric-definition>
+                        </metric-expression>
+                    </condition1>
+                    * 
+ */

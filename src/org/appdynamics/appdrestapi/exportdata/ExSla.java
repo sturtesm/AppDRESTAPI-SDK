@@ -14,19 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author gilbert.solorzano
  */
-/*
- * <sla>
-            <art>
-                <critical enabled="true">30000</critical>
-                <warning enabled="true">15000</warning>
-            </art>
-            <epm>
-                <critical enabled="true">100</critical>
-                <warning enabled="true">20</warning>
-            </epm>
-        </sla>
-        * 
- */
+
 @XmlSeeAlso({ExArt.class,ExEpm.class})
 public class ExSla {
     private ExArt art;
@@ -121,3 +109,18 @@ public class ExSla {
     
     
 }
+
+
+/*
+ * <sla>
+            <art>
+                <critical enabled="true">30000</critical>
+                <warning enabled="true">15000</warning>
+            </art>
+            <epm>
+                <critical enabled="true">100</critical>
+                <warning enabled="true">20</warning>
+            </epm>
+        </sla>
+        * 
+ */

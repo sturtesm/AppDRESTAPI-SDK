@@ -15,19 +15,7 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
-/*
- * <node-meta-info-match-criteria>
-<name-value>
-<name>meta1</name>
-<value>yup</value>
-</name-value>
-<name-value>
-<name>meta2</name>
-<value>yup1</value>
-</name-value>
-</node-meta-info-match-criteria> ExNameValue
- * 
- */
+
 public class ExHRNameValueCriteria {
     private String name;
     private ArrayList<ExNameValue> nameValues=new ArrayList<ExNameValue>();
@@ -129,11 +117,35 @@ public class ExHRNameValueCriteria {
             return false;
         }
         final ExHRNameValueCriteria other = (ExHRNameValueCriteria) obj;
-        if (this.nameValues != other.nameValues && (this.nameValues == null || !this.nameValues.equals(other.nameValues))) {
-            return false;
+        
+        for(ExNameValue value:nameValues){
+            boolean fnd=false;
+            value.setLevel(level);
+            for(ExNameValue _value:other.getNameValues()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }
     
     
 }
+
+/*
+ * <node-meta-info-match-criteria>
+<name-value>
+<name>meta1</name>
+<value>yup</value>
+</name-value>
+<name-value>
+<name>meta2</name>
+<value>yup1</value>
+</name-value>
+</node-meta-info-match-criteria> ExNameValue
+ * 
+ */

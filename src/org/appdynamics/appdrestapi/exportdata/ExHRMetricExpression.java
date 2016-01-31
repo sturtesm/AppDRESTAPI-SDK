@@ -16,23 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * L3_1
  * 
  */
-/*
- * 
 
-                        <metric-expression>
-                            <type>leaf</type>
-                            <function-type>VALUE</function-type>
-                            <value>0</value>
-                            <is-literal-expression>false</is-literal-expression>
-                            <display-name>null</display-name>
-                            <metric-definition>
-                                <type>LOGICAL_METRIC</type>
-                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
-                            </metric-definition>
-                        </metric-expression>
-
-                    * 
- */
 @XmlSeeAlso(ExHRMetricDefinition.class)
 public class ExHRMetricExpression {
     private String type;
@@ -224,3 +208,22 @@ public class ExHRMetricExpression {
     
     
 }
+
+
+/*
+ * 
+
+                        <metric-expression>
+                            <type>leaf</type>
+                            <function-type>VALUE</function-type>
+                            <value>0</value>
+                            <is-literal-expression>false</is-literal-expression>
+                            <display-name>null</display-name>
+                            <metric-definition>
+                                <type>LOGICAL_METRIC</type>
+                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
+                            </metric-definition>
+                        </metric-expression>
+
+                    * 
+ */

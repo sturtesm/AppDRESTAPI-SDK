@@ -15,14 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * I[level]
  * 
  */
-/*
-                                    <headers>
-                                        <header match-type="compare-value">
-                                            <name filter-type="EQUALS" filter-value="like"/>
-                                            <value filter-type="EQUALS" filter-value="you"/>
-                                        </header>
-                                    </headers>
- */
+
 public class ExHeader {
     private String matchType;
     private ExMatchClassName name,value;
@@ -139,3 +132,13 @@ public class ExHeader {
     
     
 }
+
+
+/*
+                                    <headers>
+                                        <header match-type="compare-value">
+                                            <name filter-type="EQUALS" filter-value="like"/>
+                                            <value filter-type="EQUALS" filter-value="you"/>
+                                        </header>
+                                    </headers>
+ */

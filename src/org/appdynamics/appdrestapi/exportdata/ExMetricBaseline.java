@@ -16,16 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
- *         <metric-baseline seasonality="NONE">
-            <name>All data - Last 15 days</name>
-            <fixed>false</fixed>
-            <is-default>false</is-default>
-            <all-date>false</all-date>
-            <number-of-days>15</number-of-days>
-        </metric-baseline>
- * 
- */
+
 public class ExMetricBaseline {
     private String seasonality;
     private String name;
@@ -211,3 +202,14 @@ public class ExMetricBaseline {
     
     
 }
+
+/*
+ *         <metric-baseline seasonality="NONE">
+            <name>All data - Last 15 days</name>
+            <fixed>false</fixed>
+            <is-default>false</is-default>
+            <all-date>false</all-date>
+            <number-of-days>15</number-of-days>
+        </metric-baseline>
+ * 
+ */

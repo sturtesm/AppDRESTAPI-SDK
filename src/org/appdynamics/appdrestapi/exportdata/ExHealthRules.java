@@ -107,9 +107,20 @@ public class ExHealthRules {
             return false;
         }
         final ExHealthRules other = (ExHealthRules) obj;
-        if (this.healthRules != other.healthRules && (this.healthRules == null || !this.healthRules.equals(other.healthRules))) {
-            return false;
+        for(ExHealthRule value:healthRules){
+            boolean fnd=false;
+            value.setLevel(level);
+            for(ExHealthRule _value:other.getHealthRules()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){                
+                return false;   
+            }
         }
+        
+        
         return true;
     }
     

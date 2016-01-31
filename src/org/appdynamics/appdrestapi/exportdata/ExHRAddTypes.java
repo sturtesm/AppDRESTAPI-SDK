@@ -17,12 +17,7 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
-/*
- * <add-types>
-        <add-type>BASE_PAGE</add-type>
-    </add-types>
- * 
- */
+
 public class ExHRAddTypes {
     private ArrayList<String> addTypes;
     private int level=6;
@@ -47,7 +42,7 @@ public class ExHRAddTypes {
     public void setAddTypes(ArrayList<String> addTypes) {
         this.addTypes = addTypes;
     }
-    
+    // NEEDS WORK
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
@@ -82,3 +77,10 @@ public class ExHRAddTypes {
     
     
 }
+
+/*
+ * <add-types>
+        <add-type>BASE_PAGE</add-type>
+    </add-types>
+ * 
+ */

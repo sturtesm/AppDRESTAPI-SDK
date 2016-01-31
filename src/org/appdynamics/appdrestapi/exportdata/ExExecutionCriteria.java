@@ -8,8 +8,14 @@ package org.appdynamics.appdrestapi.exportdata;
  *
  * @author gilbert.solorzano
  *
- * 
+ * NEEDS WORK
  */
+
+public class ExExecutionCriteria {
+    
+}
+
+
 /*
  * 
             <critical-execution-criteria>
@@ -65,6 +71,3 @@ package org.appdynamics.appdrestapi.exportdata;
  * 
  * 
  */
-public class ExExecutionCriteria {
-    
-}

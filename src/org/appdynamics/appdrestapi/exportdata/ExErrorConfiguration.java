@@ -19,137 +19,7 @@ import java.util.ArrayList;
  * 
  * 
  */
-/*
- * <error-configuration agent-type="java-app-agent">
-            <disable-java-logging>false</disable-java-logging>
-            <disable-log4j-logging>false</disable-log4j-logging>
-            <disable_default_http_error_code>false</disable_default_http_error_code>
-            <ignore-exceptions>java.io.FileNotFound|org.hibernate.Add</ignore-exceptions>
-            <ignore-logger-names>Log4Git|ManLog</ignore-logger-names>
-            <custom-logger-definition disable="false">
-                <name>GLog</name>
-                <pojo-method-definition>
-                    <class-name>org.solo.logger</class-name>
-                    <method-name>logit</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>Integer.class|String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>1</method-param-exception-index>
-            </custom-logger-definition>
-            <custom-logger-definition disable="false">
-                <name>bought</name>
-                <pojo-method-definition>
-                    <class-name>org.logg.bought</class-name>
-                    <method-name>log</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>0</method-param-exception-index>
-            </custom-logger-definition>
-            <http-error-return-code disable="false">
-                <name>Codes that I find </name>
-                <lower-bound>503</lower-bound>
-                <upper-bound>510</upper-bound>
-            </http-error-return-code>
-            <http-error-return-code disable="false">
-                <name>Nothing to see </name>
-                <lower-bound>501</lower-bound>
-                <upper-bound>502</upper-bound>
-            </http-error-return-code>
-            <error-redirect-page disable="false">
-                <name>Page1</name>
-                <match-type>CONTAINS</match-type>
-                <match-pattern>index1</match-pattern>
-                <inverse>false</inverse>
-            </error-redirect-page>
-            <error-redirect-page disable="false">
-                <name>Page2</name>
-                <match-type>CONTAINS</match-type>
-                <match-pattern>index2</match-pattern>
-                <inverse>false</inverse>
-            </error-redirect-page>
-            <ignore-exception-msg-patterns>
-                <match-type>EQUALS</match-type>
-                <match-pattern>Blah</match-pattern>
-                <inverse>false</inverse>
-            </ignore-exception-msg-patterns>
-            <ignore-exception-msg-patterns>
-                <match-type>STARTSWITH</match-type>
-                <match-pattern>What</match-pattern>
-                <inverse>false</inverse>
-            </ignore-exception-msg-patterns>
-            <capture-logger-error-and-fatal-messages>true</capture-logger-error-and-fatal-messages>
-            <ignore-logger-msg-patterns>
-                <match-type>STARTSWITH</match-type>
-                <match-pattern>Normal</match-pattern>
-                <inverse>false</inverse>
-            </ignore-logger-msg-patterns>
-            <ignore-logger-msg-patterns>
-                <match-type>EQUALS</match-type>
-                <match-pattern>ds</match-pattern>
-                <inverse>false</inverse>
-            </ignore-logger-msg-patterns>
-            <max-frames-in-root-cause>0</max-frames-in-root-cause>
-            <stack-trace-line-limit>0</stack-trace-line-limit>
-            <mark-transaction-as-error-on-error-message-log-tag>true</mark-transaction-as-error-on-error-message-log-tag>
-        </error-configuration>
-        <error-configuration agent-type="dotnet-app-agent">
-            <disable-system-trace>false</disable-system-trace>
-            <disable-event-log>false</disable-event-log>
-            <disable-n-log>false</disable-n-log>
-            <disable-log4net-logging>false</disable-log4net-logging>
-            <disable_default_http_error_code>false</disable_default_http_error_code>
-            <ignore-exceptions>org.micro.File|org.micro.Junk</ignore-exceptions>
-            <ignore-logger-names>realLogger|notRealLogger</ignore-logger-names>
-            <custom-logger-definition disable="false">
-                <name>Found It</name>
-                <pojo-method-definition>
-                    <class-name>com.micro.Save</class-name>
-                    <method-name>nothing</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>0</method-param-exception-index>
-            </custom-logger-definition>
-            <custom-logger-definition disable="false">
-                <name>Bought</name>
-                <pojo-method-definition>
-                    <class-name>org.mcir</class-name>
-                    <method-name>not</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>0</method-param-exception-index>
-            </custom-logger-definition>
-            <http-error-return-code disable="false">
-                <name>Nothing Code</name>
-                <lower-bound>503</lower-bound>
-                <upper-bound>510</upper-bound>
-            </http-error-return-code>
-            <http-error-return-code disable="false">
-                <name>Excuses</name>
-                <lower-bound>501</lower-bound>
-                <upper-bound>502</upper-bound>
-            </http-error-return-code>
-            <error-redirect-page disable="false">
-                <name>Page1</name>
-                <match-type>CONTAINS</match-type>
-                <match-pattern>index1</match-pattern>
-                <inverse>false</inverse>
-            </error-redirect-page>
-            <error-redirect-page disable="false">
-                <name>Page2</name>
-                <match-type>CONTAINS</match-type>
-                <match-pattern>index2</match-pattern>
-                <inverse>false</inverse>
-            </error-redirect-page>
-            <max-frames-in-root-cause>0</max-frames-in-root-cause>
-            <stack-trace-line-limit>0</stack-trace-line-limit>
-            <mark-transaction-as-error-on-error-message-log-tag>true</mark-transaction-as-error-on-error-message-log-tag>
-        </error-configuration>
 
- * 
- */
 @XmlSeeAlso({ExMatchPattern.class,ExCustomLoggerDefinition.class,ExHttpErrorReturnCode.class,ExErrorRedirectPage.class})
 public class ExErrorConfiguration {
     private String agentType;
@@ -536,6 +406,7 @@ public class ExErrorConfiguration {
                 bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(obj.isDisableDefaultHttpErrorCode());  
                 level--;
         }
+
         
         for(ExCustomLoggerDefinition custom: customLoggerDefinitions){
             boolean fnd=false;
@@ -606,7 +477,11 @@ public class ExErrorConfiguration {
                 level--;
             }
         }
-        
+        // NEEDS WORK
+        //ignoreExceptionPattern
+    //ignoreLoggerPattern
+
+    //erroRedirectPage        
         for(ExErrorRedirectPage error: errorRedirectPage){ 
             error.setLevel(level);
             bud.append(error);
@@ -694,6 +569,10 @@ public class ExErrorConfiguration {
         if (this.disableDefaultHttpErrorCode != other.disableDefaultHttpErrorCode) {
             return false;
         }
+        //ignoreExceptionPattern
+    //ignoreLoggerPattern
+    //erroRedirectPage
+        
         if ((this.ignoreException == null) ? (other.ignoreException != null) : !this.ignoreException.equals(other.ignoreException)) {
             return false;
         }
@@ -706,18 +585,42 @@ public class ExErrorConfiguration {
         if (this.ignoreLoggerPattern != other.ignoreLoggerPattern && (this.ignoreLoggerPattern == null || !this.ignoreLoggerPattern.equals(other.ignoreLoggerPattern))) {
             return false;
         }
-        if (this.customLoggerDefinitions != other.customLoggerDefinitions && (this.customLoggerDefinitions == null || !this.customLoggerDefinitions.equals(other.customLoggerDefinitions))) {
-            return false;
+        
+        for(ExCustomLoggerDefinition custom: customLoggerDefinitions){
+            boolean fnd=false;
+            for(ExCustomLoggerDefinition custom1:other.getCustomLoggerDefinitions()){
+                if(custom.getName().equals(custom1.getName())){
+                    if(custom.equals(custom1))fnd=true;
+                }
+                
+            }
+            if(!fnd){
+                    return false;
+            }
         }
+        
         if (this.captureLoggerErrorAndFatalMessages != other.captureLoggerErrorAndFatalMessages) {
             return false;
         }
         if (this.httpErrorReturnCodes != other.httpErrorReturnCodes && (this.httpErrorReturnCodes == null || !this.httpErrorReturnCodes.equals(other.httpErrorReturnCodes))) {
             return false;
         }
-        if (this.errorRedirectPage != other.errorRedirectPage && (this.errorRedirectPage == null || !this.errorRedirectPage.equals(other.errorRedirectPage))) {
-            return false;
+        
+        for(ExHttpErrorReturnCode error: httpErrorReturnCodes){ 
+            boolean fnd=false;
+            for(ExHttpErrorReturnCode error1: other.getHttpErrorReturnCodes()){
+                if(error.getName().equals(error1.getName())){
+                    if(error.equals(error1))fnd=true;
+                }
+                
+            }
+            
+            if(!fnd){
+                return false;
+            }
         }
+        
+        
         if (this.maxFramesInRootCause != other.maxFramesInRootCause) {
             return false;
         }
@@ -734,3 +637,135 @@ public class ExErrorConfiguration {
     
     
 }
+
+/*
+ * <error-configuration agent-type="java-app-agent">
+            <disable-java-logging>false</disable-java-logging>
+            <disable-log4j-logging>false</disable-log4j-logging>
+            <disable_default_http_error_code>false</disable_default_http_error_code>
+            <ignore-exceptions>java.io.FileNotFound|org.hibernate.Add</ignore-exceptions>
+            <ignore-logger-names>Log4Git|ManLog</ignore-logger-names>
+            <custom-logger-definition disable="false">
+                <name>GLog</name>
+                <pojo-method-definition>
+                    <class-name>org.solo.logger</class-name>
+                    <method-name>logit</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>Integer.class|String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>1</method-param-exception-index>
+            </custom-logger-definition>
+            <custom-logger-definition disable="false">
+                <name>bought</name>
+                <pojo-method-definition>
+                    <class-name>org.logg.bought</class-name>
+                    <method-name>log</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>0</method-param-exception-index>
+            </custom-logger-definition>
+            <http-error-return-code disable="false">
+                <name>Codes that I find </name>
+                <lower-bound>503</lower-bound>
+                <upper-bound>510</upper-bound>
+            </http-error-return-code>
+            <http-error-return-code disable="false">
+                <name>Nothing to see </name>
+                <lower-bound>501</lower-bound>
+                <upper-bound>502</upper-bound>
+            </http-error-return-code>
+            <error-redirect-page disable="false">
+                <name>Page1</name>
+                <match-type>CONTAINS</match-type>
+                <match-pattern>index1</match-pattern>
+                <inverse>false</inverse>
+            </error-redirect-page>
+            <error-redirect-page disable="false">
+                <name>Page2</name>
+                <match-type>CONTAINS</match-type>
+                <match-pattern>index2</match-pattern>
+                <inverse>false</inverse>
+            </error-redirect-page>
+            <ignore-exception-msg-patterns>
+                <match-type>EQUALS</match-type>
+                <match-pattern>Blah</match-pattern>
+                <inverse>false</inverse>
+            </ignore-exception-msg-patterns>
+            <ignore-exception-msg-patterns>
+                <match-type>STARTSWITH</match-type>
+                <match-pattern>What</match-pattern>
+                <inverse>false</inverse>
+            </ignore-exception-msg-patterns>
+            <capture-logger-error-and-fatal-messages>true</capture-logger-error-and-fatal-messages>
+            <ignore-logger-msg-patterns>
+                <match-type>STARTSWITH</match-type>
+                <match-pattern>Normal</match-pattern>
+                <inverse>false</inverse>
+            </ignore-logger-msg-patterns>
+            <ignore-logger-msg-patterns>
+                <match-type>EQUALS</match-type>
+                <match-pattern>ds</match-pattern>
+                <inverse>false</inverse>
+            </ignore-logger-msg-patterns>
+            <max-frames-in-root-cause>0</max-frames-in-root-cause>
+            <stack-trace-line-limit>0</stack-trace-line-limit>
+            <mark-transaction-as-error-on-error-message-log-tag>true</mark-transaction-as-error-on-error-message-log-tag>
+        </error-configuration>
+        <error-configuration agent-type="dotnet-app-agent">
+            <disable-system-trace>false</disable-system-trace>
+            <disable-event-log>false</disable-event-log>
+            <disable-n-log>false</disable-n-log>
+            <disable-log4net-logging>false</disable-log4net-logging>
+            <disable_default_http_error_code>false</disable_default_http_error_code>
+            <ignore-exceptions>org.micro.File|org.micro.Junk</ignore-exceptions>
+            <ignore-logger-names>realLogger|notRealLogger</ignore-logger-names>
+            <custom-logger-definition disable="false">
+                <name>Found It</name>
+                <pojo-method-definition>
+                    <class-name>com.micro.Save</class-name>
+                    <method-name>nothing</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>0</method-param-exception-index>
+            </custom-logger-definition>
+            <custom-logger-definition disable="false">
+                <name>Bought</name>
+                <pojo-method-definition>
+                    <class-name>org.mcir</class-name>
+                    <method-name>not</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>0</method-param-exception-index>
+            </custom-logger-definition>
+            <http-error-return-code disable="false">
+                <name>Nothing Code</name>
+                <lower-bound>503</lower-bound>
+                <upper-bound>510</upper-bound>
+            </http-error-return-code>
+            <http-error-return-code disable="false">
+                <name>Excuses</name>
+                <lower-bound>501</lower-bound>
+                <upper-bound>502</upper-bound>
+            </http-error-return-code>
+            <error-redirect-page disable="false">
+                <name>Page1</name>
+                <match-type>CONTAINS</match-type>
+                <match-pattern>index1</match-pattern>
+                <inverse>false</inverse>
+            </error-redirect-page>
+            <error-redirect-page disable="false">
+                <name>Page2</name>
+                <match-type>CONTAINS</match-type>
+                <match-pattern>index2</match-pattern>
+                <inverse>false</inverse>
+            </error-redirect-page>
+            <max-frames-in-root-cause>0</max-frames-in-root-cause>
+            <stack-trace-line-limit>0</stack-trace-line-limit>
+            <mark-transaction-as-error-on-error-message-log-tag>true</mark-transaction-as-error-on-error-message-log-tag>
+        </error-configuration>
+
+ * 
+ */

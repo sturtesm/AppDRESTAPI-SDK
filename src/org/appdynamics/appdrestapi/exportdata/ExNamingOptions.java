@@ -106,9 +106,20 @@ public class ExNamingOptions {
             return false;
         }
         final ExNamingOptions other = (ExNamingOptions) obj;
-        if (this.nameValue != other.nameValue && (this.nameValue == null || !this.nameValue.equals(other.nameValue))) {
-            return false;
+        
+        
+        for(ExNameValue value: nameValue){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExNameValue _value:other.getNameValue()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value))fnd=true;
+                }
+            }
+            
+            if(!fnd)return false;
         }
+        
         return true;
     }
     

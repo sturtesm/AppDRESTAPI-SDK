@@ -108,9 +108,22 @@ public class ExInfoPointGathererConfigs {
             return false;
         }
         final ExInfoPointGathererConfigs other = (ExInfoPointGathererConfigs) obj;
-        if (!Objects.equals(this.infoPoints, other.infoPoints)) {
-            return false;
+        
+        if(infoPoints.size() != other.getInfoPoints().size()) return false;
+        
+        for(ExInfoPointGathererConfig value:infoPoints){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExInfoPointGathererConfig _value:other.getInfoPoints()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value))fnd=true;
+                }
+            }
+            if(!fnd){                
+                return false;  
+            }
         }
+        
         return true;
     }
     

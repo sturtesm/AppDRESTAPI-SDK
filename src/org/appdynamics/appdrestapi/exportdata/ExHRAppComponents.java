@@ -16,11 +16,7 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
-/*
- * <application-components>
-<application-component>1stTier</application-component>
-</application-components>
- */
+
 public class ExHRAppComponents {
     private ArrayList<String> appComponent;
     private int level=8;
@@ -112,11 +108,23 @@ public class ExHRAppComponents {
             return false;
         }
         final ExHRAppComponents other = (ExHRAppComponents) obj;
-        if (this.appComponent != other.appComponent && (this.appComponent == null || !this.appComponent.equals(other.appComponent))) {
-            return false;
+        
+        if(appComponent.size() != other.getAppComponent().size()) return false;
+        
+        for(String value: appComponent){
+            if(!other.getAppComponent().contains(value)){
+                return false;
+            }
         }
         return true;
     }
     
     
 }
+
+
+/*
+ * <application-components>
+<application-component>1stTier</application-component>
+</application-components>
+ */

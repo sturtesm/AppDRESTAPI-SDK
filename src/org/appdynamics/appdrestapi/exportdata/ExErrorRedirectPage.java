@@ -16,15 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  *
  */
-/*
-            <error-redirect-page disable="false">
-                <name>Page1</name>
-                <match-type>CONTAINS</match-type>
-                <match-pattern>index1</match-pattern>
-                <inverse>false</inverse>
-            </error-redirect-page>
- * 
- */
+
 public class ExErrorRedirectPage {
     private String name,matchType,matchPattern;
     private boolean inverse;
@@ -165,3 +157,13 @@ public class ExErrorRedirectPage {
     
     
 }
+
+/*
+            <error-redirect-page disable="false">
+                <name>Page1</name>
+                <match-type>CONTAINS</match-type>
+                <match-pattern>index1</match-pattern>
+                <inverse>false</inverse>
+            </error-redirect-page>
+ * 
+ */

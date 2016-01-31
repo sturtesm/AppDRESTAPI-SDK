@@ -16,16 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * L3
  */
-/*
-                      
-                   
-                    <node-match-criteria>
-                        <type>ANY</type>
-                        <node-meta-info-match-criteria/>
-                        <vm-sys-properties/>
-                        <env-properties/>
-                    </node-match-criteria>
- */
+
 @XmlSeeAlso({ExHRNodeTypes.class,ExHRNodes.class,ExHRNameValueCriteria.class})
 public class ExNodeMatchCriteria {
     private String type;
@@ -315,3 +306,15 @@ public class ExNodeMatchCriteria {
     
     
 }
+
+
+/*
+                      
+                   
+                    <node-match-criteria>
+                        <type>ANY</type>
+                        <node-meta-info-match-criteria/>
+                        <vm-sys-properties/>
+                        <env-properties/>
+                    </node-match-criteria>
+ */

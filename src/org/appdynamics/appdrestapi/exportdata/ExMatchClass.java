@@ -15,12 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
- *                          <match-class type="inherits-from-class">
-                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
-                            </match-class>5
-                            * 5
- */
+
 @XmlSeeAlso(ExMatchClassName.class)
 public class ExMatchClass {
     private String type;
@@ -111,3 +106,10 @@ public class ExMatchClass {
     
     
 }
+
+/*
+ *                          <match-class type="inherits-from-class">
+                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+                            </match-class>5
+                            * 5
+ */

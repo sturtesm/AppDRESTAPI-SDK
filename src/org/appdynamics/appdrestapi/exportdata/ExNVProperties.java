@@ -15,14 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author gilbert.solorzano
  */
-/*
- * 
-                                    <properties>
-                                        <property name="uri-suffix-scheme" value="custom-expression"/>
-                                        <property name="suffix-key" value="${}"/>
-                                    </properties>
- * 
- */
+
 @XmlSeeAlso(ExNVProperty.class)
 public class ExNVProperties {
     private ArrayList<ExNVProperty> properties=new ArrayList<ExNVProperty>();
@@ -112,11 +105,32 @@ public class ExNVProperties {
             return false;
         }
         final ExNVProperties other = (ExNVProperties) obj;
-        if (this.properties != other.properties && (this.properties == null || !this.properties.equals(other.properties))) {
-            return false;
+        
+        if(properties.size() != other.getProperties().size()) return false;
+        
+        for(ExNVProperty value:properties){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExNVProperty _value:other.getProperties()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }
     
     
 }
+
+/*
+ * 
+                                    <properties>
+                                        <property name="uri-suffix-scheme" value="custom-expression"/>
+                                        <property name="suffix-key" value="${}"/>
+                                    </properties>
+ * 
+ */

@@ -105,8 +105,20 @@ public class ExPropertyDefinitions {
             return false;
         }
         final ExPropertyDefinitions other = (ExPropertyDefinitions) obj;
-        if (this.propertyDefinitions != other.propertyDefinitions && (this.propertyDefinitions == null || !this.propertyDefinitions.equals(other.propertyDefinitions))) {
-            return false;
+        
+        if(propertyDefinitions.size() != other.getPropertyDefinitions().size() ) return false;
+        
+        for(ExPropertyDefinition val: propertyDefinitions){
+            val.setLevel(level);
+            boolean fnd=false;
+            for(ExPropertyDefinition val1: other.getPropertyDefinitions()){
+                if(val.getName().equals(val1.getName())){
+                    if(val.equals(val1))fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }

@@ -9,38 +9,14 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlSeeAlso;
+
 
 /**
  *
  * @author gilbert.solorzano
  *
  */
-/*
- * <http-data-gatherer-config attach-to-new-bts="true">
-            <parameters/>
-            <gather-url>true</gather-url>
-            <gather-session-id>true</gather-session-id>
-            <gather-user-principal>true</gather-user-principal>
-            <name>Default HTTP Request Data Collector</name>
-        </http-data-gatherer-config>
 
-
-        <http-data-gatherer-config attach-to-new-bts="true"
-            enabled-for-analytics="false" enabled-for-apm="true">
-            <parameters>
-                <parameter>
-                    <name>q</name>
-                    <display-name>SolrQuery</display-name>
-                </parameter>
-            </parameters>
-            <gather-url>true</gather-url>
-            <gather-session-id>true</gather-session-id>
-            <gather-user-principal>true</gather-user-principal>
-            <name>Default HTTP Request Data Collector</name>
-        </http-data-gatherer-config>
- * 
- */
 public class ExHttpDataGathererConfig {
     private boolean attachToNewBts;
     private boolean gatherUrl;
@@ -244,3 +220,29 @@ public class ExHttpDataGathererConfig {
     
     
 }
+
+/*
+ * <http-data-gatherer-config attach-to-new-bts="true">
+            <parameters/>
+            <gather-url>true</gather-url>
+            <gather-session-id>true</gather-session-id>
+            <gather-user-principal>true</gather-user-principal>
+            <name>Default HTTP Request Data Collector</name>
+        </http-data-gatherer-config>
+
+
+        <http-data-gatherer-config attach-to-new-bts="true"
+            enabled-for-analytics="false" enabled-for-apm="true">
+            <parameters>
+                <parameter>
+                    <name>q</name>
+                    <display-name>SolrQuery</display-name>
+                </parameter>
+            </parameters>
+            <gather-url>true</gather-url>
+            <gather-session-id>true</gather-session-id>
+            <gather-user-principal>true</gather-user-principal>
+            <name>Default HTTP Request Data Collector</name>
+        </http-data-gatherer-config>
+ * 
+ */

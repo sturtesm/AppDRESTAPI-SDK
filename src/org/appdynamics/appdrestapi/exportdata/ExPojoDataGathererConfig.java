@@ -19,26 +19,7 @@ import java.util.ArrayList;
  * 
  *
  */
-/*
-        <pojo-data-gatherer-config attach-to-new-bts="false">
-            <name>DataCol1</name>
-            <pojo-method-definition>
-                <class-name>com.appdynamics.testappserver.spring.SpringBean3</class-name>
-                <method-name>businessMethod</method-name>
-                <match-type>MATCHES_CLASS</match-type>
-                <method-parameter-types/>
-            </pojo-method-definition>
-            <method-invocation-data-gatherer-config>
-                <name>DataColl</name>
-                <position>0</position>
-                <gatherer-type>RETURN_VALUE_GATHERER_TYPE</gatherer-type>
-                <transformer-type>TO_STRING_OBJECT_DATA_TRANSFORMER_TYPE</transformer-type>
-            </method-invocation-data-gatherer-config>
-            <name>DataCol1</name>
-        </pojo-data-gatherer-config>
-        * 
-        * I[level] (s)
- */
+
 @XmlSeeAlso({ExPojoMethodDefinition.class,ExMethodInvocationDataGathererConfig.class})
 public class ExPojoDataGathererConfig {
     private boolean attachToNewBTS;
@@ -203,3 +184,24 @@ public class ExPojoDataGathererConfig {
     
             
 }
+
+/*
+        <pojo-data-gatherer-config attach-to-new-bts="false">
+            <name>DataCol1</name>
+            <pojo-method-definition>
+                <class-name>com.appdynamics.testappserver.spring.SpringBean3</class-name>
+                <method-name>businessMethod</method-name>
+                <match-type>MATCHES_CLASS</match-type>
+                <method-parameter-types/>
+            </pojo-method-definition>
+            <method-invocation-data-gatherer-config>
+                <name>DataColl</name>
+                <position>0</position>
+                <gatherer-type>RETURN_VALUE_GATHERER_TYPE</gatherer-type>
+                <transformer-type>TO_STRING_OBJECT_DATA_TRANSFORMER_TYPE</transformer-type>
+            </method-invocation-data-gatherer-config>
+            <name>DataCol1</name>
+        </pojo-data-gatherer-config>
+        * 
+        * I[level] (s)
+ */

@@ -18,15 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-            <web-rule>
-                <enabled>true</enabled>
-                <priority>9</priority>
-                <uri filter-type="NOT_EMPTY" filter-value="&lt;not empty>"/>
-                <properties/>
-            </web-rule>
- * 4
- */
+
 @XmlSeeAlso({ExNVProperties.class,ExMatchClassName.class})
 public class ExWebRule {
     private boolean enabled;
@@ -183,3 +175,13 @@ public class ExWebRule {
     
     
 }
+
+/*
+            <web-rule>
+                <enabled>true</enabled>
+                <priority>9</priority>
+                <uri filter-type="NOT_EMPTY" filter-value="&lt;not empty>"/>
+                <properties/>
+            </web-rule>
+ * 4
+ */

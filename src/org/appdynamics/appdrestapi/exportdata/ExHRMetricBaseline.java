@@ -13,13 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
- * 
-<metric-baseline>
-    <name>All data - Last 15 days</name>
-</metric-baseline>
- * 
- */
+
 public class ExHRMetricBaseline {
     private String name;
     private int level = 7;
@@ -95,3 +89,11 @@ public class ExHRMetricBaseline {
     
     
 }
+
+/*
+ * 
+<metric-baseline>
+    <name>All data - Last 15 days</name>
+</metric-baseline>
+ * 
+ */

@@ -24,6 +24,7 @@ public class ExParameters {
     
     public ExParameters(){}
 
+    @XmlTransient
     public int getLevel() {
         return level;
     }
@@ -104,8 +105,19 @@ public class ExParameters {
             return false;
         }
         final ExParameters other = (ExParameters) obj;
-        if (this.parameters != other.parameters && (this.parameters == null || !this.parameters.equals(other.parameters))) {
-            return false;
+        
+        if(parameters.size() != other.getParameters().size()) return false;
+        
+        for(ExParameter value:parameters){
+            boolean fnd=false;
+            for(ExParameter _value:other.getParameters()){
+                if(value.getMatchType().equals(_value.getMatchType())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }

@@ -17,13 +17,15 @@ import javax.xml.bind.annotation.XmlElement;
  */
 /*
  * <name filter-type="EQUALS" filter-value="execute"/>
- * 
+ *  NEEDS WORK
  */
 public class ExName {
     private String filterType;
     private String filterValue;
     
     public ExName(){}
+    
+    
     
     @Override
     public String toString(){

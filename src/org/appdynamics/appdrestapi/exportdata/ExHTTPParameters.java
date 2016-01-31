@@ -94,7 +94,6 @@ public class ExHTTPParameters {
     public int hashCode() {
         int hash = 3;
         hash = 71 * hash + Objects.hashCode(this.parameters);
-        hash = 71 * hash + this.level;
         return hash;
     }
 
@@ -107,12 +106,18 @@ public class ExHTTPParameters {
             return false;
         }
         final ExHTTPParameters other = (ExHTTPParameters) obj;
-        if (!Objects.equals(this.parameters, other.parameters)) {
-            return false;
+        for(ExHTTPParameter value:parameters){
+            boolean fnd=false;
+            for(ExHTTPParameter _value:other.getParameters()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
-        if (this.level != other.level) {
-            return false;
-        }
+        
         return true;
     }
     

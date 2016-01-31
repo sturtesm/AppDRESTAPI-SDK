@@ -269,6 +269,13 @@ public class ExConfiguration {
             }
         }
         
+        // NEEDS WORK
+        for(ExProperties value:properties){
+            value.setLevel(level);
+            for(ExProperties _value:obj.getProperties()){
+                
+            }
+        }
         
         bud.append(businessTransactionConfig.whatIsDifferent(obj.getBusinessTransactionConfig()));
         bud.append(backgroundBusinessTransactionConfig.whatIsDifferent(obj.getBackgroundBusinessTransactionConfig()));
@@ -320,15 +327,41 @@ public class ExConfiguration {
         if (this.asyncActivitySupported != other.asyncActivitySupported) {
             return false;
         }
-        if (this.callGraphs != other.callGraphs && (this.callGraphs == null || !this.callGraphs.equals(other.callGraphs))) {
-            return false;
+        
+        if(callGraphs.size() != other.getCallGraphs().size()) return false;
+        if(errorConfiguration.size() != other.getErrorConfiguration().size()) return false;
+        if(properties.size() != other.getProperties().size()) return false;
+        
+        // Array
+        for(ExCallGraph val:callGraphs){
+            boolean fnd=false;
+            val.setLevel(level);
+            for(ExCallGraph val1:other.getCallGraphs()){
+                if(val.getAgentType().equals(val1.getAgentType())){
+                    if(val.equals(val1)) fnd=true;
+                }
+            }
+            
+            if(!fnd) return false;
         }
+        
+        
         if (this.sla != other.sla && (this.sla == null || !this.sla.equals(other.sla))) {
             return false;
         }
-        if (this.errorConfiguration != other.errorConfiguration && (this.errorConfiguration == null || !this.errorConfiguration.equals(other.errorConfiguration))) {
-            return false;
+        
+        // Array
+        for(ExErrorConfiguration val: errorConfiguration){
+            boolean fnd=false;
+            for(ExErrorConfiguration val1: other.getErrorConfiguration()){
+                if(val.getAgentType().equals(val1.getAgentType())){
+                    if(val.equals(val1)) fnd=true;
+                }
+            }
+            if(!fnd) return false;
         }
+        
+        
         if (this.businessTransactionConfig != other.businessTransactionConfig && (this.businessTransactionConfig == null || !this.businessTransactionConfig.equals(other.businessTransactionConfig))) {
             return false;
         }
@@ -338,6 +371,9 @@ public class ExConfiguration {
         if (this.eumConfiguration != other.eumConfiguration && (this.eumConfiguration == null || !this.eumConfiguration.equals(other.eumConfiguration))) {
             return false;
         }
+        
+        
+        //Array
         if (this.properties != other.properties && (this.properties == null || !this.properties.equals(other.properties))) {
             return false;
         }

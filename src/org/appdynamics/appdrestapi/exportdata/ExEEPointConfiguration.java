@@ -142,3 +142,18 @@ public class ExEEPointConfiguration {
     
     
 }
+
+
+/*
+ * <configuration transaction-entry-point-type="BINARY_REMOTING">
+                    <enable>true</enable>
+                    <discovery-config discovery-resolution="FIRST_ENTRY_POINT">
+                        <discovery-config-enabled>true</discovery-config-enabled>
+                        <excludes/>
+                        <naming-config scheme="SIMPLE_CLASS_NAME_AND_METHOD_NAME">
+                            <name-values/>
+                        </naming-config>
+                    </discovery-config>
+    </configuration>
+ * 
+ */

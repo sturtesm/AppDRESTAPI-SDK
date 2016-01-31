@@ -107,8 +107,19 @@ public class ExHeaders {
             return false;
         }
         final ExHeaders other = (ExHeaders) obj;
-        if (this.headers != other.headers && (this.headers == null || !this.headers.equals(other.headers))) {
-            return false;
+        
+        if(headers.size() != other.getHeaders().size()) return false;
+        
+        for(ExHeader value:headers){
+            boolean fnd=false;
+            for(ExHeader _value:other.getHeaders()){
+                if(value.getMatchType().equals(_value.getMatchType())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }

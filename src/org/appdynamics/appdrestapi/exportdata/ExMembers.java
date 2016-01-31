@@ -107,9 +107,20 @@ public class ExMembers {
             return false;
         }
         final ExMembers other = (ExMembers) obj;
-        if (!Objects.equals(this.businessTransactions, other.businessTransactions)) {
-            return false;
+        
+        if(businessTransactions.size() != other.getBusinessTransactions().size()) return false;
+        for(ExBTGrpBusinessTransaction value:businessTransactions){
+            boolean fnd=false;
+            value.setLevel(level);
+            for(ExBTGrpBusinessTransaction _value:other.getBusinessTransactions()){
+                if(value.getValue().equals(_value.getValue())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            
+            if(!fnd) return false;
         }
+        
         return true;
     }
     

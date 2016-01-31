@@ -116,8 +116,19 @@ public class ExPercentileValues {
             return false;
         }
         final ExPercentileValues other = (ExPercentileValues) obj;
-        if (this.percentileValues != other.percentileValues && (this.percentileValues == null || !this.percentileValues.equals(other.percentileValues))) {
-            return false;
+        
+        if(percentileValues.size() != other.getPercentileValues().size()) return false;
+        
+        for(ExPercentileValue value: percentileValues){
+            boolean fnd=false;
+            for(ExPercentileValue value1: other.getPercentileValues()){
+                if(value.getValue() == value1.getValue()){
+                    if(value.equals(value1))fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }

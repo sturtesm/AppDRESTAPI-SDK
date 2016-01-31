@@ -16,13 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-                                    <cookies>
-                                        <cookie match-type="check-for-existence">
-                                            <name filter-type="EQUALS" filter-value="nah"/>
-                                        </cookie>
-                                    </cookies>
- */
+
 public class ExCookie {
     private String matchType;
     private ExMatchClassName name;
@@ -128,3 +122,11 @@ public class ExCookie {
     
     
 }
+
+/*
+                                    <cookies>
+                                        <cookie match-type="check-for-existence">
+                                            <name filter-type="EQUALS" filter-value="nah"/>
+                                        </cookie>
+                                    </cookies>
+ */

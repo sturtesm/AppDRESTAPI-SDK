@@ -14,9 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * We will need to revisit because this is going to change.
  */
-/*
- * <split-config type="4"/>
- */
+
 public class ExSplitConfig {
     private String type;
     private String operation;
@@ -127,3 +125,7 @@ public class ExSplitConfig {
     
     
 }
+
+/*
+ * <split-config type="4"/>
+ */

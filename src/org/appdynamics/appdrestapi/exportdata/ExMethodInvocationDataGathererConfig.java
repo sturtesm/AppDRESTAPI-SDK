@@ -14,16 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
-            <method-invocation-data-gatherer-config>
-                <name>DataColl</name>
-                <position>0</position>
-                <gatherer-type>RETURN_VALUE_GATHERER_TYPE</gatherer-type>
-                <transformer-type>TO_STRING_OBJECT_DATA_TRANSFORMER_TYPE</transformer-type>
-            </method-invocation-data-gatherer-config>
-            * 
-            * L2 (s)
- */
+
 public class ExMethodInvocationDataGathererConfig {
     private String name;
     private int position;
@@ -180,3 +171,14 @@ public class ExMethodInvocationDataGathererConfig {
     
     
 }
+
+/*
+            <method-invocation-data-gatherer-config>
+                <name>DataColl</name>
+                <position>0</position>
+                <gatherer-type>RETURN_VALUE_GATHERER_TYPE</gatherer-type>
+                <transformer-type>TO_STRING_OBJECT_DATA_TRANSFORMER_TYPE</transformer-type>
+            </method-invocation-data-gatherer-config>
+            * 
+            * L2 (s)
+ */

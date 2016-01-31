@@ -14,13 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
-            <memory-configuration>
-                <size-polling-interval>10</size-polling-interval>
-                <enable-cache-framework-size-monitoring>true</enable-cache-framework-size-monitoring>
-                <enable-memory-monitoring>true</enable-memory-monitoring>
-            </memory-configuration>
- */
+
 public class ExMemoryConfiguration {
     private int sizePollingInterval;
     private boolean enableCacheFrameworkSizeMonitoring;
@@ -146,3 +140,11 @@ public class ExMemoryConfiguration {
     
     
 }
+
+/*
+            <memory-configuration>
+                <size-polling-interval>10</size-polling-interval>
+                <enable-cache-framework-size-monitoring>true</enable-cache-framework-size-monitoring>
+                <enable-memory-monitoring>true</enable-memory-monitoring>
+            </memory-configuration>
+ */

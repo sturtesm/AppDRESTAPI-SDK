@@ -107,9 +107,20 @@ public class ExCustomExitPointDefinitions {
             return false;
         }
         final ExCustomExitPointDefinitions other = (ExCustomExitPointDefinitions) obj;
-        if (this.customExitPointDefinitions != other.customExitPointDefinitions && (this.customExitPointDefinitions == null || !this.customExitPointDefinitions.equals(other.customExitPointDefinitions))) {
-            return false;
+        
+        for(ExCustomExitPointDefinition value:customExitPointDefinitions){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExCustomExitPointDefinition _value:other.getCustomExitPointDefinitions()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){                
+                return false;  
+            }
         }
+        
         return true;
     }
     

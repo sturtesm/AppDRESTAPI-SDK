@@ -99,9 +99,22 @@ public String whatIsDifferent(ExExcludeConfig obj){
             return false;
         }
         final ExExcludeConfig other = (ExExcludeConfig) obj;
-        if (this.applicationDiagnosticDatas != other.applicationDiagnosticDatas && (this.applicationDiagnosticDatas == null || !this.applicationDiagnosticDatas.equals(other.applicationDiagnosticDatas))) {
-            return false;
+        
+        if(getApplicationDiagnosticDatas().size() != other.getApplicationDiagnosticDatas().size()) return false;
+        
+        for(ExApplicationDiagnosticData value:getApplicationDiagnosticDatas()){
+            boolean fnd=false;
+            for(ExApplicationDiagnosticData _value:other.getApplicationDiagnosticDatas()){
+                    if(value.getName().equals(_value.getName())){
+                        if(value.equals(_value)) fnd=true;
+                    }
+            }
+            
+            if(!fnd){
+                return false;
+            }
         }
+        
         return true;
     }
     

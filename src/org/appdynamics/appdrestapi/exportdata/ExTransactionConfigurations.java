@@ -100,9 +100,19 @@ public class ExTransactionConfigurations {
             return false;
         }
         final ExTransactionConfigurations other = (ExTransactionConfigurations) obj;
-        if (this.configurations != other.configurations && (this.configurations == null || !this.configurations.equals(other.configurations))) {
-            return false;
+        
+        if(configurations.size() != other.getConfigurations().size()) return false;
+        for(ExEEPointConfiguration value:configurations){
+            boolean fnd=false;
+            for(ExEEPointConfiguration _value: other.getConfigurations()){
+                if(value.getTransactionEntryPointType().equals(_value.getTransactionEntryPointType())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            
+            if(!fnd){return false;}
         }
+        
         return true;
     }
     

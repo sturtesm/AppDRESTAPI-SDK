@@ -14,15 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author gilbert.solorzano
  */
-/*
- * <sql-data-gatherer-config attach-to-new-bts="true">
-            <match-type>NOT_EMPTY</match-type>
-            <match-pattern/>
-            <inverse>false</inverse>
-            <name>Default SQL Data Collector</name>
-        </sql-data-gatherer-config>
- * 
- */
+
 public class ExSqlDataGathererConfig {
     private boolean attachToNewBTS;
     private String matchPattern;
@@ -229,3 +221,13 @@ public class ExSqlDataGathererConfig {
     
     
 }
+
+/*
+ * <sql-data-gatherer-config attach-to-new-bts="true">
+            <match-type>NOT_EMPTY</match-type>
+            <match-pattern/>
+            <inverse>false</inverse>
+            <name>Default SQL Data Collector</name>
+        </sql-data-gatherer-config>
+ * 
+ */

@@ -116,7 +116,7 @@ public class ExMatchClassName {
     
     public String toXML(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3_1).append(AppExportS.XOpenAttr("uri"))
+        bud.append(AppExportS.I[level]).append(AppExportS.XOpenAttr("uri"))
                 .append(AppExportS.XAttribute(AppExportS.FILTER_TYPE, filterType))
                 .append(AppExportS.XAttribute(AppExportS.FILTER_VALUE, filterValue))
                 .append(AppExportS.XCT);

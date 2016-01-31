@@ -40,6 +40,11 @@ public class ExEpm {
     public void setWarning(ExWarning warning) {
         this.warning = warning;
     }
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
     
     public void setLevel(int level){
         this.level=level;

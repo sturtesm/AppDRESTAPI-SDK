@@ -157,9 +157,22 @@ public class ExCustomExitPointDefinition {
         if (this.instrumentationPoint != other.instrumentationPoint && (this.instrumentationPoint == null || !this.instrumentationPoint.equals(other.instrumentationPoint))) {
             return false;
         }
-        if (this.methodInvocationGathererConfigs != other.methodInvocationGathererConfigs && (this.methodInvocationGathererConfigs == null || !this.methodInvocationGathererConfigs.equals(other.methodInvocationGathererConfigs))) {
-            return false;
+        
+        if(methodInvocationGathererConfigs.size() != other.getMethodInvocationGathererConfigs().size()) return false;
+        
+        for(ExMethodInvocationDataGathererConfig value:methodInvocationGathererConfigs){
+             value.setLevel(level);
+            boolean fnd=false;
+            for(ExMethodInvocationDataGathererConfig _value:other.getMethodInvocationGathererConfigs()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){                
+                return false; 
+            }
         }
+        
         if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }

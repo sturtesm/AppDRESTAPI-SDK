@@ -15,13 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 
- /* <stall-configuration>
-                    <absolute>true</absolute>
-                    <absolute-time-in-secs>45</absolute-time-in-secs>
-                    <bt-sla-violation-multiplier>0</bt-sla-violation-multiplier>
-                </stall-configuration>
- * 
- */
+
 public class ExStallConfiguration {
     private boolean absolute;
     private int absoluteTimeInSecs;
@@ -146,3 +140,11 @@ public class ExStallConfiguration {
     
     
 }
+
+ /* <stall-configuration>
+                    <absolute>true</absolute>
+                    <absolute-time-in-secs>45</absolute-time-in-secs>
+                    <bt-sla-violation-multiplier>0</bt-sla-violation-multiplier>
+                </stall-configuration>
+ * 
+ */

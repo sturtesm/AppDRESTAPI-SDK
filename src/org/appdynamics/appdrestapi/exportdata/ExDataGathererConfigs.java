@@ -194,15 +194,51 @@ public class ExDataGathererConfigs {
             return false;
         }
         final ExDataGathererConfigs other = (ExDataGathererConfigs) obj;
-        if (this.httpDataGathererConfig != other.httpDataGathererConfig && (this.httpDataGathererConfig == null || !this.httpDataGathererConfig.equals(other.httpDataGathererConfig))) {
-            return false;
+        
+        if(httpDataGathererConfig.size() != other.getHttpDataGathererConfig().size() ) return false;
+        if(pojoDataGathererConfig.size() != other.getPojoDataGathererConfig().size()) return false;
+        if(sqlDataGathererConfig.size() != other.getSqlDataGathererConfig().size()) return false;
+       
+        for(ExSqlDataGathererConfig value:sqlDataGathererConfig){
+                    value.setLevel(level);
+            boolean fnd=false;
+            for(ExSqlDataGathererConfig _value:other.getSqlDataGathererConfig()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value))fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
-        if (this.pojoDataGathererConfig != other.pojoDataGathererConfig && (this.pojoDataGathererConfig == null || !this.pojoDataGathererConfig.equals(other.pojoDataGathererConfig))) {
-            return false;
+        
+        for(ExSqlDataGathererConfig value:sqlDataGathererConfig){
+                    value.setLevel(level);
+            boolean fnd=false;
+            for(ExSqlDataGathererConfig _value:other.getSqlDataGathererConfig()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value))fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
-        if (this.sqlDataGathererConfig != other.sqlDataGathererConfig && (this.sqlDataGathererConfig == null || !this.sqlDataGathererConfig.equals(other.sqlDataGathererConfig))) {
-            return false;
+        
+        for(ExPojoDataGathererConfig value:pojoDataGathererConfig){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExPojoDataGathererConfig _value:other.getPojoDataGathererConfig()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
+        
+        
         return true;
     }
     

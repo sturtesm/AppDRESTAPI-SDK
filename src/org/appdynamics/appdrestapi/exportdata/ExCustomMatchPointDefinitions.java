@@ -109,9 +109,19 @@ public class ExCustomMatchPointDefinitions {
             return false;
         }
         final ExCustomMatchPointDefinitions other = (ExCustomMatchPointDefinitions) obj;
-        if (this.customMatchPointDefinitions != other.customMatchPointDefinitions && (this.customMatchPointDefinitions == null || !this.customMatchPointDefinitions.equals(other.customMatchPointDefinitions))) {
-            return false;
+        if(customMatchPointDefinitions.size() != other.getCustomMatchPointDefinitions().size()) return false;
+        for(ExCustomMatchPointDefinition value:customMatchPointDefinitions){
+            boolean fnd=false;
+            for(ExCustomMatchPointDefinition _value:other.getCustomMatchPointDefinitions()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
+        
         return true;
     }
     

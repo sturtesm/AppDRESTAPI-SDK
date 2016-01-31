@@ -25,6 +25,7 @@ public class ExEntryMatchPointConfiguration {
     
     public ExEntryMatchPointConfiguration(){}
 
+    @XmlTransient
     public int getLevel() {
         return level;
     }

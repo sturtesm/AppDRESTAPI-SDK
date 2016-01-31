@@ -16,15 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * L2_1
  *
  */
-/*
- * 
-            <http-error-return-code disable="false">
-                <name>Nothing Code</name>
-                <lower-bound>503</lower-bound>
-                <upper-bound>510</upper-bound>
-            </http-error-return-code>
- * 
- */
+
 public class ExHttpErrorReturnCode {
     private String name;
     private Integer lowerBound,upperBound;
@@ -164,3 +156,13 @@ public class ExHttpErrorReturnCode {
     
     
 }
+
+/*
+ * 
+            <http-error-return-code disable="false">
+                <name>Nothing Code</name>
+                <lower-bound>503</lower-bound>
+                <upper-bound>510</upper-bound>
+            </http-error-return-code>
+ * 
+ */

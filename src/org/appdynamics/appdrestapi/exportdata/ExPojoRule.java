@@ -17,22 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-                        <pojo-rule>
-                            <enabled>false</enabled>
-                            <priority>0</priority>
-                            <display-name>Cron4J</display-name>
-                            <background>true</background>
-                            <match-class type="inherits-from-class">
-                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
-                            </match-class>
-                            <split-config type="4"/>
-                            <match-method>
-                                <name filter-type="EQUALS" filter-value="execute"/>
-                            </match-method>
-                        </pojo-rule>
- * 4
- */
+
 @XmlSeeAlso({ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
 public class ExPojoRule {
     private boolean enabled;
@@ -231,3 +216,20 @@ public class ExPojoRule {
     
     
 }
+
+/*
+                        <pojo-rule>
+                            <enabled>false</enabled>
+                            <priority>0</priority>
+                            <display-name>Cron4J</display-name>
+                            <background>true</background>
+                            <match-class type="inherits-from-class">
+                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+                            </match-class>
+                            <split-config type="4"/>
+                            <match-method>
+                                <name filter-type="EQUALS" filter-value="execute"/>
+                            </match-method>
+                        </pojo-rule>
+ * 4
+ */

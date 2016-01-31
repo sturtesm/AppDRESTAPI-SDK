@@ -214,12 +214,34 @@ public class ExInstrumentationPoint {
         if (this.pojoMethodDefinition != other.pojoMethodDefinition && (this.pojoMethodDefinition == null || !this.pojoMethodDefinition.equals(other.pojoMethodDefinition))) {
             return false;
         }
-        if (this.infoPointMetricDefinitions != other.infoPointMetricDefinitions && (this.infoPointMetricDefinitions == null || !this.infoPointMetricDefinitions.equals(other.infoPointMetricDefinitions))) {
-            return false;
+        
+        if(infoPointMetricDefinitions.size() != other.getInfoPointMetricDefinitions().size()) return false;
+        if(methodInvocationDataGathererConfigs.size() != other.getMethodInvocationDataGathererConfigs().size()) return false;
+        
+        for(ExInfoPointMetricDefinition value:infoPointMetricDefinitions){
+            boolean fnd=false;
+            for(ExInfoPointMetricDefinition _value:other.getInfoPointMetricDefinitions()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){              
+                return false; 
+            }
         }
-        if (this.methodInvocationDataGathererConfigs != other.methodInvocationDataGathererConfigs && (this.methodInvocationDataGathererConfigs == null || !this.methodInvocationDataGathererConfigs.equals(other.methodInvocationDataGathererConfigs))) {
-            return false;
+        
+        for(ExMethodInvocationDataGathererConfig value:methodInvocationDataGathererConfigs){
+            boolean fnd=false;
+            for(ExMethodInvocationDataGathererConfig _value:other.getMethodInvocationDataGathererConfigs()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){     
+                return false; 
+            }
         }
+        
         if (this.businessTransactions != other.businessTransactions && (this.businessTransactions == null || !this.businessTransactions.equals(other.businessTransactions))) {
             return false;
         }

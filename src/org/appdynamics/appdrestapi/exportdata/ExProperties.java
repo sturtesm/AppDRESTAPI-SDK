@@ -129,9 +129,22 @@ public class ExProperties {
             return false;
         }
         final ExProperties other = (ExProperties) obj;
-        if (this.properties != other.properties && (this.properties == null || !this.properties.equals(other.properties))) {
-            return false;
+        
+        if(properties.size() != other.getProperties().size()) return false;
+        
+        for(ExProperty prop:properties){
+            boolean fnd=false;
+            for(ExProperty prop1: other.getProperties()){
+                if(prop.getPropertyDefinition().equals(prop1.getPropertyDefinition())){
+                    if(prop.equals(prop1)) fnd=true;
+                }
+            }
+            if(!fnd){
+                        return false;
+            }
+            
         }
+        
         return true;
     }
     

@@ -15,15 +15,7 @@ import java.util.ArrayList;
  *
  * @author gilbert.solorzano
  */
-/*
- * 
- * <components>
-<application-component>1stTier</application-component>
-<application-component>2ndTier</application-component>
-</components>
- * 
- * 
- */
+
 public class ExHRNodeComponents {
     private ArrayList<String> appComp=new ArrayList<String>();
     private int level=8;
@@ -110,3 +102,13 @@ public class ExHRNodeComponents {
     
     
 }
+
+/*
+ * 
+ * <components>
+<application-component>1stTier</application-component>
+<application-component>2ndTier</application-component>
+</components>
+ * 
+ * 
+ */

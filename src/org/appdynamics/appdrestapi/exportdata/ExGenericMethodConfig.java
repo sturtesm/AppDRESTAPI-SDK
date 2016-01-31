@@ -16,16 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
- * 
-                                    <generic-method-config>
-                                        <class-name>org.json.JSONObject</class-name>
-                                        <method-config return-type="true">
-                                            <name>mapName</name>
-                                        </method-config>
-                                    </generic-method-config>
- * 
- */
+
 @XmlSeeAlso(ExMethodConfig.class)
 public class ExGenericMethodConfig {
     private String className;
@@ -116,3 +107,15 @@ public class ExGenericMethodConfig {
     
     
 }
+
+
+/*
+ * 
+                                    <generic-method-config>
+                                        <class-name>org.json.JSONObject</class-name>
+                                        <method-config return-type="true">
+                                            <name>mapName</name>
+                                        </method-config>
+                                    </generic-method-config>
+ * 
+ */

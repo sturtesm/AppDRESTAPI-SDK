@@ -13,14 +13,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  *
  * @author gilbert.solorzano
  */
-/*
- * 
-                                    <properties>
-                                        <property name="uri-suffix-scheme" value="custom-expression"/>
-                                        <property name="suffix-key" value="${}"/>
-                                    </properties>
- * 
- */
+
 public class ExNVProperty {
     private String name;
     private String value;
@@ -121,3 +114,12 @@ public class ExNVProperty {
     
     
 }
+
+/*
+ * 
+                                    <properties>
+                                        <property name="uri-suffix-scheme" value="custom-expression"/>
+                                        <property name="suffix-key" value="${}"/>
+                                    </properties>
+ * 
+ */

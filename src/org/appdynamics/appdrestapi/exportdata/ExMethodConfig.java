@@ -15,13 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
-                                        <method-config return-type="true">
-                                            <name>mapName</name>
-                                        </method-config>
- * 
- * 
- */
+
 public class ExMethodConfig {
     private String returnType;
     private String name;
@@ -124,3 +118,11 @@ public class ExMethodConfig {
     
     
 }
+
+/*
+                                        <method-config return-type="true">
+                                            <name>mapName</name>
+                                        </method-config>
+ * 
+ * 
+ */

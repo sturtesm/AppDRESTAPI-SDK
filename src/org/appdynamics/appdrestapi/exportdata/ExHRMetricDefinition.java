@@ -15,15 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * L4
  * 
  */
-/*
- * 
-                            <metric-definition>
-                                <type>LOGICAL_METRIC</type>
-                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
-                            </metric-definition>
-                            
- * 
- */
+
 public class ExHRMetricDefinition {
     private String type;
     private String logicalMetricName;
@@ -123,3 +115,13 @@ public class ExHRMetricDefinition {
     
     
 }
+
+/*
+ * 
+                            <metric-definition>
+                                <type>LOGICAL_METRIC</type>
+                                <logical-metric-name>Average Response Time (ms)</logical-metric-name>
+                            </metric-definition>
+                            
+ * 
+ */

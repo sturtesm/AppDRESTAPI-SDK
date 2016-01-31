@@ -17,17 +17,7 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  * 
  */
-/*
- * <metric-baselines>
-        <metric-baseline seasonality="NONE">
-            <name>All data - Last 15 days</name>
-            <fixed>false</fixed>
-            <is-default>false</is-default>
-            <all-date>false</all-date>
-            <number-of-days>15</number-of-days>
-        </metric-baseline>
- * 
- */
+
 @XmlSeeAlso(ExMetricBaseline.class)
 public class ExMetricBaselines {
     private ArrayList<ExMetricBaseline> metricBaselines=new ArrayList<ExMetricBaseline>();
@@ -119,11 +109,34 @@ public class ExMetricBaselines {
             return false;
         }
         final ExMetricBaselines other = (ExMetricBaselines) obj;
-        if (this.metricBaselines != other.metricBaselines && (this.metricBaselines == null || !this.metricBaselines.equals(other.metricBaselines))) {
-            return false;
+        if(metricBaselines.size() != other.getMetricBaselines().size() ) return false;
+        
+        for(ExMetricBaseline value: metricBaselines){
+            boolean fnd=false;
+            value.setLevel(level);
+            for(ExMetricBaseline _value:other.getMetricBaselines()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
         return true;
     }
     
     
 }
+
+/*
+ * <metric-baselines>
+        <metric-baseline seasonality="NONE">
+            <name>All data - Last 15 days</name>
+            <fixed>false</fixed>
+            <is-default>false</is-default>
+            <all-date>false</all-date>
+            <number-of-days>15</number-of-days>
+        </metric-baseline>
+ * 
+ */

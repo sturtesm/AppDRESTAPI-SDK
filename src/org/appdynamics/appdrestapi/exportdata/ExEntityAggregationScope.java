@@ -17,12 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * L2_1
  * 
  */
-/*
-                <entity-aggregation-scope>
-                    <type>AGGREGATE</type>
-                    <value>0</value>
-                </entity-aggregation-scope>
- */
+
 public class ExEntityAggregationScope {
     private String type;
     private Integer value;
@@ -123,3 +118,10 @@ public class ExEntityAggregationScope {
     
     
 }
+
+/*
+                <entity-aggregation-scope>
+                    <type>AGGREGATE</type>
+                    <value>0</value>
+                </entity-aggregation-scope>
+ */

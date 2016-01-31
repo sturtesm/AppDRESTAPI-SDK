@@ -100,8 +100,14 @@ public class ExExcludes {
             return false;
         }
         final ExExcludes other = (ExExcludes) obj;
-        if (this.excludes != other.excludes && (this.excludes == null || !this.excludes.equals(other.excludes))) {
-            return false;
+        for(ExExclude value: excludes){
+            boolean fnd=false;
+            for(ExExclude _value:other.getExcludes()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value))fnd=true;
+                }
+            }
+            if(!fnd){return false;}
         }
         return true;
     }

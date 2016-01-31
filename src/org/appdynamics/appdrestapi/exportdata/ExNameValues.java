@@ -101,8 +101,15 @@ public class ExNameValues {
             return false;
         }
         final ExNameValues other = (ExNameValues) obj;
-        if (this.nameValues != other.nameValues && (this.nameValues == null || !this.nameValues.equals(other.nameValues))) {
-            return false;
+        for(ExNameValue value:nameValues){
+            boolean fnd=false;
+            for(ExNameValue _value:other.getNameValues()){
+                if(value.getName().equals(_value.getName())){
+                    if(value.equals(_value))fnd=true;
+                }
+            }
+            
+            if(!fnd){ return false;}
         }
         return true;
     }

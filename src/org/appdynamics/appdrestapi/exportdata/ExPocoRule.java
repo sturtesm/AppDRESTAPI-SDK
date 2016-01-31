@@ -17,21 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-            <poco-rule>
-                <enabled>true</enabled>
-                <priority>0</priority>
-                <display-name/>
-                <background>false</background>
-                <match-class type="matches-class">
-                    <name filter-type="EQUALS" filter-value="Intergies.DirecTV.XMLDump.XmlDumpSoapProxyProcessor"/>
-                </match-class>
-                <match-method>
-                    <name filter-type="EQUALS" filter-value="InsertMessageChain"/>
-                </match-method>
-            </poco-rule>
- * 4
- */
+
 @XmlSeeAlso({ExMatchClass.class,ExSplitConfig.class,ExMatchMethod.class,ExMatchClassName.class})
 public class ExPocoRule {
     private boolean enabled;
@@ -222,3 +208,20 @@ public class ExPocoRule {
     
     
 }
+
+
+/*
+            <poco-rule>
+                <enabled>true</enabled>
+                <priority>0</priority>
+                <display-name/>
+                <background>false</background>
+                <match-class type="matches-class">
+                    <name filter-type="EQUALS" filter-value="Intergies.DirecTV.XMLDump.XmlDumpSoapProxyProcessor"/>
+                </match-class>
+                <match-method>
+                    <name filter-type="EQUALS" filter-value="InsertMessageChain"/>
+                </match-method>
+            </poco-rule>
+ * 4
+ */

@@ -17,24 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
-                    <match-rule>
-                        <pojo-rule>
-                            <enabled>false</enabled>
-                            <priority>0</priority>
-                            <display-name>Cron4J</display-name>
-                            <background>true</background>
-                            <match-class type="inherits-from-class">
-                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
-                            </match-class>
-                            <split-config type="4"/>
-                            <match-method>
-                                <name filter-type="EQUALS" filter-value="execute"/>
-                            </match-method>
-                        </pojo-rule>
-                    </match-rule>
- * 3
- */
+
 @XmlSeeAlso({ExPojoRule.class,ExPocoRule.class,ExServletRule.class,ExWebRule.class})
 public class ExMatchRule {
     private ExPojoRule pojoRule;
@@ -189,3 +172,22 @@ public class ExMatchRule {
             </servlet-rule>
         </match-rule>
 */
+
+/*
+                    <match-rule>
+                        <pojo-rule>
+                            <enabled>false</enabled>
+                            <priority>0</priority>
+                            <display-name>Cron4J</display-name>
+                            <background>true</background>
+                            <match-class type="inherits-from-class">
+                                <name filter-type="EQUALS" filter-value="it.sauronsoftware.cron4j.Task"/>
+                            </match-class>
+                            <split-config type="4"/>
+                            <match-method>
+                                <name filter-type="EQUALS" filter-value="execute"/>
+                            </match-method>
+                        </pojo-rule>
+                    </match-rule>
+ * 3
+ */
