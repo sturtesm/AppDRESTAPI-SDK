@@ -17,21 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-<discovery-config discovery-resolution="FIRST_ENTRY_POINT">
-    <discovery-config-enabled>true</discovery-config-enabled>
-                            <exclude name="CometD Servlet">
-                                <servlet-rule>
-                                    <enabled>true</enabled>
-                                    <priority>0</priority>
-                                    <class-name filter-type="EQUALS" filter-value="org.cometd.server.CometdServlet"/>
-                                </servlet-rule>
-                            </exclude>
-    <naming-config scheme="SIMPLE_CLASS_NAME_AND_METHOD_NAME">
-        <name-values/>
-    </naming-config>
-</discovery-config>
- */
+
 @XmlSeeAlso({ExNamingConfig.class,ExExcludes.class})
 public class ExDiscoveryConfig {
     private String discoveryResolution;
@@ -166,3 +152,19 @@ public class ExDiscoveryConfig {
     
     
 }
+
+/*
+<discovery-config discovery-resolution="FIRST_ENTRY_POINT">
+    <discovery-config-enabled>true</discovery-config-enabled>
+                            <exclude name="CometD Servlet">
+                                <servlet-rule>
+                                    <enabled>true</enabled>
+                                    <priority>0</priority>
+                                    <class-name filter-type="EQUALS" filter-value="org.cometd.server.CometdServlet"/>
+                                </servlet-rule>
+                            </exclude>
+    <naming-config scheme="SIMPLE_CLASS_NAME_AND_METHOD_NAME">
+        <name-values/>
+    </naming-config>
+</discovery-config>
+ */

@@ -7,6 +7,9 @@ package org.appdynamics.appdrestapi.util;
 /**
  *
  * @author gilbert.solorzano
+ * 
+ * These are generic helper class that will make it easier when executing 
+ * conversions.
  */
 public class StringNumConv {
     

@@ -14,12 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
- * <overall-affected-entities-match-criteria>
-<type>APPLICATION</type>
-</overall-affected-entities-match-criteria>
-* 
- */
+
 public class ExAffectedOverallCriteria {
     private String type;
     private int level=6;
@@ -94,3 +89,10 @@ public class ExAffectedOverallCriteria {
     
     
 }
+
+/*
+ * <overall-affected-entities-match-criteria>
+<type>APPLICATION</type>
+</overall-affected-entities-match-criteria>
+* 
+ */

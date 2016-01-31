@@ -103,9 +103,22 @@ public class ExBackendMatchPointConfigurations {
             return false;
         }
         final ExBackendMatchPointConfigurations other = (ExBackendMatchPointConfigurations) obj;
-        if (this.backendMatchPointConfiguration != other.backendMatchPointConfiguration && (this.backendMatchPointConfiguration == null || !this.backendMatchPointConfiguration.equals(other.backendMatchPointConfiguration))) {
-            return false;
+        
+        if(backendMatchPointConfiguration.size() != other.getBackendMatchPointConfiguration().size()) return false;
+        
+        for(ExBackendMatchPointConfiguration value:backendMatchPointConfiguration){
+            boolean fnd=false;
+            for(ExBackendMatchPointConfiguration _value:other.getBackendMatchPointConfiguration()){
+                if(value.getAgentType().equals(_value.getAgentType())){
+                    if(value.equals(_value)) fnd=true;
+                    
+                }
+            }
+            if(!fnd){                
+                return false;  
+            }
         }
+        
         return true;
     }
     

@@ -14,13 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author gilbert.solorzano
  * 
  */
-/*
- * <cache-configuration>
-                <disable-cache-monitoring>false</disable-cache-monitoring>
-                <disable-standard-cache-frameworks>false</disable-standard-cache-frameworks>
-            </cache-configuration>
-            * 
- */
+
 public class ExCacheConfiguration {
     private boolean disableCacheMonitoring;
     private boolean disableStandardCacheFrameworks;
@@ -123,3 +117,11 @@ public class ExCacheConfiguration {
     
     
 }
+
+/*
+ * <cache-configuration>
+                <disable-cache-monitoring>false</disable-cache-monitoring>
+                <disable-standard-cache-frameworks>false</disable-standard-cache-frameworks>
+            </cache-configuration>
+            * 
+ */

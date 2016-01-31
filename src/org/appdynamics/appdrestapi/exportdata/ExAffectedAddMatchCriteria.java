@@ -17,18 +17,7 @@ import java.util.ArrayList;
  * 
  * L2_1
  */
-/*
- * <affected-entities-match-criteria>
-    <affected-add-match-criteria>
-    <type>ALL_ADDS</type>
-    <add-types>
-        <add-type>BASE_PAGE</add-type>
-    </add-types>
-    </affected-add-match-criteria>
-</affected-entities-match-criteria>
- * 
- * 
- */
+
 @XmlSeeAlso(ExHRAddTypes.class)
 public class ExAffectedAddMatchCriteria {
     private String type;
@@ -146,3 +135,17 @@ public class ExAffectedAddMatchCriteria {
     
     
 }
+
+
+/*
+ * <affected-entities-match-criteria>
+    <affected-add-match-criteria>
+    <type>ALL_ADDS</type>
+    <add-types>
+        <add-type>BASE_PAGE</add-type>
+    </add-types>
+    </affected-add-match-criteria>
+</affected-entities-match-criteria>
+ * 
+ * 
+ */

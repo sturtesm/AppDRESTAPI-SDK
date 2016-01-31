@@ -108,8 +108,22 @@ public class ExBackendDiscoveryConfigurations {
             return false;
         }
         final ExBackendDiscoveryConfigurations other = (ExBackendDiscoveryConfigurations) obj;
-        if (this.backendDiscoveryConfigurations != other.backendDiscoveryConfigurations && (this.backendDiscoveryConfigurations == null || !this.backendDiscoveryConfigurations.equals(other.backendDiscoveryConfigurations))) {
-            return false;
+        
+        if(other.getBackendDiscoveryConfigurations().size() != getBackendDiscoveryConfigurations().size() ) return false;
+        
+        for(ExBackendDiscoveryConfiguration value:backendDiscoveryConfigurations){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExBackendDiscoveryConfiguration _value:other.getBackendDiscoveryConfigurations()){
+                if(value.getName().equals(_value.getName())){
+                    if(!value.equals(_value)) return false;
+                    fnd=true;
+
+                }
+            }
+            if(!fnd){                
+                return false; 
+            }
         }
         return true;
     }

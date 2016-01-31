@@ -107,9 +107,24 @@ public class ExBackendDiscoveryConditions {
             return false;
         }
         final ExBackendDiscoveryConditions other = (ExBackendDiscoveryConditions) obj;
-        if (!Objects.equals(this.bkConditions, other.bkConditions)) {
-            return false;
+        
+        if(bkConditions.size() != other.getBkConditions().size()) return false;
+        
+        for(ExBackendDiscoveryCondition value:bkConditions){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExBackendDiscoveryCondition _value:other.getBkConditions()){
+                if(value.getIdentiyName().equals(_value.getIdentiyName())){
+                    if(value.equals(_value)) fnd=true;
+                }
+            }
+            if(!fnd){                
+                return false;  
+            }
         }
+        //if (!Objects.equals(this.bkConditions, other.bkConditions)) {
+        //    return false;
+        //}
         return true;
     }
 

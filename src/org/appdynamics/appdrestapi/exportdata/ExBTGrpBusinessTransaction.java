@@ -9,6 +9,7 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Objects;
 
 /**
@@ -18,9 +19,21 @@ import java.util.Objects;
 public class ExBTGrpBusinessTransaction {
     private String applicationComponent; //attribute
     private String value;
+    private int level=4;
 
     public ExBTGrpBusinessTransaction() { }
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
+    
     @XmlAttribute(name=AppExportS.APPLICATION_COMPONENT)
     public String getApplicationComponent() {
         return applicationComponent;
@@ -43,10 +56,11 @@ public class ExBTGrpBusinessTransaction {
     public String toString(){
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTION);
-        bud.append(AppExportS.L3_1).append(AppExportS.APPLICATION_COMPONENT).append(AppExportS.VE).append(applicationComponent);
-        bud.append(AppExportS.L3_1).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
-        
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION);
+        level++;
+        bud.append(AppExportS.I[level]).append(AppExportS.APPLICATION_COMPONENT).append(AppExportS.VE).append(applicationComponent);
+        bud.append(AppExportS.I[level]).append(AppExportS.VALUE).append(AppExportS.VE).append(value);
+        level--;
         return bud.toString();
     }
     
@@ -55,18 +69,25 @@ public class ExBTGrpBusinessTransaction {
         if(this.equals(obj)) return AppExportS._U;
         
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L3).append(AppExportS.BUSINESS_TRANSACTION);
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION);
+        level++;
         if(!value.equals(obj.getValue())){      
-            bud.append(AppExportS.L3_1).append(AppExportS.VALUE);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(value);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+            bud.append(AppExportS.I[level]).append(AppExportS.VALUE);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(value);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getValue());
+            level--;
         }
         
         if(!applicationComponent.equals(obj.getApplicationComponent())){
-            bud.append(AppExportS.L3_1).append(AppExportS.ENABLED);
-            bud.append(AppExportS.L3_1).append(AppExportS.SRC).append(AppExportS.VE).append(applicationComponent);
-            bud.append(AppExportS.L3_1).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getApplicationComponent());
+            bud.append(AppExportS.I[level]).append(AppExportS.ENABLED);
+            level++;
+            bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(AppExportS.VE).append(applicationComponent);
+            bud.append(AppExportS.I[level]).append(AppExportS.DEST).append(AppExportS.VE).append(obj.getApplicationComponent());
+            level--;
         }
+        
+        level--;
         return bud.toString();
     }
 

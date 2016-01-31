@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -18,13 +19,6 @@ import java.util.ArrayList;
  * L3
  */
 
-/*
-            <affected-entities-match-criteria>
-                <affected-bt-match-criteria>
-                    <type>ALL</type>
-                </affected-bt-match-criteria>
-            </affected-entities-match-criteria>
- */
 @XmlSeeAlso({ExHRAppComponents.class,ExHRAppComponents.class,ExHRBusinessTransaction.class})
 public class ExAffectedBTMatchCriteria {
     private String type;
@@ -220,9 +214,13 @@ public class ExAffectedBTMatchCriteria {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + (this.type != null ? this.type.hashCode() : 0);
-        hash = 89 * hash + (this.inverse ? 1 : 0);
+        int hash = 5;
+        hash = 13 * hash + Objects.hashCode(this.type);
+        hash = 13 * hash + Objects.hashCode(this.appComponents);
+        hash = 13 * hash + Objects.hashCode(this.bts);
+        hash = 13 * hash + Objects.hashCode(this.matchType);
+        hash = 13 * hash + Objects.hashCode(this.matchPattern);
+        hash = 13 * hash + (this.inverse ? 1 : 0);
         return hash;
     }
 
@@ -235,26 +233,46 @@ public class ExAffectedBTMatchCriteria {
             return false;
         }
         final ExAffectedBTMatchCriteria other = (ExAffectedBTMatchCriteria) obj;
-        if ((this.type == null) ? (other.type != null) : !this.type.equals(other.type)) {
+        if (!Objects.equals(this.type, other.type)) {
             return false;
         }
-        if (this.appComponents != other.appComponents && (this.appComponents == null || !this.appComponents.equals(other.appComponents))) {
+
+        if (!Objects.equals(this.bts, other.bts)) {
             return false;
         }
-        if (this.bts != other.bts && (this.bts == null || !this.bts.equals(other.bts))) {
+        if (!Objects.equals(this.matchType, other.matchType)) {
             return false;
         }
-        if ((this.matchType == null) ? (other.matchType != null) : !this.matchType.equals(other.matchType)) {
-            return false;
-        }
-        if ((this.matchPattern == null) ? (other.matchPattern != null) : !this.matchPattern.equals(other.matchPattern)) {
+        if (!Objects.equals(this.matchPattern, other.matchPattern)) {
             return false;
         }
         if (this.inverse != other.inverse) {
             return false;
         }
+        
+        if(bts.size() != other.getBts().size()) return false;
+        
+        for(ExHRBusinessTransaction value: bts){
+            boolean fnd=false;
+            value.setLevel(level);
+            for(ExHRBusinessTransaction _value:other.getBts()){
+                  if(value.equals(_value))fnd=true;
+            }
+            if(!fnd) return false;
+        }
+        
         return true;
     }
+
+
     
     
 }
+
+/*
+            <affected-entities-match-criteria>
+                <affected-bt-match-criteria>
+                    <type>ALL</type>
+                </affected-bt-match-criteria>
+            </affected-entities-match-criteria>
+ */

@@ -7,7 +7,7 @@ package org.appdynamics.appdrestapi.exportdata;
 
 import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -18,8 +18,18 @@ import java.util.Objects;
  */
 public class ExBusinessTransactionGroups {
     private ArrayList<ExBusinessTransactionGroup> btGrps=new ArrayList<ExBusinessTransactionGroup>();
+    private int level=2;
     
     public ExBusinessTransactionGroups(){}
+
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     @XmlElement(name=AppExportS.BUSINESS_TRANSACTION_GROUP)
     public ArrayList<ExBusinessTransactionGroup> getBtGrps() {
@@ -30,12 +40,35 @@ public class ExBusinessTransactionGroups {
         this.btGrps = btGrps;
     }
 
+    public String whatIsDifferent(ExBusinessTransactionGroups obj){
+        
+        if(this.equals(obj)) return AppExportS._U;
+        
+        StringBuilder bud = new StringBuilder();
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_GROUPS);
+        level++;
+        for(ExBusinessTransactionGroup value: btGrps){
+            value.setLevel(level);
+            boolean fnd=false;
+             for(ExBusinessTransactionGroup _value: obj.getBtGrps()){
+                 if(value.getName().equals(_value.getName())){
+                     fnd=true;
+                     bud.append(value.whatIsDifferent(_value));
+                 }
+             }
+             if(!fnd)bud.append(AppExportS.I[level]).append(AppExportS.SRC).append(value);
+        }
+        level--;
+        return bud.toString();
+    }
     
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L1_1).append(AppExportS.BUSINESS_TRANSACTION_GROUPS);
-        for(ExBusinessTransactionGroup grp:btGrps)   bud.append(grp);
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_GROUPS);
+        level++;
+        for(ExBusinessTransactionGroup grp:btGrps){grp.setLevel(level); bud.append(grp);}
+        level--;
         return bud.toString();
     }
     
@@ -55,9 +88,21 @@ public class ExBusinessTransactionGroups {
             return false;
         }
         final ExBusinessTransactionGroups other = (ExBusinessTransactionGroups) obj;
-        if (!Objects.equals(this.btGrps, other.btGrps)) {
-            return false;
+        
+        if(btGrps.size() != other.getBtGrps().size()) return false;
+        
+        
+        for(ExBusinessTransactionGroup value: btGrps){
+            value.setLevel(level);
+            boolean fnd=false;
+             for(ExBusinessTransactionGroup _value: other.getBtGrps()){
+                 if(value.getName().equals(_value.getName())){
+                     if(value.equals(_value)) fnd=true;                     
+                 }
+             }
+             if(!fnd)return false;
         }
+        
         return true;
     }
     

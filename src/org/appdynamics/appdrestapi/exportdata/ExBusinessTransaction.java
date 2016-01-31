@@ -286,9 +286,18 @@ public class ExBusinessTransaction {
         if (this.businessTransactionConfig != other.businessTransactionConfig && (this.businessTransactionConfig == null || !this.businessTransactionConfig.equals(other.businessTransactionConfig))) {
             return false;
         }
-        if (this.dataGathererConfig != other.dataGathererConfig && (this.dataGathererConfig == null || !this.dataGathererConfig.equals(other.dataGathererConfig))) {
-            return false;
+        
+        if(dataGathererConfig.size() != other.getDataGathererConfig().size()) return false;
+        
+        for(String value:dataGathererConfig){
+            boolean fnd=false;
+            for(String _value:other.getDataGathererConfig()){
+                if(value.equals(_value)) fnd=true;
+            }
+            
+            if(!fnd) return false;
         }
+        
         if (this.enabledForEum != other.enabledForEum) {
             return false;
         }

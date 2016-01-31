@@ -17,18 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * L2_1
  * 
  */
-/*
-                <affected-infra-match-criteria>
-                    <type>NODES</type>
-                    <node-match-criteria>
-                        <type>ANY</type>
-                        <node-meta-info-match-criteria/>
-                        <vm-sys-properties/>
-                        <env-properties/>
-                    </node-match-criteria>
-                </affected-infra-match-criteria>
- * 
- */
+
 @XmlSeeAlso({ExNodeMatchCriteria.class,ExHRNodeComponents.class})
 public class ExAffectedInfraMatchCriteria {
     private String type;
@@ -154,3 +143,17 @@ public class ExAffectedInfraMatchCriteria {
     
     
 }
+
+
+/*
+                <affected-infra-match-criteria>
+                    <type>NODES</type>
+                    <node-match-criteria>
+                        <type>ANY</type>
+                        <node-meta-info-match-criteria/>
+                        <vm-sys-properties/>
+                        <env-properties/>
+                    </node-match-criteria>
+                </affected-infra-match-criteria>
+ * 
+ */

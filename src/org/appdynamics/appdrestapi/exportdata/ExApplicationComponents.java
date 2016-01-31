@@ -107,8 +107,17 @@ public class ExApplicationComponents {
             return false;
         }
         final ExApplicationComponents other = (ExApplicationComponents) obj;
-        if (this.applicationComponents != other.applicationComponents && (this.applicationComponents == null || !this.applicationComponents.equals(other.applicationComponents))) {
-            return false;
+        
+        for(ExApplicationComponent value:applicationComponents){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExApplicationComponent _value:other.getApplicationComponents()){
+                if(value.equals(_value)){
+                    fnd=true;
+                }
+            }
+            
+            if(!fnd) return false;
         }
         return true;
     }

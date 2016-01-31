@@ -9,6 +9,8 @@ import org.appdynamics.appdrestapi.resources.AppExportS;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -19,10 +21,21 @@ import java.util.Objects;
 @XmlSeeAlso(ExBTGrpBusinessTransaction.class)
 public class ExMembers {
     private ArrayList<ExBTGrpBusinessTransaction> businessTransactions=new ArrayList<ExBTGrpBusinessTransaction>();
+    private int level=4;
 
     public ExMembers() {
     }
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    
     @XmlElement(name=AppExportS.BUSINESS_TRANSACTION)
     public ArrayList<ExBTGrpBusinessTransaction> getBusinessTransactions() {
         return businessTransactions;
@@ -35,18 +48,22 @@ public class ExMembers {
     @Override //L2
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.MEMBERS);
-        for(ExBTGrpBusinessTransaction grp:businessTransactions) bud.append(grp);
+        bud.append(AppExportS.I[level]).append(AppExportS.MEMBERS);
+        level++;
+        for(ExBTGrpBusinessTransaction grp:businessTransactions){grp.setLevel(level); bud.append(grp);}
+        level++;
         return bud.toString();
     }
    
     public String whatIsDifferent(ExMembers obj){
         if(this.equals(obj)) return AppExportS._U;
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2_1).append(AppExportS.MEMBERS);
+        bud.append(AppExportS.I[level]).append(AppExportS.MEMBERS);
+        level++;
         
         for(ExBTGrpBusinessTransaction value:businessTransactions){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExBTGrpBusinessTransaction _value:obj.getBusinessTransactions()){
                 if(value.getValue().equals(_value.getValue())){
                     fnd=true;
@@ -59,6 +76,7 @@ public class ExMembers {
         
         for(ExBTGrpBusinessTransaction value:obj.getBusinessTransactions()){
             boolean fnd=false;
+            value.setLevel(level);
             for(ExBTGrpBusinessTransaction _value:obj.getBusinessTransactions()){
                 if(value.getValue().equals(_value.getValue())){
                     fnd=true;
@@ -69,7 +87,7 @@ public class ExMembers {
         }
         
         
-        
+        level--;
         return bud.toString();
     }
     

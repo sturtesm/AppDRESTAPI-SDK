@@ -15,51 +15,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * @author gilbert.solorzano
  * 
  */
-/*
- *          <custom-logger-definition disable="false">
-                <name>GLog</name>
-                <pojo-method-definition>
-                    <class-name>org.solo.logger</class-name>
-                    <method-name>logit</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>Integer.class|String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>1</method-param-exception-index>
-            </custom-logger-definition>
-            <custom-logger-definition disable="false">
-                <name>bought</name>
-                <pojo-method-definition>
-                    <class-name>org.logg.bought</class-name>
-                    <method-name>log</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>0</method-param-exception-index>
-            </custom-logger-definition>
-            * 
-            * 
-            <custom-logger-definition disable="false">
-                <name>Found It</name>
-                <pojo-method-definition>
-                    <class-name>com.micro.Save</class-name>
-                    <method-name>nothing</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>0</method-param-exception-index>
-            </custom-logger-definition>
-            <custom-logger-definition disable="false">
-                <name>Bought</name>
-                <pojo-method-definition>
-                    <class-name>org.mcir</class-name>
-                    <method-name>not</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                    <method-parameter-types>String.class</method-parameter-types>
-                </pojo-method-definition>
-                <method-param-exception-index>0</method-param-exception-index>
-            </custom-logger-definition>
- * 
- */
+
 @XmlSeeAlso(ExPojoMethodDefinition.class)
 public class ExCustomLoggerDefinition {
     private String name;
@@ -177,3 +133,50 @@ public class ExCustomLoggerDefinition {
     
     
 }
+
+
+/*
+ *          <custom-logger-definition disable="false">
+                <name>GLog</name>
+                <pojo-method-definition>
+                    <class-name>org.solo.logger</class-name>
+                    <method-name>logit</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>Integer.class|String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>1</method-param-exception-index>
+            </custom-logger-definition>
+            <custom-logger-definition disable="false">
+                <name>bought</name>
+                <pojo-method-definition>
+                    <class-name>org.logg.bought</class-name>
+                    <method-name>log</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>0</method-param-exception-index>
+            </custom-logger-definition>
+            * 
+            * 
+            <custom-logger-definition disable="false">
+                <name>Found It</name>
+                <pojo-method-definition>
+                    <class-name>com.micro.Save</class-name>
+                    <method-name>nothing</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>0</method-param-exception-index>
+            </custom-logger-definition>
+            <custom-logger-definition disable="false">
+                <name>Bought</name>
+                <pojo-method-definition>
+                    <class-name>org.mcir</class-name>
+                    <method-name>not</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                    <method-parameter-types>String.class</method-parameter-types>
+                </pojo-method-definition>
+                <method-param-exception-index>0</method-param-exception-index>
+            </custom-logger-definition>
+ * 
+ */

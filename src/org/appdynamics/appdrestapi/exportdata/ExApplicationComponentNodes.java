@@ -109,9 +109,22 @@ public class ExApplicationComponentNodes {
             return false;
         }
         final ExApplicationComponentNodes other = (ExApplicationComponentNodes) obj;
-        if (!Objects.equals(this.appNodes, other.appNodes)) {
-            return false;
+        
+        if(appNodes.size() != other.getAppNodes().size()) return false;
+        
+        for(ExApplicationComponentNode val: appNodes){
+            boolean fnd=false;
+            val.setLevel(level);
+            for(ExApplicationComponentNode val1: other.getAppNodes()){
+                if(val.equals(val1)){
+                    fnd=true;
+                }
+            }
+            if(!fnd){
+                return false;
+            }
         }
+        
         return true;
     }
     

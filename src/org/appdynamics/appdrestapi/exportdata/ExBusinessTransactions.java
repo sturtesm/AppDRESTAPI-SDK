@@ -107,9 +107,22 @@ public class ExBusinessTransactions {
             return false;
         }
         final ExBusinessTransactions other = (ExBusinessTransactions) obj;
-        if (this.businessTransactions != other.businessTransactions && (this.businessTransactions == null || !this.businessTransactions.equals(other.businessTransactions))) {
-            return false;
+        
+        
+        if(businessTransactions.size() != other.getBusinessTransactions().size()) return false;
+        
+        for(ExBusinessTransaction value:businessTransactions){
+            value.setLevel(level);
+            boolean fnd=false;
+            for(ExBusinessTransaction _value:other.getBusinessTransactions()){
+                if(value.equals(_value)){
+                    fnd=true;
+                }
+            }
+            
+            if(!fnd) return false;
         }
+        
         return true;
     }
     

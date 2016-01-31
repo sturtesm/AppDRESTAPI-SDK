@@ -47,17 +47,6 @@ public class AppDExportUtility {
         return access.getApplicationExportObjById(appId);
     }
     
-    public static void writeFile(String fileName, String text){
-        try {
-            
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-            out.write(text);
-            out.close();
-        }
-        catch (IOException e)
-        {
-            System.out.println("Exception " + e.getMessage());       
-        }
-    }
+    
     
 }

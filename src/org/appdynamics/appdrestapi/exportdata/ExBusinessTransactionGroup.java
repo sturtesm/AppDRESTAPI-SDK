@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.appdynamics.appdrestapi.resources.AppExportS;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -18,9 +19,20 @@ public class ExBusinessTransactionGroup {
     private String name;
     private ExSla sla;
     private ExMembers members;
+    private int level=4;
     
     public ExBusinessTransactionGroup(){}
 
+    @XmlTransient
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    
     @XmlElement(name=AppExportS.NAME)
     public String getName() {
         return name;
@@ -51,10 +63,12 @@ public class ExBusinessTransactionGroup {
     @Override //L1_1
     public String toString(){
         StringBuilder bud = new StringBuilder();
-        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTION_GROUP);
-        sla.setLevel(2);
-        bud.append(sla);
-        bud.append(members);
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_GROUP);
+        level++;
+        
+        if(sla != null){ sla.setLevel(level);bud.append(sla);}
+        if(members != null){members.setLevel(level);bud.append(members);}
+        level--;
         return bud.toString();
     }
     
@@ -64,7 +78,7 @@ public class ExBusinessTransactionGroup {
         
         StringBuilder bud = new StringBuilder();
         
-        bud.append(AppExportS.L2).append(AppExportS.BUSINESS_TRANSACTION_GROUP);
+        bud.append(AppExportS.I[level]).append(AppExportS.BUSINESS_TRANSACTION_GROUP);
         bud.append( sla.whatIsDifferent(obj.getSla()) );
         
         

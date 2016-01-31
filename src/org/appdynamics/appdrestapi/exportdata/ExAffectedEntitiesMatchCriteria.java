@@ -17,14 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * L2
  * 
  */
-/*
-            <affected-entities-match-criteria>
-                <affected-bt-match-criteria>
-                    <type>ALL</type>
-                </affected-bt-match-criteria>
-            </affected-entities-match-criteria>
-            * 
- */
+
 @XmlSeeAlso({ExAffectedBTMatchCriteria.class,ExAffectedInfraMatchCriteria.class,ExAffectedOverallCriteria.class})
 public class ExAffectedEntitiesMatchCriteria {
     private ExAffectedBTMatchCriteria btCriteria;
@@ -170,3 +163,13 @@ public class ExAffectedEntitiesMatchCriteria {
     
     
 }
+
+
+/*
+            <affected-entities-match-criteria>
+                <affected-bt-match-criteria>
+                    <type>ALL</type>
+                </affected-bt-match-criteria>
+            </affected-entities-match-criteria>
+            * 
+ */

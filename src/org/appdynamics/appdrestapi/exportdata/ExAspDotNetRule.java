@@ -16,24 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * 
  * 
  */
-/*
-                            <exclude name="CometD Servlet">
-                                <servlet-rule>
-                                    <enabled>true</enabled>
-                                    <priority>0</priority>
-                                    <class-name filter-type="EQUALS" filter-value="org.cometd.server.CometdServlet"/>
-                                </servlet-rule>
-                            </exclude>
-                            * 
-                            * <exclude name="ASP.NET WCF Activation Handler">
-                                <asp-dotnet-rule>
-                                    <enabled>true</enabled>
-                                    <priority>0</priority>
-                                    <class-name filter-type="EQUALS" filter-value="System.ServiceModel.Activation.HttpHandler"/>
-                                </asp-dotnet-rule>
-                            </exclude>
- * 
- */
+
 @XmlSeeAlso(ExClassName.class)
 public class ExAspDotNetRule {
     //private String name;
@@ -157,3 +140,21 @@ public class ExAspDotNetRule {
     
     
 }
+/*
+                            <exclude name="CometD Servlet">
+                                <servlet-rule>
+                                    <enabled>true</enabled>
+                                    <priority>0</priority>
+                                    <class-name filter-type="EQUALS" filter-value="org.cometd.server.CometdServlet"/>
+                                </servlet-rule>
+                            </exclude>
+                            * 
+                            * <exclude name="ASP.NET WCF Activation Handler">
+                                <asp-dotnet-rule>
+                                    <enabled>true</enabled>
+                                    <priority>0</priority>
+                                    <class-name filter-type="EQUALS" filter-value="System.ServiceModel.Activation.HttpHandler"/>
+                                </asp-dotnet-rule>
+                            </exclude>
+ * 
+ */

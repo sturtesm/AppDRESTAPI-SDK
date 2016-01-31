@@ -49,15 +49,6 @@ public class ExCritical {
         this.level = level;
     }
 
-    @XmlTransient
-    public String getIndent(){
-        if(level == 1) return AppExportS.L3;
-        if(level == 2) return AppExportS.L3_1;
-        
-        if(level == 3) return AppExportS.L3_1;
-        return AppExportS.L2_1;
-    }
-
     @Override
     public String toString(){
         StringBuilder bud = new StringBuilder();

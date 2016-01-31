@@ -10,6 +10,8 @@ import java.util.Calendar;
 /**
  *
  * @author soloink
+ * 
+ * This class is meant to help manage time ranges using long type variables.
  */
 public class TimeRange {
     protected String name;
@@ -25,6 +27,18 @@ public class TimeRange {
         this.end=end;
     }
     
+    /**
+     * <p> This will create a time range with all of the parameters necessary
+     * </p>
+     * @param name
+     * @param start
+     * @param end 
+     */
+    public TimeRange(String name, long start, long end){
+        this.name=name;
+        this.start=start;
+        this.end=end;
+    }
 
     public long getStart() {
         return start;
@@ -42,12 +56,25 @@ public class TimeRange {
         this.end = end;
     }
     
+    /**
+     * <p>This will determine if a particular timestamp is within the time range.
+     * </p>
+     * @param time
+     * @return 
+     */
     public boolean withIn(long time){
         if(time >= start && time <= end) return true;
         return false;
         
     }
     
+    /**
+     * <p> 
+     *    This will check if a TimeRange is within this instance of the time range.
+     * </p>
+     * @param time
+     * @return 
+     */
     public boolean withIn(TimeRange time){
         if(time.start >= start && time.end <= end) return true;
         return false;

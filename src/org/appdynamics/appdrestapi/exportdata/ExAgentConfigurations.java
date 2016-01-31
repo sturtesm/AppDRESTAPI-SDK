@@ -16,11 +16,7 @@ import java.util.ArrayList;
  * @author gilbert.solorzano
  *
  */
-/*
- *  <agent-configurations>
-        <agent_configuration/>
-    </agent-configurations>
- */
+
 @XmlSeeAlso(ExAgentConfiguration.class)
 public class ExAgentConfigurations {
     private ArrayList<ExAgentConfiguration> agentConfiguration=new ArrayList<ExAgentConfiguration>();
@@ -114,11 +110,31 @@ public class ExAgentConfigurations {
             return false;
         }
         final ExAgentConfigurations other = (ExAgentConfigurations) obj;
-        if (this.agentConfiguration != other.agentConfiguration && (this.agentConfiguration == null || !this.agentConfiguration.equals(other.agentConfiguration))) {
-            return false;
+        
+        // First we make sure they are the same size
+        if(agentConfiguration.size() != other.getAgentConfiguration().size()) return false;
+        
+        // Then we compare each object to each other
+        for(ExAgentConfiguration val: agentConfiguration){
+            boolean fnd=false;
+            val.setLevel(level);
+            for(ExAgentConfiguration val1: other.getAgentConfiguration()){
+                if(val.getAgentType().equals(val1.getAgentType())){
+                    if(!val.equals(val1)){ fnd=true;}
+                    
+                }
+            }
+            if(!fnd) return false;
         }
+        
+
         return true;
     }
     
     
 }
+/*
+ *  <agent-configurations>
+        <agent_configuration/>
+    </agent-configurations>
+ */
