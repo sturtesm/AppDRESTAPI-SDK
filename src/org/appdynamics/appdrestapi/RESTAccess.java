@@ -10,7 +10,7 @@ import org.appdynamics.appdrestapi.queries.*;
 import org.appdynamics.appdrestapi.data.*;
 import org.appdynamics.appdrestapi.exportdata.*;
 import org.appdynamics.appdrestapi.resources.*;
-import org.appdynamics.appdrestapi.util.PostEvent;
+import org.appdynamics.appdrestapi.util.*;
 
 
 import java.util.logging.Logger;
@@ -3436,7 +3436,73 @@ public class RESTAccess {
         return null;
     }
     
+    /**
+     * <p>
+     * This method will allow a user to add a user
+     * </p>
+     * @param user The user object
+     * @return String.class
+     */
+    public String postRESTAddUser(User user){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nUser to be created or updated = ").append(user).toString());}
+        
+        if(!user.ableToCreate()){
+            logger.log(Level.SEVERE,new StringBuilder()
+                    .append("Unable to create user because the user object does not have all of the mandatory objects.").append(user).toString());
+        }
+        try{
+            query=UserQuery.queryPostUser(baseURL.getControllerURL(), user.createURL());
+            
+            return R.executeEventPostQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
     
+    /**
+     * <p>
+     * This method will allow a user to update a user
+     * </p>
+     * @param user The user object
+     * @return String.class
+     */
+    public String postRESTUpdateUser(User user){
+        
+        String query=null;
+        
+        if(s.debugLevel >= 2){logger.log(Level.INFO,new StringBuilder()
+                .append("\nUser to be created or updated = ").append(user).toString());}
+        if(!user.ableToUpdate()){
+            logger.log(Level.SEVERE,new StringBuilder()
+                    .append("Unable to create user because the user object does not have all of the mandatory objects.").append(user).toString());
+        }
+        try{
+            query=UserQuery.queryPostUser(baseURL.getControllerURL(), user.createURL());
+            
+            return R.executeEventPostQuery(auth, query);
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred executing REST query::\n")
+                    .append(e.getMessage()).append("\n").toString());
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * <p>
+     * This will return the controller's configuration properties.
+     * </p>
+     * @param application The application name that has the information
+     * @return {@link ConfigurationItems.class}
+     */
     public ConfigurationItems getConfigurationItems(String application){
         try{
             return R.executeConfigurationItems(auth, 
@@ -3448,6 +3514,14 @@ public class RESTAccess {
         return null;
     }
     
+    /**
+     * <p>
+     * This will return the controller's configuration properties.
+     * </p>
+     * @param application The application name that has the information
+     * @param metricName The name of the metric you want
+     * @return {@link ConfigurationItems.class}
+     */
     public ConfigurationItems getConfigurationItems(String application, String metricName){
         try{
             return R.executeConfigurationItems(auth, 

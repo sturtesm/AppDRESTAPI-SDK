@@ -21,6 +21,7 @@ import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
 import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.client.ClientResponse;
@@ -78,6 +79,8 @@ public class RESTExecuter {
         config = new DefaultClientConfig();
         //new code
         //logger.log(Level.SEVERE,"Creating certs");
+        config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+
         
         if(s.debugLevel > 3)logger.log(Level.INFO,new StringBuilder().append("Using the following for auth: ").append(auth.toString()).toString());
         
@@ -674,7 +677,7 @@ public class RESTExecuter {
         
         return value;
     }
-    
+ 
     public String executeTDQuery(RESTAuth auth, String query) throws Exception{
         if(client == null) {
             createConnection(auth);

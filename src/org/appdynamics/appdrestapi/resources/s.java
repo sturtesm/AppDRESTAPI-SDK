@@ -28,7 +28,9 @@ public class s {
     public static final String CONTROLLER_APPS="/controller/rest/applications/";
     public static final String CONTROLLER_BT_URL="/controller/transactiondetection/";
     public static final String CONTROLLER_CONFIG="/controller/rest/configuration";
+    public static final String CONTROLLER_USERS="/controller/rest/users";
     public static final String CONTROLLER_OBJ="/controller/";
+    public static final String CONTROLLER_DB_COLLECTOR="/controller/restui/dbMonitoring/createConfiguration";// Will change
     public static final String CONTROLLER_DASHBOARD="/controller/CustomDashboardImportExportServlet?dashboardId=";
     public static final String CONTROLLER_MARK_HISTORICAL="/controller/rest/mark-nodes-historical?application-component-node-ids=";
     public static final String COLON=":";
@@ -37,6 +39,10 @@ public class s {
     public static final String Q="?";
     public static final String D_=" - ";
     public static final String _ALL_="*";
+    public static final String _E="=";
+    public static final String _A="&";
+    public static final String _QQ="\"";
+    public static final String _C=",";
    
     
     public static final String CONTENT_DISPOSITION="Content-Disposition";
@@ -129,6 +135,14 @@ public class s {
     public static final String EVENT_TYPES="&event-types=";
     public static final String SEVERITIES="&severities=";
 
+    // For USER
+    public static final String USER_NAME="user-name";
+    public static final String USER_PASSWD="user-password";
+    public static final String USER_ID="user-id";
+    public static final String USER_ROLES="user-roles";
+    public static final String USER_DISPLAY_NAME="user-display-name";
+    public static final String USER_EMAIL="user-email";
+    
     //For Snapshot parameters
     public static final String SNAPSHOT_ARCHIVED="&archived=";
     public static final String SNAPSHOT_DEEP_DIVE_POLICY="&deep-dive-policy=";
@@ -484,4 +498,30 @@ webService
     // Action Suppression
     public static final String ACTION_SUPPRESSIONS="actionsuppressions";
     public static final String MYACCOUNT="myaccount";
+    
+    public static final String DBC_AGENT_NAME="agentName";
+    public static final String DBC_DB_NAME="name"; 
+    public static final String DBC_HOSTNAME="hostname";
+    public static final String DBC_PORT="port";//
+    public static final String DBC_USERNAME="username";//
+    public static final String DBC_PASSWORD="password";//
+    public static final String DBC_USE_SERVICE_NAME="useServiceName";//
+    public static final String DBC_SID="sid";//
+    public static final String DBC_ENABLE_OS_MONITOR="enableOSMonitor";//
+    public static final String DBC_HOST_OS="hostOS";//
+    public static final String DBC_SSH_PORT="sshPort";//
+    public static final String DBC_HOST_USERNAME="hostUsername";//
+    public static final String DBC_HOST_PASSWORD="hostPassword";
+    
+    public static String JSON(String name, String value){
+        return new StringBuilder().append(_QQ).append(name)
+                .append(_QQ).append(COLON).append(_QQ)
+                .append(value).append(_QQ).toString();
+    }
+    
+    public static String JSON(String name, Boolean value){
+        return new StringBuilder().append(_QQ).append(name)
+                .append(_QQ).append(COLON)
+                .append(value).toString();
+    }
 }

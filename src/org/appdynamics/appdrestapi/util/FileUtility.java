@@ -7,6 +7,8 @@ package org.appdynamics.appdrestapi.util;
 
 import java.io.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -41,6 +43,36 @@ public class FileUtility {
         }
         
         return bud.toString();
+    }
+    
+    /**
+     * <p>
+     *    This will read a file into a string so that it can be used by your
+     * program.
+     * </p>
+     * @param filePath The full path to the file
+     * @return 
+     */
+    public static ArrayList<ArrayList<String>> readFileToArray(String filePath, String separater){
+        ArrayList<ArrayList<String>> info=new ArrayList<ArrayList<String>>();
+
+        try{
+            java.io.BufferedReader br=new java.io.BufferedReader(new FileReader(filePath));
+            
+            String s;
+            while((s= br.readLine()) != null){
+                String[] list = s.split(separater);
+                ArrayList<String> _list =new ArrayList<String>();
+                _list.addAll(Arrays.asList(list));
+                info.add( _list);
+            }
+             return info;
+        }catch(Exception e){
+            logger.log(Level.SEVERE,new StringBuilder().append("Exception occurred while attempting to open the file ")
+                    .append(filePath).append(" with ").append(e.getMessage()).toString());
+        }
+        
+        return info;
     }
     
     /**
