@@ -5,10 +5,10 @@
     <property name="lib.dir"			value="${basedir}/lib"/> 
     <property name="execution.lib.dir"             value="${basedir}/execLib"/>
     <property name="restapi.main"		value="org.appdynamics.appdrestapi.GetTimeStamps"/> 
+    <property name="releases"			value="${basedir}/releases"/>
 
-
-    <property name="RESTAPI.basename"   value="RESTAPI"/>
-    <property name="RESTAPI.version"     value="2.4.2"/>
+    <property name="RESTAPI.basename"   value="AppDRESTAPI-SDK"/>
+    <property name="RESTAPI.version"     value="2.4.4"/>
     <property name="RESTAPI.basename.dev"   value="RESTAPI_dev"/>
     <property name="RESTAPI.version.dev"     value="2.0.3"/>
     
@@ -97,7 +97,14 @@
                 <include name="${RESTAPI.basename}_${RESTAPI.version}.jar"/>
             </fileset>
         </copy>
-        
+	<!-->
+        <zip destfile="${releases}/${RESTAPI.basename}_${RESTAPI.version}.zip" basedir="${execution.lib.dir}" />        
+	<-->
+	<mkdir dir="${releases}"/>		
+        <zip destfile="${releases}/${RESTAPI.basename}_${RESTAPI.version}.zip"> 
+		<zipfileset dir="${execution.lib.dir}" prefix="execLib" />
+	</zip>        
+
     </target>
     
 </project>
