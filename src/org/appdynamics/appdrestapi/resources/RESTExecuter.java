@@ -4,58 +4,60 @@
  */
 package org.appdynamics.appdrestapi.resources;
 
-import org.appdynamics.appdrestapi.data.AutoDiscoveryConfig;
-import org.appdynamics.appdrestapi.data.*;
-import org.appdynamics.appdrestapi.exportdata.*;
-import org.appdynamics.appdrestapi.resources.s;
-
-import org.appdynamics.appdrestapi.queries.ApplicationQuery;
-import org.appdynamics.appdrestapi.resources.AppExportS;
-
-import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.FormDataBodyPart;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
-
-import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.json.JSONConfiguration;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.client.urlconnection.HTTPSProperties;
-import javax.ws.rs.core.MediaType;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import java.io.InputStream;
 import java.io.ByteArrayInputStream;
-
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.URL;
 //Accepting all certs
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import java.net.HttpURLConnection;
-import java.net.Proxy;
-import java.net.URL;
-import java.net.InetSocketAddress;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.ws.rs.core.MediaType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 
-import java.io.IOException;
+import org.appdynamics.appdrestapi.data.Applications;
+import org.appdynamics.appdrestapi.data.AutoDiscoveryConfig;
+import org.appdynamics.appdrestapi.data.Backends;
+import org.appdynamics.appdrestapi.data.BusinessTransactions;
+import org.appdynamics.appdrestapi.data.ConfigurationItems;
+import org.appdynamics.appdrestapi.data.CustomMatchPoints;
+import org.appdynamics.appdrestapi.data.Dashboard;
+import org.appdynamics.appdrestapi.data.Events;
+import org.appdynamics.appdrestapi.data.HealthRules;
+import org.appdynamics.appdrestapi.data.MetricDatas;
+import org.appdynamics.appdrestapi.data.MetricItems;
+import org.appdynamics.appdrestapi.data.Nodes;
+import org.appdynamics.appdrestapi.data.PolicyViolations;
+import org.appdynamics.appdrestapi.data.RESTAuth;
+import org.appdynamics.appdrestapi.data.Snapshots;
+import org.appdynamics.appdrestapi.data.Tiers;
+import org.appdynamics.appdrestapi.exportdata.ExApplication;
+import org.appdynamics.appdrestapi.exportdata.ExDashboard;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
+import com.sun.jersey.api.json.JSONConfiguration;
+import com.sun.jersey.client.urlconnection.HTTPSProperties;
+import com.sun.jersey.client.urlconnection.HttpURLConnectionFactory;
+import com.sun.jersey.client.urlconnection.URLConnectionClientHandler;
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
 
 
 
@@ -86,15 +88,12 @@ public class RESTExecuter {
         
         TrustManager[] certs = new TrustManager[]{
           new X509TrustManager(){
-              @Override
               public X509Certificate[] getAcceptedIssuers(){
                   return null;
               }
               
-              @Override
               public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException{}
               
-              @Override 
               public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException{}
           }  
         };
@@ -114,7 +113,6 @@ public class RESTExecuter {
         try{
             config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(
                     new HostnameVerifier(){
-                        @Override
                         public boolean verify(String hostname, SSLSession session){return true;}
                     },ctx));
             
@@ -132,7 +130,7 @@ public class RESTExecuter {
                 client = new Client(new URLConnectionClientHandler(
                         new HttpURLConnectionFactory(){
                             Proxy p = null;
-                            @Override
+
                             public HttpURLConnection getHttpURLConnection(URL url) throws IOException{
                                 if( p == null){
                                     p = new Proxy(Proxy.Type.HTTP, 

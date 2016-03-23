@@ -35,6 +35,14 @@ public class MetricQuery {
         return AgentAvailabilityMetricQuery.queryAgentNodeMachineAgentAvailability( baseURL, application,tier, node,start, end, rollup);
     }
     
+    /**** Custom Metric Query ***/
+    public String queryCustomMetrics(String application, String metricPath, 
+    		long start, long end, boolean rollup)
+    {
+    	return CustomMetricsQuery.queryCustomMetrics(
+    			baseURL, application, metricPath, start, end, rollup);
+    }
+    
     /* ************************* Hardware Resources CPU *******************************  */
     
     public String queryHDTierCPUAll(String tier, long start, long end, boolean rollup){
